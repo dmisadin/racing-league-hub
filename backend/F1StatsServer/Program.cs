@@ -10,7 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-
+builder.Services.AddScoped<IGenericRepository<Driver>, DriverRepository>();
+builder.Services.AddScoped<IGenericRepository<Country>, CountryRepository>();
+builder.Services.AddScoped<IGenericRepository<Race>, RaceRepository>();
+builder.Services.AddScoped<IGenericRepository<Season>, SeasonRepository>();
+builder.Services.AddScoped<IGenericRepository<GrandPrix>, GrandPrixRepository>();
+builder.Services.AddScoped<IGenericRepository<League>, LeagueRepository>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
