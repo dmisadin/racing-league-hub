@@ -1,2 +1,8 @@
 # f1-league-stats
 Application for F1 League Statistics using SQL Server, .NET backend and Angular frontend.
+
+## Useful documentation:
+- [F1 22 UDP Data Output](https://answers.ea.com/t5/General-Discussion/F1-22-UDP-Specification/td-p/11551274)
+- [Database ER Diagram](https://drawsql.app/teams/f1-adria/diagrams/f1-stats-erd)
+- [Analysis and Design](https://fesb-my.sharepoint.com/:w:/g/personal/dmisad00_fesb_hr/Eda1_NV--SVGnnfChWNeAugBfK79MIXsL-iqs7uUOmnnbw?e=io42pZ)
+- [Adria.gg Data Source](https://adria.gg/natjecanja/f1/sezona5/)
