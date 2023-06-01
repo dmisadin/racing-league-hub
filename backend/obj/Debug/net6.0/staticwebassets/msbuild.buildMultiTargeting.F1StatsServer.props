@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\F1StatsServer.props" />
-</Project>
