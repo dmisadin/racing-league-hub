@@ -6,3 +6,4 @@ Application for F1 League Statistics using SQL Server, .NET backend and Angular 
 - [Database ER Diagram](https://drawsql.app/teams/f1-adria/diagrams/f1-stats-erd)
 - [Analysis and Design](https://fesb-my.sharepoint.com/:w:/g/personal/dmisad00_fesb_hr/Eda1_NV--SVGnnfChWNeAugBfK79MIXsL-iqs7uUOmnnbw?e=io42pZ)
 - [Adria.gg Data Source](https://adria.gg/natjecanja/f1/sezona5/)
+- [Figma Design](https://www.figma.com/file/RJgg8r5jnEtzMwWUUKMpMV/UI-Design?type=design&node-id=3%3A2&t=Olhk48zZSAZGr2Jv-1)
