@@ -21,5 +21,10 @@ namespace F1StatsServer.Repository
         {
             return _context.Countries.Where(c => c.PkCountryId == id).FirstOrDefault();
         }
+
+        public bool Has(int id)
+        {
+            return _context.Countries.Any(c => c.PkCountryId == id);
+        }
     }
 }

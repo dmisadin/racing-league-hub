@@ -21,5 +21,10 @@ namespace F1StatsServer.Repository
         {
             return _context.Leagues.Where(c => c.PkLeagueId == id).FirstOrDefault();
         }
+
+        public bool Has(int id)
+        {
+            return _context.Leagues.Any(c => c.PkLeagueId == id);
+        }
     }
 }

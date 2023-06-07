@@ -29,8 +29,8 @@ namespace F1StatsServer.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            //if (!_genericRepository.Has(id))
-            //    return NotFound();
+            if (!_genericRepository.Has(id))
+                return NotFound();
 
             var generic = _genericRepository.GetById(id);
 

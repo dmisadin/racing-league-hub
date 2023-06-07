@@ -21,5 +21,10 @@ namespace F1StatsServer.Repository
         {
             return _context.Races.Where(c => c.FkRaceDriverId == id).FirstOrDefault();
         }
+
+        public bool Has(int id)
+        {
+            return _context.Races.Any(c => c.FkRaceDriverId == id);
+        }
     }
 }

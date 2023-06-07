@@ -33,9 +33,9 @@ namespace F1StatsServer.Repository
             return _context.Drivers.Where(c => c.PkDriverId == id).FirstOrDefault();
         }
 
-        //public bool Has(int id)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public bool Has(int id)
+        {
+            return _context.Drivers.Any(c => c.PkDriverId == id);
+        }
     }
 }

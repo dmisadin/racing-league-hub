@@ -21,5 +21,10 @@ namespace F1StatsServer.Repository
         {
             return _context.Seasons.Where(c => c.PkSeasonId == id).FirstOrDefault();
         }
+
+        public bool Has(int id)
+        {
+            return _context.Seasons.Any(c => c.PkSeasonId == id);
+        }
     }
 }

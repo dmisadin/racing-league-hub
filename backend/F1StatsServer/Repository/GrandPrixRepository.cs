@@ -20,5 +20,10 @@ namespace F1StatsServer.Repository
         {
             return _context.GrandPrixes.Where(c => c.PkGrandPrixId == id).FirstOrDefault();
         }
+
+        public bool Has(int id)
+        {
+            return _context.GrandPrixes.Any(c => c.PkGrandPrixId == id);
+        }
     }
 }
