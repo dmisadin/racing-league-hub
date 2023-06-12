@@ -1,0 +1,33 @@
+*{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 20px;
+}
+
+h1{
+  align-self: flex-start;
+  /* Welcome header! */
+
+  margin-top: 40px;
+  margin-left: 20px;
+  height: 48px;
+
+
+  /* Heading/L */
+
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 100%;
+  /* identical to box height, or 48px */
+
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+
+  color: #000000;
+}
+

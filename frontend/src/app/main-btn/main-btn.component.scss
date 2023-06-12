@@ -1,0 +1,27 @@
+button{
+
+  display: flex;
+  flex-direction: column;
+  margin: 39px 45px;
+  gap: 20px;
+
+  width: 260px;
+  height: 260px;
+
+  /* Neutral/100 */
+
+  background: #FFFFFF;
+  border-radius: 16px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+mat-icon{
+  transform: scale(6);
+  padding-top: 10px;
+}
+
+p{
+  font-family: Roboto;
+  font-size: 20px;
+}

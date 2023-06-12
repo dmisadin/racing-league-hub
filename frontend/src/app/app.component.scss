@@ -4,13 +4,16 @@ body{
   display: flex;
   background: v.$neutral-200;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-  height: 100vh;
+  height: 150%;
 }
 
 #content{
-  margin-left: 360px;
+  // margin-left: 360px;
   width: 1120px;
 }
 #sidebar{
   width: 440px;
+}
+#left-side{
+  width: 360px;
 }

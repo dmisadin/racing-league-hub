@@ -1,0 +1,40 @@
+  /* Announcement */
+
+*{
+  /* Auto layout */
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 17px 40px;
+  margin-top: 49px;
+  gap: 16px;
+
+  width: 534px;
+  height: 64px;
+
+  /* Info/Light */
+
+  background: #A8E1F4;
+  border-radius: 8px;
+
+}
+
+p{
+  height: 30px;
+
+  /* Description/M */
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 150%;
+
+  color: #000000;
+}
+
+mat-icon{
+  padding: 22px;
+  margin-top: 0px;
+  transform: scale(1.2);
+}
