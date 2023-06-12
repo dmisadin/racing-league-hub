@@ -1,0 +1,27 @@
+@use "../.././styles.scss" as v;
+
+
+*{
+/* Text=true, Icon=false, Light mode=true */
+margin-right: 40px;
+
+
+background: v.$neutral-100;
+/* Shadow 4px 10% */
+box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+border-radius: 60px;
+width: 114px;
+height: 46px;
+
+/* Description/M */
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 150%;
+
+/* Primary/Primary */
+color: v.$primary;
+
+
+}

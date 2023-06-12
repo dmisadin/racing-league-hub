@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+  border: none;
+  margin: 0px;
+}
+
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('./assets/BebasNeue-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('./assets/Roboto-Regular.ttf');
+}
+
+$primary: #4441E5;
+$secondary: #1F1D89;
+$gradient: radial-gradient(50% 100% at 50% 0%, #1F1D89 0%, #100F3A 100%);
+$light: #6F6DF4;
+
+$neutral-100: #FFFFFF;
+$neutral-200: #F0F0FA;
+$neutral-300: #D4D4D9;
+$neutral-500: #77777F;
+$neutral-800: #1F1F22;
+$neutral-900: #000000;
