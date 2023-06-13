@@ -14,6 +14,7 @@ import { MainButtonsComponent } from './main-buttons/main-buttons.component';
 import { MainBtnComponent } from './main-btn/main-btn.component';
 import { MainResultsComponent } from './main-results/main-results.component';
 import { MainResultComponent } from './main-result/main-result.component';
+import { BtnCustomComponent } from './btn-custom/btn-custom.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { MainResultComponent } from './main-result/main-result.component';
     MainButtonsComponent,
     MainBtnComponent,
     MainResultsComponent,
-    MainResultComponent
+    MainResultComponent,
+    BtnCustomComponent
   ],
   imports: [
     BrowserModule,

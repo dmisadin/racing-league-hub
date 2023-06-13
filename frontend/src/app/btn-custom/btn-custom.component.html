@@ -1,0 +1,8 @@
+<button 
+    class="btn" 
+    [ngClass]="colorClass"
+    (click)="emitEvent()"
+    >
+    <mat-icon *ngIf="icon">{{icon}}</mat-icon>
+    {{label}}
+</button>

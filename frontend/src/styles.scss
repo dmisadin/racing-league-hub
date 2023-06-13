@@ -1,10 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+/* @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-
+ */
 *{
   border: none;
   margin: 0px;
+  box-sizing: border-box;
 }
 
 @font-face {
@@ -28,6 +29,22 @@ $neutral-300: #D4D4D9;
 $neutral-500: #77777F;
 $neutral-800: #1F1F22;
 $neutral-900: #000000;
+
+$info-light: #A8E1F4;
+$info-blue: #118AB2;
+$info-dark: #002633;
+
+$success-light: #B6F5E5;
+$success-green: #06D6A0;
+$success-dark: #003326;
+
+$warning-light: #FFF0CC;
+$warning-yellow: #FFD166;
+$warning-dark: #593E00;
+
+$error-light: #FEC3D1;
+$error-red: #EF476F;
+$error-dark: #40000F;
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,26 +1,23 @@
 @use "../.././styles.scss" as v;
 
-#content{
+:host {
   /* Recent Race */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 1080px;
-  height: 64px;
-  margin-top: 10px;
-  /* Neutral/100 */
 
+  width: 100%;
+  height: 64px;
+
+  padding: 0px 40px;
+
+  /* Neutral/100 */
   background: v.$neutral-100;
   border-radius: 8px;
 
 }
-.item{
-
-  height: 30px;
-  padding-left: 41.5px;
-  padding-top: 17px;
-  padding-right: 41.5px;
+.text-item{
 
   /* Description/M */
 
@@ -39,8 +36,6 @@ button{
 
   padding: 8px 32px 8px 24px;
   gap: 8px;
-
-  margin-right: 41.5px;
 
   height: 46px;
   right: 41.5px;

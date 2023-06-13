@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./main-result.component.scss']
 })
 export class MainResultComponent {
-
+  imeFunkcije() {
+    console.log("Klik na custom botun!");
+  }
 }

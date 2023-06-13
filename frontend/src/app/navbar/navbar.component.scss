@@ -1,7 +1,11 @@
 @use "../.././styles.scss" as v;
 
-body {
+:host {
+  position: fixed;
+  top:0;
+  
   background-color: v.$primary;
+  width: 100vw;
   height: 64px;
   margin: 0;
   display: flex;
