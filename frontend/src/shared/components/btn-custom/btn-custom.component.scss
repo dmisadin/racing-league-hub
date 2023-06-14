@@ -1,0 +1,34 @@
+@use "../../../styles.scss" as v;
+
+.btn {
+    border-radius: 60px;
+    padding: 8px 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    /* Description/M */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 150%;
+
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover{
+    cursor: pointer;
+}
+
+.light {
+    color: v.$primary;
+    background-color: v.$neutral-100;
+}
+
+.dark {
+    color: v.$neutral-100;
+    background-color: v.$secondary;
+}

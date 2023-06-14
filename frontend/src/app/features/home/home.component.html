@@ -1,0 +1,22 @@
+<app-alert></app-alert>
+<h1>WELCOME HEADER!</h1>
+
+<app-announcement-carousel></app-announcement-carousel>
+
+<app-section-flex [direction]="'row'">
+  <app-btn-large></app-btn-large>
+  <app-btn-large></app-btn-large>
+  <app-btn-large></app-btn-large>
+</app-section-flex>
+
+<app-section-flex [direction]="'column'" [title]="'Recent results'">
+  <app-result-row></app-result-row>
+  <app-result-row></app-result-row>
+  <app-result-row></app-result-row>
+</app-section-flex>
+
+<app-section-flex [direction]="'column'" [title]="'Popular leagues'">
+  <app-result-row></app-result-row>
+  <app-result-row></app-result-row>
+  <app-result-row></app-result-row>
+</app-section-flex>

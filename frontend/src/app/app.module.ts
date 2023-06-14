@@ -3,32 +3,28 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { LoginBtnComponent } from './login-btn/login-btn.component';
-import { MainContentComponent } from './main-content/main-content.component';
+import { NavbarComponent } from '../shared/components/navbar/navbar.component';
+import { HomeComponent } from './features/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
-import { AlertComponent } from './alert/alert.component';
+import { AlertComponent } from '../shared/components/alert/alert.component';
 import { AnnouncementCarouselComponent } from './announcement-carousel/announcement-carousel.component';
-import { MainButtonsComponent } from './main-buttons/main-buttons.component';
-import { MainBtnComponent } from './main-btn/main-btn.component';
-import { MainResultsComponent } from './main-results/main-results.component';
-import { MainResultComponent } from './main-result/main-result.component';
-import { BtnCustomComponent } from './btn-custom/btn-custom.component';
+import { BtnLargeComponent } from '../shared/components/btn-large/btn-large.component';
+import { SectionFlexComponent } from '../shared/components/section-flex/section-flex.component';
+import { ResultRowComponent } from '../shared/components/result-row/result-row.component';
+import { BtnCustomComponent } from '../shared/components/btn-custom/btn-custom.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    LoginBtnComponent,
-    MainContentComponent,
+    HomeComponent,
     AlertComponent,
     AnnouncementCarouselComponent,
-    MainButtonsComponent,
-    MainBtnComponent,
-    MainResultsComponent,
-    MainResultComponent,
+    BtnLargeComponent,
+    SectionFlexComponent,
+    ResultRowComponent,
     BtnCustomComponent
   ],
   imports: [

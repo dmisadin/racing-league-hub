@@ -1,0 +1,25 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+
+  width: 100%;
+  height: fit-content;
+}
+
+h1 {
+  align-self: flex-start;
+  /* Welcome header! */
+  height: 48px;
+
+
+  /* Heading/L */
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 100%;
+
+  color: #000000;
+}
