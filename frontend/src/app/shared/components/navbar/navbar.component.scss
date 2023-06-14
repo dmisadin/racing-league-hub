@@ -1,0 +1,30 @@
+@use "../../../../styles.scss" as v;
+
+:host {
+  position: fixed;
+  top:0;
+  
+  background-color: v.$primary;
+  width: 100vw;
+  height: 64px;
+  margin: 0;
+  padding: 8px 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+p{
+  color: white;
+  /* F1 League Stats */
+
+  /* Heading/M */
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  text-transform: uppercase;
+
+
+  color: #FFFFFF;
+}

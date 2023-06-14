@@ -1,0 +1,67 @@
+@use "../../../../styles.scss" as v;
+
+:host {
+  /* Recent Race */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  height: 64px;
+
+  padding: 0px 40px;
+
+  /* Neutral/100 */
+  background: v.$neutral-100;
+  border-radius: 8px;
+
+}
+
+.text-item {
+  width: 40%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
+  /* Description/M */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 150%;
+  /* Neutral/900 */
+
+  color: v.$neutral-900;
+
+}
+
+#season-text {
+  color: v.$neutral-500;
+}
+
+button {
+
+  padding: 8px 32px 8px 24px;
+  gap: 8px;
+
+  height: 46px;
+  right: 41.5px;
+  top: 9px;
+
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 150%;
+  color: v.$primary;
+
+  text-align: center;
+
+  /* Neutral/100 */
+
+  background: #FFFFFF;
+  /* Shadow 4px 10% */
+
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 60px;
+}
