@@ -1,6 +1,7 @@
 <app-navbar></app-navbar>
 <div class="grid-container">
-  <div id="left-side"></div>
-  <app-home></app-home>
-  <app-sidebar></app-sidebar>
+  <!-- <div id="left-side"></div> -->
+  <!-- <app-home></app-home> -->
+  <router-outlet></router-outlet>
+  <app-sidebar *ngIf="router.url == '/'"></app-sidebar>
 </div>

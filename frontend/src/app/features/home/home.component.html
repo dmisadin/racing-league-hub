@@ -9,6 +9,7 @@
 </app-section-flex>
 
 <!-- Ove vrijednosti zamjeniti podacima iz baze podataka ili kreirati placeholder objekte! -->
+<!-- U buducnosti koristiti NgFor directive za prikaz objekata sadrzanih u arrayu dobivenom od strane baze -->
 <app-section-flex [direction]="'column'" [title]="'Recent results'">
   <app-result-row [grandPrixName]="'VN Bahreina'" [leagueName]="'F1 Adria Liga'" [seasonName]="'Sezona 5'" (click)="openRace()"></app-result-row>
   <app-result-row [grandPrixName]="'VN Australije'" [leagueName]="'OKTAN F1 Liga'" [seasonName]="'Sezona 3'"></app-result-row>
@@ -20,3 +21,4 @@
   <app-result-row></app-result-row>
   <app-result-row></app-result-row>
 </app-section-flex>
+

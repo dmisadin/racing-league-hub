@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -7,7 +8,14 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+  constructor(private router:  Router) {}
+
   login() {
     console.log("Klik na Login!");
+    this.router.navigate(['login']);
+  }
+
+  navHome() {
+    this.router.navigate(['']);
   }
 }
