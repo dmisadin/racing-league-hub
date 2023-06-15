@@ -2,7 +2,7 @@
 /* @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
  */
-*{
+* {
   border: none;
   margin: 0px;
   box-sizing: border-box;
@@ -46,5 +46,16 @@ $error-light: #FEC3D1;
 $error-red: #EF476F;
 $error-dark: #40000F;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+$text-family: Roboto, "Helvetica Neue", sans-serif;
+$text-size-s: 16;
+$text-size-xs: 14;
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

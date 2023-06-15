@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-
+  openRace() {
+    console.log("Klik na cijeli red result-row.");
+  }
 }
