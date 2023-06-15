@@ -23,6 +23,7 @@ h1 {
     font-size: v.$title-size-l;
     color: v.$neutral-900;
     text-align: center;
+    letter-spacing: .04rem;
 }
 
 input[type=text],
@@ -95,7 +96,7 @@ button {
     cursor: pointer;
 }
 
-#create-acc {
+#log-in {
     font-size: v.$text-size-xs;
 }
 
