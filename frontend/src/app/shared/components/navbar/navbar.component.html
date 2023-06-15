@@ -1,8 +1,12 @@
 <p (click)="navHome()">f1 league stats</p>
 <app-btn-custom
+  *ngIf="router.url != '/login'"
   [label]="'Login'"
   [colorClass]="'light'"
   [icon]="''"
   (OnClick)="login()"
   >
 </app-btn-custom>
+
+<app-user-info *ngIf="router.url == '/login'"></app-user-info>
+

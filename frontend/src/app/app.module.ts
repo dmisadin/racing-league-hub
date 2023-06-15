@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { DropdownModule } from '@coreui/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { BtnCustomComponent } from './shared/components/btn-custom/btn-custom.co
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { SidebarRaceComponent } from './shared/components/sidebar-race/sidebar-race.component';
 import { LoginComponent } from './features/login/login.component';
+import { UserInfoComponent } from './shared/components/user-info/user-info.component';
 
 
 @NgModule({
@@ -31,13 +33,15 @@ import { LoginComponent } from './features/login/login.component';
     BtnCustomComponent,
     SidebarComponent,
     SidebarRaceComponent,
-    LoginComponent
+    LoginComponent,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatIconModule
+    MatIconModule,
+    DropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]
