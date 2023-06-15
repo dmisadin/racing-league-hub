@@ -1,14 +1,13 @@
-<c-dropdown
-  placement="bottom-start"
-  variant="btn-group">
-  <app-btn-custom cButton label="John Doe">
+<c-dropdown>
+  <app-section-flex [direction]="'row'">
+  <app-btn-custom label="John Doe">
   </app-btn-custom>
-  <button  cButton cDropdownToggle split>
-    <span class="visually-hidden">Toggle Dropdown</span>
-  </button>
+  <a cDropdownToggle style="color: white;"></a>
   <ul cDropdownMenu>
     <li><button [routerLink]="[]" cDropdownItem>Action</button></li>
     <li><button cDropdownItem>Another action</button></li>
     <li><button cDropdownItem>Something else here</button></li>
+    <li><button [routerLink]="['/login']" cDropdownItem>Logout!</button></li>
   </ul>
+  </app-section-flex>
 </c-dropdown>
