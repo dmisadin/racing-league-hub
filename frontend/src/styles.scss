@@ -8,6 +8,12 @@
   box-sizing: border-box;
 }
 
+// defining global rule that router-outlet element is never displayed since it is always empty
+// and can mess with the positioning of other elements
+router-outlet{
+  display: none;
+}
+
 @font-face {
   font-family: 'Bebas Neue';
   src: url('./assets/fonts/BebasNeue-Regular.ttf');
