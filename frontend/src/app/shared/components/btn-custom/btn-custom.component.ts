@@ -6,7 +6,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./btn-custom.component.scss']
 })
 export class BtnCustomComponent {
-  @Input() label: string = "Button";
+  @Input() label: string = "";
   @Input() colorClass: string = "light";
   @Input() icon: string = "";
   @Output() OnClick = new EventEmitter<string>();

@@ -1,11 +1,21 @@
+@use "../../../../styles.scss" as v;
+
+
 :host {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 8px;
+  gap: 16px;
 
   width: 100%;
   height: fit-content;
+}
+
+:host-context(.wrapping) .flex-container {
+  flex-wrap: wrap;
+}
+:host-context(.large-gap) .flex-container {
+  gap: 20px 8px;
 }
 
 .flex-container {
@@ -20,16 +30,10 @@
 
 h1 {
   align-self: flex-start;
-  /* Welcome header! */
   height: 48px;
 
-
-  /* Heading/L */
-  font-family: 'Bebas Neue';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 48px;
-  line-height: 100%;
-
-  color: #000000;
+  font-family: v.$title-family;
+  font-size:  v.$title-size-l;
+  letter-spacing: 0.1rem;
+  color: v.$neutral-900;
 }
