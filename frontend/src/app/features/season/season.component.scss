@@ -1,0 +1,50 @@
+@use "../../../styles.scss" as v;
+
+:host {
+    padding: 32px 20px;
+    width: 100%;
+
+
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    gap: 32px;
+}
+
+
+.flex-text-column {
+    min-height: 160px;
+    width: 70%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: baseline;
+    gap: 32px;
+
+    font-family: v.$text-family;
+}
+
+h1 {
+    color: v.$neutral-900;
+    font-family: v.$title-family;
+    font-size: v.$title-size-l;
+}
+
+
+.racing-day {
+    font-size: v.$text-size-m;
+    color: v.$neutral-800;
+}
+
+.description {
+    font-size: v.$text-size-s;
+    color: v.$neutral-800;
+}
+
+img {
+    height: 100%;
+    max-height: 256px;
+    aspect-ratio: 1/1;
+    border-radius: 16px;
+}

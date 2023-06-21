@@ -1,0 +1,19 @@
+@use "../../../../styles.scss" as v;
+ 
+:host {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    padding: 4px 12px;
+
+    font-family: v.$text-size-s;
+    font-size: v.$text-family;
+}
+
+:host img {
+    height: 32px;
+    width: 32px;
+}

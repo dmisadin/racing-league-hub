@@ -1,0 +1,33 @@
+<app-section-flex [direction]="'row'">
+    <div class="flex-text-column">
+        <h1>F1 Adria Liga - Sezona 6</h1>
+        <div class="racing-day">
+            Racing on Thursdays at 20:00 CEST
+        </div><!-- 
+        <div class="description">
+            Basic infromacije o ligi što već organizator želi.
+            Utrke se održavaju svakim četvrtkom u 20:00. Liga namjenjena za igrače iz ovog govornog područja.
+        </div> -->
+        <app-section-flex [direction]="'row'" class="wrapping" [titleM]="'Allowed assists'" >
+            <app-icon-label [iconPath]="'assists/tractioncontrol.png'">Medium</app-icon-label>
+            <app-icon-label [iconPath]="'assists/abs.png'">Off</app-icon-label>
+            <app-icon-label [iconPath]="'assists/racingline.png'">Corners only</app-icon-label>
+            <app-icon-label [iconPath]="'assists/gearbox.png'">Manual</app-icon-label>
+        </app-section-flex>
+        <app-section-flex [direction]="'row'" class="wrapping" [titleM]="'Lobby settings'" >
+            <app-icon-label [iconPath]="'lobby/qualifying.png'">Short - 18min</app-icon-label>
+            <app-icon-label [iconPath]="'lobby/formationlap.png'">On</app-icon-label>
+            <app-icon-label [iconPath]="'lobby/race.png'">50% distance</app-icon-label>
+            <app-icon-label [iconPath]="'lobby/weather.png'">Dynamic</app-icon-label>
+            <app-icon-label [iconPath]="'lobby/cornercutting.png'">Strict</app-icon-label>
+            <app-icon-label [iconPath]="'lobby/damage.png'">Standard</app-icon-label>
+            <app-icon-label [iconPath]="'lobby/parcferme.png'">On</app-icon-label>
+            <app-icon-label [iconPath]="'lobby/engine.png'">Equal</app-icon-label>
+            <app-icon-label [iconPath]="'lobby/safetycar.png'">Reduced</app-icon-label>
+            <app-icon-label [iconPath]="'lobby/start.png'">Manual</app-icon-label>
+            <app-icon-label [iconPath]="'lobby/collision.png'">On</app-icon-label>
+            <app-icon-label [iconPath]="'lobby/ghosting.png'">Off</app-icon-label>
+        </app-section-flex>
+    </div>
+    <img src="../../../assets/images/league/league-logo.png" alt="">
+</app-section-flex>

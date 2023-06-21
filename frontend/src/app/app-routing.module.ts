@@ -4,11 +4,13 @@ import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/login/login.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { LeagueComponent } from './features/league/league.component';
+import { SeasonComponent } from './features/season/season.component';
 
 const routes: Routes = [
   { path:'', component: HomeComponent },
   { path:'login', component: LoginComponent },
   { path:'league', component: LeagueComponent },
+  { path:'season', component: SeasonComponent },
 
 ];
 

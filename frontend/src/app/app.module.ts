@@ -21,6 +21,8 @@ import { LeagueComponent } from './features/league/league.component';
 import { SeasonCardComponent } from './shared/components/season-card/season-card.component';
 import { FontAwesomeModule, FaIconLibrary  } from '@fortawesome/angular-fontawesome';
 import { faCircle, faCirclePlay, faCoffee, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { SeasonComponent } from './features/season/season.component';
+import { IconLabelComponent } from './shared/components/icon-label/icon-label.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { faCircle, faCirclePlay, faCoffee, faPlus } from '@fortawesome/free-soli
     LoginComponent,
     UserInfoComponent,
     LeagueComponent,
-    SeasonCardComponent
+    SeasonCardComponent,
+    SeasonComponent,
+    IconLabelComponent
   ],
   imports: [
     BrowserModule,

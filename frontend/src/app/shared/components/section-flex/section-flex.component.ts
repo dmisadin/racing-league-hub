@@ -10,5 +10,6 @@ type Directions = 'row' | 'column';
 export class SectionFlexComponent {
   @Input() direction: Directions = 'column';
   @Input() title: string = '';
+  @Input() titleM: string = '';
 
 }
