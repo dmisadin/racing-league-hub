@@ -1,4 +1,5 @@
 ﻿using F1StatsServer.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F1StatsServer.Controllers
@@ -14,6 +15,7 @@ namespace F1StatsServer.Controllers
             _genericRepository = genericRepository;
         }
 
+        [Authorize]
         [HttpGet]
         [ProducesResponseType(200)]
         public IActionResult Get()
