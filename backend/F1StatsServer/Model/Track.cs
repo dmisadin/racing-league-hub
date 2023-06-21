@@ -33,4 +33,12 @@ public partial class Track
     public string? ImagePath { get; set; }
 
     public byte Laps { get; set; }
+
+    [ForeignKey("FkGrandPrixTrackTrackId")]
+    [InverseProperty("FkGrandPrixTrackTracks")]
+    public virtual ICollection<GrandPrix> FkGrandPrixTrackGrandPrixes { get; set; } = new List<GrandPrix>();
+
+    [ForeignKey("FkTrackCountryTrackId")]
+    [InverseProperty("FkTrackCountryTracks")]
+    public virtual ICollection<Country> FkTrackCountryCountries { get; set; } = new List<Country>();
 }
