@@ -1,6 +1,8 @@
 ﻿using F1StatsServer.Data;
+using F1StatsServer.Dto;
 using F1StatsServer.Interface;
 using F1StatsServer.Model;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace F1StatsServer.Repository
 {
@@ -11,6 +13,11 @@ namespace F1StatsServer.Repository
         public UserRepository(AdventureContext context)
         {
             _context = context;
+        }
+
+        public bool CheckCredentials(string name,string password)
+        {
+            return _context.Users.Any(o => o.Username == name && o.Password == password);
         }
 
         public List<User> Get()
@@ -29,9 +36,32 @@ namespace F1StatsServer.Repository
             return _context.Users.Any(c => c.PkUserId == id);
         }
 
-        public bool Has(string name)
+        public bool RegisterUser(RegisterDto data)
         {
-            return _context.Users.Any(c => c.Username == name);
+            CreateItem(data);
+            return true;
+        }
+
+        public bool CreateItem(RegisterDto data)
+        {
+            User user = new User
+            {
+                Username = data.Username,
+                Password = data.Password,
+                Email = data.Email,
+                IsAdmin = false
+            };
+            if (_context.Users.Contains(user))
+                return false;
+            _context.Add(user);
+
+            return Save();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
         }
     }
 }

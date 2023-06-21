@@ -27,7 +27,7 @@ namespace F1StatsServer.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login(UserDto request)
         {
-            if (!_userRepository.Has(request.Username))
+            if (!_userRepository.CheckCredentials(request.Username, request.Password))
             {
                 return BadRequest("User not found.");
             }
@@ -36,6 +36,14 @@ namespace F1StatsServer.Controllers
             string token = CreateToken(request);
 
             return Ok(token);
+        }
+
+        [HttpPost("register")]
+        public async Task<ActionResult<User>> Register(RegisterDto request)
+        {
+            _userRepository.RegisterUser(request);
+
+            return Ok(request);
         }
 
 

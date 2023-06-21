@@ -1,7 +1,10 @@
-﻿namespace F1StatsServer.Interface
+﻿using F1StatsServer.Dto;
+
+namespace F1StatsServer.Interface
 {
     public interface IUserRepository
     {
-        bool Has(string name);
+        bool CheckCredentials(string name,string password);
+        bool RegisterUser(RegisterDto data);
     }
 }
