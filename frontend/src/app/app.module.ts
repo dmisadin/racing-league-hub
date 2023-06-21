@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { HomeComponent } from './features/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatIconModule } from '@angular/material/icon';
 import { AlertComponent } from './shared/components/alert/alert.component';
 import { AnnouncementCarouselComponent } from './shared/components/announcement-carousel/announcement-carousel.component';
 import { BtnLargeComponent } from './shared/components/btn-large/btn-large.component';
@@ -20,7 +19,8 @@ import { LoginComponent } from './features/login/login.component';
 import { UserInfoComponent } from './shared/components/user-info/user-info.component';
 import { LeagueComponent } from './features/league/league.component';
 import { SeasonCardComponent } from './shared/components/season-card/season-card.component';
-
+import { FontAwesomeModule, FaIconLibrary  } from '@fortawesome/angular-fontawesome';
+import { faCircle, faCirclePlay, faCoffee, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [
@@ -44,10 +44,16 @@ import { SeasonCardComponent } from './shared/components/season-card/season-card
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatIconModule,
-    DropdownModule
+    DropdownModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    // Add an icon to the library for convenient access in other components
+    library.addIcons(faPlus, faCoffee, faCirclePlay, faCircle);
+  }
+
+ }

@@ -4,6 +4,7 @@
     [ngStyle]="{'padding': label ? '' : '8px'}"
     (click)="emitEvent()"
     >
-    <mat-icon *ngIf="icon">{{icon}}</mat-icon>
+    <!-- <mat-icon *ngIf="icon">{{icon}}</mat-icon> -->
+    <fa-icon *ngIf="iconName" [icon]="iconName"></fa-icon>
     {{label}}
 </button>

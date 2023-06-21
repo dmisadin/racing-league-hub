@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-
+import { IconDefinition, IconLookup } from '@fortawesome/fontawesome-svg-core';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-btn-large',
   templateUrl: './btn-large.component.html',
@@ -8,7 +9,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class BtnLargeComponent {
   @Input() label: string = "Large Button";
   //@Input() colorClass: string = "light";
-  @Input() icon: string = "";
+  @Input() iconName: IconDefinition | IconLookup = faCoffee;
   @Output() OnClick = new EventEmitter<string>();
 
   emitEvent() {

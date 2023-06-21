@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-
+import { IconDefinition, IconLookup, faCircle } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-btn-custom',
   templateUrl: './btn-custom.component.html',
@@ -8,13 +8,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class BtnCustomComponent {
   @Input() label: string = "";
   @Input() colorClass: string = "light";
-  @Input() icon: string = "";
+  @Input() iconName: IconDefinition | IconLookup | null = null;
   @Output() OnClick = new EventEmitter<string>();
 
-  constructor() {}
+  constructor() { }
 
   emitEvent() {
     this.OnClick.emit();
-    console.log("icon: ", this.icon ? true : false);
+    console.log("icon: ", this.iconName ? true : false);
   }
 }

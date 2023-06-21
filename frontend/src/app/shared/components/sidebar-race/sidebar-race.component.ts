@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IconDefinition, IconLookup, faCircle, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sidebar-race',
@@ -10,10 +11,11 @@ export class SidebarRaceComponent {
   @Input() grandPrixName: string = "";
   @Input() timeRemainingM: number = 720;
 
-  @Input() buttonIcon: string = "";
+  @Input() isLive: boolean = false;
   @Input() buttonIconColor: string = "";
 
-
+  faCircle = faCircle;
+  faPlay = faPlay;
   sidebarButton() {
     console.log("Sidebar button");
   }
