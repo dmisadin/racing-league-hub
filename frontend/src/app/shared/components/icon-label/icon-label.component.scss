@@ -1,5 +1,5 @@
 @use "../../../../styles.scss" as v;
- 
+
 :host {
     display: flex;
     flex-direction: row;
@@ -9,11 +9,25 @@
 
     padding: 4px 16px;
 
-    font-family: v.$text-size-s;
-    font-size: v.$text-family;
+    font-size: v.$text-size-s;
+    font-family: v.$text-family;
+    text-transform: lowercase;
+    text-transform: capitalize;
 }
 
 :host img {
     height: 32px;
     width: 32px;
+}
+
+.label-flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.label-name {
+    color: v.$neutral-500;
+    font-size: v.$text-size-xs;
 }

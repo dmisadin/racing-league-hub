@@ -23,6 +23,7 @@ import { FontAwesomeModule, FaIconLibrary  } from '@fortawesome/angular-fontawes
 import { faCircle, faCirclePlay, faCoffee, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { SeasonComponent } from './features/season/season.component';
 import { IconLabelComponent } from './shared/components/icon-label/icon-label.component';
+import { TableDriverStandingsComponent } from './shared/components/table-driver-standings/table-driver-standings.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { IconLabelComponent } from './shared/components/icon-label/icon-label.co
     LeagueComponent,
     SeasonCardComponent,
     SeasonComponent,
-    IconLabelComponent
+    IconLabelComponent,
+    TableDriverStandingsComponent
   ],
   imports: [
     BrowserModule,

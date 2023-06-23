@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class IconLabelComponent {
   @Input() iconPath: string = "assists/tractioncontrol.png";
+  @Input() name: string = "";
 }
