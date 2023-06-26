@@ -11,11 +11,12 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   public login(user: User): Observable<string> {
-      return this.http.post(
+      let result = this.http.post(
         "https://localhost:44347/api/Auth/login",
          user,
          { responseType: 'text'}
          );
+      return result;
   }
 
   public getMe(): Observable<string> {

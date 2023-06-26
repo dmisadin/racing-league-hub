@@ -18,4 +18,12 @@ export class NavbarComponent {
   navHome() {
     this.router.navigate(['']);
   }
+
+  readLocalStorageValue(key: string)
+  {
+    let value = localStorage.getItem(key);
+    if(value == undefined)
+      return false;
+    return true;
+  }
 }

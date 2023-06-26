@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'app/models/user';
 import { AuthService } from 'app/services/auth.service';
 
@@ -11,7 +12,7 @@ import { AuthService } from 'app/services/auth.service';
 export class LoginComponent {
 
   user = new User();
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService, private router: Router){}
 
   getLoginData(data: NgForm) {
     //"data" argument is getting only .value property, as it is defined in login.component.html
@@ -24,6 +25,9 @@ export class LoginComponent {
     console.log(this.user);
 
     this.login(this.user);
+
+    this.router.navigate(['/']);
+
   }
 
   login(user: User) {
