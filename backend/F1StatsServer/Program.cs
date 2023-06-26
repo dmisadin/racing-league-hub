@@ -2,6 +2,7 @@ using F1StatsServer.Data;
 using F1StatsServer.Interface;
 using F1StatsServer.Model;
 using F1StatsServer.Repository;
+using F1StatsServer.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +24,7 @@ builder.Services.AddScoped<IGenericRepository<GrandPrix>, GrandPrixRepository>()
 builder.Services.AddScoped<IGenericRepository<League>, LeagueRepository>();
 builder.Services.AddScoped<IGenericRepository<User>, UserRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 
 

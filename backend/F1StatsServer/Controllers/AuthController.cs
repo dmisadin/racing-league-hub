@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using F1StatsServer.Service;
 
 namespace F1StatsServer.Controllers
 {
@@ -17,12 +18,24 @@ namespace F1StatsServer.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
 
-        public AuthController(IConfiguration configuration, IUserRepository userRepository)
+        public AuthController(IConfiguration configuration, IUserRepository userRepository, IUserService userService)
         {
             _configuration = configuration;
             _userRepository = userRepository;
+            _userService = userService;
         }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetMe() {
+
+            var username = _userService.GetMyName();
+
+            return Ok(username);
+        }
+
 
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login(UserDto request)
@@ -33,7 +46,7 @@ namespace F1StatsServer.Controllers
             }
 
 
-            string token = CreateToken(request);
+            string token = TokenService.CreateToken(request, _configuration);
 
             return Ok(token);
         }
@@ -44,30 +57,6 @@ namespace F1StatsServer.Controllers
             _userRepository.RegisterUser(request);
 
             return Ok(request);
-        }
-
-
-        private string CreateToken(UserDto request)
-        {
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, request.Username),
-                new Claim(ClaimTypes.Role, "Admin")
-            };
-
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
-                _configuration.GetSection("AppSettings:Token").Value));
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-            var token = new JwtSecurityToken(
-                claims: claims,
-                expires: DateTime.Now.AddDays(1),
-                signingCredentials: creds);
-
-            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return jwt;
         }
 
     }
