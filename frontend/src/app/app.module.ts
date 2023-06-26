@@ -20,6 +20,8 @@ import { SidebarRaceComponent } from './shared/components/sidebar-race/sidebar-r
 import { LoginComponent } from './features/login/login.component';
 import { UserInfoComponent } from './shared/components/user-info/user-info.component';
 import { RegistrationComponent } from './features/registration/registration.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 
 @NgModule({
@@ -45,9 +47,14 @@ import { RegistrationComponent } from './features/registration/registration.comp
     BrowserAnimationsModule,
     MatIconModule,
     DropdownModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true,
+  },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

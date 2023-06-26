@@ -81,6 +81,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("NgOrigins");
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
