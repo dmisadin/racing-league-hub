@@ -20,4 +20,17 @@ public partial class Team
     [StringLength(255)]
     [Unicode(false)]
     public string? ImagePath { get; set; }
+
+    [StringLength(10)]
+    [Unicode(false)]
+    public string ColorHex { get; set; } = null!;
+
+    [InverseProperty("FkQualifyingTeam")]
+    public virtual ICollection<Qualifying> Qualifyings { get; set; } = new List<Qualifying>();
+
+    [InverseProperty("FkRaceTeam")]
+    public virtual ICollection<Race> Races { get; set; } = new List<Race>();
+
+    [InverseProperty("FkSprintTeam")]
+    public virtual ICollection<Sprint> Sprints { get; set; } = new List<Sprint>();
 }

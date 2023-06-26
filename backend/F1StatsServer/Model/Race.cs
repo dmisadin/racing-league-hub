@@ -6,10 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Model;
 
-[Keyless]
 [Table("Race")]
 public partial class Race
 {
+    [Key]
+    [Column("PK_RaceId")]
+    public int PkRaceId { get; set; }
+
     [Column("FK_Race_TeamId")]
     public byte FkRaceTeamId { get; set; }
 
@@ -46,11 +49,14 @@ public partial class Race
     public string? UsedTyres { get; set; }
 
     [ForeignKey("FkRaceDriverId")]
+    [InverseProperty("Races")]
     public virtual Driver FkRaceDriver { get; set; } = null!;
 
     [ForeignKey("FkRaceGrandPrixId")]
+    [InverseProperty("Races")]
     public virtual GrandPrix FkRaceGrandPrix { get; set; } = null!;
 
     [ForeignKey("FkRaceTeamId")]
+    [InverseProperty("Races")]
     public virtual Team FkRaceTeam { get; set; } = null!;
 }

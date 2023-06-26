@@ -33,4 +33,16 @@ public partial class Country
     [StringLength(255)]
     [Unicode(false)]
     public string? ImagePath { get; set; }
+
+    [ForeignKey("FkDriverCountryCountryId")]
+    [InverseProperty("FkDriverCountryCountries")]
+    public virtual ICollection<Driver> FkDriverCountryDrivers { get; set; } = new List<Driver>();
+
+    [ForeignKey("FkGrandPrixCountryCountryId")]
+    [InverseProperty("FkGrandPrixCountryCountries")]
+    public virtual ICollection<GrandPrix> FkGrandPrixCountryGrandPrixes { get; set; } = new List<GrandPrix>();
+
+    [ForeignKey("FkTrackCountryCountryId")]
+    [InverseProperty("FkTrackCountryCountries")]
+    public virtual ICollection<Track> FkTrackCountryTracks { get; set; } = new List<Track>();
 }
