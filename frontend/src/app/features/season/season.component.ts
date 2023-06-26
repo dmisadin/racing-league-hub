@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./season.component.scss']
 })
 export class SeasonComponent {
-
+  mockPoints = [15, 12, 10, 8, 6, 5, 4, 3, 2, 1];
 }

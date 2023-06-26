@@ -37,3 +37,24 @@
         
     </app-table-driver-standings>
 </app-section-flex>
+
+<app-section-flex [direction]="'row'" [title]="'Constructors championship standings'" >
+    <app-table-team-standings>
+        
+    </app-table-team-standings>
+</app-section-flex>
+
+<app-section-flex [direction]="'column'" [title]="'Points distribution'" >
+    <table>
+        <thead>
+            <th>Position</th>
+            <th *ngFor="let p of mockPoints; let i = index">P{{i+1}}</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Points</td>
+                <td *ngFor="let p of mockPoints;">{{p}}</td>
+            </tr>
+        </tbody>
+    </table>
+</app-section-flex>

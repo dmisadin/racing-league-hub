@@ -24,6 +24,7 @@ import { faCircle, faCirclePlay, faCoffee, faPlus } from '@fortawesome/free-soli
 import { SeasonComponent } from './features/season/season.component';
 import { IconLabelComponent } from './shared/components/icon-label/icon-label.component';
 import { TableDriverStandingsComponent } from './shared/components/table-driver-standings/table-driver-standings.component';
+import { TableTeamStandingsComponent } from './shared/components/table-team-standings/table-team-standings.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { TableDriverStandingsComponent } from './shared/components/table-driver-
     SeasonCardComponent,
     SeasonComponent,
     IconLabelComponent,
-    TableDriverStandingsComponent
+    TableDriverStandingsComponent,
+    TableTeamStandingsComponent
   ],
   imports: [
     BrowserModule,
