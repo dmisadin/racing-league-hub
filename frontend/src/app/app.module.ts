@@ -26,6 +26,9 @@ import { IconLabelComponent } from './shared/components/icon-label/icon-label.co
 import { TableDriverStandingsComponent } from './shared/components/table-driver-standings/table-driver-standings.component';
 import { TableTeamStandingsComponent } from './shared/components/table-team-standings/table-team-standings.component';
 import { RaceCardComponent } from './shared/components/race-card/race-card.component';
+import { RaceComponent } from './features/race/race.component';
+import { TableRaceResultComponent } from './shared/components/table-race-result/table-race-result.component';
+import { TableQualifyingResultComponent } from './shared/components/table-qualifying-result/table-qualifying-result.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,10 @@ import { RaceCardComponent } from './shared/components/race-card/race-card.compo
     IconLabelComponent,
     TableDriverStandingsComponent,
     TableTeamStandingsComponent,
-    RaceCardComponent
+    RaceCardComponent,
+    RaceComponent,
+    TableRaceResultComponent,
+    TableQualifyingResultComponent
   ],
   imports: [
     BrowserModule,

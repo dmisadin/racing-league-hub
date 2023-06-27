@@ -1,0 +1,32 @@
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Team</th>
+            <th></th>
+            <th>Driver</th>
+            <th>Race time</th>
+            <th>Penalty</th>
+            <th>Points</th>
+            <th class="tyreth">Tyres</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let driver of mockDrivers">
+            <td>{{driver.position}}</td>
+            <td> <img src="../../../../assets/images/teams/{{driver.teamid}}.png" alt=""> </td>
+            <td>
+                <div class="flag shadow">
+                    <img class="shadow" src="https://hatscripts.github.io/circle-flags/flags/hr.svg" alt="race">
+                </div>
+            </td>
+            <td class="driver-name">Dimitrije Minić</td>
+            <td>1:23:45.678</td>
+            <td>+5sec</td>
+            <td>100</td>
+            <td class="tyres">
+                <img *ngFor="let tyre of mockTyres" src="../../../../assets/images/icons/tyre/{{tyre}}.svg" alt="">
+            </td>
+        </tr>
+    </tbody>
+</table>
