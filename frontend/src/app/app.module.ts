@@ -25,6 +25,7 @@ import { SeasonComponent } from './features/season/season.component';
 import { IconLabelComponent } from './shared/components/icon-label/icon-label.component';
 import { TableDriverStandingsComponent } from './shared/components/table-driver-standings/table-driver-standings.component';
 import { TableTeamStandingsComponent } from './shared/components/table-team-standings/table-team-standings.component';
+import { RaceCardComponent } from './shared/components/race-card/race-card.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { TableTeamStandingsComponent } from './shared/components/table-team-stan
     SeasonComponent,
     IconLabelComponent,
     TableDriverStandingsComponent,
-    TableTeamStandingsComponent
+    TableTeamStandingsComponent,
+    RaceCardComponent
   ],
   imports: [
     BrowserModule,

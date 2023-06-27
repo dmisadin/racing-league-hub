@@ -32,17 +32,20 @@
     <img src="../../../assets/images/league/league-logo.png" alt="">
 </app-section-flex>
 
+
 <app-section-flex [direction]="'row'" [title]="'Drivers championship standings'" >
     <app-table-driver-standings>
         
     </app-table-driver-standings>
 </app-section-flex>
 
+
 <app-section-flex [direction]="'row'" [title]="'Constructors championship standings'" >
     <app-table-team-standings>
         
     </app-table-team-standings>
 </app-section-flex>
+
 
 <app-section-flex [direction]="'column'" [title]="'Points distribution'" >
     <table>
@@ -57,4 +60,14 @@
             </tr>
         </tbody>
     </table>
+</app-section-flex>
+
+
+<app-section-flex [direction]="'row'" class="wrapping" [title]="'Race calendar'" >
+    <app-race-card></app-race-card>
+    <app-race-card></app-race-card>
+    <app-race-card></app-race-card>
+    <app-race-card></app-race-card>
+    <app-race-card></app-race-card>
+    <app-race-card></app-race-card>
 </app-section-flex>
