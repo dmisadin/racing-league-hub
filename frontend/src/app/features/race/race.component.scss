@@ -65,7 +65,7 @@ table {
     vertical-align: middle;
     border-collapse: collapse;
 }
-td, th {
+tr>* {
     padding: 0 16px;
 }
 

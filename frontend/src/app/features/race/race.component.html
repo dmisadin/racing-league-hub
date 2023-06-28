@@ -4,7 +4,7 @@
         <h2>F1 Adria Liga</h2>
         <div class="track-name">Red Bull Ring - 30 June 2023</div>
         <app-btn-custom [iconName]="faPlay" [label]="'Race Video'"></app-btn-custom>
-        <app-section-flex [direction]="'row'" class="wrapping">
+        <app-section-flex [direction]="'row'" class="wrapping"  [justify]="'flex-start'">
             <app-icon-label [iconPath]="'track_features/turns.svg'" [name]="'Turns'">18</app-icon-label>
             <app-icon-label [iconPath]="'track_features/turnleft.svg'" [name]="'Left turns'">6</app-icon-label>
             <app-icon-label [iconPath]="'track_features/length.svg'" [name]="'Track length'">5.423m</app-icon-label>
@@ -24,7 +24,7 @@
     <app-table-qualifying-result></app-table-qualifying-result>
 </app-section-flex>
 
-<app-section-flex [title]="'Fastest lap of the race'" [direction]="'row'" style="justify-content: flex-start;">
+<app-section-flex [title]="'Fastest lap of the race'" [direction]="'row'" [justify]="'flex-start'">
     <table>
         <thead>
             <tr>

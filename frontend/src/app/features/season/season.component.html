@@ -8,13 +8,13 @@
             Basic infromacije o ligi što već organizator želi.
             Utrke se održavaju svakim četvrtkom u 20:00. Liga namjenjena za igrače iz ovog govornog područja.
         </div> -->
-        <app-section-flex [direction]="'row'" class="wrapping" [titleM]="'Allowed assists'" >
+        <app-section-flex [direction]="'row'" class="wrapping" [titleM]="'Allowed assists'" [justify]="'flex-start'">
             <app-icon-label [iconPath]="'assists/tractioncontrol.png'" [name]="'Traction Control'">Medium</app-icon-label>
             <app-icon-label [iconPath]="'assists/abs.png'" [name]="'ABS'">Off</app-icon-label>
             <app-icon-label [iconPath]="'assists/racingline.png'" [name]="'Racing Line'">Corners only</app-icon-label>
             <app-icon-label [iconPath]="'assists/gearbox.png'" [name]="'Gearbox'">Manual</app-icon-label>
         </app-section-flex>
-        <app-section-flex [direction]="'row'" class="wrapping" [titleM]="'Lobby settings'" >
+        <app-section-flex [direction]="'row'" class="wrapping" [titleM]="'Lobby settings'" [justify]="'flex-start'">
             <app-icon-label [iconPath]="'lobby/qualifying.png'" [name]="'Qualifying'">Short</app-icon-label>
             <app-icon-label [iconPath]="'lobby/formationlap.png'" [name]="'Formation Lap'">On</app-icon-label>
             <app-icon-label [iconPath]="'lobby/race.png'" [name]="'Race Distance'">50%</app-icon-label>

@@ -8,21 +8,21 @@
             Basic infromacije o ligi što već organizator želi.
             Utrke se održavaju svakim četvrtkom u 20:00. Liga namjenjena za igrače iz ovog govornog područja.
         </div>
-    </div>
-    <div class="social-media">
-        <app-btn-custom [iconName]="faYoutube"></app-btn-custom>
-        <app-btn-custom [iconName]="faDiscord"></app-btn-custom>
-        <app-btn-custom [iconName]="faInstagram"></app-btn-custom>
-        <app-btn-custom [iconName]="faFacebook"></app-btn-custom>
-        <app-btn-custom [iconName]="faTwitch"></app-btn-custom>
-        <app-btn-custom [iconName]="faGlobe"></app-btn-custom>
+        <div class="social-media">
+            <app-btn-custom [iconName]="faYoutube"></app-btn-custom>
+            <app-btn-custom [iconName]="faDiscord"></app-btn-custom>
+            <app-btn-custom [iconName]="faInstagram"></app-btn-custom>
+            <app-btn-custom [iconName]="faFacebook"></app-btn-custom>
+            <app-btn-custom [iconName]="faTwitch"></app-btn-custom>
+            <app-btn-custom [iconName]="faGlobe"></app-btn-custom>
+        </div>
     </div>
     <img src="../../../assets/images/league/league-logo.png" alt="">
 </app-section-flex>
 
 
 
-<app-section-flex [title]="'All seasons'" [direction]="'row'" class="wrapping large-gap">
+<app-section-flex [title]="'All seasons'" [direction]="'row'" class="wrapping"  [justify]="'flex-start'" [gap]="'20px 10px'">
     <app-season-card></app-season-card>
     <app-season-card></app-season-card>
     <app-season-card></app-season-card>

@@ -14,9 +14,6 @@
 :host-context(.wrapping) .flex-container {
   flex-wrap: wrap;
 }
-:host-context(.large-gap) .flex-container {
-  gap: 20px 8px;
-}
 
 .flex-container {
   display: flex;

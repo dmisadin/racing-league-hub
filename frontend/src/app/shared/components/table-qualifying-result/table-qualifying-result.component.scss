@@ -23,9 +23,11 @@ tr:hover {
     background-color: v.$neutral-300;
 }
 
+tr>* {
+    padding: 0 16px;
+}
 
 td {
-    padding: 0 16px;
     height: 48px;
     min-width: 48px;
     vertical-align: middle;
@@ -33,7 +35,6 @@ td {
 
 td>* {
     vertical-align: middle;
-
 }
 
 .driver-name {
@@ -80,20 +81,21 @@ td div.flag {
 
 
 .tyreth {
-    
+
     width: fit-content;
     max-width: 250px;
 }
+
 .tyres {
 
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 8px;
-    
+
     width: fit-content;
     max-width: 250px;
-    
+
     img {
         height: 50%;
         width: auto;
