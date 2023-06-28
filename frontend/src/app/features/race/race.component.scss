@@ -29,6 +29,11 @@ h1 {
     font-family: v.$title-family;
     font-size: v.$title-size-l;
 }
+h2 {
+    color: v.$neutral-900;
+    font-family: v.$title-family;
+    font-size: v.$title-size-m;
+}
 
 .track-map {
     height: min-content;

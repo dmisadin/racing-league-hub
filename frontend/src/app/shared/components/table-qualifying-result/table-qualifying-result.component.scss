@@ -6,7 +6,7 @@
 }
 
 table {
-    width: 100%;
+    width: fit-content;
     text-align: left;
     vertical-align: middle;
     border-collapse: collapse;
@@ -25,6 +25,7 @@ tr:hover {
 
 
 td {
+    padding: 0 16px;
     height: 48px;
     min-width: 48px;
     vertical-align: middle;
