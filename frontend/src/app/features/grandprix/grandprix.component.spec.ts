@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RaceComponent } from './race.component';
+import { GrandprixComponent } from './grandprix.component';
 
-describe('RaceComponent', () => {
-  let component: RaceComponent;
-  let fixture: ComponentFixture<RaceComponent>;
+describe('GrandprixComponent', () => {
+  let component: GrandprixComponent;
+  let fixture: ComponentFixture<GrandprixComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [RaceComponent]
+      declarations: [GrandprixComponent]
     });
-    fixture = TestBed.createComponent(RaceComponent);
+    fixture = TestBed.createComponent(GrandprixComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

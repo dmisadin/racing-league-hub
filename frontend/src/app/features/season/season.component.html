@@ -15,18 +15,7 @@
             <app-icon-label [iconPath]="'assists/gearbox.png'" [name]="'Gearbox'">Manual</app-icon-label>
         </app-section-flex>
         <app-section-flex [direction]="'row'" class="wrapping" [titleM]="'Lobby settings'" [justify]="'flex-start'">
-            <app-icon-label [iconPath]="'lobby/qualifying.png'" [name]="'Qualifying'">Short</app-icon-label>
-            <app-icon-label [iconPath]="'lobby/formationlap.png'" [name]="'Formation Lap'">On</app-icon-label>
-            <app-icon-label [iconPath]="'lobby/race.png'" [name]="'Race Distance'">50%</app-icon-label>
-            <app-icon-label [iconPath]="'lobby/weather.png'" [name]="'Weather'"> Dynamic</app-icon-label>
-            <app-icon-label [iconPath]="'lobby/cornercutting.png'" [name]="'Corner cutting'">Strict</app-icon-label>
-            <app-icon-label [iconPath]="'lobby/damage.png'" [name]="'Damage'">Standard</app-icon-label>
-            <app-icon-label [iconPath]="'lobby/parcferme.png'" [name]="'Parc Ferme'">On</app-icon-label>
-            <app-icon-label [iconPath]="'lobby/engine.png'" [name]="'Engine'">Equal</app-icon-label>
-            <app-icon-label [iconPath]="'lobby/safetycar.png'" [name]="'Safety Car'">Reduced</app-icon-label>
-            <app-icon-label [iconPath]="'lobby/start.png'" [name]="'Starts'">Manual</app-icon-label>
-            <app-icon-label [iconPath]="'lobby/collision.png'" [name]="'Collisions'">On</app-icon-label>
-            <app-icon-label [iconPath]="'lobby/ghosting.png'" [name]="'Ghosting'">Off</app-icon-label>
+            <app-icon-label *ngFor="let l of mockLobby" [iconPath]="l.iconPath" [name]="l.name" [width]="'165px'">{{l.value}}</app-icon-label>
         </app-section-flex>
     </div>
     <img src="../../../assets/images/league/league-logo.png" alt="">
