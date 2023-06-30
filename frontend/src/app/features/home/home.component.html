@@ -2,7 +2,7 @@
 
 <app-announcement-carousel></app-announcement-carousel>
 
-<app-section-flex [direction]="'row'" [title]="''">
+<app-section-flex [direction]="'row'" [title]="''" [justify]="'space-between'">
   <app-btn-large [label]="'Create your own league'" [iconName]="faPlus"></app-btn-large>
   <app-btn-large [label]="'Find your place to race'" [iconName]="faSearch"></app-btn-large>
   <app-btn-large [label]="'Check out the leaderboards'" [iconName]="faStopwatch"></app-btn-large>
@@ -11,16 +11,16 @@
 <!-- Ove vrijednosti zamjeniti podacima iz baze podataka ili kreirati placeholder objekte! -->
 <!-- U buducnosti koristiti NgFor directive za prikaz objekata sadrzanih u arrayu dobivenom od strane baze -->
 <app-section-flex [direction]="'column'" [title]="'Recent results'">
-  <app-result-row [grandPrixName]="'VN Bahreina'" [leagueName]="'F1 Adria Liga'" [seasonName]="'Sezona 5'"
-    (click)="openRace()"></app-result-row>
-  <app-result-row [grandPrixName]="'VN Australije'" [leagueName]="'OKTAN F1 Liga'"
-    [seasonName]="'Sezona 3'"></app-result-row>
-  <app-result-row [grandPrixName]="'Formula 1 Emilia Romagna Grand Prix'" [leagueName]="'Formula 1'"
-    [seasonName]="'2023'"></app-result-row>
+  <app-race-row [grandPrixName]="'VN Bahreina'" [leagueName]="'F1 Adria Liga'" [seasonName]="'Sezona 5'"
+    (click)="openRace()"></app-race-row>
+  <app-race-row [grandPrixName]="'VN Australije'" [leagueName]="'OKTAN F1 Liga'"
+    [seasonName]="'Sezona 3'"></app-race-row>
+  <app-race-row [grandPrixName]="'Formula 1 Emilia Romagna Grand Prix'" [leagueName]="'Formula 1'"
+    [seasonName]="'2023'"></app-race-row>
 </app-section-flex>
 
 <app-section-flex [direction]="'column'" [title]="'Popular leagues'">
-  <app-result-row></app-result-row>
-  <app-result-row></app-result-row>
-  <app-result-row></app-result-row>
+  <app-race-row></app-race-row>
+  <app-race-row></app-race-row>
+  <app-race-row></app-race-row>
 </app-section-flex>

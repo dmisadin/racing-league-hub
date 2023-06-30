@@ -10,7 +10,7 @@ type Directions = 'row' | 'column';
 export class SectionFlexComponent {
   @Input() direction: Directions = 'column';
   @Input() gap: string = '8px';
-  @Input() justify: string = 'space-between'; 
+  @Input() justify: string = 'flex-start'; 
   @Input() title: string = '';
   @Input() titleM: string = '';
 

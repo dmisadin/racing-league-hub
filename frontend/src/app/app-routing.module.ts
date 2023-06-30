@@ -6,6 +6,7 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
 import { LeagueComponent } from './features/league/league.component';
 import { SeasonComponent } from './features/season/season.component';
 import { GrandPrixComponent } from './features/grandprix/grandprix.component';
+import { DriverComponent } from './features/driver/driver.component';
 
 const routes: Routes = [
   { path:'', component: HomeComponent },
@@ -13,7 +14,7 @@ const routes: Routes = [
   { path:'league', component: LeagueComponent },
   { path:'season', component: SeasonComponent },
   { path:'grandprix', component: GrandPrixComponent },
-
+  { path:'driver', component: DriverComponent },
 ];
 
 @NgModule({

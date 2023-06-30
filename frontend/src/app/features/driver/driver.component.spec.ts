@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ResultRowComponent } from './result-row.component';
+import { DriverComponent } from './driver.component';
 
-describe('ResultRowComponent', () => {
-  let component: ResultRowComponent;
-  let fixture: ComponentFixture<ResultRowComponent>;
+describe('DriverComponent', () => {
+  let component: DriverComponent;
+  let fixture: ComponentFixture<DriverComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ResultRowComponent]
+      declarations: [DriverComponent]
     });
-    fixture = TestBed.createComponent(ResultRowComponent);
+    fixture = TestBed.createComponent(DriverComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

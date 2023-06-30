@@ -11,7 +11,7 @@ import { AlertComponent } from './shared/components/alert/alert.component';
 import { AnnouncementCarouselComponent } from './shared/components/announcement-carousel/announcement-carousel.component';
 import { BtnLargeComponent } from './shared/components/btn-large/btn-large.component';
 import { SectionFlexComponent } from './shared/components/section-flex/section-flex.component';
-import { ResultRowComponent } from './shared/components/result-row/result-row.component';
+import { RaceRowComponent } from './shared/components/race-row/race-row.component';
 import { BtnCustomComponent } from './shared/components/btn-custom/btn-custom.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { SidebarRaceComponent } from './shared/components/sidebar-race/sidebar-race.component';
@@ -29,6 +29,7 @@ import { RaceCardComponent } from './shared/components/race-card/race-card.compo
 import { GrandPrixComponent } from './features/grandprix/grandprix.component';
 import { TableRaceResultComponent } from './shared/components/table-race-result/table-race-result.component';
 import { TableQualifyingResultComponent } from './shared/components/table-qualifying-result/table-qualifying-result.component';
+import { DriverComponent } from './features/driver/driver.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { TableQualifyingResultComponent } from './shared/components/table-qualif
     AnnouncementCarouselComponent,
     BtnLargeComponent,
     SectionFlexComponent,
-    ResultRowComponent,
+    RaceRowComponent,
     BtnCustomComponent,
     SidebarComponent,
     SidebarRaceComponent,
@@ -55,6 +56,7 @@ import { TableQualifyingResultComponent } from './shared/components/table-qualif
     GrandPrixComponent,
     TableRaceResultComponent,
     TableQualifyingResultComponent,
+    DriverComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,7 +8,7 @@
 <app-btn-custom 
   [label]="''" 
   [colorClass]="timeRemainingM <= 0 ? 'red' : 'light'"
-  [iconName]="timeRemainingM <= 0 ? faCircle : faPlay"
+  [faIcon]="timeRemainingM <= 0 ? faCircle : faPlay"
   (OnClick)="sidebarButton()"
   >
 </app-btn-custom>

@@ -4,7 +4,7 @@
 :host {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 16px;
 
   width: 100%;
@@ -31,7 +31,6 @@ h1 {
 
   font-family: v.$title-family;
   font-size:  v.$title-size-l;
-  letter-spacing: 0.1rem;
   color: v.$neutral-900;
 }
 

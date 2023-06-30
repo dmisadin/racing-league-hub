@@ -24,19 +24,23 @@
   overflow: hidden;
   white-space: nowrap;
 
-  /* Description/M */
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
+  font-size: v.$text-size-m;
   line-height: 150%;
-  /* Neutral/900 */
 
   color: v.$neutral-900;
 
 }
 
-#season-text {
+.league-name {
+  color: v.$neutral-500;
+}
+
+.time {
+  width: 15%;
+  font-size: v.$text-size-s;
   color: v.$neutral-500;
 }
 
