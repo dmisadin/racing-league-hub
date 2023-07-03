@@ -4,7 +4,7 @@ import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/login/login.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { RegistrationComponent } from './features/registration/registration.component';
-import { loginGuard } from './guards/login.guard';
+import { loginGuard } from './core/guards/login.guard';
 
 const routes: Routes = [
   { path:'', component: HomeComponent },
