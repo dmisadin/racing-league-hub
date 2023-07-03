@@ -21,7 +21,7 @@ import { LoginComponent } from './features/login/login.component';
 import { UserInfoComponent } from './shared/components/user-info/user-info.component';
 import { RegistrationComponent } from './features/registration/registration.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { AuthInterceptor } from './core/services/auth.interceptor';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 
 @NgModule({
