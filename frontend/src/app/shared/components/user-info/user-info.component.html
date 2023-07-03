@@ -7,7 +7,7 @@
     <li><button [routerLink]="[]" cDropdownItem>Action</button></li>
     <li><button cDropdownItem>Another action</button></li>
     <li><button cDropdownItem>Something else here</button></li>
-    <li><button [routerLink]="['/login']" cDropdownItem>Logout!</button></li>
+    <li><button [routerLink]="['/login']" (click)="logout()" cDropdownItem>Logout!</button></li>
   </ul>
   </app-section-flex>
 </c-dropdown>

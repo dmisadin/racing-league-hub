@@ -26,8 +26,8 @@ export class LoginComponent {
 
     this.login(this.user);
 
-    this.router.navigate(['/']);
-
+    this.authService.SetLoggedStatus(true);
+    this.router.navigate(['']);
   }
 
   login(user: User) {

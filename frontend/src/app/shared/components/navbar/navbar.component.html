@@ -1,6 +1,6 @@
 <p (click)="navHome()">f1 league stats</p>
 <app-btn-custom
-  *ngIf="true"
+  *ngIf="!(isLoggedIn$ | async);else loggedUser"
   [label]="'Login'"
   [colorClass]="'light'"
   [icon]="''"
@@ -8,5 +8,6 @@
   >
 </app-btn-custom>
 
-<app-user-info *ngIf="false"></app-user-info>
-
+<ng-template #loggedUser>
+  <app-user-info></app-user-info>
+</ng-template>

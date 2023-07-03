@@ -1,12 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from 'app/models/user';
+import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -24,5 +28,9 @@ export class AuthService {
       "https://localhost:44347/api/Auth",
       {responseType: 'text'}
        );
+  }
+
+  public SetLoggedStatus(status: boolean) {
+    this.isLoggedInSubject.next(status);
   }
 }
