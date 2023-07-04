@@ -22,16 +22,22 @@ export class LoginComponent {
 
     this.login(this.user);
 
-    this.authService.SetLoggedStatus(true);
     this.router.navigate(['']);
   }
 
   login(user: User) {
     this.authService.login(user).subscribe((token: string) => {
       localStorage.setItem('authToken', token);
+
+      if(localStorage.getItem('authToken'))
+        this.authService.setLoggedStatus(true);
+
       this.authService
         .getMe()
-        .subscribe((name) => localStorage.setItem('username', name));
+        .subscribe((name) => {
+          localStorage.setItem('username', name);
+          this.authService.setUsername(name);
+        });
     });
   }
 }

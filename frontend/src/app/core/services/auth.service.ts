@@ -10,10 +10,17 @@ import { Observable } from 'rxjs/internal/Observable';
 export class AuthService {
 
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  private username = new BehaviorSubject<string>('John Doe');
+
+  username$ = this.username.asObservable();
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   constructor(private http: HttpClient) {
-      this.isLoggedInSubject.next(localStorage.getItem("authToken") ? true : false)
+      this.isLoggedInSubject.next(localStorage.getItem('authToken') ? true : false)
+
+      const name = localStorage.getItem('username');
+      if(name)
+        this.username.next(name);
    }
 
   public login(user: User): Observable<string> {
@@ -36,7 +43,18 @@ export class AuthService {
       );
   }
 
-  public SetLoggedStatus(status: boolean) {
+  public setLoggedStatus(status: boolean) {
     this.isLoggedInSubject.next(status);
   }
+
+  public setUsername(name: string) {
+    this.username.next(name);
+  }
+
+  // public getUsername() : string {
+  //   let username = 'John Doe';
+
+  //   this.username$.subscribe((name) => username = name)
+  //   return username;
+  // }
 }

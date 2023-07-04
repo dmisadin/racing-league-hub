@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/core/services/auth.service';
-import { firstValueFrom } from 'rxjs';
+import { first, firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-user-info',
@@ -9,22 +9,18 @@ import { firstValueFrom } from 'rxjs';
   styleUrls: ['./user-info.component.scss'],
 })
 export class UserInfoComponent {
-  userName: string = 'Hello';
+  username$ = this.authService.username$;
+  name : string = 'John Doe';
 
   constructor(private authService: AuthService) {
-    this.setName();
+    this.username$.subscribe((username) => this.name = username);
   }
 
   logout() {
     localStorage.removeItem('authToken');
     localStorage.removeItem('username')
-    this.authService.SetLoggedStatus(false);
+    this.authService.setLoggedStatus(false);
+    this.authService.setUsername('John Doe');
   }
 
-  setName() {
-    const name = localStorage.getItem('username');
-    if(!name)
-      return;
-    this.userName = name;
-  }
 }
