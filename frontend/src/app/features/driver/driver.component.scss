@@ -1,4 +1,7 @@
 @use "../../../styles.scss" as v;
+@import "../../shared/style/table.scss";
+
+@include table-setup;
 
 :host {
     padding: 32px 20px;
@@ -20,13 +23,30 @@ ul {
     list-style: none;
     background-color: v.$neutral-100;
     border-radius: 16px;
-    padding: 16px 32px;
+    padding: 8px 32px;
 }
 
-li {
+li, th, tr {
     border-bottom: 1px solid v.$neutral-200;
 }
 
-li:last-child {
+li:last-child, tr:last-child {
     border-bottom: none;
+}
+
+.table-container {
+    width: fit-content;
+    height: fit-content;
+
+    padding: 8px 32px;
+
+    background-color: v.$neutral-100;
+    border-radius: 16px;
+
+    flex-grow: 1;
+}
+
+
+table {
+    width: 100%;
 }

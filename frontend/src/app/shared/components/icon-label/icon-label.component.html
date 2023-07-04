@@ -1,6 +1,7 @@
 <fa-icon *ngIf="faIcon; else image" [icon]="faIcon"></fa-icon>
 <ng-template #image>
-    <img src='../../assets/images/icons/{{iconPath}}' alt="TC">
+    <img *ngIf="iconPath" src='../../assets/images/icons/{{iconPath}}' alt="TC">
+    <img *ngIf="imageLink" src="https://hatscripts.github.io/circle-flags/flags/hr.svg" alt="icon">
 </ng-template>
 <div class="label-flex">
     <div *ngIf="name" class="label-name"> {{name}} </div>
