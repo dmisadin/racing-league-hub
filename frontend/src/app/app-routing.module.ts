@@ -7,10 +7,13 @@ import { LeagueComponent } from './features/league/league.component';
 import { SeasonComponent } from './features/season/season.component';
 import { GrandPrixComponent } from './features/grandprix/grandprix.component';
 import { DriverComponent } from './features/driver/driver.component';
+import { RegistrationComponent } from './features/registration/registration.component';
+import { loginGuard } from './core/guards/login.guard';
 
 const routes: Routes = [
   { path:'', component: HomeComponent },
-  { path:'login', component: LoginComponent },
+  { path:'login', component: LoginComponent, canActivate: [loginGuard] },
+  { path:'register', component: RegistrationComponent },
   { path:'league', component: LeagueComponent },
   { path:'season', component: SeasonComponent },
   { path:'grandprix', component: GrandPrixComponent },

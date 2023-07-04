@@ -1,15 +1,15 @@
-<form>
+<form #loginForm="ngForm" (ngSubmit)="getLoginData(loginForm)">
     <h1>Login</h1>
     <label for="email">Email</label>
-    <input type="email" name="email" id="email" placeholder="Email">
+    <input type="email" name="email" id="email" placeholder="Email" ngModel required>
     <div class="label-flex">
         <label for="password">Password</label>
         <a href="/">Forgot password?</a>
     </div>
-    <input type="password" name="password" id="password" placeholder="Password">
+    <input type="password" name="password" id="password" placeholder="Password" ngModel required>
 
     <label class="checkbox">
-        <input aria-hidden="true" class="checkbox__input" type="checkbox">
+        <input aria-hidden="true" class="checkbox__input" type="checkbox" name="rememberUser" ngModel>
         <div class="checkbox__box">
             <svg class="checkbox__check" fill="none" width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 4.9375L3.43478 8L9 1" stroke-width="2"/>
@@ -17,6 +17,6 @@
         </div>
         Remember me
     </label>
-    <button type="submit">Log in</button>
+    <button>Log in</button>
     <div id="create-acc">Don't have an account? <a href="">Create new account</a></div>
 </form>

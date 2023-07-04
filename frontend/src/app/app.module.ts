@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { DropdownModule } from '@coreui/angular';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +18,9 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
 import { SidebarRaceComponent } from './shared/components/sidebar-race/sidebar-race.component';
 import { LoginComponent } from './features/login/login.component';
 import { UserInfoComponent } from './shared/components/user-info/user-info.component';
+import { RegistrationComponent } from './features/registration/registration.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { LeagueComponent } from './features/league/league.component';
 import { SeasonCardComponent } from './shared/components/season-card/season-card.component';
 import { FontAwesomeModule, FaIconLibrary  } from '@fortawesome/angular-fontawesome';
@@ -45,6 +49,7 @@ import { DriverComponent } from './features/driver/driver.component';
     SidebarComponent,
     SidebarRaceComponent,
     LoginComponent,
+    RegistrationComponent,
     UserInfoComponent,
     LeagueComponent,
     SeasonCardComponent,
@@ -63,9 +68,15 @@ import { DriverComponent } from './features/driver/driver.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     DropdownModule,
+    FormsModule,
+    HttpClientModule,
     FontAwesomeModule
   ],
-  providers: [],
+  providers: [    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true,
+  },],
   bootstrap: [AppComponent]
 })
 export class AppModule {

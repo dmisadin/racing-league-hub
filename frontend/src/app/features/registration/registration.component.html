@@ -1,18 +1,18 @@
-<form>
+<form #registrationForm="ngForm" (ngSubmit)="getRegistrationData(registrationForm.value)">
     <h1>Registration</h1>
 
     <label for="username">Username</label>
-    <input type="text" name="username" id="username" placeholder="Username">
+    <input type="text" name="username" id="username" placeholder="Username" ngModel required>
 
     <label for="email">Email</label>
-    <input type="email" name="email" id="email" placeholder="Email">
+    <input type="email" name="email" id="email" placeholder="Email" ngModel required>
 
     <div class="label-flex">
         <label for="password">Password</label>
     </div>
-    <input type="password" name="password" id="password" placeholder="Password">
+    <input type="password" name="password" id="password" placeholder="Password" ngModel required>
 
-    <button type="submit">Sign up</button>
+    <button>Sign up</button>
     
     <div id="log-in">Already have an account? <a href="">Log in here</a></div>
 </form>
