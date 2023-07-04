@@ -22,13 +22,10 @@ export class HomeComponent {
   grandPrixes: Array<grandPrix> = new Array<grandPrix>();
 
   constructor(private homeDataService: HomeDataService) {
-    this.homeDataService.fetchData().subscribe(
-      (data) => {
-        this.grandPrixes = data;
-        this.isDataLoaded = true;
-      }
-      );
-
+    this.homeDataService.fetchData().subscribe((data) => {
+      this.grandPrixes = data;
+      this.isDataLoaded = true;
+    });
   }
   openRace() {
     console.log('Klik na cijeli red result-row.');

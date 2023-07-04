@@ -11,17 +11,17 @@ import { RegistrationComponent } from './features/registration/registration.comp
 import { loginGuard } from './core/guards/login.guard';
 
 const routes: Routes = [
-  { path:'', component: HomeComponent },
-  { path:'login', component: LoginComponent, canActivate: [loginGuard] },
-  { path:'register', component: RegistrationComponent },
-  { path:'league', component: LeagueComponent },
-  { path:'season', component: SeasonComponent },
-  { path:'grandprix', component: GrandPrixComponent },
-  { path:'driver', component: DriverComponent },
+  { path: '', component: HomeComponent },
+  { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
+  { path: 'register', component: RegistrationComponent },
+  { path: 'league', component: LeagueComponent },
+  { path: 'season', component: SeasonComponent },
+  { path: 'grandprix', component: GrandPrixComponent },
+  { path: 'driver', component: DriverComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

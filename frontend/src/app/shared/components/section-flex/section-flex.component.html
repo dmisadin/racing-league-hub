@@ -1,5 +1,12 @@
-<h1 *ngIf="title">{{title}}</h1>
-<h2 *ngIf="titleM">{{titleM}}</h2>
-<div class="flex-container" [ngStyle]="{'flex-direction': direction, 'gap': gap, 'justify-content': justify}">
-   <ng-content></ng-content>
+<h1 *ngIf="title">{{ title }}</h1>
+<h2 *ngIf="titleM">{{ titleM }}</h2>
+<div
+  class="flex-container"
+  [ngStyle]="{
+    'flex-direction': direction,
+    gap: gap,
+    'justify-content': justify
+  }"
+>
+  <ng-content></ng-content>
 </div>

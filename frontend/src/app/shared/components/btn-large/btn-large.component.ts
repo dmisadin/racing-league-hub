@@ -4,16 +4,16 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-btn-large',
   templateUrl: './btn-large.component.html',
-  styleUrls: ['./btn-large.component.scss']
+  styleUrls: ['./btn-large.component.scss'],
 })
 export class BtnLargeComponent {
-  @Input() label: string = "Large Button";
+  @Input() label: string = 'Large Button';
   //@Input() colorClass: string = "light";
   @Input() iconName: IconDefinition | IconLookup = faCoffee;
   @Output() OnClick = new EventEmitter<string>();
 
   emitEvent() {
     this.OnClick.emit();
-    console.log("Klik na Large Button.");
+    console.log('Klik na Large Button.');
   }
 }

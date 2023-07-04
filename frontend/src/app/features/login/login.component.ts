@@ -29,15 +29,13 @@ export class LoginComponent {
     this.authService.login(user).subscribe((token: string) => {
       localStorage.setItem('authToken', token);
 
-      if(localStorage.getItem('authToken'))
+      if (localStorage.getItem('authToken'))
         this.authService.setLoggedStatus(true);
 
-      this.authService
-        .getMe()
-        .subscribe((name) => {
-          localStorage.setItem('username', name);
-          this.authService.setUsername(name);
-        });
+      this.authService.getMe().subscribe((name) => {
+        localStorage.setItem('username', name);
+        this.authService.setUsername(name);
+      });
     });
   }
 }

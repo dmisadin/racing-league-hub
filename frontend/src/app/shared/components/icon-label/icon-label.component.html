@@ -1,8 +1,8 @@
 <fa-icon *ngIf="faIcon; else image" [icon]="faIcon"></fa-icon>
 <ng-template #image>
-    <img src='../../assets/images/icons/{{iconPath}}' alt="TC">
+  <img src="../../assets/images/icons/{{ iconPath }}" alt="TC" />
 </ng-template>
 <div class="label-flex">
-    <div *ngIf="name" class="label-name"> {{name}} </div>
-    <ng-content></ng-content>
+  <div *ngIf="name" class="label-name">{{ name }}</div>
+  <ng-content></ng-content>
 </div>
