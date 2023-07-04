@@ -6,10 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Model;
 
-[Keyless]
 [Table("Qualifying")]
 public partial class Qualifying
 {
+    [Key]
+    [Column("PK_QualifyingId")]
+    public int PkQualifyingId { get; set; }
+
     [Column("FK_Qualifying_TeamId")]
     public byte FkQualifyingTeamId { get; set; }
 
@@ -35,11 +38,14 @@ public partial class Qualifying
     public bool IsReserve { get; set; }
 
     [ForeignKey("FkQualifyingDriverId")]
+    [InverseProperty("Qualifyings")]
     public virtual Driver FkQualifyingDriver { get; set; } = null!;
 
     [ForeignKey("FkQualifyingGrandPrixId")]
+    [InverseProperty("Qualifyings")]
     public virtual GrandPrix FkQualifyingGrandPrix { get; set; } = null!;
 
     [ForeignKey("FkQualifyingTeamId")]
+    [InverseProperty("Qualifyings")]
     public virtual Team FkQualifyingTeam { get; set; } = null!;
 }
