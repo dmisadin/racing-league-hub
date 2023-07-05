@@ -23,8 +23,16 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { LeagueComponent } from './features/league/league.component';
 import { SeasonCardComponent } from './shared/components/season-card/season-card.component';
-import { FontAwesomeModule, FaIconLibrary  } from '@fortawesome/angular-fontawesome';
-import { faCircle, faCirclePlay, faCoffee, faPlus } from '@fortawesome/free-solid-svg-icons';
+import {
+  FontAwesomeModule,
+  FaIconLibrary,
+} from '@fortawesome/angular-fontawesome';
+import {
+  faCircle,
+  faCirclePlay,
+  faCoffee,
+  faPlus,
+} from '@fortawesome/free-solid-svg-icons';
 import { SeasonComponent } from './features/season/season.component';
 import { IconLabelComponent } from './shared/components/icon-label/icon-label.component';
 import { TableDriverStandingsComponent } from './shared/components/table-driver-standings/table-driver-standings.component';
@@ -70,19 +78,20 @@ import { DriverComponent } from './features/driver/driver.component';
     DropdownModule,
     FormsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
-  providers: [    {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true,
-  },],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
     // Add an icon to the library for convenient access in other components
     library.addIcons(faPlus, faCoffee, faCirclePlay, faCircle);
   }
-
- }
+}

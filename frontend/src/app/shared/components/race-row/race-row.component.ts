@@ -4,7 +4,7 @@ import { IconDefinition, IconLookup } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-race-row',
   templateUrl: './race-row.component.html',
-  styleUrls: ['./race-row.component.scss']
+  styleUrls: ['./race-row.component.scss'],
 })
 export class RaceRowComponent {
   @Input() first: string = "";
@@ -17,10 +17,10 @@ export class RaceRowComponent {
     this.OnClick.emit();
   }
   openRace() {
-    console.log("Klik na cijeli red result-row.");
+    console.log('Klik na cijeli red result-row.');
   }
 
   imeFunkcije() {
-    console.log("Klik na custom botun u result-row!");
+    console.log('Klik na custom botun u result-row!');
   }
 }

@@ -10,17 +10,16 @@ import { first, firstValueFrom } from 'rxjs';
 })
 export class UserInfoComponent {
   username$ = this.authService.username$;
-  name : string = 'John Doe';
+  name: string = 'John Doe';
 
   constructor(private authService: AuthService) {
-    this.username$.subscribe((username) => this.name = username);
+    this.username$.subscribe((username) => (this.name = username));
   }
 
   logout() {
     localStorage.removeItem('authToken');
-    localStorage.removeItem('username')
+    localStorage.removeItem('username');
     this.authService.setLoggedStatus(false);
     this.authService.setUsername('John Doe');
   }
-
 }

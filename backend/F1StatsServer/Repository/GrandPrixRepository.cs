@@ -25,5 +25,6 @@ namespace F1StatsServer.Repository
         {
             return _context.GrandPrixes.Any(c => c.PkGrandPrixId == id);
         }
+
     }
 }

@@ -1,28 +1,30 @@
 <table>
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Team</th>
-            <th> </th>
-            <th *ngFor="let c of mockCountries">
-                <div class="flag shadow">
-                    <!-- <img src="../../../../assets/images/country/{{r}}.svg" alt="race"> -->
-                    <img src="https://hatscripts.github.io/circle-flags/flags/{{c}}.svg" alt="race">
-                </div>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Team</th>
+      <th></th>
+      <th *ngFor="let c of mockCountries">
+        <div class="flag shadow">
+          <!-- <img src="../../../../assets/images/country/{{r}}.svg" alt="race"> -->
+          <img
+            src="https://hatscripts.github.io/circle-flags/flags/{{ c }}.svg"
+            alt="race"
+          />
+        </div>
+      </th>
 
-            </th>
-
-            <th>Points</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let t of mockTeams; let i = index">
-            <td>{{i+1}}</td>
-            <td> <img src="../../../../assets/images/teams/{{i}}.png" alt=""> </td>
-            <td class="team-name">{{t}}</td>
-            <th *ngFor="let c of mockCountries" class="points"> - </th>
-            <td>100</td>
-        </tr>
-    </tbody>
+      <th>Points</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let t of mockTeams; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td><img src="../../../../assets/images/teams/{{ i }}.png" alt="" /></td>
+      <td class="team-name">{{ t }}</td>
+      <th *ngFor="let c of mockCountries" class="points">-</th>
+      <td>100</td>
+    </tr>
+  </tbody>
 </table>

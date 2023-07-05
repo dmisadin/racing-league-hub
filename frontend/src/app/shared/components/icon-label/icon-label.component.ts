@@ -13,8 +13,9 @@ export class IconLabelComponent {
   @Input() name: string = "";
   @Input() width: string = "fit-content";
 
-  @HostBinding('style.width') get inputWidth() { return this.width }
+  @HostBinding('style.width') get inputWidth() {
+    return this.width;
+  }
 
-  constructor() { }
-
+  constructor() {}
 }

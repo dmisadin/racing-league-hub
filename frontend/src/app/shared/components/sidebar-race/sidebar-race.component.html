@@ -1,14 +1,14 @@
 <div class="race-info">
-    <div class="leagueName">{{leagueName}}</div>
-    <div class="grandPrixName">{{grandPrixName}}</div>
+  <div class="leagueName">{{ leagueName }}</div>
+  <div class="grandPrixName">{{ grandPrixName }}</div>
 </div>
 <div class="time-remaining">
-    {{timeRemainingM <= 0 ? 'LIVE' : minutesToHours(timeRemainingM) + "h"}}
+  {{ timeRemainingM <= 0 ? "LIVE" : minutesToHours(timeRemainingM) + "h" }}
 </div>
-<app-btn-custom 
-  [label]="''" 
+<app-btn-custom
+  [label]="''"
   [colorClass]="timeRemainingM <= 0 ? 'red' : 'light'"
   [faIcon]="timeRemainingM <= 0 ? faCircle : faPlay"
   (OnClick)="sidebarButton()"
-  >
+>
 </app-btn-custom>

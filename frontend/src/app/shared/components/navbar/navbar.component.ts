@@ -6,18 +6,16 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-
   isLoggedIn$ = this.authService.isLoggedIn$;
-  constructor(public router:  Router, private authService: AuthService) {}
+  constructor(public router: Router, private authService: AuthService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   login() {
-    console.log("Klik na Login!");
+    console.log('Klik na Login!');
     this.router.navigate(['login']);
   }
 
