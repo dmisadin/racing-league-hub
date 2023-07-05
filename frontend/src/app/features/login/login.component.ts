@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'app/shared/models/user';
 import { AuthService } from 'app/core/services/auth.service';
@@ -13,6 +13,7 @@ import { HomeDataService } from 'app/core/services/home-data.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+
   user = new User();
 
   constructor(
@@ -21,16 +22,21 @@ export class LoginComponent {
     private homeDataService: HomeDataService
   ) {}
 
-  getLoginData(data: NgForm) {
-    //"data" argument is getting only .value property, as it is defined in login.component.html
-    //Reminder: add default value 'false' for "rememberUser"
+  loginForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
+    rememberUser: false,
+  })
 
-    this.user.username = data.value.email;
-    this.user.password = data.value.password;
+  onSubmit(): void {
+    console.log("Submitted form: ", this.loginForm.value, this.loginForm.valid);
+    this.user.username = this.loginForm.value.email || '';
+    this.user.password = this.loginForm.value.password || '';
 
     this.login(this.user);
 
     this.router.navigate(['']);
+
   }
 
   async login(user: User): Promise<void> {
