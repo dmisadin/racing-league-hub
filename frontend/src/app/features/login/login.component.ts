@@ -17,10 +17,10 @@ export class LoginComponent {
   user = new User();
 
   constructor(
+    private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private homeDataService: HomeDataService
-  ) {}
+    ) {}
 
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
