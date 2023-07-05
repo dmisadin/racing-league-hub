@@ -40,7 +40,7 @@ namespace F1StatsServer.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login(UserDto request)
         {
-            if (!_userRepository.CheckCredentials(request.Username, request.Password))
+            if (!_userRepository.CheckCredentials(request.Email, request.Password))
             {
                 return BadRequest("User not found.");
             }

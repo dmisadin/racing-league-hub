@@ -13,39 +13,39 @@ import { HomeDataService } from 'app/core/services/home-data.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-
   user = new User();
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router,
-    ) {}
+    private router: Router
+  ) {}
 
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
     rememberUser: false,
-  })
+  });
 
   onSubmit(): void {
-    console.log("Submitted form: ", this.loginForm.value, this.loginForm.valid);
+    console.log('Submitted form: ', this.loginForm.value, this.loginForm.valid);
 
-    this.user.username = this.loginForm.value.email || '';
-    this.user.password = this.loginForm.value.password || '';
+    this.user = {
+      email: this.loginForm.value.email || '',
+      password: this.loginForm.value.password || '',
+    };
 
-    this.login(this.user);
+    if (this.loginForm.valid) this.login(this.user);
   }
 
   async login(user: User): Promise<void> {
     const token = await firstValueFrom(this.authService.login(user));
     localStorage.setItem('authToken', token);
 
-    if (localStorage.getItem('authToken')){
+    if (localStorage.getItem('authToken')) {
       this.authService.setLoggedStatus(true);
       this.router.navigate(['']);
     }
-
 
     const username = await firstValueFrom(this.authService.getMe());
     localStorage.setItem('username', username);

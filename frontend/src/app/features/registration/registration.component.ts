@@ -36,7 +36,9 @@ export class RegistrationComponent implements DoCheck {
       email: this.registerForm.value.email,
       password: this.registerForm.value.password
     }
-    this.register(this.registerUser);
+
+    if(this.registerForm.valid)
+      this.register(this.registerUser);
   }
 
   /**Validator for checking if two password inputs are the same.*/

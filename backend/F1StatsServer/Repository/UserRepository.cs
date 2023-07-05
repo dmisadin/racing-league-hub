@@ -15,9 +15,9 @@ namespace F1StatsServer.Repository
             _context = context;
         }
 
-        public bool CheckCredentials(string name,string password)
+        public bool CheckCredentials(string email,string password)
         {
-            return _context.Users.Any(o => o.Username == name && o.Password == password);
+            return _context.Users.Any(o => o.Email == email && o.Password == password);
         }
 
         public List<User> Get()

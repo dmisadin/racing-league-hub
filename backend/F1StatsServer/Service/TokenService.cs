@@ -14,7 +14,7 @@ namespace F1StatsServer.Service
         {
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, request.Username),
+                new Claim(ClaimTypes.Name, request.Email),
                 new Claim(ClaimTypes.Role, "Admin")
             };
 

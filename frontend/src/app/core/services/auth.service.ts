@@ -43,7 +43,10 @@ export class AuthService {
   }
 
   public register(registerUser: registerUser): any {
-    let result = this.http.post<any>('https://localhost:44347/api/Auth/register', registerUser);
+    let result = this.http.post<any>(
+      'https://localhost:44347/api/Auth/register',
+      registerUser
+    );
     return result;
   }
 
