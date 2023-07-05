@@ -1,5 +1,8 @@
 import { Component, DoCheck } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { AuthService } from 'app/core/services/auth.service';
+import { registerUser } from 'app/shared/models/registerUser';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-registration',
@@ -7,6 +10,10 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
   styleUrls: ['./registration.component.scss'],
 })
 export class RegistrationComponent implements DoCheck {
+
+  registerUser: registerUser = new registerUser;
+
+  //Find a solution to replace this.fb.group() which is deprecated
   registerForm = this.fb.group({
     username: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
@@ -14,16 +21,22 @@ export class RegistrationComponent implements DoCheck {
     confirmPassword: ['', Validators.required],
   }, {validator: this.checkPasswords})
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private authService: AuthService) { }
 
   ngDoCheck(): void {
-    if(this.registerForm.value.password != this.registerForm.value.confirmPassword)
-    {console.log("Password doesnt match")}
-    else console.log("Password matches")
+    // if(this.registerForm.value.password != this.registerForm.value.confirmPassword)
+    // {console.log("Password doesnt match")}
+    // else console.log("Password matches")
   }
 
   onSubmit(): void {
     console.log("Submitted form: ", this.registerForm.value, this.registerForm.valid);
+    this.registerUser = {
+      username: this.registerForm.value.username,
+      email: this.registerForm.value.email,
+      password: this.registerForm.value.password
+    }
+    this.register(this.registerUser);
   }
 
   /**Validator for checking if two password inputs are the same.*/
@@ -32,5 +45,10 @@ export class RegistrationComponent implements DoCheck {
     let confirmPass = group.controls['confirmPassword'].value;
 
     return pass === confirmPass ? null : { notSame: true }
+  }
+
+  async register(registerUser: registerUser): Promise<void>{
+    const result = await firstValueFrom(this.authService.register(registerUser));
+    console.log(result);
   }
 }

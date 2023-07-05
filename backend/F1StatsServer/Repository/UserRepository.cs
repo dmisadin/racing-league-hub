@@ -38,7 +38,10 @@ namespace F1StatsServer.Repository
 
         public bool RegisterUser(RegisterDto data)
         {
-            CreateItem(data);
+            bool result = CreateItem(data);
+
+            if(!result)
+                return false;
             return true;
         }
 

@@ -54,7 +54,10 @@ namespace F1StatsServer.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(RegisterDto request)
         {
-            _userRepository.RegisterUser(request);
+            bool result = _userRepository.RegisterUser(request);
+
+            if (!result | !ModelState.IsValid)
+                return BadRequest(ModelState);
 
             return Ok(request);
         }

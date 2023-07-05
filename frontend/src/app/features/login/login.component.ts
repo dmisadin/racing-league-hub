@@ -30,25 +30,25 @@ export class LoginComponent {
 
   onSubmit(): void {
     console.log("Submitted form: ", this.loginForm.value, this.loginForm.valid);
+
     this.user.username = this.loginForm.value.email || '';
     this.user.password = this.loginForm.value.password || '';
 
     this.login(this.user);
-
-    this.router.navigate(['']);
-
   }
 
   async login(user: User): Promise<void> {
     const token = await firstValueFrom(this.authService.login(user));
     localStorage.setItem('authToken', token);
 
-    if (localStorage.getItem('authToken'))
+    if (localStorage.getItem('authToken')){
       this.authService.setLoggedStatus(true);
+      this.router.navigate(['']);
+    }
+
 
     const username = await firstValueFrom(this.authService.getMe());
     localStorage.setItem('username', username);
     this.authService.setUsername(username);
-
   }
 }

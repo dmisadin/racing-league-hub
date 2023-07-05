@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { registerUser } from 'app/shared/models/registerUser';
 import { User } from 'app/shared/models/user';
 import { BehaviorSubject, switchMap } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
@@ -39,6 +40,11 @@ export class AuthService {
     return this.http.get('https://localhost:44347/api/Auth', {
       responseType: 'text',
     });
+  }
+
+  public register(registerUser: registerUser): any {
+    let result = this.http.post<any>('https://localhost:44347/api/Auth/register', registerUser);
+    return result;
   }
 
   public setLoggedStatus(status: boolean) {
