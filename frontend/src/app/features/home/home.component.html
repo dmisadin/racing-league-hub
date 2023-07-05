@@ -21,9 +21,9 @@
   <app-section-flex [direction]="'column'" [title]="'Recent results'">
     <app-race-row
       *ngFor="let item of grandPrixData"
-      [grandPrixName]="item.grandPrixName"
-      [leagueName]="item.leagueName"
-      [seasonName]="item.seasonName"
+      [first]="item.grandPrixName"
+      [second]="item.leagueName"
+      [third]="item.seasonName"
     >
     </app-race-row>
   </app-section-flex>
@@ -32,9 +32,9 @@
   <app-section-flex [direction]="'column'" [title]="'Popular leagues'">
     <app-race-row
       *ngFor="let item of popularLeagues; index as i"
-      [grandPrixName]="item.grandPrixName"
-      [leagueName]="item.leagueName"
-      [seasonName]="item.seasonName"
+      [first]="item.grandPrixName"
+      [second]="item.leagueName"
+      [third]="item.seasonName"
     ></app-race-row>
   </app-section-flex>
 </div>
