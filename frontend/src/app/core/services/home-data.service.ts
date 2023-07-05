@@ -7,12 +7,11 @@ import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class HomeDataService {
-  baseUrl = 'https://localhost:44347/api/';
+  private baseUrl = 'https://localhost:44347/api/GrandPrix';
 
   constructor(private http: HttpClient) {}
 
   public fetchData(): Observable<grandPrix[]> {
-    return this.http.get<grandPrix[]>(this.baseUrl + 'GrandPrix/homepage');
+    return this.http.get<grandPrix[]>(this.baseUrl + '/homepage');
   }
-
 }

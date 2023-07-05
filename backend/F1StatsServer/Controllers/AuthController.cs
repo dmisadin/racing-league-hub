@@ -45,8 +45,9 @@ namespace F1StatsServer.Controllers
                 return BadRequest("User not found.");
             }
 
+            User user = _userRepository.CheckRole(request.Email, request.Password);
 
-            string token = TokenService.CreateToken(request, _configuration);
+            string token = TokenService.CreateToken(request, _configuration, user.IsAdmin);
 
             return Ok(token);
         }

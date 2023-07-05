@@ -10,13 +10,14 @@ namespace F1StatsServer.Service
     //Possible change would be to make method CreateToken() private and invoked through an instance of this class
     public class TokenService
     {
-        public static string CreateToken(UserDto request, IConfiguration configuration)
+        public static string CreateToken(UserDto request, IConfiguration configuration, bool isAdmin)
         {
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, request.Email),
-                new Claim(ClaimTypes.Role, "Admin")
             };
+
+            if(isAdmin ) { claims.Add(new Claim(ClaimTypes.Role, "Admin")); }
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
                 configuration.GetSection("AppSettings:Token").Value));

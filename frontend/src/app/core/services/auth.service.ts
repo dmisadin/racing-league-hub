@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/internal/Observable';
   providedIn: 'root',
 })
 export class AuthService {
+  private baseUrl = 'https://localhost:44347/api/Auth';
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   private username = new BehaviorSubject<string>('John Doe');
 
@@ -25,11 +26,9 @@ export class AuthService {
   }
 
   public login(user: User): Observable<string> {
-    let result = this.http.post(
-      'https://localhost:44347/api/Auth/login',
-      user,
-      { responseType: 'text' }
-    );
+    let result = this.http.post(this.baseUrl + '/login', user, {
+      responseType: 'text',
+    });
     return result;
   }
 
@@ -37,16 +36,13 @@ export class AuthService {
     const jwt = localStorage.getItem('authToken');
     if (!jwt) throw new Error('No JWT found');
 
-    return this.http.get('https://localhost:44347/api/Auth', {
+    return this.http.get(this.baseUrl, {
       responseType: 'text',
     });
   }
 
   public register(registerUser: registerUser): any {
-    let result = this.http.post<any>(
-      'https://localhost:44347/api/Auth/register',
-      registerUser
-    );
+    let result = this.http.post<any>(this.baseUrl + '/register', registerUser);
     return result;
   }
 

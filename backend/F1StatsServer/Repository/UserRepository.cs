@@ -66,5 +66,10 @@ namespace F1StatsServer.Repository
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
         }
+
+        public User CheckRole(string email, string password)
+        {
+            return _context.Users.Where((c) => c.Email == email && c.Password == password).FirstOrDefault();
+        }
     }
 }
