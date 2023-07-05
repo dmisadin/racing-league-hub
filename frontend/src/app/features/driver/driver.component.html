@@ -1,20 +1,69 @@
 <app-section-flex [title]="'Vedran Antić'">
+    <app-icon-label [imageLink]="'https://hatscripts.github.io/circle-flags/flags/hr.svg'">Croatia</app-icon-label>
     <app-section-flex [direction]="'row'" class="wrapping">
         <app-icon-label [iconPath]="'driver/steam.svg'" [name]="'Platform'">Steam</app-icon-label>
         <app-icon-label [iconPath]="'driver/wheel.svg'" [name]="'Wheel'">Logitech G29</app-icon-label>
         <app-icon-label [iconPath]="'driver/pedals.svg'" [name]="'Pedals'">CSL Pedals CL</app-icon-label>
+        <app-icon-label [iconPath]="'driver/controller.svg'" [name]="'Controller'">Dualshock 5</app-icon-label>
     </app-section-flex>
 </app-section-flex>
+
+<app-section-flex [title]="'Drivers statistics'" [direction]="'row'" [justify]="'space-between'">
+    <div class="table-container">
+        <table>
+            <thead>
+                <th>Statistic</th>
+                <th>Total</th>
+                <th>Last achieved</th>
+                <th>Days since</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let stat of mockStats">
+                    <td>{{stat.stat}}</td>
+                    <td>{{stat.value}}</td>
+                    <td class="last-ach">{{stat.lastAchieved}}</td>
+                    <td class="last-ach">{{stat.daysSince}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <th>Statistic</th>
+                <th>Value</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let avg of mockAvg">
+                    <td>{{avg.stat}}</td>
+                    <td>{{avg.value}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</app-section-flex>
+
 <app-section-flex [title]="'Vedrans upcoming races'">
     <ul>
-        <li>
-            <app-race-row></app-race-row>
-        </li>
-        <li>
-            <app-race-row></app-race-row>
-        </li>
-        <li>
-            <app-race-row></app-race-row>
-        </li>
+        <li> <app-race-row [first]="'Velika nagrada Meksika'" [second] = "'OKTAN F1 Liga - Sezona 4'" [third]="'Starts in 12hrs'"></app-race-row> </li>
+        <li> <app-race-row [first]="'Velika nagrada Britanije'" [second] = "'WOR Season 4'" [third]="'Starts in 2 days'"></app-race-row> </li>
+        <li> <app-race-row [first]="'Velika nagrada San Marina'" [second] = "'PSGL Season 11'" [third]="'Starts in 1 week'"></app-race-row> </li>
+    </ul>
+</app-section-flex>
+
+<app-section-flex [title]="'Vedrans recent results'">
+    <ul>
+        <li> <app-race-row [first]="'Velika nagrada Singapura'" [second] = "'F1 Adria Liga - Sezona 6'" [third]="'Finished 2nd'"></app-race-row> </li>
+        <li> <app-race-row [first]="'Velika nagrada Brazila'" [second] = "'PSGL Season 11'" [third]="'Finished 14th'"></app-race-row> </li>
+        <li> <app-race-row [first]="'Velika nagrada Turske'" [second] = "'OKTAN F1 Liga - Sezona 2'" [third]="'DNF'"></app-race-row> </li>
+    </ul>
+</app-section-flex>
+
+<app-section-flex [title]="'Drivers championship standings'">
+    <ul>
+        <li> <app-race-row [first]="'F1 Adria Liga'" [second] = "'Sezona 6'" [third]="'Position: 2nd'" [faIcon]="faCalendarDays"></app-race-row> </li>
+        <li> <app-race-row [first]="'OKTAN F1 Liga'" [second] = "'Sezona 2'" [third]="'Position: 14th'" [faIcon]="faCalendarDays"></app-race-row> </li>
+        <li> <app-race-row [first]="'F1 Adria Liga'" [second] = "'Sezona 5'" [third]="'Position: 5th'" [faIcon]="faCalendarDays"></app-race-row> </li>
     </ul>
 </app-section-flex>

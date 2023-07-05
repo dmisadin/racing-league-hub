@@ -1,6 +1,6 @@
-<div class="text-item">{{grandPrixName}}</div>
-<div class="text-item league-name">{{leagueName}} - {{seasonName}}</div>
-<div class="text-item time"> {{timeUntilOrFrom}}</div>
-<app-btn-custom [label]="''" [colorClass]="'dark'" [faIcon]="{prefix:'fas', iconName:'circle-play'}"
-  (OnClick)="imeFunkcije()">
+<div class="text-item"> {{first}} </div>
+<div *ngIf="second" class="text-item second"> {{second}} </div>
+<div *ngIf="third" class="text-item third"> {{third}} </div>
+<ng-content></ng-content>
+<app-btn-custom *ngIf="faIcon" [label]="''" [colorClass]="'dark'" [faIcon]="faIcon" (OnClick)="imeFunkcije()">
 </app-btn-custom>

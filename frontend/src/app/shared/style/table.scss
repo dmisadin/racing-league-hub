@@ -1,0 +1,49 @@
+@use "../../../styles.scss" as v;
+
+@mixin table-setup {
+
+    table {
+        width: fit-content;
+        text-align: left;
+        vertical-align: middle;
+        border-collapse: collapse;
+    }
+
+    tr {
+        height: 48px;
+        width: 100%;
+        border: 0px solid;
+        transition: all .1s linear;
+    }
+/* 
+    tr:hover {
+        background-color: v.$neutral-300;
+    }
+ */
+    td, th {
+        padding: 0 16px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    tr td:last-child, th:last-child {
+        text-align: right;
+        width: 110px;
+    }
+
+    th {
+        height: 48px;
+        font-weight: 500;
+        font-size: v.$text-size-s;
+    }
+
+    td {
+        height: 48px;
+        min-width: 48px;
+        vertical-align: middle;
+    }
+
+    td>* {
+        vertical-align: middle;
+    }
+}

@@ -8,7 +8,8 @@ import { IconDefinition, IconLookup } from '@fortawesome/free-solid-svg-icons';
 })
 export class IconLabelComponent {
   @Input() faIcon: IconDefinition | IconLookup | null = null;
-  @Input() iconPath: string = "assists/tractioncontrol.png";
+  @Input() iconPath: string = "";
+  @Input() imageLink: string = "";
   @Input() name: string = "";
   @Input() width: string = "fit-content";
 

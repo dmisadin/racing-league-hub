@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { IconDefinition, IconLookup } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-race-row',
@@ -6,10 +7,10 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./race-row.component.scss']
 })
 export class RaceRowComponent {
-  @Input() grandPrixName: string = "Grand Prix Name";
-  @Input() leagueName: string = "F1 League";
-  @Input() seasonName: string = "Season 11";
-  @Input() timeUntilOrFrom: string = "Starts in 12hrs";
+  @Input() first: string = "";
+  @Input() second: string = "";
+  @Input() third: string = "";
+  @Input() faIcon: IconDefinition | IconLookup | null = null;
   @Output() OnClick = new EventEmitter<string>();
 
   emitEvent() {
