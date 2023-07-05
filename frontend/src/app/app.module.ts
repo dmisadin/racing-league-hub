@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { DropdownModule } from '@coreui/angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,7 +23,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { LeagueComponent } from './features/league/league.component';
 import { SeasonCardComponent } from './shared/components/season-card/season-card.component';
-import { FontAwesomeModule, FaIconLibrary  } from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faCircle, faCirclePlay, faCoffee, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { SeasonComponent } from './features/season/season.component';
 import { IconLabelComponent } from './shared/components/icon-label/icon-label.component';
@@ -34,6 +34,7 @@ import { GrandPrixComponent } from './features/grandprix/grandprix.component';
 import { TableRaceResultComponent } from './shared/components/table-race-result/table-race-result.component';
 import { TableQualifyingResultComponent } from './shared/components/table-qualifying-result/table-qualifying-result.component';
 import { DriverComponent } from './features/driver/driver.component';
+import { LeagueAddEditComponent } from './shared/components/league-add-edit/league-add-edit.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { DriverComponent } from './features/driver/driver.component';
     TableRaceResultComponent,
     TableQualifyingResultComponent,
     DriverComponent,
+    LeagueAddEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,9 +72,10 @@ import { DriverComponent } from './features/driver/driver.component';
     DropdownModule,
     FormsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ReactiveFormsModule,
   ],
-  providers: [    {
+  providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true,
@@ -85,4 +88,4 @@ export class AppModule {
     library.addIcons(faPlus, faCoffee, faCirclePlay, faCircle);
   }
 
- }
+}

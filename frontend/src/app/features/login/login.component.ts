@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'app/shared/models/user';
 import { AuthService } from 'app/core/services/auth.service';
@@ -10,20 +10,27 @@ import { AuthService } from 'app/core/services/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {}
+  
   user = new User();
-  constructor(private authService: AuthService, private router: Router) {}
 
-  getLoginData(data: NgForm) {
-    //"data" argument is getting only .value property, as it is defined in login.component.html
-    //Reminder: add default value 'false' for "rememberUser"
+  loginForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
+    rememberUser: false,
+  })
 
-    this.user.username = data.value.email;
-    this.user.password = data.value.password;
+  onSubmit(): void {
+    console.log("Submitted form: ", this.loginForm.value, this.loginForm.valid);
+    this.user.username = this.loginForm.value.email || '';
+    this.user.password = this.loginForm.value.password || '';
 
     this.login(this.user);
 
     this.router.navigate(['']);
+
   }
+  
 
   login(user: User) {
     this.authService.login(user).subscribe((token: string) => {
