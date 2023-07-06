@@ -1,5 +1,195 @@
 @use "../../../styles.scss" as v;
 
+@mixin form-setup {
+    form {
+        width: fit-content;
+        /* max-width: 800px; */
+        min-width: 360px;
+        height: fit-content;
+        padding: 20px;
+        align-self: center;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 20px;
+
+        background-color: v.$neutral-100;
+        border-radius: 16px;
+    }
+
+    h1 {
+        font-family: v.$title-family;
+        font-size: v.$title-size-l;
+        color: v.$neutral-900;
+        text-align: center;
+
+        width: 100%;
+    }
+
+    .form-column {
+        width: fit-content;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 20px;
+    }
+}
+
 @mixin input-fields {
-    
+
+    input[type=text],
+    textarea,
+    input[type=email],
+    input[type=password] {
+        height: 48px;
+        width: 100%;
+        padding: 8px 20px;
+
+        font-family: v.$text-family;
+        font-size: v.$text-size-s;
+        color: v.$neutral-900;
+        background-color: v.$neutral-200;
+
+        border-radius: 8px;
+        border: 1px solid v.$neutral-300;
+    }
+
+    textarea {
+        height: 90px;
+        padding: 16px 20px;
+    }
+
+    input[type=text]:focus,
+    textarea:focus {
+        border: 1px solid v.$neutral-800;
+    }
+
+    /*     input[type=text]::placeholder {
+        text-transform: capitalize;
+    } */
+    label::first-letter {
+        text-transform: uppercase;
+    }
+
+    label {
+        align-self: baseline;
+
+        display: block;
+        margin-bottom: -8px;
+
+        color: v.$neutral-800;
+        font-size: v.$text-size-xs;
+    }
+
+    .label-flex {
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: -8px;
+
+        font-size: v.$text-size-xs;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    button {
+        border-radius: 8px;
+        padding: 8px 24px;
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+
+        /* Description/M */
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 150%;
+
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+        color: v.$neutral-100;
+        background-color: v.$secondary;
+        cursor: pointer;
+    }
+}
+
+@mixin select {
+    select {
+        height: 48px;
+        width: fit-content;
+        padding: 8px 20px;
+
+        font-family: v.$text-family;
+        font-size: v.$text-size-s;
+
+
+        color: v.$neutral-900;
+        background-color: v.$neutral-200;
+        border-radius: 8px;
+        border: 1px solid v.$neutral-300;
+
+    }
+
+    option {
+        height: 48px;
+    }
+
+    select::after {
+        margin-top: -10px;
+    }
+}
+
+@mixin file-upload {
+    input[type=file] {
+        font-family: v.$text-family;
+        font-size: v.$text-size-s;
+        color: v.$neutral-900;
+        width: 400px;
+    }
+
+    input[type=file]::file-selector-button {
+        display: inline-block;
+        height: 48px;
+        padding: 0 20px;
+        margin-right: 16px;
+        cursor: pointer;
+
+        background-color: v.$neutral-200;
+
+        border-radius: 8px;
+        border: 1px solid v.$neutral-300;
+
+        ::before {
+            font-size: 20px;
+        }
+    }
+
+    .preview {
+        max-height: 200px;
+        max-width: 200px;
+    }
+
+}
+
+@mixin color-picker {
+    .color-input {
+        width: 200px;
+        height: 48px;
+        border-radius: 8px;
+        text-align: center;
+
+        cursor: pointer;
+    }
 }
