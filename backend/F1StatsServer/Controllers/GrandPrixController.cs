@@ -9,7 +9,7 @@ namespace F1StatsServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GrandPrixController : GenericController<GrandPrix>
+    public class GrandPrixController : GenericController<GrandPrix, GrandPrixDto>
     {
         public IGenericRepository<Season> _seasonRepository;
         public IGenericRepository<GrandPrix> _genericRepository;

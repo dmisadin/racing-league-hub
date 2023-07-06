@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using F1StatsServer.Dto;
+using F1StatsServer.Model;
 
 namespace F1StatsServer.Util
 {
@@ -15,6 +17,16 @@ namespace F1StatsServer.Util
         public static TDestination Map(TSource source)
         {
             return _myMapper.Map<TSource, TDestination>(source);
+        }
+
+        public static GrandPrix Map(GrandPrixDto source)
+        {
+            return new GrandPrix{
+                Name = source.Name,
+                FkGrandPrixSeasonId = source.FK_GrandPrix_SeasonId,
+                HasSprint = source.HasSprint,
+                YouTubeUrl = source.YoutubeUrl
+            };
         }
 
         public static List<TDestination> MapList(List<TSource> source)

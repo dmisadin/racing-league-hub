@@ -4,27 +4,10 @@ using F1StatsServer.Model;
 
 namespace F1StatsServer.Repository
 {
-    public class LeagueRepository : IGenericRepository<League>
+    public class LeagueRepository : GenericRepository<League>, IGenericRepository<League>
     {
-        private readonly AdventureContext _context;
-        public LeagueRepository(AdventureContext context)
+        public LeagueRepository(AdventureContext context) : base(context)
         {
-            _context = context;
-        }
-
-        public List<League> Get()
-        {
-            return _context.Leagues.OrderBy(o => o.PkLeagueId).ToList();
-        }
-
-        public League GetById(int id)
-        {
-            return _context.Leagues.Where(c => c.PkLeagueId == id).FirstOrDefault();
-        }
-
-        public bool Has(int id)
-        {
-            return _context.Leagues.Any(c => c.PkLeagueId == id);
         }
     }
 }

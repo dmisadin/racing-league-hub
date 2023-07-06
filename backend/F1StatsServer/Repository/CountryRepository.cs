@@ -4,27 +4,10 @@ using F1StatsServer.Model;
 
 namespace F1StatsServer.Repository
 {
-    public class CountryRepository : IGenericRepository<Country>
+    public class CountryRepository : GenericRepository<Country>, IGenericRepository<Country>
     {
-        private readonly AdventureContext _context;
-
-        public CountryRepository(AdventureContext context)
+        public CountryRepository(AdventureContext context) : base(context)
         {
-            _context = context;
-        }
-        public List<Country> Get()
-        {
-            return _context.Countries.OrderBy(o => o.PkCountryId).ToList();
-        }
-
-        public Country GetById(int id)
-        {
-            return _context.Countries.Where(c => c.PkCountryId == id).FirstOrDefault();
-        }
-
-        public bool Has(int id)
-        {
-            return _context.Countries.Any(c => c.PkCountryId == id);
         }
     }
 }

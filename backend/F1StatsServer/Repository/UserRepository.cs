@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace F1StatsServer.Repository
 {
-    public class UserRepository : IGenericRepository<User>, IUserRepository
+    public class UserRepository : GenericRepository<User>, IGenericRepository<User>, IUserRepository
     {
         private readonly AdventureContext _context;
 
-        public UserRepository(AdventureContext context)
+        public UserRepository(AdventureContext context) : base(context)
         {
             _context = context;
         }
@@ -18,22 +18,6 @@ namespace F1StatsServer.Repository
         public bool CheckCredentials(string email,string password)
         {
             return _context.Users.Any(o => o.Email == email && o.Password == password);
-        }
-
-        public List<User> Get()
-        {
-            return _context.Users.OrderBy(o => o.PkUserId).ToList();
-
-        }
-
-        public User GetById(int id)
-        {
-            return _context.Users.Where(o => o.PkUserId == id).FirstOrDefault();
-        }
-
-        public bool Has(int id)
-        {
-            return _context.Users.Any(c => c.PkUserId == id);
         }
 
         public bool RegisterUser(RegisterDto data)

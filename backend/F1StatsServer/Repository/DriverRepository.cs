@@ -4,38 +4,10 @@ using F1StatsServer.Model;
 
 namespace F1StatsServer.Repository
 {
-    public class DriverRepository : IGenericRepository<Driver>
+    public class DriverRepository : GenericRepository<Driver>, IGenericRepository<Driver>
     {
-        private readonly AdventureContext _context;
-
-        public DriverRepository(AdventureContext context)
+        public DriverRepository(AdventureContext context) : base(context)
         {
-            _context = context;
-        }
-
-        //public List<Driver> CreateItem(Driver item)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public List<Driver> DeleteItem(int id)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        public List<Driver> Get()
-        {
-            return _context.Drivers.OrderBy(o => o.PkDriverId).ToList();
-        }
-
-        public Driver GetById(int id)
-        {
-            return _context.Drivers.Where(c => c.PkDriverId == id).FirstOrDefault();
-        }
-
-        public bool Has(int id)
-        {
-            return _context.Drivers.Any(c => c.PkDriverId == id);
         }
     }
 }

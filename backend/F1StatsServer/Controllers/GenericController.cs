@@ -1,4 +1,6 @@
-﻿using F1StatsServer.Interface;
+﻿using AutoMapper;
+using F1StatsServer.Interface;
+using F1StatsServer.Util;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,7 +8,7 @@ namespace F1StatsServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GenericController<T> : Controller where T : class
+    public class GenericController<T, TDto> : Controller where T : class
     {
         private readonly IGenericRepository<T> _genericRepository;
 
@@ -39,18 +41,19 @@ namespace F1StatsServer.Controllers
             return Ok(generic);
         }
 
-        //[HttpDelete]
-        //public IActionResult DeleteItem(int id)
-        //{
-        //    var generic = _genericRepository.DeleteItem(id);
-        //    return Ok(generic);
-        //}
+        [HttpDelete]
+        public IActionResult DeleteItem(int id)
+        {
+            var generic = _genericRepository.DeleteItem(id);
+            return Ok(generic);
+        }
 
-        //[HttpPost]
-        //public IActionResult CreateItem(T item)
-        //{
-        //    var generic = _genericRepository.CreateItem(item);
-        //    return Ok(generic);
-        //}
+        [HttpPost]
+        public IActionResult CreateItem(TDto item)
+        {
+            var itemFull = MyMapper<T, TDto>.Map(item);
+            var generic = _genericRepository.CreateItem(itemFull);
+            return Ok(generic);
+        }
     }
 }

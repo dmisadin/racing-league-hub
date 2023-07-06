@@ -4,27 +4,10 @@ using F1StatsServer.Model;
 
 namespace F1StatsServer.Repository
 {
-    public class SeasonRepository : IGenericRepository<Season>
+    public class SeasonRepository : GenericRepository<Season>, IGenericRepository<Season>
     {
-        private readonly AdventureContext _context;
-        public SeasonRepository(AdventureContext context)
+        public SeasonRepository(AdventureContext context) : base(context)
         {
-            _context = context;
-        }
-
-        public List<Season> Get()
-        {
-            return _context.Seasons.OrderBy(o => o.PkSeasonId).ToList();
-        }
-
-        public Season GetById(int id)
-        {
-            return _context.Seasons.Where(c => c.PkSeasonId == id).FirstOrDefault();
-        }
-
-        public bool Has(int id)
-        {
-            return _context.Seasons.Any(c => c.PkSeasonId == id);
         }
     }
 }

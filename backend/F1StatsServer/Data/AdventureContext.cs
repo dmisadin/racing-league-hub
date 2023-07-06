@@ -150,15 +150,15 @@ public partial class AdventureContext : DbContext
             entity.HasKey(e => e.PkQualifyingId).HasName("PK__Qualifyi__D1EE98B77B1B9789");
 
             entity.HasOne(d => d.FkQualifyingDriver).WithMany(p => p.Qualifyings)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("qualifying_fk_qualifying_driverid_foreign");
 
             entity.HasOne(d => d.FkQualifyingGrandPrix).WithMany(p => p.Qualifyings)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("qualifying_fk_qualifying_grandprixid_foreign");
 
             entity.HasOne(d => d.FkQualifyingTeam).WithMany(p => p.Qualifyings)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("qualifying_fk_qualifying_teamid_foreign");
         });
 
