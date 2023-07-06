@@ -8,7 +8,7 @@ namespace F1StatsServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GenericController<T, TDto> : Controller where T : class
+    public class GenericController<T, TDto> : Controller where T : EntityBase
     {
         private readonly IGenericRepository<T> _genericRepository;
 

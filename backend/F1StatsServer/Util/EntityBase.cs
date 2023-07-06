@@ -1,7 +1,12 @@
-﻿namespace F1StatsServer.Util
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace F1StatsServer.Util
 {
-    public class EntityBase<T>
+    public class EntityBase
     {
-        new T Id { get; set; }
+        [Key]
+        [Column("Id")]
+        public int Id { get; set; }
     }
 }

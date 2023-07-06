@@ -2,7 +2,7 @@
 
 namespace F1StatsServer.Interface
 {
-    public interface IGenericRepository<T> where T : class
+    public interface IGenericRepository<T> where T : EntityBase
     {
         IQueryable<T> Get();
         T GetById(int id);

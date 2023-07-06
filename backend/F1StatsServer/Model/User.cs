@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using F1StatsServer.Util;
 using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Model;
 
 [Table("User")]
-public partial class User
+public partial class User : EntityBase
 {
     [Key]
     [Column("PK_UserId")]

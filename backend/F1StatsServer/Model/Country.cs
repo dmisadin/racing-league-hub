@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using F1StatsServer.Util;
 using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Model;
 
 [Table("Country")]
-public partial class Country
+public partial class Country : EntityBase
 {
     [Key]
     [Column("PK_CountryId")]

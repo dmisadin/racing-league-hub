@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace F1StatsServer.Model;
 
 [Table("GrandPrix")]
-public partial class GrandPrix
+public partial class GrandPrix : EntityBase
 {
     [Key]
     [Column("PK_GrandPrixId")]

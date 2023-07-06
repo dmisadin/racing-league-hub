@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using F1StatsServer.Util;
 using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Model;
 
 [Table("Driver")]
-public partial class Driver
+public partial class Driver : EntityBase
 {
     [Key]
     [Column("PK_DriverId")]

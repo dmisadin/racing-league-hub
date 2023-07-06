@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using F1StatsServer.Util;
 using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Model;
 
 [Table("Qualifying")]
-public partial class Qualifying
+public partial class Qualifying : EntityBase
 {
     [Key]
     [Column("PK_QualifyingId")]

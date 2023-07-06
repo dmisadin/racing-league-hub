@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace F1StatsServer.Repository
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : EntityBase
     {
         private AdventureContext _context;
         private DbSet<T> table;
@@ -48,7 +48,7 @@ namespace F1StatsServer.Repository
 
         public bool Has(int id)
         {
-            return _context.Set<EntityBase>().Any((c) => c.Id == id);
+            return table.Any((c) => c.Id == id);
         }
 
         public bool Save()

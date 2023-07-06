@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using F1StatsServer.Util;
 using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Model;
 
 [Table("Sprint")]
-public partial class Sprint
+public partial class Sprint : EntityBase
 {
     [Key]
     [Column("PK_SprintId")]
