@@ -26,6 +26,8 @@ public partial class AdventureContext : DbContext
 
     public virtual DbSet<League> Leagues { get; set; }
 
+    public virtual DbSet<LeagueUser> LeagueUsers { get; set; }
+
     public virtual DbSet<Platform> Platforms { get; set; }
 
     public virtual DbSet<Qualifying> Qualifyings { get; set; }
@@ -57,8 +59,6 @@ public partial class AdventureContext : DbContext
     public virtual DbSet<Team> Teams { get; set; }
 
     public virtual DbSet<Track> Tracks { get; set; }
-
-    public virtual DbSet<TrackCountry> TrackCountries { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
@@ -154,6 +154,15 @@ public partial class AdventureContext : DbContext
             entity.HasOne(d => d.SocialMedia).WithMany(p => p.Leagues)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_League_SocialMediaId");
+        });
+
+        modelBuilder.Entity<LeagueUser>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__LeagueUs__3214EC076AB8F897");
+
+            entity.HasOne(d => d.League).WithMany(p => p.LeagueUsers).HasConstraintName("FK_LeagueUser_LeagueId");
+
+            entity.HasOne(d => d.User).WithMany(p => p.LeagueUsers).HasConstraintName("FK_LeagueUser_UserId");
         });
 
         modelBuilder.Entity<Platform>(entity =>
@@ -287,35 +296,26 @@ public partial class AdventureContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__Track__3214EC078A666317");
 
             entity.Property(e => e.Laps).HasDefaultValueSql("('52')");
-        });
 
-        modelBuilder.Entity<TrackCountry>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__TrackCou__3214EC07CC563AC1");
-
-            entity.HasOne(d => d.Country).WithMany(p => p.TrackCountries).HasConstraintName("FK_TrackCountry_CountryId");
-
-            entity.HasOne(d => d.Track).WithMany(p => p.TrackCountries).HasConstraintName("FK_TrackCountry_TrackId");
+            entity.HasMany(d => d.Countries).WithMany(p => p.Tracks)
+                .UsingEntity<Dictionary<string, object>>(
+                    "TrackCountry",
+                    r => r.HasOne<Country>().WithMany()
+                        .HasForeignKey("CountryId")
+                        .HasConstraintName("FK_TrackCountry_CountryId"),
+                    l => l.HasOne<Track>().WithMany()
+                        .HasForeignKey("TrackId")
+                        .HasConstraintName("FK_TrackCountry_TrackId"),
+                    j =>
+                    {
+                        j.HasKey("TrackId", "CountryId");
+                        j.ToTable("TrackCountry");
+                    });
         });
 
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__User__3214EC07F7F96EAB");
-
-            entity.HasMany(d => d.Leagues).WithMany(p => p.Users)
-                .UsingEntity<Dictionary<string, object>>(
-                    "LeagueUser",
-                    r => r.HasOne<League>().WithMany()
-                        .HasForeignKey("LeagueId")
-                        .HasConstraintName("FK_LeagueUser_LeagueId"),
-                    l => l.HasOne<User>().WithMany()
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("FK_LeagueUser_UserId"),
-                    j =>
-                    {
-                        j.HasKey("UserId", "LeagueId");
-                        j.ToTable("LeagueUser");
-                    });
         });
 
         OnModelCreatingPartial(modelBuilder);

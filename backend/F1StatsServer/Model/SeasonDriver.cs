@@ -10,7 +10,6 @@ namespace F1StatsServer.Model;
 [Table("SeasonDriver")]
 public partial class SeasonDriver : EntityBase
 {
-
     public int DriverId { get; set; }
 
     public int SeasonId { get; set; }

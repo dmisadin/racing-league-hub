@@ -9,7 +9,6 @@ namespace F1StatsServer.Model;
 
 public partial class SeasonLobbySetting : EntityBase
 {
-
     public int SeasonId { get; set; }
 
     [StringLength(8)]

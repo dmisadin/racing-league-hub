@@ -9,7 +9,6 @@ namespace F1StatsServer.Model;
 
 public partial class SeasonSprintPoint : EntityBase
 {
-
     public int SeasonId { get; set; }
 
     public byte Position { get; set; }

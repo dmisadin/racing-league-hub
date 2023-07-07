@@ -10,7 +10,6 @@ namespace F1StatsServer.Model;
 [Table("Region")]
 public partial class Region : EntityBase
 {
-
     [StringLength(255)]
     [Unicode(false)]
     public string Name { get; set; } = null!;

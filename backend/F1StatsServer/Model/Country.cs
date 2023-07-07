@@ -10,7 +10,6 @@ namespace F1StatsServer.Model;
 [Table("Country")]
 public partial class Country : EntityBase
 {
-
     [StringLength(64)]
     [Unicode(false)]
     public string NameEnglish { get; set; } = null!;
@@ -32,9 +31,6 @@ public partial class Country : EntityBase
     [Unicode(false)]
     public string? ImagePath { get; set; }
 
-    [InverseProperty("Country")]
-    public virtual ICollection<TrackCountry> TrackCountries { get; set; } = new List<TrackCountry>();
-
     [ForeignKey("CountryId")]
     [InverseProperty("Countries")]
     public virtual ICollection<Driver> Drivers { get; set; } = new List<Driver>();
@@ -42,4 +38,8 @@ public partial class Country : EntityBase
     [ForeignKey("CountryId")]
     [InverseProperty("Countries")]
     public virtual ICollection<GrandPrix> GrandPrixes { get; set; } = new List<GrandPrix>();
+
+    [ForeignKey("CountryId")]
+    [InverseProperty("Countries")]
+    public virtual ICollection<Track> Tracks { get; set; } = new List<Track>();
 }

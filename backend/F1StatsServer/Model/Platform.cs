@@ -10,7 +10,6 @@ namespace F1StatsServer.Model;
 [Table("Platform")]
 public partial class Platform : EntityBase
 {
-
     [StringLength(255)]
     [Unicode(false)]
     public string Name { get; set; } = null!;

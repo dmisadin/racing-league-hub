@@ -9,7 +9,6 @@ namespace F1StatsServer.Model;
 
 public partial class SocialMedium : EntityBase
 {
-
     [StringLength(255)]
     [Unicode(false)]
     public string? Website { get; set; }

@@ -10,7 +10,6 @@ namespace F1StatsServer.Model;
 [Table("GrandPrix")]
 public partial class GrandPrix : EntityBase
 {
-
     public int SeasonId { get; set; }
 
     [StringLength(255)]

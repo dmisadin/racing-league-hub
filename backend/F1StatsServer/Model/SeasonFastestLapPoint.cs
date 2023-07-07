@@ -9,7 +9,6 @@ namespace F1StatsServer.Model;
 
 public partial class SeasonFastestLapPoint : EntityBase
 {
-
     public int SeasonId { get; set; }
 
     public byte Points { get; set; }

@@ -10,7 +10,6 @@ namespace F1StatsServer.Model;
 [Table("Driver")]
 public partial class Driver : EntityBase
 {
-
     public int? PlatformId { get; set; }
 
     public int? SocialMediaId { get; set; }

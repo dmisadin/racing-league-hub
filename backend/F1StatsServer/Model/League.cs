@@ -10,7 +10,6 @@ namespace F1StatsServer.Model;
 [Table("League")]
 public partial class League : EntityBase
 {
-
     public int RegionId { get; set; }
 
     public int? SocialMediaId { get; set; }
@@ -30,6 +29,9 @@ public partial class League : EntityBase
     [Unicode(false)]
     public string ColorHex { get; set; } = null!;
 
+    [InverseProperty("League")]
+    public virtual ICollection<LeagueUser> LeagueUsers { get; set; } = new List<LeagueUser>();
+
     [ForeignKey("RegionId")]
     [InverseProperty("Leagues")]
     public virtual Region Region { get; set; } = null!;
@@ -40,8 +42,4 @@ public partial class League : EntityBase
     [ForeignKey("SocialMediaId")]
     [InverseProperty("Leagues")]
     public virtual SocialMedium? SocialMedia { get; set; }
-
-    [ForeignKey("LeagueId")]
-    [InverseProperty("Leagues")]
-    public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

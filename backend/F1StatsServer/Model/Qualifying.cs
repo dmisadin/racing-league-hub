@@ -10,7 +10,6 @@ namespace F1StatsServer.Model;
 [Table("Qualifying")]
 public partial class Qualifying : EntityBase
 {
-
     public int TeamId { get; set; }
 
     public int GrandPrixId { get; set; }

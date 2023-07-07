@@ -31,8 +31,9 @@ public partial class Track : EntityBase
 
     public byte Laps { get; set; }
 
-    [InverseProperty("Track")]
-    public virtual ICollection<TrackCountry> TrackCountries { get; set; } = new List<TrackCountry>();
+    [ForeignKey("TrackId")]
+    [InverseProperty("Tracks")]
+    public virtual ICollection<Country> Countries { get; set; } = new List<Country>();
 
     [ForeignKey("TrackId")]
     [InverseProperty("Tracks")]

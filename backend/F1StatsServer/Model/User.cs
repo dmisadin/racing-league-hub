@@ -24,7 +24,6 @@ public partial class User : EntityBase
 
     public bool IsAdmin { get; set; }
 
-    [ForeignKey("UserId")]
-    [InverseProperty("Users")]
-    public virtual ICollection<League> Leagues { get; set; } = new List<League>();
+    [InverseProperty("User")]
+    public virtual ICollection<LeagueUser> LeagueUsers { get; set; } = new List<LeagueUser>();
 }
