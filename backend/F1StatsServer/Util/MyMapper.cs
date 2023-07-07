@@ -10,6 +10,7 @@ namespace F1StatsServer.Util
             cfg =>
             {
                 cfg.CreateMap<TSource, TDestination>();
+                cfg.CreateMap<GrandPrix, GrandPrixDto>();
             }
             ));
 
@@ -23,7 +24,7 @@ namespace F1StatsServer.Util
         {
             return new GrandPrix{
                 Name = source.Name,
-                FkGrandPrixSeasonId = source.FK_GrandPrix_SeasonId,
+                SeasonId = source.SeasonId,
                 HasSprint = source.HasSprint,
                 YouTubeUrl = source.YoutubeUrl
             };

@@ -35,10 +35,10 @@ namespace F1StatsServer.Controllers
 
             foreach (var item in grandPrix)
             {
-                var season = _seasonRepository.GetById(item.FkGrandPrixSeasonId);
-                var league = _leagueRepository.GetById(season.FkSeasonLeagueId);
+                var season = _seasonRepository.GetById(item.SeasonId);
+                var league = _leagueRepository.GetById(season.LeagueId);
                 grandPrixMapped.Add(new GrandPrixHomeDto { 
-                    Id = item.PkGrandPrixId, 
+                    Id = item.Id, 
                     GrandPrixName = item.Name,
                     SeasonName = season.Name,
                     LeagueName = league.Name,

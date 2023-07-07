@@ -38,13 +38,23 @@ namespace F1StatsServer.Controllers
 
             var generic = _genericRepository.GetById(id);
 
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             return Ok(generic);
         }
 
         [HttpDelete]
         public IActionResult DeleteItem(int id)
         {
+            if (!_genericRepository.Has(id))
+                return NotFound();
+
             var generic = _genericRepository.DeleteItem(id);
+
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             return Ok(generic);
         }
 
@@ -53,6 +63,10 @@ namespace F1StatsServer.Controllers
         {
             var itemFull = MyMapper<T, TDto>.Map(item);
             var generic = _genericRepository.CreateItem(itemFull);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             return Ok(generic);
         }
     }

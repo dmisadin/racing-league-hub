@@ -8,7 +8,7 @@ namespace F1StatsServer.Dto
     public class GrandPrixDto
     {
         [Required,NotNull]
-        public int FK_GrandPrix_SeasonId { get; set; }
+        public int SeasonId { get; set; }
         [Required, NotNull]
         public string? Name { get; set; }
         //public DateTimeOffset Date { get; set; } //Will be added in the future
