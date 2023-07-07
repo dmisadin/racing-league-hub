@@ -10,10 +10,6 @@ namespace F1StatsServer.Model;
 [Table("Team")]
 public partial class Team : EntityBase
 {
-    [Key]
-    [Column("PK_TeamId")]
-    public byte PkTeamId { get; set; }
-
     [StringLength(255)]
     [Unicode(false)]
     public string Name { get; set; } = null!;
@@ -26,12 +22,15 @@ public partial class Team : EntityBase
     [Unicode(false)]
     public string ColorHex { get; set; } = null!;
 
-    [InverseProperty("FkQualifyingTeam")]
+    [InverseProperty("Team")]
     public virtual ICollection<Qualifying> Qualifyings { get; set; } = new List<Qualifying>();
 
-    [InverseProperty("FkRaceTeam")]
+    [InverseProperty("Team")]
     public virtual ICollection<Race> Races { get; set; } = new List<Race>();
 
-    [InverseProperty("FkSprintTeam")]
+    [InverseProperty("Team")]
+    public virtual ICollection<SeasonDriver> SeasonDrivers { get; set; } = new List<SeasonDriver>();
+
+    [InverseProperty("Team")]
     public virtual ICollection<Sprint> Sprints { get; set; } = new List<Sprint>();
 }

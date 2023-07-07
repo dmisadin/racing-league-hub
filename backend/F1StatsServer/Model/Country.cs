@@ -10,9 +10,6 @@ namespace F1StatsServer.Model;
 [Table("Country")]
 public partial class Country : EntityBase
 {
-    [Key]
-    [Column("PK_CountryId")]
-    public short PkCountryId { get; set; }
 
     [StringLength(64)]
     [Unicode(false)]
@@ -35,15 +32,14 @@ public partial class Country : EntityBase
     [Unicode(false)]
     public string? ImagePath { get; set; }
 
-    [ForeignKey("FkDriverCountryCountryId")]
-    [InverseProperty("FkDriverCountryCountries")]
-    public virtual ICollection<Driver> FkDriverCountryDrivers { get; set; } = new List<Driver>();
+    [InverseProperty("Country")]
+    public virtual ICollection<TrackCountry> TrackCountries { get; set; } = new List<TrackCountry>();
 
-    [ForeignKey("FkGrandPrixCountryCountryId")]
-    [InverseProperty("FkGrandPrixCountryCountries")]
-    public virtual ICollection<GrandPrix> FkGrandPrixCountryGrandPrixes { get; set; } = new List<GrandPrix>();
+    [ForeignKey("CountryId")]
+    [InverseProperty("Countries")]
+    public virtual ICollection<Driver> Drivers { get; set; } = new List<Driver>();
 
-    [ForeignKey("FkTrackCountryCountryId")]
-    [InverseProperty("FkTrackCountryCountries")]
-    public virtual ICollection<Track> FkTrackCountryTracks { get; set; } = new List<Track>();
+    [ForeignKey("CountryId")]
+    [InverseProperty("Countries")]
+    public virtual ICollection<GrandPrix> GrandPrixes { get; set; } = new List<GrandPrix>();
 }

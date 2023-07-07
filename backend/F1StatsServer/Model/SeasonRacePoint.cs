@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using F1StatsServer.Util;
 using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Model;
 
-[Keyless]
-public partial class SeasonRacePoint
+public partial class SeasonRacePoint : EntityBase
 {
-    [Column("FK_SeasonRacePoints_SeasonId")]
-    public int FkSeasonRacePointsSeasonId { get; set; }
+
+    public int SeasonId { get; set; }
 
     public byte Position { get; set; }
 
     public byte Points { get; set; }
 
-    [ForeignKey("FkSeasonRacePointsSeasonId")]
-    public virtual Season FkSeasonRacePointsSeason { get; set; } = null!;
+    [ForeignKey("SeasonId")]
+    [InverseProperty("SeasonRacePoints")]
+    public virtual Season Season { get; set; } = null!;
 }

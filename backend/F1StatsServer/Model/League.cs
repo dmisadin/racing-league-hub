@@ -10,12 +10,10 @@ namespace F1StatsServer.Model;
 [Table("League")]
 public partial class League : EntityBase
 {
-    [Key]
-    [Column("PK_LeagueId")]
-    public int PkLeagueId { get; set; }
 
-    [Column("FK_League_UserId")]
-    public int FkLeagueUserId { get; set; }
+    public int RegionId { get; set; }
+
+    public int? SocialMediaId { get; set; }
 
     [StringLength(255)]
     public string Name { get; set; } = null!;
@@ -32,38 +30,18 @@ public partial class League : EntityBase
     [Unicode(false)]
     public string ColorHex { get; set; } = null!;
 
-    [StringLength(255)]
-    [Unicode(false)]
-    public string? Website { get; set; }
-
-    [StringLength(255)]
-    [Unicode(false)]
-    public string? Discord { get; set; }
-
-    [StringLength(255)]
-    [Unicode(false)]
-    public string? YouTube { get; set; }
-
-    [StringLength(255)]
-    [Unicode(false)]
-    public string? Twitch { get; set; }
-
-    [StringLength(255)]
-    [Unicode(false)]
-    public string? Facebook { get; set; }
-
-    [StringLength(255)]
-    [Unicode(false)]
-    public string? Instagram { get; set; }
-
-    [ForeignKey("FkLeagueUserId")]
+    [ForeignKey("RegionId")]
     [InverseProperty("Leagues")]
-    public virtual User FkLeagueUser { get; set; } = null!;
+    public virtual Region Region { get; set; } = null!;
 
-    [InverseProperty("FkSeasonLeague")]
+    [InverseProperty("League")]
     public virtual ICollection<Season> Seasons { get; set; } = new List<Season>();
 
-    [ForeignKey("FkLeagueUserLeagueId")]
-    [InverseProperty("FkLeagueUserLeagues")]
-    public virtual ICollection<User> FkLeagueUserUsers { get; set; } = new List<User>();
+    [ForeignKey("SocialMediaId")]
+    [InverseProperty("Leagues")]
+    public virtual SocialMedium? SocialMedia { get; set; }
+
+    [ForeignKey("LeagueId")]
+    [InverseProperty("Leagues")]
+    public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

@@ -22,7 +22,8 @@ namespace F1StatsServer.Util
 
         public static GrandPrix Map(GrandPrixDto source)
         {
-            return new GrandPrix{
+            return new GrandPrix
+            {
                 Name = source.Name,
                 SeasonId = source.SeasonId,
                 HasSprint = source.HasSprint,

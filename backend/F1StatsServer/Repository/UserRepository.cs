@@ -15,7 +15,7 @@ namespace F1StatsServer.Repository
             _context = context;
         }
 
-        public bool CheckCredentials(string email,string password)
+        public bool CheckCredentials(string email, string password)
         {
             return _context.Users.Any(o => o.Email == email && o.Password == password);
         }
@@ -24,7 +24,7 @@ namespace F1StatsServer.Repository
         {
             bool result = CreateItem(data);
 
-            if(!result)
+            if (!result)
                 return false;
             return true;
         }

@@ -20,13 +20,19 @@ public partial class AdventureContext : DbContext
 
     public virtual DbSet<Driver> Drivers { get; set; }
 
+    public virtual DbSet<Game> Games { get; set; }
+
     public virtual DbSet<GrandPrix> GrandPrixes { get; set; }
 
     public virtual DbSet<League> Leagues { get; set; }
 
+    public virtual DbSet<Platform> Platforms { get; set; }
+
     public virtual DbSet<Qualifying> Qualifyings { get; set; }
 
     public virtual DbSet<Race> Races { get; set; }
+
+    public virtual DbSet<Region> Regions { get; set; }
 
     public virtual DbSet<Season> Seasons { get; set; }
 
@@ -44,284 +50,271 @@ public partial class AdventureContext : DbContext
 
     public virtual DbSet<SeasonSprintPoint> SeasonSprintPoints { get; set; }
 
+    public virtual DbSet<SocialMedium> SocialMedia { get; set; }
+
     public virtual DbSet<Sprint> Sprints { get; set; }
 
     public virtual DbSet<Team> Teams { get; set; }
 
     public virtual DbSet<Track> Tracks { get; set; }
 
+    public virtual DbSet<TrackCountry> TrackCountries { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=.\\;Database=F1Stats;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=JKRSTANOVIC-W10;Database=F1Stats_v2;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.UseCollation("Croatian_CI_AS");
+        modelBuilder.UseCollation("Croatian_100_CI_AS");
 
         modelBuilder.Entity<Country>(entity =>
         {
-            entity.HasKey(e => e.PkCountryId).HasName("PK__Country__0A4C9D574FA9C4D1");
+            entity.HasKey(e => e.Id).HasName("PK__Country__3214EC07A75AB5FA");
         });
 
         modelBuilder.Entity<Driver>(entity =>
         {
-            entity.HasKey(e => e.PkDriverId).HasName("PK__Driver__0B1576E3B0855E85");
+            entity.HasKey(e => e.Id).HasName("PK__Driver__3214EC07957B33AC");
 
-            entity.HasMany(d => d.FkDriverCountryCountries).WithMany(p => p.FkDriverCountryDrivers)
+            entity.HasOne(d => d.Platform).WithMany(p => p.Drivers)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_Driver_PlatformId");
+
+            entity.HasOne(d => d.SocialMedia).WithMany(p => p.Drivers)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_Driver_SocialMediaId");
+
+            entity.HasMany(d => d.Countries).WithMany(p => p.Drivers)
                 .UsingEntity<Dictionary<string, object>>(
                     "DriverCountry",
                     r => r.HasOne<Country>().WithMany()
-                        .HasForeignKey("FkDriverCountryCountryId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("drivercountry_fk_drivercountry_countryid_foreign"),
+                        .HasForeignKey("CountryId")
+                        .HasConstraintName("FK_DriverCountry_CountryId"),
                     l => l.HasOne<Driver>().WithMany()
-                        .HasForeignKey("FkDriverCountryDriverId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("drivercountry_fk_drivercountry_driverid_foreign"),
+                        .HasForeignKey("DriverId")
+                        .HasConstraintName("FK_DriverCountry_DriverId"),
                     j =>
                     {
-                        j.HasKey("FkDriverCountryDriverId", "FkDriverCountryCountryId");
+                        j.HasKey("DriverId", "CountryId");
                         j.ToTable("DriverCountry");
-                        j.IndexerProperty<int>("FkDriverCountryDriverId").HasColumnName("FK_DriverCountry_DriverId");
-                        j.IndexerProperty<short>("FkDriverCountryCountryId").HasColumnName("FK_DriverCountry_CountryId");
                     });
+        });
+
+        modelBuilder.Entity<Game>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Game__3214EC0764E480FF");
         });
 
         modelBuilder.Entity<GrandPrix>(entity =>
         {
-            entity.HasKey(e => e.PkGrandPrixId).HasName("PK__GrandPri__6782D749A38250B4");
+            entity.HasKey(e => e.Id).HasName("PK__GrandPri__3214EC0760201A28");
 
-            entity.HasOne(d => d.FkGrandPrixSeason).WithMany(p => p.GrandPrixes)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("grandprix_fk_grandprix_seasonid_foreign");
+            entity.HasOne(d => d.Season).WithMany(p => p.GrandPrixes).HasConstraintName("FK_GrandPrix_SeasonId");
 
-            entity.HasMany(d => d.FkGrandPrixCountryCountries).WithMany(p => p.FkGrandPrixCountryGrandPrixes)
+            entity.HasMany(d => d.Countries).WithMany(p => p.GrandPrixes)
                 .UsingEntity<Dictionary<string, object>>(
                     "GrandPrixCountry",
                     r => r.HasOne<Country>().WithMany()
-                        .HasForeignKey("FkGrandPrixCountryCountryId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("grandprixcountry_fk_grandprixcountry_countryid_foreign"),
+                        .HasForeignKey("CountryId")
+                        .HasConstraintName("FK_GrandPrixCountry_CountryId"),
                     l => l.HasOne<GrandPrix>().WithMany()
-                        .HasForeignKey("FkGrandPrixCountryGrandPrixId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("grandprixcountry_fk_grandprixcountry_grandprixid_foreign"),
+                        .HasForeignKey("GrandPrixId")
+                        .HasConstraintName("FK_GrandPrixCountry_GrandPrixId"),
                     j =>
                     {
-                        j.HasKey("FkGrandPrixCountryGrandPrixId", "FkGrandPrixCountryCountryId");
+                        j.HasKey("GrandPrixId", "CountryId");
                         j.ToTable("GrandPrixCountry");
-                        j.IndexerProperty<int>("FkGrandPrixCountryGrandPrixId").HasColumnName("FK_GrandPrixCountry_GrandPrixId");
-                        j.IndexerProperty<short>("FkGrandPrixCountryCountryId").HasColumnName("FK_GrandPrixCountry_CountryId");
                     });
 
-            entity.HasMany(d => d.FkGrandPrixTrackTracks).WithMany(p => p.FkGrandPrixTrackGrandPrixes)
+            entity.HasMany(d => d.Tracks).WithMany(p => p.GrandPrixes)
                 .UsingEntity<Dictionary<string, object>>(
                     "GrandPrixTrack",
                     r => r.HasOne<Track>().WithMany()
-                        .HasForeignKey("FkGrandPrixTrackTrackId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("grandprixtrack_fk_grandprixtrack_trackid_foreign"),
+                        .HasForeignKey("TrackId")
+                        .HasConstraintName("FK_GrandPrixTrack_TrackId"),
                     l => l.HasOne<GrandPrix>().WithMany()
-                        .HasForeignKey("FkGrandPrixTrackGrandPrixId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("grandprixtrack_fk_grandprixtrack_grandprixid_foreign"),
+                        .HasForeignKey("GrandPrixId")
+                        .HasConstraintName("FK_GrandPrixTrack_GrandPrixId"),
                     j =>
                     {
-                        j.HasKey("FkGrandPrixTrackGrandPrixId", "FkGrandPrixTrackTrackId");
+                        j.HasKey("GrandPrixId", "TrackId");
                         j.ToTable("GrandPrixTrack");
-                        j.IndexerProperty<int>("FkGrandPrixTrackGrandPrixId").HasColumnName("FK_GrandPrixTrack_GrandPrixId");
-                        j.IndexerProperty<short>("FkGrandPrixTrackTrackId").HasColumnName("FK_GrandPrixTrack_TrackId");
                     });
         });
 
         modelBuilder.Entity<League>(entity =>
         {
-            entity.HasKey(e => e.PkLeagueId).HasName("PK__League__231D6D70CBED4139");
+            entity.HasKey(e => e.Id).HasName("PK__League__3214EC07379E033B");
 
-            entity.HasOne(d => d.FkLeagueUser).WithMany(p => p.Leagues)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("league_fk_league_userid_foreign");
+            entity.HasOne(d => d.Region).WithMany(p => p.Leagues).HasConstraintName("FK_League_RegionId");
+
+            entity.HasOne(d => d.SocialMedia).WithMany(p => p.Leagues)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_League_SocialMediaId");
+        });
+
+        modelBuilder.Entity<Platform>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Platform__3214EC07500B5EF5");
         });
 
         modelBuilder.Entity<Qualifying>(entity =>
         {
-            entity.HasKey(e => e.PkQualifyingId).HasName("PK__Qualifyi__D1EE98B77B1B9789");
+            entity.HasKey(e => e.Id).HasName("PK__Qualifyi__3214EC074E099639");
 
-            entity.HasOne(d => d.FkQualifyingDriver).WithMany(p => p.Qualifyings)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("qualifying_fk_qualifying_driverid_foreign");
+            entity.HasOne(d => d.Driver).WithMany(p => p.Qualifyings).HasConstraintName("FK_Qualifying_DriverId");
 
-            entity.HasOne(d => d.FkQualifyingGrandPrix).WithMany(p => p.Qualifyings)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("qualifying_fk_qualifying_grandprixid_foreign");
+            entity.HasOne(d => d.GrandPrix).WithMany(p => p.Qualifyings).HasConstraintName("FK_Qualifying_GrandPrixId");
 
-            entity.HasOne(d => d.FkQualifyingTeam).WithMany(p => p.Qualifyings)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("qualifying_fk_qualifying_teamid_foreign");
+            entity.HasOne(d => d.Team).WithMany(p => p.Qualifyings).HasConstraintName("FK_Qualifying_TeamId");
         });
 
         modelBuilder.Entity<Race>(entity =>
         {
-            entity.HasKey(e => e.PkRaceId).HasName("PK__Race__47ACF371486D1AF2");
+            entity.HasKey(e => e.Id).HasName("PK__Race__3214EC0750D3589B");
 
-            entity.HasOne(d => d.FkRaceDriver).WithMany(p => p.Races)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("race_fk_race_driverid_foreign");
+            entity.HasOne(d => d.Driver).WithMany(p => p.Races).HasConstraintName("FK_Race_DriverId");
 
-            entity.HasOne(d => d.FkRaceGrandPrix).WithMany(p => p.Races)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("race_fk_race_grandprixid_foreign");
+            entity.HasOne(d => d.GrandPrix).WithMany(p => p.Races).HasConstraintName("FK_Race_GrandPrixId");
 
-            entity.HasOne(d => d.FkRaceTeam).WithMany(p => p.Races)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("race_fk_race_teamid_foreign");
+            entity.HasOne(d => d.Team).WithMany(p => p.Races).HasConstraintName("FK_Race_TeamId");
+        });
+
+        modelBuilder.Entity<Region>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Region__3214EC07AA3ED67F");
         });
 
         modelBuilder.Entity<Season>(entity =>
         {
-            entity.HasKey(e => e.PkSeasonId).HasName("PK__Season__CADC9AEF7EB0AB27");
+            entity.HasKey(e => e.Id).HasName("PK__Season__3214EC07AE88DF26");
 
             entity.Property(e => e.LapsRequiredPercentage).HasDefaultValueSql("('90')");
 
-            entity.HasOne(d => d.FkSeasonLeague).WithMany(p => p.Seasons)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("season_fk_season_leagueid_foreign");
+            entity.HasOne(d => d.GameNavigation).WithMany(p => p.Seasons).HasConstraintName("FK_Season_GameId");
+
+            entity.HasOne(d => d.League).WithMany(p => p.Seasons).HasConstraintName("FK_Season_LeagueId");
+
+            entity.HasOne(d => d.Platform).WithMany(p => p.Seasons)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_Season_PlatformId");
         });
 
         modelBuilder.Entity<SeasonAssist>(entity =>
         {
-            entity.HasOne(d => d.FkSeasonAssistsSeason).WithMany()
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("seasonassists_fk_seasonassists_seasonid_foreign");
+            entity.HasKey(e => e.Id).HasName("PK__SeasonAs__3214EC0773A7061B");
+
+            entity.HasOne(d => d.Season).WithMany(p => p.SeasonAssists).HasConstraintName("FK_SeasonAssists_SeasonId");
         });
 
         modelBuilder.Entity<SeasonDriver>(entity =>
         {
-            entity.HasOne(d => d.FkSeasonDriverDriver).WithMany()
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("seasondriver_fk_seasondriver_driverid_foreign");
+            entity.HasKey(e => e.Id).HasName("PK__SeasonDr__3214EC07601D5C59");
 
-            entity.HasOne(d => d.FkSeasonDriverSeason).WithMany()
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("seasondriver_fk_seasondriver_seasonid_foreign");
+            entity.HasOne(d => d.Driver).WithMany(p => p.SeasonDrivers).HasConstraintName("FK_SeasonDriver_DriverId");
 
-            entity.HasOne(d => d.FkSeasonDriverTeam).WithMany()
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("seasondriver_fk_seasondriver_teamid_foreign");
+            entity.HasOne(d => d.Season).WithMany(p => p.SeasonDrivers).HasConstraintName("FK_SeasonDriver_SeasonId");
+
+            entity.HasOne(d => d.Team).WithMany(p => p.SeasonDrivers).HasConstraintName("FK_SeasonDriver_TeamId");
         });
 
         modelBuilder.Entity<SeasonFastestLapPoint>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK__SeasonFa__3214EC07AC8337D3");
+
             entity.Property(e => e.FinishInsideTopN).HasDefaultValueSql("('10')");
             entity.Property(e => e.Points).HasDefaultValueSql("('1')");
 
-            entity.HasOne(d => d.FkSeasonRacePointsSeason).WithMany()
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("seasonfastestlappoints_fk_seasonracepoints_seasonid_foreign");
+            entity.HasOne(d => d.Season).WithMany(p => p.SeasonFastestLapPoints).HasConstraintName("FK_SeasonFastestLapPoints_SeasonId");
         });
 
         modelBuilder.Entity<SeasonLobbySetting>(entity =>
         {
-            entity.HasOne(d => d.FkSeasonLobbySettingsSeason).WithMany()
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("seasonlobbysettings_fk_seasonlobbysettings_seasonid_foreign");
+            entity.HasKey(e => e.Id).HasName("PK__SeasonLo__3214EC070543EA8F");
+
+            entity.HasOne(d => d.Season).WithMany(p => p.SeasonLobbySettings).HasConstraintName("FK_SeasonLobbySettings_SeasonId");
         });
 
         modelBuilder.Entity<SeasonQualPoint>(entity =>
         {
-            entity.HasOne(d => d.FkSeasonQualPointsSeason).WithMany()
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("seasonqualpoints_fk_seasonqualpoints_seasonid_foreign");
+            entity.HasKey(e => e.Id).HasName("PK__SeasonQu__3214EC079B192CD5");
+
+            entity.HasOne(d => d.Season).WithMany(p => p.SeasonQualPoints).HasConstraintName("FK_SeasonQualPoints_SeasonId");
         });
 
         modelBuilder.Entity<SeasonRacePoint>(entity =>
         {
-            entity.HasOne(d => d.FkSeasonRacePointsSeason).WithMany()
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("seasonracepoints_fk_seasonracepoints_seasonid_foreign");
+            entity.HasKey(e => e.Id).HasName("PK__SeasonRa__3214EC0729EA724F");
+
+            entity.HasOne(d => d.Season).WithMany(p => p.SeasonRacePoints).HasConstraintName("FK_SeasonRacePoints_SeasonId");
         });
 
         modelBuilder.Entity<SeasonSprintPoint>(entity =>
         {
-            entity.HasOne(d => d.FkSeasonSprintPointsSeason).WithMany()
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("seasonsprintpoints_fk_seasonsprintpoints_seasonid_foreign");
+            entity.HasKey(e => e.Id).HasName("PK__SeasonSp__3214EC070915FC3D");
+
+            entity.HasOne(d => d.Season).WithMany(p => p.SeasonSprintPoints).HasConstraintName("FK_SeasonSprintPoints_SeasonId");
+        });
+
+        modelBuilder.Entity<SocialMedium>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__SocialMe__3214EC07B022C64D");
         });
 
         modelBuilder.Entity<Sprint>(entity =>
         {
-            entity.HasKey(e => e.PkSprintId).HasName("PK__Sprint__59782327CB7FAC7E");
+            entity.HasKey(e => e.Id).HasName("PK__Sprint__3214EC07F7CEC330");
 
-            entity.HasOne(d => d.FkSprintDriverDriver).WithMany(p => p.Sprints)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("sprint_fk_sprintdriver_driverid_foreign");
+            entity.HasOne(d => d.Driver).WithMany(p => p.Sprints).HasConstraintName("FK_SprintDriver_DriverId");
 
-            entity.HasOne(d => d.FkSprintDriverGrandPrix).WithMany(p => p.Sprints)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("sprint_fk_sprintdriver_grandprixid_foreign");
+            entity.HasOne(d => d.GrandPrix).WithMany(p => p.Sprints).HasConstraintName("FK_SprintDriver_GrandPrixId");
 
-            entity.HasOne(d => d.FkSprintTeam).WithMany(p => p.Sprints)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("sprint_fk_sprint_teamid_foreign");
+            entity.HasOne(d => d.Team).WithMany(p => p.Sprints).HasConstraintName("FK_Sprint_TeamId");
         });
 
         modelBuilder.Entity<Team>(entity =>
         {
-            entity.HasKey(e => e.PkTeamId).HasName("PK__Team__A9F473E8454B909B");
+            entity.HasKey(e => e.Id).HasName("PK__Team__3214EC0747A43CBA");
 
-            entity.Property(e => e.PkTeamId).ValueGeneratedOnAdd();
             entity.Property(e => e.ColorHex).HasDefaultValueSql("('#000')");
         });
 
         modelBuilder.Entity<Track>(entity =>
         {
-            entity.HasKey(e => e.PkTrackId).HasName("PK__Track__7BB59AE5B5FBC206");
+            entity.HasKey(e => e.Id).HasName("PK__Track__3214EC078A666317");
 
             entity.Property(e => e.Laps).HasDefaultValueSql("('52')");
+        });
 
-            entity.HasMany(d => d.FkTrackCountryCountries).WithMany(p => p.FkTrackCountryTracks)
-                .UsingEntity<Dictionary<string, object>>(
-                    "TrackCountry",
-                    r => r.HasOne<Country>().WithMany()
-                        .HasForeignKey("FkTrackCountryCountryId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("trackcountry_fk_trackcountry_countryid_foreign"),
-                    l => l.HasOne<Track>().WithMany()
-                        .HasForeignKey("FkTrackCountryTrackId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("trackcountry_fk_trackcountry_trackid_foreign"),
-                    j =>
-                    {
-                        j.HasKey("FkTrackCountryTrackId", "FkTrackCountryCountryId");
-                        j.ToTable("TrackCountry");
-                        j.IndexerProperty<short>("FkTrackCountryTrackId").HasColumnName("FK_TrackCountry_TrackId");
-                        j.IndexerProperty<short>("FkTrackCountryCountryId").HasColumnName("FK_TrackCountry_CountryId");
-                    });
+        modelBuilder.Entity<TrackCountry>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__TrackCou__3214EC07CC563AC1");
+
+            entity.HasOne(d => d.Country).WithMany(p => p.TrackCountries).HasConstraintName("FK_TrackCountry_CountryId");
+
+            entity.HasOne(d => d.Track).WithMany(p => p.TrackCountries).HasConstraintName("FK_TrackCountry_TrackId");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.PkUserId).HasName("PK__User__7C1FCE7FE9C46CDC");
+            entity.HasKey(e => e.Id).HasName("PK__User__3214EC07F7F96EAB");
 
-            entity.HasMany(d => d.FkLeagueUserLeagues).WithMany(p => p.FkLeagueUserUsers)
+            entity.HasMany(d => d.Leagues).WithMany(p => p.Users)
                 .UsingEntity<Dictionary<string, object>>(
                     "LeagueUser",
                     r => r.HasOne<League>().WithMany()
-                        .HasForeignKey("FkLeagueUserLeagueId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("leagueuser_fk_leagueuser_leagueid_foreign"),
+                        .HasForeignKey("LeagueId")
+                        .HasConstraintName("FK_LeagueUser_LeagueId"),
                     l => l.HasOne<User>().WithMany()
-                        .HasForeignKey("FkLeagueUserUserId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("leagueuser_fk_leagueuser_userid_foreign"),
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("FK_LeagueUser_UserId"),
                     j =>
                     {
-                        j.HasKey("FkLeagueUserUserId", "FkLeagueUserLeagueId");
+                        j.HasKey("UserId", "LeagueId");
                         j.ToTable("LeagueUser");
-                        j.IndexerProperty<int>("FkLeagueUserUserId").HasColumnName("FK_LeagueUser_UserId");
-                        j.IndexerProperty<int>("FkLeagueUserLeagueId").HasColumnName("FK_LeagueUser_LeagueId");
                     });
         });
 

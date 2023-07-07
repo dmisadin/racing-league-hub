@@ -17,7 +17,7 @@ namespace F1StatsServer.Service
                 new Claim(ClaimTypes.Name, request.Email),
             };
 
-            if(isAdmin ) { claims.Add(new Claim(ClaimTypes.Role, "Admin")); }
+            if (isAdmin) { claims.Add(new Claim(ClaimTypes.Role, "Admin")); }
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
                 configuration.GetSection("AppSettings:Token").Value));

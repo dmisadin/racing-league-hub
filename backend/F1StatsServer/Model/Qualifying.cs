@@ -10,18 +10,12 @@ namespace F1StatsServer.Model;
 [Table("Qualifying")]
 public partial class Qualifying : EntityBase
 {
-    [Key]
-    [Column("PK_QualifyingId")]
-    public int PkQualifyingId { get; set; }
 
-    [Column("FK_Qualifying_TeamId")]
-    public byte FkQualifyingTeamId { get; set; }
+    public int TeamId { get; set; }
 
-    [Column("FK_Qualifying_GrandPrixId")]
-    public int FkQualifyingGrandPrixId { get; set; }
+    public int GrandPrixId { get; set; }
 
-    [Column("FK_Qualifying_DriverId")]
-    public int FkQualifyingDriverId { get; set; }
+    public int DriverId { get; set; }
 
     public byte Position { get; set; }
 
@@ -38,15 +32,15 @@ public partial class Qualifying : EntityBase
 
     public bool IsReserve { get; set; }
 
-    [ForeignKey("FkQualifyingDriverId")]
+    [ForeignKey("DriverId")]
     [InverseProperty("Qualifyings")]
-    public virtual Driver FkQualifyingDriver { get; set; } = null!;
+    public virtual Driver Driver { get; set; } = null!;
 
-    [ForeignKey("FkQualifyingGrandPrixId")]
+    [ForeignKey("GrandPrixId")]
     [InverseProperty("Qualifyings")]
-    public virtual GrandPrix FkQualifyingGrandPrix { get; set; } = null!;
+    public virtual GrandPrix GrandPrix { get; set; } = null!;
 
-    [ForeignKey("FkQualifyingTeamId")]
+    [ForeignKey("TeamId")]
     [InverseProperty("Qualifyings")]
-    public virtual Team FkQualifyingTeam { get; set; } = null!;
+    public virtual Team Team { get; set; } = null!;
 }

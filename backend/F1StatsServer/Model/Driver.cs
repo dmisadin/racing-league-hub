@@ -10,23 +10,47 @@ namespace F1StatsServer.Model;
 [Table("Driver")]
 public partial class Driver : EntityBase
 {
-    [Key]
-    [Column("PK_DriverId")]
-    public int PkDriverId { get; set; }
+
+    public int? PlatformId { get; set; }
+
+    public int? SocialMediaId { get; set; }
 
     [StringLength(40)]
     public string Name { get; set; } = null!;
 
-    [InverseProperty("FkQualifyingDriver")]
+    [StringLength(64)]
+    [Unicode(false)]
+    public string? Wheel { get; set; }
+
+    [StringLength(64)]
+    [Unicode(false)]
+    public string? Pedals { get; set; }
+
+    [StringLength(64)]
+    [Unicode(false)]
+    public string? Controller { get; set; }
+
+    [ForeignKey("PlatformId")]
+    [InverseProperty("Drivers")]
+    public virtual Platform? Platform { get; set; }
+
+    [InverseProperty("Driver")]
     public virtual ICollection<Qualifying> Qualifyings { get; set; } = new List<Qualifying>();
 
-    [InverseProperty("FkRaceDriver")]
+    [InverseProperty("Driver")]
     public virtual ICollection<Race> Races { get; set; } = new List<Race>();
 
-    [InverseProperty("FkSprintDriverDriver")]
+    [InverseProperty("Driver")]
+    public virtual ICollection<SeasonDriver> SeasonDrivers { get; set; } = new List<SeasonDriver>();
+
+    [ForeignKey("SocialMediaId")]
+    [InverseProperty("Drivers")]
+    public virtual SocialMedium? SocialMedia { get; set; }
+
+    [InverseProperty("Driver")]
     public virtual ICollection<Sprint> Sprints { get; set; } = new List<Sprint>();
 
-    [ForeignKey("FkDriverCountryDriverId")]
-    [InverseProperty("FkDriverCountryDrivers")]
-    public virtual ICollection<Country> FkDriverCountryCountries { get; set; } = new List<Country>();
+    [ForeignKey("DriverId")]
+    [InverseProperty("Drivers")]
+    public virtual ICollection<Country> Countries { get; set; } = new List<Country>();
 }

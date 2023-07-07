@@ -7,11 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Model;
 
-[Keyless]
-public partial class SeasonAssist
+public partial class SeasonAssist : EntityBase
 {
-    [Column("FK_SeasonAssists_SeasonId")]
-    public int FkSeasonAssistsSeasonId { get; set; }
+    public int SeasonId { get; set; }
 
     [StringLength(16)]
     [Unicode(false)]
@@ -28,6 +26,7 @@ public partial class SeasonAssist
     [Column("ABS")]
     public bool Abs { get; set; }
 
-    [ForeignKey("FkSeasonAssistsSeasonId")]
-    public virtual Season FkSeasonAssistsSeason { get; set; } = null!;
+    [ForeignKey("SeasonId")]
+    [InverseProperty("SeasonAssists")]
+    public virtual Season Season { get; set; } = null!;
 }

@@ -10,10 +10,6 @@ namespace F1StatsServer.Model;
 [Table("User")]
 public partial class User : EntityBase
 {
-    [Key]
-    [Column("PK_UserId")]
-    public int PkUserId { get; set; }
-
     [StringLength(255)]
     [Unicode(false)]
     public string Username { get; set; } = null!;
@@ -28,10 +24,7 @@ public partial class User : EntityBase
 
     public bool IsAdmin { get; set; }
 
-    [InverseProperty("FkLeagueUser")]
+    [ForeignKey("UserId")]
+    [InverseProperty("Users")]
     public virtual ICollection<League> Leagues { get; set; } = new List<League>();
-
-    [ForeignKey("FkLeagueUserUserId")]
-    [InverseProperty("FkLeagueUserUsers")]
-    public virtual ICollection<League> FkLeagueUserLeagues { get; set; } = new List<League>();
 }

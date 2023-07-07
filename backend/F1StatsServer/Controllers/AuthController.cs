@@ -29,7 +29,8 @@ namespace F1StatsServer.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult GetMe() {
+        public IActionResult GetMe()
+        {
 
             var username = _userService.GetMyName();
 

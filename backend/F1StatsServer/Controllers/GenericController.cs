@@ -38,7 +38,7 @@ namespace F1StatsServer.Controllers
 
             var generic = _genericRepository.GetById(id);
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             return Ok(generic);
@@ -52,7 +52,7 @@ namespace F1StatsServer.Controllers
 
             var generic = _genericRepository.DeleteItem(id);
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             return Ok(generic);

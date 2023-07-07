@@ -10,12 +10,11 @@ namespace F1StatsServer.Model;
 [Table("Season")]
 public partial class Season : EntityBase
 {
-    [Key]
-    [Column("PK_SeasonId")]
-    public int PkSeasonId { get; set; }
+    public int LeagueId { get; set; }
 
-    [Column("FK_Season_LeagueId")]
-    public int FkSeasonLeagueId { get; set; }
+    public int GameId { get; set; }
+
+    public int? PlatformId { get; set; }
 
     [StringLength(255)]
     public string Name { get; set; } = null!;
@@ -30,10 +29,39 @@ public partial class Season : EntityBase
 
     public byte LapsRequiredPercentage { get; set; }
 
-    [ForeignKey("FkSeasonLeagueId")]
+    [ForeignKey("GameId")]
     [InverseProperty("Seasons")]
-    public virtual League FkSeasonLeague { get; set; } = null!;
+    public virtual Game GameNavigation { get; set; } = null!;
 
-    [InverseProperty("FkGrandPrixSeason")]
+    [InverseProperty("Season")]
     public virtual ICollection<GrandPrix> GrandPrixes { get; set; } = new List<GrandPrix>();
+
+    [ForeignKey("LeagueId")]
+    [InverseProperty("Seasons")]
+    public virtual League League { get; set; } = null!;
+
+    [ForeignKey("PlatformId")]
+    [InverseProperty("Seasons")]
+    public virtual Platform? Platform { get; set; }
+
+    [InverseProperty("Season")]
+    public virtual ICollection<SeasonAssist> SeasonAssists { get; set; } = new List<SeasonAssist>();
+
+    [InverseProperty("Season")]
+    public virtual ICollection<SeasonDriver> SeasonDrivers { get; set; } = new List<SeasonDriver>();
+
+    [InverseProperty("Season")]
+    public virtual ICollection<SeasonFastestLapPoint> SeasonFastestLapPoints { get; set; } = new List<SeasonFastestLapPoint>();
+
+    [InverseProperty("Season")]
+    public virtual ICollection<SeasonLobbySetting> SeasonLobbySettings { get; set; } = new List<SeasonLobbySetting>();
+
+    [InverseProperty("Season")]
+    public virtual ICollection<SeasonQualPoint> SeasonQualPoints { get; set; } = new List<SeasonQualPoint>();
+
+    [InverseProperty("Season")]
+    public virtual ICollection<SeasonRacePoint> SeasonRacePoints { get; set; } = new List<SeasonRacePoint>();
+
+    [InverseProperty("Season")]
+    public virtual ICollection<SeasonSprintPoint> SeasonSprintPoints { get; set; } = new List<SeasonSprintPoint>();
 }

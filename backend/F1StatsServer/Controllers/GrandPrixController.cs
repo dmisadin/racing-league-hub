@@ -37,8 +37,9 @@ namespace F1StatsServer.Controllers
             {
                 var season = _seasonRepository.GetById(item.SeasonId);
                 var league = _leagueRepository.GetById(season.LeagueId);
-                grandPrixMapped.Add(new GrandPrixHomeDto { 
-                    Id = item.Id, 
+                grandPrixMapped.Add(new GrandPrixHomeDto
+                {
+                    Id = item.Id,
                     GrandPrixName = item.Name,
                     SeasonName = season.Name,
                     LeagueName = league.Name,

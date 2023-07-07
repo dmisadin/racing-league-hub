@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using F1StatsServer.Util;
 using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Model;
 
-[Keyless]
-public partial class SeasonLobbySetting
+public partial class SeasonLobbySetting : EntityBase
 {
-    [Column("FK_SeasonLobbySettings_SeasonId")]
-    public int FkSeasonLobbySettingsSeasonId { get; set; }
+
+    public int SeasonId { get; set; }
 
     [StringLength(8)]
     [Unicode(false)]
@@ -48,6 +48,7 @@ public partial class SeasonLobbySetting
 
     public bool Ghosting { get; set; }
 
-    [ForeignKey("FkSeasonLobbySettingsSeasonId")]
-    public virtual Season FkSeasonLobbySettingsSeason { get; set; } = null!;
+    [ForeignKey("SeasonId")]
+    [InverseProperty("SeasonLobbySettings")]
+    public virtual Season Season { get; set; } = null!;
 }

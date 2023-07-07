@@ -10,12 +10,8 @@ namespace F1StatsServer.Model;
 [Table("GrandPrix")]
 public partial class GrandPrix : EntityBase
 {
-    [Key]
-    [Column("PK_GrandPrixId")]
-    public int PkGrandPrixId { get; set; }
 
-    [Column("FK_GrandPrix_SeasonId")]
-    public int FkGrandPrixSeasonId { get; set; }
+    public int SeasonId { get; set; }
 
     [StringLength(255)]
     public string Name { get; set; } = null!;
@@ -29,24 +25,24 @@ public partial class GrandPrix : EntityBase
     [Unicode(false)]
     public string? YouTubeUrl { get; set; }
 
-    [ForeignKey("FkGrandPrixSeasonId")]
-    [InverseProperty("GrandPrixes")]
-    public virtual Season FkGrandPrixSeason { get; set; } = null!;
-
-    [InverseProperty("FkQualifyingGrandPrix")]
+    [InverseProperty("GrandPrix")]
     public virtual ICollection<Qualifying> Qualifyings { get; set; } = new List<Qualifying>();
 
-    [InverseProperty("FkRaceGrandPrix")]
+    [InverseProperty("GrandPrix")]
     public virtual ICollection<Race> Races { get; set; } = new List<Race>();
 
-    [InverseProperty("FkSprintDriverGrandPrix")]
+    [ForeignKey("SeasonId")]
+    [InverseProperty("GrandPrixes")]
+    public virtual Season Season { get; set; } = null!;
+
+    [InverseProperty("GrandPrix")]
     public virtual ICollection<Sprint> Sprints { get; set; } = new List<Sprint>();
 
-    [ForeignKey("FkGrandPrixCountryGrandPrixId")]
-    [InverseProperty("FkGrandPrixCountryGrandPrixes")]
-    public virtual ICollection<Country> FkGrandPrixCountryCountries { get; set; } = new List<Country>();
+    [ForeignKey("GrandPrixId")]
+    [InverseProperty("GrandPrixes")]
+    public virtual ICollection<Country> Countries { get; set; } = new List<Country>();
 
-    [ForeignKey("FkGrandPrixTrackGrandPrixId")]
-    [InverseProperty("FkGrandPrixTrackGrandPrixes")]
-    public virtual ICollection<Track> FkGrandPrixTrackTracks { get; set; } = new List<Track>();
+    [ForeignKey("GrandPrixId")]
+    [InverseProperty("GrandPrixes")]
+    public virtual ICollection<Track> Tracks { get; set; } = new List<Track>();
 }

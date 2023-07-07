@@ -10,18 +10,11 @@ namespace F1StatsServer.Model;
 [Table("Sprint")]
 public partial class Sprint : EntityBase
 {
-    [Key]
-    [Column("PK_SprintId")]
-    public int PkSprintId { get; set; }
+    public int TeamId { get; set; }
 
-    [Column("FK_Sprint_TeamId")]
-    public byte FkSprintTeamId { get; set; }
+    public int GrandPrixId { get; set; }
 
-    [Column("FK_SprintDriver_GrandPrixId")]
-    public int FkSprintDriverGrandPrixId { get; set; }
-
-    [Column("FK_SprintDriver_DriverId")]
-    public int FkSprintDriverDriverId { get; set; }
+    public int DriverId { get; set; }
 
     public byte Position { get; set; }
 
@@ -42,15 +35,15 @@ public partial class Sprint : EntityBase
     [Unicode(false)]
     public string? UsedTyres { get; set; }
 
-    [ForeignKey("FkSprintDriverDriverId")]
+    [ForeignKey("DriverId")]
     [InverseProperty("Sprints")]
-    public virtual Driver FkSprintDriverDriver { get; set; } = null!;
+    public virtual Driver Driver { get; set; } = null!;
 
-    [ForeignKey("FkSprintDriverGrandPrixId")]
+    [ForeignKey("GrandPrixId")]
     [InverseProperty("Sprints")]
-    public virtual GrandPrix FkSprintDriverGrandPrix { get; set; } = null!;
+    public virtual GrandPrix GrandPrix { get; set; } = null!;
 
-    [ForeignKey("FkSprintTeamId")]
+    [ForeignKey("TeamId")]
     [InverseProperty("Sprints")]
-    public virtual Team FkSprintTeam { get; set; } = null!;
+    public virtual Team Team { get; set; } = null!;
 }

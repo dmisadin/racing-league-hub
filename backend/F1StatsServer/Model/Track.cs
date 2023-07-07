@@ -10,10 +10,6 @@ namespace F1StatsServer.Model;
 [Table("Track")]
 public partial class Track : EntityBase
 {
-    [Key]
-    [Column("PK_TrackId")]
-    public short PkTrackId { get; set; }
-
     [StringLength(255)]
     [Unicode(false)]
     public string Name { get; set; } = null!;
@@ -35,11 +31,10 @@ public partial class Track : EntityBase
 
     public byte Laps { get; set; }
 
-    [ForeignKey("FkGrandPrixTrackTrackId")]
-    [InverseProperty("FkGrandPrixTrackTracks")]
-    public virtual ICollection<GrandPrix> FkGrandPrixTrackGrandPrixes { get; set; } = new List<GrandPrix>();
+    [InverseProperty("Track")]
+    public virtual ICollection<TrackCountry> TrackCountries { get; set; } = new List<TrackCountry>();
 
-    [ForeignKey("FkTrackCountryTrackId")]
-    [InverseProperty("FkTrackCountryTracks")]
-    public virtual ICollection<Country> FkTrackCountryCountries { get; set; } = new List<Country>();
+    [ForeignKey("TrackId")]
+    [InverseProperty("Tracks")]
+    public virtual ICollection<GrandPrix> GrandPrixes { get; set; } = new List<GrandPrix>();
 }
