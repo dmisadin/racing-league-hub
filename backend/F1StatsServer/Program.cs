@@ -24,6 +24,7 @@ builder.Services.AddScoped<IGenericRepository<GrandPrix>, GrandPrixRepository>()
 builder.Services.AddScoped<IGenericRepository<League>, LeagueRepository>();
 builder.Services.AddScoped<IGenericRepository<User>, UserRepository>();
 builder.Services.AddScoped<IGenericRepository<Game>, GameRepository>();
+builder.Services.AddScoped<IGenericRepository<Region>, RegionRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 

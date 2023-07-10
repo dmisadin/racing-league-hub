@@ -19,10 +19,6 @@ public partial class Season : EntityBase
     [StringLength(255)]
     public string Name { get; set; } = null!;
 
-    [StringLength(10)]
-    [Unicode(false)]
-    public string Game { get; set; } = null!;
-
     [StringLength(255)]
     [Unicode(false)]
     public string? ImagePath { get; set; }
