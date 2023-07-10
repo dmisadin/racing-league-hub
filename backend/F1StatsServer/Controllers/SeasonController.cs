@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace F1StatsServer.Controllers
 {
-    public class SeasonController : GenericController<Season, DriverDto>
+    public class SeasonController : GenericController<Season, SeasonDto>
     {
         public SeasonController(IGenericRepository<Season> genericRepository) : base(genericRepository)
         {

@@ -10,7 +10,6 @@ namespace F1StatsServer.Util
             cfg =>
             {
                 cfg.CreateMap<TSource, TDestination>();
-                cfg.CreateMap<GrandPrix, GrandPrixDto>();
             }
             ));
 
@@ -18,17 +17,6 @@ namespace F1StatsServer.Util
         public static TDestination Map(TSource source)
         {
             return _myMapper.Map<TSource, TDestination>(source);
-        }
-
-        public static GrandPrix Map(GrandPrixDto source)
-        {
-            return new GrandPrix
-            {
-                Name = source.Name,
-                SeasonId = source.SeasonId,
-                HasSprint = source.HasSprint,
-                YouTubeUrl = source.YoutubeUrl
-            };
         }
 
         public static List<TDestination> MapList(List<TSource> source)
