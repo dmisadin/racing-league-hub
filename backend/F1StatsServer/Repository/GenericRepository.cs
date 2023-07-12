@@ -8,8 +8,8 @@ namespace F1StatsServer.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : EntityBase
     {
-        private AdventureContext _context;
-        private DbSet<T> table;
+        private readonly AdventureContext _context;
+        private readonly DbSet<T> table;
 
         public GenericRepository(AdventureContext context)
         {
@@ -54,7 +54,7 @@ namespace F1StatsServer.Repository
         public bool Save()
         {
             var saved = _context.SaveChanges();
-            return saved > 0 ? true : false;
+            return saved > 0;
         }
     }
 }

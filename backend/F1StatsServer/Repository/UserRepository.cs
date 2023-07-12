@@ -31,7 +31,7 @@ namespace F1StatsServer.Repository
 
         public bool CreateItem(RegisterDto data)
         {
-            User user = new User
+            User user = new()
             {
                 Username = data.Username,
                 Password = data.Password,

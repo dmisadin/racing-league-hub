@@ -6,6 +6,6 @@ namespace F1StatsServer.Dto
     public class RegionDto
     {
         [Required, NotNull]
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }

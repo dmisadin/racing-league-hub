@@ -27,6 +27,7 @@ builder.Services.AddScoped<IGenericRepository<Game>, GameRepository>();
 builder.Services.AddScoped<IGenericRepository<Region>, RegionRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IGrandPrixRepository, GrandPrixRepository>();
 
 
 
@@ -50,7 +51,8 @@ builder.Services.AddSwaggerGen(options =>
 });
 builder.Services.AddDbContext<AdventureContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+                   .LogTo(Console.WriteLine, LogLevel.Information);
 });
 
 //Authentication template provided at: https://github.com/patrickgod/JwtWebApiTutorial

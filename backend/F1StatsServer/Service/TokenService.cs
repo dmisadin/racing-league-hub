@@ -12,7 +12,7 @@ namespace F1StatsServer.Service
     {
         public static string CreateToken(UserDto request, IConfiguration configuration, bool isAdmin)
         {
-            List<Claim> claims = new List<Claim>
+            List<Claim> claims = new()
             {
                 new Claim(ClaimTypes.Name, request.Email),
             };

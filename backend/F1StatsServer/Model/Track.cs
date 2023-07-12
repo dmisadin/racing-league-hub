@@ -31,11 +31,10 @@ public partial class Track : EntityBase
 
     public byte Laps { get; set; }
 
+    public virtual ICollection<GrandPrix> GrandPrixes { get; set; } = new List<GrandPrix>();
+
     [ForeignKey("TrackId")]
     [InverseProperty("Tracks")]
     public virtual ICollection<Country> Countries { get; set; } = new List<Country>();
 
-    [ForeignKey("TrackId")]
-    [InverseProperty("Tracks")]
-    public virtual ICollection<GrandPrix> GrandPrixes { get; set; } = new List<GrandPrix>();
 }

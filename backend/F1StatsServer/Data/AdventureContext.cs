@@ -114,6 +114,8 @@ public partial class AdventureContext : DbContext
 
             entity.HasOne(d => d.Season).WithMany(p => p.GrandPrixes).HasConstraintName("FK_GrandPrix_SeasonId");
 
+            entity.HasOne(d => d.Track).WithMany(p => p.GrandPrixes).HasConstraintName("FK_GrandPrix_TrackId");
+
             entity.HasMany(d => d.Countries).WithMany(p => p.GrandPrixes)
                 .UsingEntity<Dictionary<string, object>>(
                     "GrandPrixCountry",
@@ -129,20 +131,20 @@ public partial class AdventureContext : DbContext
                         j.ToTable("GrandPrixCountry");
                     });
 
-            entity.HasMany(d => d.Tracks).WithMany(p => p.GrandPrixes)
-                .UsingEntity<Dictionary<string, object>>(
-                    "GrandPrixTrack",
-                    r => r.HasOne<Track>().WithMany()
-                        .HasForeignKey("TrackId")
-                        .HasConstraintName("FK_GrandPrixTrack_TrackId"),
-                    l => l.HasOne<GrandPrix>().WithMany()
-                        .HasForeignKey("GrandPrixId")
-                        .HasConstraintName("FK_GrandPrixTrack_GrandPrixId"),
-                    j =>
-                    {
-                        j.HasKey("GrandPrixId", "TrackId");
-                        j.ToTable("GrandPrixTrack");
-                    });
+            //entity.HasMany(d => d.Tracks).WithMany(p => p.GrandPrixes)
+            //    .UsingEntity<Dictionary<string, object>>(
+            //        "GrandPrixTrack",
+            //        r => r.HasOne<Track>().WithMany()
+            //            .HasForeignKey("TrackId")
+            //            .HasConstraintName("FK_GrandPrixTrack_TrackId"),
+            //        l => l.HasOne<GrandPrix>().WithMany()
+            //            .HasForeignKey("GrandPrixId")
+            //            .HasConstraintName("FK_GrandPrixTrack_GrandPrixId"),
+            //        j =>
+            //        {
+            //            j.HasKey("GrandPrixId", "TrackId");
+            //            j.ToTable("GrandPrixTrack");
+            //        });
         });
 
         modelBuilder.Entity<League>(entity =>

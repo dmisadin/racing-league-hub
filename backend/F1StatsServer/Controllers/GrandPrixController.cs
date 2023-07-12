@@ -11,46 +11,41 @@ namespace F1StatsServer.Controllers
     [ApiController]
     public class GrandPrixController : GenericController<GrandPrix, GrandPrixDto>
     {
-        public IGenericRepository<Season> _seasonRepository;
         public IGenericRepository<GrandPrix> _genericRepository;
-        public IGenericRepository<League> _leagueRepository;
+        public IGrandPrixRepository _grandPrixRepository;
 
         public GrandPrixController(
             IGenericRepository<GrandPrix> genericRepository,
-            IGenericRepository<Season> seasonRepository,
-            IGenericRepository<League> leagueRepository
+            IGrandPrixRepository grandPrixRepository
             ) : base(genericRepository)
         {
-            _seasonRepository = seasonRepository;
             _genericRepository = genericRepository;
-            _leagueRepository = leagueRepository;
+            _grandPrixRepository = grandPrixRepository;
         }
 
         [HttpGet("homepage")]
         [ProducesResponseType(200)]
         public IActionResult GetHomepageData()
         {
-            var grandPrix = _genericRepository.Get();
-            List<GrandPrixHomeDto> grandPrixMapped = new List<GrandPrixHomeDto>();
-
-            foreach (var item in grandPrix)
-            {
-                var season = _seasonRepository.GetById(item.SeasonId);
-                var league = _leagueRepository.GetById(season.LeagueId);
-                grandPrixMapped.Add(new GrandPrixHomeDto
-                {
-                    Id = item.Id,
-                    GrandPrixName = item.Name,
-                    SeasonName = season.Name,
-                    LeagueName = league.Name,
-                });
-            }
+            var grandPrix = _grandPrixRepository.GetData();
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            return Ok(grandPrixMapped);
+            return Ok(grandPrix);
 
+        }
+
+        [HttpGet("page/{id}")]
+        [ProducesResponseType(200)]
+        public IActionResult GetPageData(int id)
+        {
+            var grandPrix = _grandPrixRepository.GetTrackData(id);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            return Ok(grandPrix);
         }
     }
 }

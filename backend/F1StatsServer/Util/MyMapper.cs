@@ -6,7 +6,7 @@ namespace F1StatsServer.Util
 {
     public static class MyMapper<TDestination, TSource>
     {
-        private static Mapper _myMapper = new Mapper(new MapperConfiguration(
+        private static readonly Mapper _myMapper = new(new MapperConfiguration(
             cfg =>
             {
                 cfg.CreateMap<TSource, TDestination>();

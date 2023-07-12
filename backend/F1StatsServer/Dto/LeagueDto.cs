@@ -8,10 +8,20 @@ namespace F1StatsServer.Dto
     {
         [Required, NotNull]
         public int RegionId { get; set; }
+
+        public int SocialMediaId { get; set; }
+
         [Required, NotNull]
         public string? Name { get; set; }
+
+        [Required, NotNull, DefaultValue("")]
+        public string? Description { get; set; }
+
         [Required, NotNull, DefaultValue("#000000")]
         public string? ColorHex { get; set; }
+
+        [DefaultValue("/")]
+        public string? ImagePath { get; set; }
 
     }
 }
