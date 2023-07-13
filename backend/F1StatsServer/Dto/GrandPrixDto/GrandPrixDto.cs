@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
-namespace F1StatsServer.Dto
+namespace F1StatsServer.Dto.GrandPrixDto
 {
     public class GrandPrixDto
     {
-        [Required,NotNull]
+        [Required, NotNull]
         public int SeasonId { get; set; }
         [Required, NotNull]
         public string? Name { get; set; }

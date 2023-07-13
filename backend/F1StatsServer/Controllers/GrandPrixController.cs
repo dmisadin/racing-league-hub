@@ -1,4 +1,4 @@
-﻿using F1StatsServer.Dto;
+﻿using F1StatsServer.Dto.GrandPrixDto;
 using F1StatsServer.Interface;
 using F1StatsServer.Model;
 using F1StatsServer.Util;

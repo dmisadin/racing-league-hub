@@ -1,4 +1,4 @@
-﻿using F1StatsServer.Dto;
+﻿using F1StatsServer.Dto.DriverDto;
 using F1StatsServer.Interface;
 using F1StatsServer.Model;
 using Microsoft.AspNetCore.Mvc;

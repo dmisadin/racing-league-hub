@@ -1,4 +1,4 @@
-﻿namespace F1StatsServer.Dto
+﻿namespace F1StatsServer.Dto.UserDto
 {
     public class UserDto
     {

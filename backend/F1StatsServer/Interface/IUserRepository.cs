@@ -1,4 +1,4 @@
-﻿using F1StatsServer.Dto;
+﻿using F1StatsServer.Dto.UserDto;
 using F1StatsServer.Model;
 
 namespace F1StatsServer.Interface

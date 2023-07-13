@@ -1,6 +1,6 @@
 ﻿using F1StatsServer.Model;
 
-namespace F1StatsServer.Dto
+namespace F1StatsServer.Dto.GrandPrixDto
 {
     public class GrandPrixPageDto
     {
@@ -8,6 +8,6 @@ namespace F1StatsServer.Dto
         public DateTimeOffset? GrandPrixDate { get; set; }
         public string? YoutubeUrl { get; set; }
         public TrackDto? Track { get; set; }
-        public IEnumerable<RaceDto>? Race{ get; set;}
+        public IEnumerable<RaceDto>? Race { get; set; }
     }
 }
