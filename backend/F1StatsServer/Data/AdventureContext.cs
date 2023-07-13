@@ -87,20 +87,9 @@ public partial class AdventureContext : DbContext
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_Driver_SocialMediaId");
 
-            entity.HasMany(d => d.Countries).WithMany(p => p.Drivers)
-                .UsingEntity<Dictionary<string, object>>(
-                    "DriverCountry",
-                    r => r.HasOne<Country>().WithMany()
-                        .HasForeignKey("CountryId")
-                        .HasConstraintName("FK_DriverCountry_CountryId"),
-                    l => l.HasOne<Driver>().WithMany()
-                        .HasForeignKey("DriverId")
-                        .HasConstraintName("FK_DriverCountry_DriverId"),
-                    j =>
-                    {
-                        j.HasKey("DriverId", "CountryId");
-                        j.ToTable("DriverCountry");
-                    });
+            entity.HasOne(d => d.Country).WithMany(p => p.Drivers)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_Driver_CountryId");
         });
 
         modelBuilder.Entity<Game>(entity =>
@@ -114,37 +103,14 @@ public partial class AdventureContext : DbContext
 
             entity.HasOne(d => d.Season).WithMany(p => p.GrandPrixes).HasConstraintName("FK_GrandPrix_SeasonId");
 
-            entity.HasOne(d => d.Track).WithMany(p => p.GrandPrixes).HasConstraintName("FK_GrandPrix_TrackId");
+            entity.HasOne(d => d.Track).WithMany(p => p.GrandPrixes)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_GrandPrix_TrackId");
 
-            entity.HasMany(d => d.Countries).WithMany(p => p.GrandPrixes)
-                .UsingEntity<Dictionary<string, object>>(
-                    "GrandPrixCountry",
-                    r => r.HasOne<Country>().WithMany()
-                        .HasForeignKey("CountryId")
-                        .HasConstraintName("FK_GrandPrixCountry_CountryId"),
-                    l => l.HasOne<GrandPrix>().WithMany()
-                        .HasForeignKey("GrandPrixId")
-                        .HasConstraintName("FK_GrandPrixCountry_GrandPrixId"),
-                    j =>
-                    {
-                        j.HasKey("GrandPrixId", "CountryId");
-                        j.ToTable("GrandPrixCountry");
-                    });
+            entity.HasOne(d => d.Country).WithMany(p => p.GrandPrixes)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_GrandPrix_CountryId");
 
-            //entity.HasMany(d => d.Tracks).WithMany(p => p.GrandPrixes)
-            //    .UsingEntity<Dictionary<string, object>>(
-            //        "GrandPrixTrack",
-            //        r => r.HasOne<Track>().WithMany()
-            //            .HasForeignKey("TrackId")
-            //            .HasConstraintName("FK_GrandPrixTrack_TrackId"),
-            //        l => l.HasOne<GrandPrix>().WithMany()
-            //            .HasForeignKey("GrandPrixId")
-            //            .HasConstraintName("FK_GrandPrixTrack_GrandPrixId"),
-            //        j =>
-            //        {
-            //            j.HasKey("GrandPrixId", "TrackId");
-            //            j.ToTable("GrandPrixTrack");
-            //        });
         });
 
         modelBuilder.Entity<League>(entity =>
@@ -299,20 +265,9 @@ public partial class AdventureContext : DbContext
 
             entity.Property(e => e.Laps).HasDefaultValueSql("('52')");
 
-            entity.HasMany(d => d.Countries).WithMany(p => p.Tracks)
-                .UsingEntity<Dictionary<string, object>>(
-                    "TrackCountry",
-                    r => r.HasOne<Country>().WithMany()
-                        .HasForeignKey("CountryId")
-                        .HasConstraintName("FK_TrackCountry_CountryId"),
-                    l => l.HasOne<Track>().WithMany()
-                        .HasForeignKey("TrackId")
-                        .HasConstraintName("FK_TrackCountry_TrackId"),
-                    j =>
-                    {
-                        j.HasKey("TrackId", "CountryId");
-                        j.ToTable("TrackCountry");
-                    });
+            entity.HasOne(e => e.Country).WithMany(p => p.Tracks)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_Track_CountryId");
         });
 
         modelBuilder.Entity<User>(entity =>

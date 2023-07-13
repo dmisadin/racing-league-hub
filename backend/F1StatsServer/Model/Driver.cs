@@ -14,6 +14,8 @@ public partial class Driver : EntityBase
 
     public int? SocialMediaId { get; set; }
 
+    public int? CountryId { get; set; }
+
     [StringLength(40)]
     public string Name { get; set; } = null!;
 
@@ -49,7 +51,7 @@ public partial class Driver : EntityBase
     [InverseProperty("Driver")]
     public virtual ICollection<Sprint> Sprints { get; set; } = new List<Sprint>();
 
-    [ForeignKey("DriverId")]
+    [ForeignKey("CountryId")]
     [InverseProperty("Drivers")]
-    public virtual ICollection<Country> Countries { get; set; } = new List<Country>();
+    public virtual Country? Country { get; set; }
 }

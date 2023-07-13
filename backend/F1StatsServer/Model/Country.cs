@@ -31,15 +31,9 @@ public partial class Country : EntityBase
     [Unicode(false)]
     public string? ImagePath { get; set; }
 
-    [ForeignKey("CountryId")]
-    [InverseProperty("Countries")]
     public virtual ICollection<Driver> Drivers { get; set; } = new List<Driver>();
 
-    [ForeignKey("CountryId")]
-    [InverseProperty("Countries")]
     public virtual ICollection<GrandPrix> GrandPrixes { get; set; } = new List<GrandPrix>();
 
-    [ForeignKey("CountryId")]
-    [InverseProperty("Countries")]
     public virtual ICollection<Track> Tracks { get; set; } = new List<Track>();
 }

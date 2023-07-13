@@ -10,6 +10,8 @@ namespace F1StatsServer.Model;
 [Table("Track")]
 public partial class Track : EntityBase
 {
+    public int? CountryId { get; set; }
+
     [StringLength(255)]
     [Unicode(false)]
     public string Name { get; set; } = null!;
@@ -33,8 +35,6 @@ public partial class Track : EntityBase
 
     public virtual ICollection<GrandPrix> GrandPrixes { get; set; } = new List<GrandPrix>();
 
-    [ForeignKey("TrackId")]
-    [InverseProperty("Tracks")]
-    public virtual ICollection<Country> Countries { get; set; } = new List<Country>();
+    public virtual Country? Country { get; set; }
 
 }

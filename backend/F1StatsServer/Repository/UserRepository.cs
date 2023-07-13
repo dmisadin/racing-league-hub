@@ -40,7 +40,7 @@ namespace F1StatsServer.Repository
             };
             if (_context.Users.Contains(user))
                 return false;
-            _context.Add(user);
+            _context.AddAsync(user);
 
             return Save();
         }
