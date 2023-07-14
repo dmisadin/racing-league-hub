@@ -1,0 +1,47 @@
+<ng-container [formGroup]="parentFormGroup">
+    <div formGroupName="info">
+        <label>
+            Name*
+            <span *ngIf="nameField?.hasError('required') && nameField?.dirty" class="error-text">This is a required
+                field.</span>
+        </label>
+        <input type="text" placeholder="Season 3" formControlName="name" (ngModelChange)="sendDataToParent()">
+
+        <label>Game</label>
+        <select formControlName="game">
+            <option value="F123">F1 23</option>
+            <option value="F122">F1 22</option>
+            <option value="F12021">F1 2021</option>
+            <option value="F12020">F1 2020</option>
+            <option value="F12019">F1 2019</option>
+        </select>
+
+        <label>Platform</label>
+        <select formControlName="platform">
+            <option value="PC">PC</option>
+            <option value="Steam"> └ Steam only</option>
+            <option value="EA"> └ EA only</option>
+            <option value="PS">PlayStation</option>
+            <option value="XBOX">XBOX</option>
+            <option value="Crossplay">Crossplay</option>
+        </select>
+        
+        <label>
+            Required laps completed percentage to score points*
+            <span *ngIf="lapsField.hasError('required') && lapsField?.dirty" class="error-text">This is a required
+                field.</span>
+        </label>
+        <input type="number" placeholder="90" formControlName="lapsRequiredPercentage"
+        (ngModelChange)="sendDataToParent()">
+        
+        <!-- <p>Nested form: {{infoFormGroup.value | json}}</p>
+        <p>Info valid from parent: {{infoFormGroup.valid}}</p> -->
+    </div>
+</ng-container>
+
+
+    <!-- Note: Check if it's necessary to have another logo.
+<label class="custom-upload" for="img">Upload Season specific logo if you want</label>
+<input type="file" id="img" name="img" accept="image/png, image/jpeg, image/svg" formControlName="seasonLogo">
+<img *ngIf="preview" [src]="preview" class="preview" />
+-->

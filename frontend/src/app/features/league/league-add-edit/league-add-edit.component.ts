@@ -1,6 +1,6 @@
-import { Component, ViewContainerRef } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Cmyk, ColorPickerService } from 'ngx-color-picker';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ColorPickerService } from 'ngx-color-picker';
 
 @Component({
   selector: 'app-league-add-edit',
@@ -16,11 +16,12 @@ import { Cmyk, ColorPickerService } from 'ngx-color-picker';
 export class LeagueAddEditComponent {
   regexUrl = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
   preview= '';
-  
+
   leagueForm = this.fb.group({
     name: ['', Validators.required],
+    region: ['Europe', Validators.required],
     description: '',
-    logo: '',
+    leagueLogo: '',
     color: '',
     website: ['', Validators.pattern(this.regexUrl)],
     discord: ['', Validators.pattern(this.regexUrl)],
@@ -29,9 +30,8 @@ export class LeagueAddEditComponent {
     facebook: ['', Validators.pattern(this.regexUrl)],
     instagram: ['', Validators.pattern(this.regexUrl)],
   })
-  
-  constructor(private fb: FormBuilder, private cpService: ColorPickerService) { }
 
+  constructor(private fb: FormBuilder, private cpService: ColorPickerService) { }
 
   public get color(): string {
     return this.leagueForm.controls['color'].value || '#000';

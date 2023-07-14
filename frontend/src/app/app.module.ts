@@ -35,7 +35,10 @@ import { GrandPrixComponent } from './features/grandprix/grandprix.component';
 import { TableRaceResultComponent } from './shared/components/table-race-result/table-race-result.component';
 import { TableQualifyingResultComponent } from './shared/components/table-qualifying-result/table-qualifying-result.component';
 import { DriverComponent } from './features/driver/driver.component';
-import { LeagueAddEditComponent } from './shared/components/league-add-edit/league-add-edit.component';
+import { LeagueAddEditComponent } from './features/league/league-add-edit/league-add-edit.component';
+import { SeasonAddEditComponent } from './features/season/season-add-edit/season-add-edit.component';
+import { SeasonInfoFormComponent } from './features/season/season-add-edit/season-info-form/season-info-form.component';
+import { SeasonQualPointsComponent } from './features/season/season-add-edit/season-qual-points/season-qual-points.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +68,9 @@ import { LeagueAddEditComponent } from './shared/components/league-add-edit/leag
     TableQualifyingResultComponent,
     DriverComponent,
     LeagueAddEditComponent,
+    SeasonAddEditComponent,
+    SeasonInfoFormComponent,
+    SeasonQualPointsComponent,
   ],
   imports: [
     BrowserModule,

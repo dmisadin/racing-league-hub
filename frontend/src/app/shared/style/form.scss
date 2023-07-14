@@ -4,7 +4,7 @@
     form {
         width: fit-content;
         /* max-width: 800px; */
-        min-width: 360px;
+        min-width: 500px;
         height: fit-content;
         padding: 20px;
         align-self: center;
@@ -44,7 +44,8 @@
     input[type=text],
     textarea,
     input[type=email],
-    input[type=password] {
+    input[type=password],
+    input[type=number] {
         height: 48px;
         width: 100%;
         padding: 8px 20px;
@@ -64,6 +65,7 @@
     }
 
     input[type=text]:focus,
+    input[type=number]:focus,
     textarea:focus {
         border: 1px solid v.$neutral-800;
     }
@@ -122,6 +124,12 @@
         color: v.$neutral-100;
         background-color: v.$secondary;
         cursor: pointer;
+    }
+
+    button:disabled {
+        cursor: default;
+        color: v.$neutral-500;
+        background-color: v.$neutral-200;
     }
 }
 
@@ -191,5 +199,11 @@
         text-align: center;
 
         cursor: pointer;
+    }
+}
+
+@mixin alert {
+    .error-text {
+        color: v.$error-red;
     }
 }

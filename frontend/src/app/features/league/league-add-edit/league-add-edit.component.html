@@ -2,15 +2,27 @@
     <h1>Create new league</h1>
     <app-section-flex [direction]="'row'" [justify]="'space-around'" [gap]="'40px'">
         <div class="form-column">
-            <label>Name</label>
+            <h2>Basic league info</h2>
+            <label>
+                Name*
+            </label>
             <input type="text" placeholder="Racing League Name" formControlName="name">
+
+            <label>Region*</label>
+            <select formControlName="region">
+                <option value="Europe">Europe</option>
+                <option value="NA">NA</option>
+                <option value="SA">SA</option>
+                <option value="Asia">Asia</option>
+                <option value="Oceania">Oceania</option>
+            </select>
 
             <label>Description</label>
             <textarea placeholder="Information that doesn't fit elsewhere..." maxlength="240"
                 formControlName="description"></textarea>
 
             <label class="custom-upload" for="img">Upload League logo</label>
-            <input type="file" id="img" name="img" accept="image/png, image/jpeg, image/svg" formControlName="logo">
+            <input type="file" id="img" name="img" accept="image/png, image/jpeg, image/svg" formControlName="leagueLogo">
             
             <img *ngIf="preview" [src]="preview" class="preview" />
 
@@ -19,6 +31,7 @@
                 formControlName="color" />
         </div>
         <div class="form-column">
+            <h2>Social Media Links</h2>
             <ng-container *ngFor="let s of social">
                 <label>{{s.name}}</label>
                 <input type="text" placeholder="{{s.placeholder}}" formControlName="{{s.name.toLowerCase()}}">

@@ -1,0 +1,17 @@
+@import "../../../../shared/style/form.scss";
+
+@include input-fields;
+@include form-setup;
+@include select;
+@include alert;
+
+:host div{
+    width: fit-content;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+}

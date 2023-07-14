@@ -9,7 +9,8 @@ import { GrandPrixComponent } from './features/grandprix/grandprix.component';
 import { DriverComponent } from './features/driver/driver.component';
 import { RegistrationComponent } from './features/registration/registration.component';
 import { loginGuard } from './core/guards/login.guard';
-import { LeagueAddEditComponent } from './shared/components/league-add-edit/league-add-edit.component';
+import { LeagueAddEditComponent } from './features/league/league-add-edit/league-add-edit.component';
+import { SeasonAddEditComponent } from './features/season/season-add-edit/season-add-edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'season', component: SeasonComponent },
   { path: 'grandprix', component: GrandPrixComponent },
   { path: 'driver', component: DriverComponent },
-  { path: 'league/edit', component: LeagueAddEditComponent }
+  { path: 'league/edit', component: LeagueAddEditComponent },
+  { path: 'season/edit', component: SeasonAddEditComponent },
 ];
 
 @NgModule({

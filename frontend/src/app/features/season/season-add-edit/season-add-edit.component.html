@@ -1,0 +1,40 @@
+<form [formGroup]="seasonForm" (ngSubmit)="onSubmit()">
+    <h1>Create new season</h1>
+    <h2>Current step {{currentStep}}/{{totalSteps}}</h2>
+
+    <app-section-flex [direction]="'row'" [justify]="'space-around'" [gap]="'40px'">
+        <div class="prev-next">
+            <button *ngIf="currentStep !== 1 && !isSubmitted" type="button" (click)="previousStep()">
+                <fa-icon [icon]="faArrowLeft" />
+            </button>
+        </div>
+        
+
+        <ng-container *ngIf="currentStep === 1">
+            <app-season-info-form  [(infoValues)]="infoValues">
+            </app-season-info-form>
+        </ng-container>
+
+
+        <div class="form-column" *ngIf="currentStep === 2">
+            <label>Test*</label>
+            <input type="text" placeholder="tstst" formControlName="test">
+        </div>
+
+
+        <div class="form-column" *ngIf="currentStep === 3">
+            <div>You are done.</div>
+            <button type="submit" [disabled]="!seasonForm.valid">Create Season</button>
+        </div>
+
+        
+        <div class="prev-next">
+            <button *ngIf="currentStep !== totalSteps" type="button" (click)="nextStep()" [disabled]="!infoValid?.valid">
+                <fa-icon [icon]="faArrowRight" />
+            </button>
+        </div>
+    </app-section-flex>
+
+    <p>{{seasonForm.value | json}}</p>
+    <p>Info valid from parent: {{infoValid?.valid}}</p>
+</form>
