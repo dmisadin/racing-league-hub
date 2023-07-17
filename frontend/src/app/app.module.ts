@@ -39,6 +39,7 @@ import { LeagueAddEditComponent } from './features/league/league-add-edit/league
 import { SeasonAddEditComponent } from './features/season/season-add-edit/season-add-edit.component';
 import { SeasonInfoFormComponent } from './features/season/season-add-edit/season-info-form/season-info-form.component';
 import { SeasonQualPointsComponent } from './features/season/season-add-edit/season-qual-points/season-qual-points.component';
+import { PointsItemComponent } from './features/season/season-add-edit/points-item/points-item.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { SeasonQualPointsComponent } from './features/season/season-add-edit/sea
     SeasonAddEditComponent,
     SeasonInfoFormComponent,
     SeasonQualPointsComponent,
+    PointsItemComponent,
   ],
   imports: [
     BrowserModule,

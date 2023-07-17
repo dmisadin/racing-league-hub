@@ -7,13 +7,20 @@ import { BehaviorSubject } from 'rxjs'
 export class FormValidService {
   constructor() {}
 
-  private dataSubject = new BehaviorSubject<boolean>(true);
+  private dataFromChild = new BehaviorSubject<any>({});
+  private dataFromParent = new BehaviorSubject<any>({});
 
-  sendData(data: any) {
-    this.dataSubject.next(data);
+  sendDataFromChild(data: any) {
+    this.dataFromChild.next(data);
+  }
+  sendDataFromParent(data: any) {
+    this.dataFromParent.next(data);
   }
 
-  getData() {
-    return this.dataSubject.asObservable();
+  getDataFromChild() {
+    return this.dataFromChild.asObservable();
+  }  
+  getDataFromParent() {
+    return this.dataFromParent.asObservable();
   }
 }

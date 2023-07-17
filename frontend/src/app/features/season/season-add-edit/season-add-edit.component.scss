@@ -15,11 +15,11 @@ form {
 button {
     width: fit-content;
     height: fit-content;
-    align-self: flex-end;
+    /* align-self: flex-end; */
 }
 
 .prev-next {
-    width: fit-content;
+    width: 72px;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
 }

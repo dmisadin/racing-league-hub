@@ -1,1 +1,25 @@
-<p>season-qual-points works!</p>
+<h1>Create points system for Qualifying</h1>
+<ng-container [formGroup]="parentFormGroup">
+    <div class="buttons">
+        <button type="button" (click)="addPointsItem()" [disabled]="pointsArray.controls.length >= 20">
+            <!-- <fa-icon [icon]="faPlus"/> --> 
+            {{pointsArray.controls.length < 20 ? "Add position" : "Maximum is 20 drivers"}}
+        </button>
+        <!-- <button type="button" (click)="removePointsItem()" [disabled]="pointsArray.controls.length < 1">
+            Remove position
+        </button> -->
+    </div>
+    <div class="input-fields">
+        <div class="labels">
+            <label>Position</label>
+            <label>Points</label>
+        </div>
+        <ng-container *ngFor="let pointsItem of qualPointsFormArray.controls; let i = index">
+            <app-points-item 
+                [pointsItem]="toFormGroup(pointsItem)" 
+                (ngModelChange)="sendDataToParent()"
+                [arrayIndex]="i"
+                (removePointsItemEvent)="removePointsItem($event)"></app-points-item>
+        </ng-container>
+    </div>
+</ng-container>

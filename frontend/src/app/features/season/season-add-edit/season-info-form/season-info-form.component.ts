@@ -10,30 +10,34 @@ import { ControlContainer, FormBuilder, FormControl, FormGroup, Validators } fro
 
 
 export class SeasonInfoFormComponent implements OnInit {
-  @Input() infoValues = { name: "", game: "F122", platform: "PC", lapsRequiredPercentage: 90 };
-  @Output() infoValuesChange = new EventEmitter();
+  @Input() infoValue = { name: "Sezona 5", game: "F122", platform: "PC", lapsRequiredPercentage: 90 };
+  @Output() infoValueChange = new EventEmitter();
 
   constructor(private fb: FormBuilder, private parentControl: ControlContainer) { }
 
   parentFormGroup = this.parentControl.control as FormGroup;
 
   infoFormGroup = this.fb.group({
-    name: [this.infoValues.name, Validators.required],
-    game: [this.infoValues.game, Validators.required],
-    platform: [this.infoValues.platform, Validators.required],
-    lapsRequiredPercentage: [this.infoValues.lapsRequiredPercentage, Validators.required],
+    name: [this.infoValue.name, Validators.required],
+    game: [this.infoValue.game, Validators.required],
+    platform: [this.infoValue.platform, Validators.required],
+    lapsRequiredPercentage: [this.infoValue.lapsRequiredPercentage, Validators.required],
   });
 
   ngOnInit(): void {
-    console.log(this.infoFormGroup)
+    console.log("infovalue on init", this.infoValue);
     this.parentFormGroup.addControl('info', this.infoFormGroup);
-
-    this.infoValuesChange.emit(this.infoFormGroup.value);
+    
+    console.log("parentformcontrol on init", this.parentFormGroup);
+    this.infoValueChange.emit(this.infoFormGroup.value);
   }
+/*   ngOnChanges(): void {
+    this.sendDataToParent();
+    console.log("infovalue on change", this.infoValue);
+  } */
 
   sendDataToParent() {
-    console.log("child ", this.infoFormGroup.value);
-    this.infoValuesChange.emit(this.infoFormGroup.value);
+    this.infoValueChange.emit(this.infoFormGroup.value);
   }
 
   get nameField(): FormControl {

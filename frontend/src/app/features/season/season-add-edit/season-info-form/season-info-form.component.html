@@ -1,9 +1,11 @@
 <ng-container [formGroup]="parentFormGroup">
-    <div formGroupName="info">
+    <h1>Setup basic information</h1>
+    <form formGroupName="info">
         <label>
             Name*
-            <span *ngIf="nameField?.hasError('required') && nameField?.dirty" class="error-text">This is a required
-                field.</span>
+            <span *ngIf="nameField?.hasError('required') && nameField?.dirty" class="error-text">
+                This is a required field.
+            </span>
         </label>
         <input type="text" placeholder="Season 3" formControlName="name" (ngModelChange)="sendDataToParent()">
 
@@ -25,22 +27,23 @@
             <option value="XBOX">XBOX</option>
             <option value="Crossplay">Crossplay</option>
         </select>
-        
+
         <label>
             Required laps completed percentage to score points*
-            <span *ngIf="lapsField.hasError('required') && lapsField?.dirty" class="error-text">This is a required
-                field.</span>
+            <span *ngIf="lapsField.hasError('required') && lapsField?.dirty" class="error-text">
+                This is a required field.
+            </span>
         </label>
         <input type="number" placeholder="90" formControlName="lapsRequiredPercentage"
-        (ngModelChange)="sendDataToParent()">
-        
+            (ngModelChange)="sendDataToParent()">
+
         <!-- <p>Nested form: {{infoFormGroup.value | json}}</p>
         <p>Info valid from parent: {{infoFormGroup.valid}}</p> -->
-    </div>
+    </form>
 </ng-container>
 
 
-    <!-- Note: Check if it's necessary to have another logo.
+<!-- Note: Check if it's necessary to have another logo.
 <label class="custom-upload" for="img">Upload Season specific logo if you want</label>
 <input type="file" id="img" name="img" accept="image/png, image/jpeg, image/svg" formControlName="seasonLogo">
 <img *ngIf="preview" [src]="preview" class="preview" />

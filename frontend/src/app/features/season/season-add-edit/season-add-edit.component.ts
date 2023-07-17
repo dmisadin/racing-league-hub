@@ -1,6 +1,11 @@
-import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+
+
+import { FormValidService } from 'app/core/services/form-valid.service';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-season-add-edit',
   templateUrl: './season-add-edit.component.html',
@@ -15,19 +20,25 @@ export class SeasonAddEditComponent {
   preview = '';
   isSubmitted: boolean = false;
 
-  infoValues = { name: "", game: "", platform: "", lapsRequiredPercentage: 90};
+  infoValue = { name: "", game: "", platform: "", lapsRequiredPercentage: 90 };
+  qualPointsArray = this.fb.array([]);
 
   seasonForm = this.fb.group({
-    test: ['', Validators.required]
+    
   })
 
-  constructor(private fb: FormBuilder) { }
-
+  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) { }
   ngOnInit() {
     console.log(this.currentStep, this.seasonForm.value);
-  
   }
-
+  ngOnChanges() {
+    
+    console.log("on changes parent ", this.seasonForm.controls)
+  }
+  ngAfterViewInit() {
+    this.cdr.detectChanges();
+    console.log("after view init ", this.seasonForm.controls)
+  }
   onSubmit(): void {
     this.isSubmitted = true;
     console.log("Submitted form: ", this.seasonForm.value, this.seasonForm.valid, this.seasonForm);
@@ -43,8 +54,8 @@ export class SeasonAddEditComponent {
     if (this.currentStep > 1)
       this.currentStep--;
   }
-  
+
   get infoValid() {
-      return this.seasonForm?.get('info');
+    return this.seasonForm?.get('info');
   }
 }
