@@ -1,6 +1,6 @@
 ﻿using F1StatsServer.Util;
 
-namespace F1StatsServer.Interface
+namespace F1StatsServer.Infrastructure
 {
     public interface IGenericRepository<T> where T : EntityBase
     {

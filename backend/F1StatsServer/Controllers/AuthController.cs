@@ -1,5 +1,4 @@
-﻿using F1StatsServer.Dto;
-using F1StatsServer.Interface;
+﻿using F1StatsServer.Interface;
 using F1StatsServer.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using F1StatsServer.Service;
+using F1StatsServer.Dto.UserDto;
 
 namespace F1StatsServer.Controllers
 {

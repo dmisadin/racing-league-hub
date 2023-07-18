@@ -4,7 +4,7 @@ using F1StatsServer.Util;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace F1StatsServer.Repository
+namespace F1StatsServer.Infrastructure
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : EntityBase
     {

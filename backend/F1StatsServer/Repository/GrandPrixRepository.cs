@@ -1,5 +1,7 @@
 ﻿using F1StatsServer.Data;
 using F1StatsServer.Dto;
+using F1StatsServer.Dto.GrandPrixDto;
+using F1StatsServer.Infrastructure;
 using F1StatsServer.Interface;
 using F1StatsServer.Model;
 using F1StatsServer.Util;
@@ -17,10 +19,15 @@ namespace F1StatsServer.Repository
 
         public IQueryable GetData()
         {
-            var query = (from GrandPrix in _context.Set<GrandPrix>()
-                         join Season in _context.Set<Season>() on GrandPrix.SeasonId equals Season.Id
-                         join League in _context.Set<League>() on Season.LeagueId equals League.Id
-                         select new GrandPrixHomeDto { Id = GrandPrix.Id, GrandPrixName = GrandPrix.Name, SeasonName = Season.Name, LeagueName = League.Name });
+            var query = from GrandPrix in _context.Set<GrandPrix>()
+                        join Season in _context.Set<Season>() on GrandPrix.SeasonId equals Season.Id
+                        join League in _context.Set<League>() on Season.LeagueId equals League.Id
+                        select new GrandPrixHomeDto { 
+                            Id = GrandPrix.Id,
+                            GrandPrixName = GrandPrix.Name,
+                            SeasonName = Season.Name,
+                            LeagueName = League.Name
+                        };
                         
             return query;            
         }

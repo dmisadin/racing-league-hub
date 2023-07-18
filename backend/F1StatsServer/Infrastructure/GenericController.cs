@@ -4,7 +4,7 @@ using F1StatsServer.Util;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace F1StatsServer.Controllers
+namespace F1StatsServer.Infrastructure
 {
     [Route("api/[controller]")]
     [ApiController]

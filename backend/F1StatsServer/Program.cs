@@ -1,4 +1,5 @@
 using F1StatsServer.Data;
+using F1StatsServer.Infrastructure;
 using F1StatsServer.Interface;
 using F1StatsServer.Model;
 using F1StatsServer.Repository;
@@ -16,18 +17,18 @@ var builder = WebApplication.CreateBuilder(args);
 //Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddScoped<IGenericRepository<Driver>, DriverRepository>();
-builder.Services.AddScoped<IGenericRepository<Country>, CountryRepository>();
-builder.Services.AddScoped<IGenericRepository<Race>, RaceRepository>();
-builder.Services.AddScoped<IGenericRepository<Season>, SeasonRepository>();
-builder.Services.AddScoped<IGenericRepository<GrandPrix>, GrandPrixRepository>();
-builder.Services.AddScoped<IGenericRepository<League>, LeagueRepository>();
-builder.Services.AddScoped<IGenericRepository<User>, UserRepository>();
-builder.Services.AddScoped<IGenericRepository<Game>, GameRepository>();
-builder.Services.AddScoped<IGenericRepository<Region>, RegionRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
+
+//Add generic repository to application scope:
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+//Add specific repositories to application scope:
 builder.Services.AddScoped<IGrandPrixRepository, GrandPrixRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+//Add services to application scope:
+builder.Services.AddScoped<ILeagueService, LeagueService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 
 
 
