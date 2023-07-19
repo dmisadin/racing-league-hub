@@ -1,7 +1,7 @@
 ﻿using F1StatsServer.Dto;
 using F1StatsServer.Infrastructure;
+using F1StatsServer.Interface;
 using F1StatsServer.Model;
-using F1StatsServer.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F1StatsServer.Controllers

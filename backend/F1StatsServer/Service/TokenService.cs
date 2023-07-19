@@ -20,7 +20,7 @@ namespace F1StatsServer.Service
             if (isAdmin) { claims.Add(new Claim(ClaimTypes.Role, "Admin")); }
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
-                configuration.GetSection("AppSettings:Token").Value));
+                configuration.GetSection("Token").Value));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 

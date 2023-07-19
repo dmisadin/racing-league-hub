@@ -1,6 +1,6 @@
 ﻿using F1StatsServer.Dto;
 
-namespace F1StatsServer.Service
+namespace F1StatsServer.Interface
 {
     public interface ILeagueService
     {

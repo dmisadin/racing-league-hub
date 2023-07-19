@@ -16,13 +16,11 @@ namespace F1StatsServer.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
         private readonly IUserRepository _userRepository;
         private readonly IUserService _userService;
 
-        public AuthController(IConfiguration configuration, IUserRepository userRepository, IUserService userService)
+        public AuthController(IUserRepository userRepository, IUserService userService)
         {
-            _configuration = configuration;
             _userRepository = userRepository;
             _userService = userService;
         }
@@ -46,9 +44,7 @@ namespace F1StatsServer.Controllers
                 return BadRequest("User not found.");
             }
 
-            User user = _userRepository.CheckRole(request.Email, request.Password);
-
-            string token = TokenService.CreateToken(request, _configuration, user.IsAdmin);
+            string token = _userService.Login(request);
 
             return Ok(token);
         }
