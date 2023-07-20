@@ -38,8 +38,11 @@ import { DriverComponent } from './features/driver/driver.component';
 import { LeagueAddEditComponent } from './features/league/league-add-edit/league-add-edit.component';
 import { SeasonAddEditComponent } from './features/season/season-add-edit/season-add-edit.component';
 import { SeasonInfoFormComponent } from './features/season/season-add-edit/season-info-form/season-info-form.component';
-import { SeasonQualPointsComponent } from './features/season/season-add-edit/season-qual-points/season-qual-points.component';
+import { SeasonPointsComponent } from './features/season/season-add-edit/season-points/season-points.component';
 import { PointsItemComponent } from './features/season/season-add-edit/points-item/points-item.component';
+import { SeasonLobbySettingsComponent } from './features/season/season-add-edit/season-lobby-settings/season-lobby-settings.component';
+import { SeasonAssistsComponent } from './features/season/season-add-edit/season-assists/season-assists.component';
+import { SwitchComponent } from './shared/components/switch/switch.component';
 
 @NgModule({
   declarations: [
@@ -71,8 +74,11 @@ import { PointsItemComponent } from './features/season/season-add-edit/points-it
     LeagueAddEditComponent,
     SeasonAddEditComponent,
     SeasonInfoFormComponent,
-    SeasonQualPointsComponent,
+    SeasonPointsComponent,
     PointsItemComponent,
+    SeasonLobbySettingsComponent,
+    SeasonAssistsComponent,
+    SwitchComponent,
   ],
   imports: [
     BrowserModule,

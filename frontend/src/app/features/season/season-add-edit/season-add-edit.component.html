@@ -12,31 +12,66 @@
 
         <div class="form-column" *ngIf="currentStep === 1">
             <app-season-info-form  [(infoValue)]="infoValue">
-            </app-season-info-form>
+            </app-season-info-form> 
         </div>
 
 
         <div class="form-column" *ngIf="currentStep === 2">
-<!--             <label>Test*</label>
-            <input type="text" placeholder="tstst" formControlName="test"> -->
-            <app-season-qual-points 
+            <app-season-points 
                 *ngIf="qualPointsArray" 
-                [(qualPointsArray)]="qualPointsArray"
-                ></app-season-qual-points>
+                [sessionName]="'Qualifying'"
+                [(pointsArray)]="qualPointsArray"
+                ></app-season-points>
         </div>
 
-
         <div class="form-column" *ngIf="currentStep === 3">
+            <app-season-points 
+                *ngIf="sprintPointsArray" 
+                [sessionName]="'Sprint'"
+                [(pointsArray)]="sprintPointsArray"
+                ></app-season-points>
+        </div>
+
+        
+        <div class="form-column" *ngIf="currentStep === 4">
+            <app-season-points 
+                *ngIf="racePointsArray" 
+                [sessionName]="'Race'"
+                [(pointsArray)]="racePointsArray"
+                ></app-season-points>
+        </div>
+
+        <div class="form-column" *ngIf="currentStep === 5" >
+            <h1>Create points for the fastest lap in the Race</h1>
+            <form formGroupName="fastestLapPoints" class="row-input">
+                <div class="description">
+                    Decide the amount of points awarded for fastest lap and the lowest finishing position to be eligible.
+                </div>
+                <label>Lowest position</label>
+                <input type="number" placeholder="10" formControlName="finishInsideTopN">
+                <label>Points</label>
+                <input type="number" placeholder="1" formControlName="points">
+            </form>
+        </div>
+
+        <div class="form-column" *ngIf="currentStep === 6">
+            <app-season-lobby-settings></app-season-lobby-settings>
+        </div>
+
+        <div class="form-column" *ngIf="currentStep === 7">
+            <app-season-assists></app-season-assists>
+        </div>
+
+        <div class="form-column" *ngIf="currentStep === 8">
             <div>You are done.</div>
             <button type="submit" [disabled]="!seasonForm.valid">Create Season</button>
         </div>
-
 
         <div class="prev-next">
             <button *ngIf="currentStep !== totalSteps" 
                 type="button" 
                 (click)="nextStep()" 
-                [disabled]="!infoValid?.valid || (currentStep === 2 && qualPointsArray.invalid)">
+                [disabled]="!stepValidity">
                 <fa-icon [icon]="faArrowRight" />
             </button>
         </div>

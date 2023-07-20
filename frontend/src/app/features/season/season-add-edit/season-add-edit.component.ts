@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, OnChanges } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,30 +15,37 @@ export class SeasonAddEditComponent {
   faArrowLeft = faArrowLeft;
   faArrowRight = faArrowRight;
 
-  currentStep = 1;
-  totalSteps = 3;
+  currentStep = 6;
+  totalSteps = 8;
   preview = '';
   isSubmitted: boolean = false;
-
+  stepFormNames = ["info", "qualPoints", "sprintPoints", "racePoints", "fastestLapPoints", "lobbySettings", "assists"]
   infoValue = { name: "", game: "", platform: "", lapsRequiredPercentage: 90 };
+
   qualPointsArray = this.fb.array([]);
+  sprintPointsArray = this.fb.array([]);
+  racePointsArray = this.fb.array([]);
 
   seasonForm = this.fb.group({
-    
-  })
+    fastestLapPoints: this.fb.group({
+      finishInsideTopN: [10, [Validators.required, Validators.min(0), Validators.max(22)]],
+      points: [1, [Validators.required, Validators.min(0)]]
+    })
+    // The rest of form group is added inside child components with parent.addControl()
+  });
 
   constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) { }
+
   ngOnInit() {
     console.log(this.currentStep, this.seasonForm.value);
   }
-  ngOnChanges() {
-    
-    console.log("on changes parent ", this.seasonForm.controls)
-  }
+
+
   ngAfterViewInit() {
-    this.cdr.detectChanges();
+    //this.cdr.detectChanges();
     console.log("after view init ", this.seasonForm.controls)
   }
+
   onSubmit(): void {
     this.isSubmitted = true;
     console.log("Submitted form: ", this.seasonForm.value, this.seasonForm.valid, this.seasonForm);
@@ -55,7 +62,9 @@ export class SeasonAddEditComponent {
       this.currentStep--;
   }
 
-  get infoValid() {
-    return this.seasonForm?.get('info');
+  get stepValidity() {
+    return this.seasonForm?.get(this.stepFormNames[this.currentStep - 1])?.valid;
+    // This can be improved by checking if all the steps before it are valid as well.
+    // But right now, you can't skip the steps, so it doesn't mater until something like nonlinear "Material Stepper" is implemented
   }
 }

@@ -5,6 +5,10 @@
 @include input-fields;
 @include form-setup;
 
+:host {
+    align-self: center;
+}
+
 .input-fields {
     /* max-height: 60vh; */
     width: 100%;
@@ -34,6 +38,7 @@ fa-icon {
 }
 .buttons {
     @include flex-row;
+    width: 100%;
     justify-content: space-evenly;
 }
 button {

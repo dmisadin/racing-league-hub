@@ -19,15 +19,15 @@ export class SeasonComponent {
   mockLobby = [
     {iconPath: 'lobby/qualifying.png', name: 'Qualifying', value: 'Short'},
     {iconPath: 'lobby/formationlap.png', name: 'Formation Lap', value: 'On'},
-    {iconPath: 'lobby/race.png', name: 'Race Distance', value: '50%'},
+    {iconPath: 'lobby/equalcarperformance.png', name: 'Race Distance', value: '50%'},
     {iconPath: 'lobby/weather.png', name: 'Weather', value: 'Dynamic'},
     {iconPath: 'lobby/cornercutting.png', name: 'Corner cutting', value: 'strict'},
     {iconPath: 'lobby/damage.png', name: 'Damage', value: 'Standard'},
     {iconPath: 'lobby/parcferme.png', name: 'Parc Ferme', value: 'On'},
-    {iconPath: 'lobby/engine.png', name: 'Engine', value: 'Equal'},
+    {iconPath: 'lobby/equalcarperformance.png', name: 'Engine', value: 'Equal'},
     {iconPath: 'lobby/safetycar.png', name: 'Safety Car', value: 'Reduced'},
     {iconPath: 'lobby/start.png', name: 'Starts', value: 'Manual'},
-    {iconPath: 'lobby/collision.png', name: 'Collisions', value: 'On'},
+    {iconPath: 'lobby/collisions.png', name: 'Collisions', value: 'On'},
     {iconPath: 'lobby/ghosting.png', name: 'Ghosting', value: 'Off'},
   ]
 }

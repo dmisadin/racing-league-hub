@@ -1,13 +1,16 @@
 <ng-container [formGroup]="parentFormGroup">
     <h1>Setup basic information</h1>
     <form formGroupName="info">
+        <div class="description">
+            Fill out the basic information about your league. 
+        </div>
         <label>
             Name*
             <span *ngIf="nameField?.hasError('required') && nameField?.dirty" class="error-text">
                 This is a required field.
             </span>
         </label>
-        <input type="text" placeholder="Season 3" formControlName="name" (ngModelChange)="sendDataToParent()">
+        <input type="text" placeholder="Season 3" formControlName="name">
 
         <label>Game</label>
         <select formControlName="game">
@@ -34,9 +37,10 @@
                 This is a required field.
             </span>
         </label>
-        <input type="number" placeholder="90" formControlName="lapsRequiredPercentage"
-            (ngModelChange)="sendDataToParent()">
-
+        <div>
+            <input type="number" placeholder="90" formControlName="lapsRequiredPercentage">
+            <span class="unit">%</span>
+        </div>
         <!-- <p>Nested form: {{infoFormGroup.value | json}}</p>
         <p>Info valid from parent: {{infoFormGroup.valid}}</p> -->
     </form>

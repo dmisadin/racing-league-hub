@@ -35,12 +35,24 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        align-items: center;
+        align-items: flex-start;
         gap: 20px;
+    }
+
+    .description {
+
+        display: block;
+        width: 100%;
+
+        color: v.$neutral-800;
+        font-size: v.$text-size-s;
     }
 }
 
 @mixin input-fields {
+    input {
+        display: inline;
+    }
 
     input[type=text],
     textarea,
@@ -58,6 +70,10 @@
 
         border-radius: 8px;
         border: 1px solid v.$neutral-300;
+    }
+
+    input[type=number] {
+        width: 80px;
     }
 
     textarea {
@@ -132,6 +148,20 @@
         color: v.$neutral-500;
         background-color: v.$neutral-200;
     }
+
+
+    .label-input-row {
+        width: 400px;
+        height: 48px;
+
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+    }
+
+    .unit {
+        margin-left: -32px;
+    }
 }
 
 @mixin select {
@@ -143,7 +173,7 @@
         font-family: v.$text-family;
         font-size: v.$text-size-s;
 
-
+        cursor: pointer;
         color: v.$neutral-900;
         background-color: v.$neutral-200;
         border-radius: 8px;
@@ -206,5 +236,82 @@
 @mixin alert {
     .error-text {
         color: v.$error-red;
+    }
+}
+
+
+@mixin switch {
+
+    // Switch
+    .switch {
+        width: 40px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        &__box {
+            width: 40px;
+            height: 16px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: v.$neutral-300;
+            transition: background .1s;
+        }
+
+        &__check {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            position: relative;
+            background: v.$neutral-300;
+            left: -8px;
+            transition: left .1s, background .1s;
+            box-shadow: 0px 0px 4px rgba(39, 39, 39, 0.35);
+            border-width: 0px;
+            border-color: v.$secondary;
+            border-style: solid;
+            box-sizing: border-box;
+        }
+
+        &__input {
+            position: absolute;
+            appearance: none;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+        }
+    }
+
+    .switch__input:checked+.switch__box {
+        background: v.$primary;
+
+        .switch__check {
+            background: v.$secondary;
+            left: 8px;
+            border-color: v.$primary
+        }
+    }
+
+    .switch__input:focus-visible+.switch__box .switch__check {
+        border-width: 2px !important;
+    }
+
+    .switch__input:disabled {
+        &+.switch__box {
+            background: v.$neutral-300;
+
+            .switch__check {
+                background: v.$neutral-500;
+            }
+        }
+
+        &:checked+.switch__box .switch__check {
+            background: v.$neutral-300;
+        }
     }
 }

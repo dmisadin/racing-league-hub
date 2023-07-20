@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ControlContainer, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,6 @@ import { ControlContainer, FormBuilder, FormControl, FormGroup, Validators } fro
   templateUrl: './season-info-form.component.html',
   styleUrls: ['./season-info-form.component.scss'],
 })
-
 
 
 export class SeasonInfoFormComponent implements OnInit {
@@ -21,24 +20,14 @@ export class SeasonInfoFormComponent implements OnInit {
     name: [this.infoValue.name, Validators.required],
     game: [this.infoValue.game, Validators.required],
     platform: [this.infoValue.platform, Validators.required],
-    lapsRequiredPercentage: [this.infoValue.lapsRequiredPercentage, Validators.required],
+    lapsRequiredPercentage: [this.infoValue.lapsRequiredPercentage, [Validators.required, Validators.min(0), Validators.max(100)]],
   });
 
   ngOnInit(): void {
     console.log("infovalue on init", this.infoValue);
     this.parentFormGroup.addControl('info', this.infoFormGroup);
-    
-    console.log("parentformcontrol on init", this.parentFormGroup);
-    this.infoValueChange.emit(this.infoFormGroup.value);
   }
-/*   ngOnChanges(): void {
-    this.sendDataToParent();
-    console.log("infovalue on change", this.infoValue);
-  } */
 
-  sendDataToParent() {
-    this.infoValueChange.emit(this.infoFormGroup.value);
-  }
 
   get nameField(): FormControl {
     return this.infoFormGroup?.get('name') as FormControl;

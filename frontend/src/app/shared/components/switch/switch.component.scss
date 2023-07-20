@@ -1,0 +1,91 @@
+@use "../../../../styles.scss" as v;
+
+.button-container {
+    width: fit-content;
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+
+    color: v.$neutral-800;
+}
+
+.light {
+    color: v.$neutral-300;
+}
+.dark {
+    color: v.$neutral-800;
+}
+.switch {
+    width: 40px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &__box {
+        width: 40px;
+        height: 16px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: v.$neutral-300;
+        transition: background .1s;
+    }
+
+    &__check {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        position: relative;
+        background: v.$neutral-300;
+        left: -8px;
+        transition: left .1s, background .1s;
+        box-shadow: 0px 0px 4px rgba(39, 39, 39, 0.35);
+        border-width: 0px;
+        border-color: v.$secondary;
+        border-style: solid;
+        box-sizing: border-box;
+    }
+
+    &__input {
+        position: absolute;
+        appearance: none;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+    }
+}
+
+.switch__input:checked+.switch__box {
+    background: v.$primary;
+
+    .switch__check {
+        background: v.$secondary;
+        left: 8px;
+        border-color: v.$primary
+    }
+}
+
+.switch__input:focus-visible+.switch__box .switch__check {
+    border-width: 2px !important;
+}
+
+.switch__input:disabled {
+    &+.switch__box {
+        background: v.$neutral-300;
+
+        .switch__check {
+            background: v.$neutral-500;
+        }
+    }
+
+    &:checked+.switch__box .switch__check {
+        background: v.$neutral-300;
+    }
+}
