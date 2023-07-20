@@ -28,7 +28,10 @@ export class SeasonInfoFormComponent implements OnInit {
     this.parentFormGroup.addControl('info', this.infoFormGroup);
   }
 
+  ngOnChanges() {
+    console.log("infovalue on change", this.infoValue);
 
+  }
   get nameField(): FormControl {
     return this.infoFormGroup?.get('name') as FormControl;
   }

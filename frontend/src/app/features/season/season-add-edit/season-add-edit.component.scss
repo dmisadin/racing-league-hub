@@ -4,6 +4,7 @@
 @include form-setup;
 @include select;
 @include file-upload;
+@include alert;
 
 :host {
     width: 100%;

@@ -38,10 +38,6 @@ export class SeasonLobbySettingsComponent {
     return statement ? "On" : "Off";
   }
   
-  
-  
-  
-  
   //"start" is not in the database!
   mockLobby = [
     { iconPath: 'lobby/qualifying.png', label: 'Qualifying', value: 'Short' },

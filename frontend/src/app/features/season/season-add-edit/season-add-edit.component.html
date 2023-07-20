@@ -1,6 +1,6 @@
 <h1>Create new season</h1>
 <form [formGroup]="seasonForm" (ngSubmit)="onSubmit()">
-    <!-- <h2>Current step {{currentStep}}/{{totalSteps}}</h2> -->
+    <h2>Current step {{currentStep}}/{{totalSteps}}</h2>
 
     <app-section-flex [direction]="'row'" [justify]="'space-around'" [gap]="'40px'">
         <div class="prev-next">
@@ -45,12 +45,22 @@
             <h1>Create points for the fastest lap in the Race</h1>
             <form formGroupName="fastestLapPoints" class="row-input">
                 <div class="description">
-                    Decide the amount of points awarded for fastest lap and the lowest finishing position to be eligible.
+                    Decide the amount of points awarded for fastest lap 
+                    and the lowest finishing position to be eligible.
                 </div>
                 <label>Lowest position</label>
                 <input type="number" placeholder="10" formControlName="finishInsideTopN">
                 <label>Points</label>
                 <input type="number" placeholder="1" formControlName="points">
+                <span class="error-text" *ngIf="checkError('required', 'fastestLapPoints.finishInsideTopN', 'fastestLapPoints.points')"> 
+                    These are required fields. 
+                </span>
+                <span class="error-text" *ngIf="getControl('fastestLapPoints.finishInsideTopN')?.hasError('min') || getControl('fastestLapPoints.finishInsideTopN')?.hasError('max')">
+                    Position value has to be between 1 and 22.
+                </span>
+                <span class="error-text" *ngIf="getControl('fastestLapPoints.points')?.hasError('min')">
+                    Points value has to be above 0.
+                </span>
             </form>
         </div>
 
@@ -76,7 +86,4 @@
             </button>
         </div>
     </app-section-flex>
-
-    <!-- <p *ngIf="seasonForm.value">{{seasonForm.value | json}}</p> -->
-    <!-- <p *ngIf="infoValid?.valid">Info valid from parent: {{infoValid?.valid}}</p> -->
 </form>

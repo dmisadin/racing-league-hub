@@ -5,8 +5,10 @@
 @include select;
 @include alert;
 
-input[type=number] {
-    width: 80px;
+:host {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 :host div{
@@ -20,3 +22,6 @@ input[type=number] {
 }
 
 
+input[type=number] {
+    width: 80px;
+}

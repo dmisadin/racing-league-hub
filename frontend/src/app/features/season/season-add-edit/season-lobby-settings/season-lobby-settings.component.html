@@ -39,6 +39,12 @@
                     <span class="unit">%</span>
                 </div>
             </div>
+            <span class="error-text" *ngIf="lobbySettingsForm.get('raceDistancePercentage')?.hasError('required')"> 
+                This is a required field. 
+            </span>
+            <span class="error-text" *ngIf="lobbySettingsForm.get('raceDistancePercentage')?.hasError('min') || lobbySettingsForm.get('raceDistancePercentage')?.hasError('max')"  > 
+                Race distance percentage must be between 25 and 100.
+            </span>
 
             <div class="label-input-row">
                 <app-icon-label 

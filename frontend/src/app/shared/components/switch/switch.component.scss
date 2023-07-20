@@ -10,6 +10,8 @@
     gap: 8px;
 
     color: v.$neutral-800;
+
+    user-select: none;
 }
 
 .light {
@@ -19,9 +21,16 @@
     color: v.$neutral-800;
 }
 .switch {
-    width: 40px;
+    width: fit-content;
     height: 100%;
+
     display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+
+    color: v.$neutral-800;
+
     justify-content: center;
     align-items: center;
     cursor: pointer;

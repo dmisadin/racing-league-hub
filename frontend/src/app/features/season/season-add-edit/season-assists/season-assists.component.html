@@ -24,12 +24,7 @@
                     [iconPath]="mockAssists[1].iconPath"
                     [name]="mockAssists[1].label"
                 ></app-icon-label>
-                <label class="switch">
-                    <input aria-hidden="true" class="switch__input" type="checkbox" formControlName="abs">
-                    <div class="switch__box">
-                        <div class="switch__check"></div>
-                    </div>
-                </label>
+                <app-switch [controlName]="'abs'"></app-switch>
             </div>
 
             <div class="label-input-row">
