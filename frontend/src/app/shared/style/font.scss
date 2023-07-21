@@ -1,0 +1,11 @@
+@use "../../../styles.scss" as v;
+
+@mixin text {
+    line-height: 150%;
+    font-family: v.$text-family;
+}
+
+@mixin title {
+    line-height: 100%;
+    font-family: v.$title-family;
+}

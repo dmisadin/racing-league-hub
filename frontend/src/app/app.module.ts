@@ -43,6 +43,7 @@ import { PointsItemComponent } from './features/season/season-add-edit/points-it
 import { SeasonLobbySettingsComponent } from './features/season/season-add-edit/season-lobby-settings/season-lobby-settings.component';
 import { SeasonAssistsComponent } from './features/season/season-add-edit/season-assists/season-assists.component';
 import { SwitchComponent } from './shared/components/switch/switch.component';
+import { FormAlertComponent } from './shared/components/form-alert/form-alert.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { SwitchComponent } from './shared/components/switch/switch.component';
     SeasonLobbySettingsComponent,
     SeasonAssistsComponent,
     SwitchComponent,
+    FormAlertComponent,
   ],
   imports: [
     BrowserModule,

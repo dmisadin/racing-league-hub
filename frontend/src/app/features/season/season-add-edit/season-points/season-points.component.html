@@ -2,14 +2,15 @@
 <ng-container [formGroup]="parentFormGroup">
     <form formGroupName={{sessionType[sessionName]}}>
         <div class="description">
-            Decide the points distribution for {{sessionName}} session. 
-            If you don't want to give out points in {{sessionName}}, leave this empty and go to the next step.
+            Decide the points distribution for the {{sessionName}}. 
+            If you don't want to give out points for the {{sessionName}}, leave this empty and go to the next step.
+            <ng-content></ng-content>
         </div>
         <div class="buttons">
             <button type="button" 
                 (click)="addPointsItem()" 
-                [disabled]="pointsArray.controls.length >= 20">
-                {{pointsArray.controls.length < 20 ? "Add position" : "Maximum is 20 drivers" }} 
+                [disabled]="pointsArray.controls.length >= maxAmount">
+                {{pointsArray.controls.length < maxAmount ? "Add position" : ('Maximum is ' + maxAmount + ' drivers') }} 
             </button>
         </div>
         <div class="input-fields">

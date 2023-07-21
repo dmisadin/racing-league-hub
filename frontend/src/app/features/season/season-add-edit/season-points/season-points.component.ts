@@ -3,7 +3,7 @@ import { AbstractControl, ControlContainer, FormArray, FormBuilder, FormGroup } 
 import { PointsItemComponent } from '../points-item/points-item.component';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-type SessionName = "Qualifying" | "Sprint" | "Race";
+type SessionName = "Qualifying" | "Sprint" | "Race" | "Fastest Lap";
 
 @Component({
   selector: 'app-season-points',
@@ -14,33 +14,31 @@ export class SeasonPointsComponent {
   faPlus = faPlus;
   @Input() sessionName: SessionName = "Qualifying";
   @Input() pointsArray!: FormArray;
+  @Input() maxAmount: number = 22;
   @Output() pointsArrayChange = new EventEmitter();
 
   sessionType = {
     Qualifying: "qualPoints",
     Sprint: "sprintPoints",
-    Race: "racePoints"
+    Race: "racePoints",
+    "Fastest Lap": "fastestLapPoints"
   };
-  constructor(private fb: FormBuilder, private parentControl: ControlContainer) { }
+  constructor(private parentControl: ControlContainer) { }
 
   parentFormGroup = this.parentControl.control as FormGroup;
 
 
   ngOnInit(): void {
-    this.generatePointsForm();
     this.parentFormGroup.addControl(this.sessionType[this.sessionName], this.pointsArray);
   }
 
-  generatePointsForm(): void {
-  }
-
   public addPointsItem(): void {
-    if (this.pointsArray.controls.length < 20){
-      this.pointsArray.push(PointsItemComponent.addPointsItem(this.pointsArray.controls.length + 1, 0));
+    if (this.pointsArray.controls.length < this.maxAmount) {
+      this.pointsArray.push(PointsItemComponent.addPointsItem(this.pointsArray.controls.length + 1, 1));
       console.log("child controls", this.pointsArray.controls)
     }
     else
-      console.log("Maximum is 20 players"); // F2 lobbies support up to 22, check this later
+      console.log(`Maximum is ${this.maxAmount} players`);
   }
 
   public removePointsItem(index: number): void {

@@ -22,26 +22,13 @@ export class SeasonAddEditComponent {
   qualPointsArray = this.fb.array([]);
   sprintPointsArray = this.fb.array([]);
   racePointsArray = this.fb.array([]);
+  fastestLapPointsArray = this.fb.array([]);
 
   seasonForm = this.fb.group({
-    fastestLapPoints: this.fb.group({
-      finishInsideTopN: [10, [Validators.required, Validators.min(1), Validators.max(22)]],
-      points: [1, [Validators.required, Validators.min(1)]]
-    })
     // The rest of form group is added inside child components with parent.addControl()
   });
 
   constructor(private fb: FormBuilder) { }
-
-  ngOnInit() {
-    console.log(this.currentStep, this.seasonForm.value);
-    console.log(
-      this.getControl('fastestLapPoints')?.hasError('required'),
-      this.getControl('fastestLapPoints.finishInsideTopN')?.hasError('min'),
-      this.getControl('finishInsideTopN')?.hasError('max'),
-      this.getControl('points')?.hasError('min')
-    )
-  }
 
   onSubmit(): void {
     this.isSubmitted = true;
