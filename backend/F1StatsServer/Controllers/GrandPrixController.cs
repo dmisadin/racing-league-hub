@@ -41,6 +41,9 @@ namespace F1StatsServer.Controllers
         [ProducesResponseType(200)]
         public IActionResult GetPageData(int id)
         {
+            if (!_genericRepository.Has(id))
+                return NotFound();
+
             var grandPrix = _grandPrixRepository.GetTrackData(id);
 
             if (!ModelState.IsValid)

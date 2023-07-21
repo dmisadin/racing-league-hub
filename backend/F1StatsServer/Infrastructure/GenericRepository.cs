@@ -26,14 +26,11 @@ namespace F1StatsServer.Infrastructure
 
         public T DeleteItem(int id)
         {
-            T existing = table.Find(id);
-            if (existing != null)
-            {
-                table.Remove(existing);
-                Save();
-                return existing;
-            }
-            return null;
+            T? existing = table.Find(id);
+
+            table.Remove(existing);
+            Save();
+            return existing;
         }
 
         public IQueryable<T> Get()

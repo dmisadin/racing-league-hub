@@ -8,6 +8,7 @@ namespace F1StatsServer.Controllers
     public class RegionController : GenericController<Region, RegionDto>
     {
         public RegionController(IGenericRepository<Region> genericRepository) : base(genericRepository)
-        { }
+        {
+        }
     }
 }
