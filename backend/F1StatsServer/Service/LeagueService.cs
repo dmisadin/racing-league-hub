@@ -14,6 +14,7 @@ namespace F1StatsServer.Service
             _genericRepository = genericRepository;
         }
 
+        //TODO: Swap SocialMedium initializer to use MyMapper<TDto,T>.MapList(data)
         public bool InsertLeague(LeagueInsertDto data)
         {
             var item = new League

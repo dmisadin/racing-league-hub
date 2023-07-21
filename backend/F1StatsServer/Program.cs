@@ -30,6 +30,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 //Add services to application scope:
 builder.Services.AddScoped<ILeagueService, LeagueService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ISeasonService, SeasonService>();
 
 
 
