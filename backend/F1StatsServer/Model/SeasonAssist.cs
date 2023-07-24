@@ -9,8 +9,6 @@ namespace F1StatsServer.Model;
 
 public partial class SeasonAssist : EntityBase
 {
-    public int SeasonId { get; set; }
-
     [StringLength(16)]
     [Unicode(false)]
     public string RacingLine { get; set; } = null!;
@@ -26,7 +24,7 @@ public partial class SeasonAssist : EntityBase
     [Column("ABS")]
     public bool Abs { get; set; }
 
-    [ForeignKey("SeasonId")]
-    [InverseProperty("SeasonAssists")]
+    [ForeignKey("Id")]
+    [InverseProperty("SeasonAssist")]
     public virtual Season Season { get; set; } = null!;
 }

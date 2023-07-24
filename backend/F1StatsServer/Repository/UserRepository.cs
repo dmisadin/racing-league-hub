@@ -3,7 +3,6 @@ using F1StatsServer.Dto.UserDto;
 using F1StatsServer.Infrastructure;
 using F1StatsServer.Interface;
 using F1StatsServer.Model;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace F1StatsServer.Repository
 {

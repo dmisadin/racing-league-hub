@@ -9,13 +9,11 @@ namespace F1StatsServer.Model;
 
 public partial class SeasonFastestLapPoint : EntityBase
 {
-    public int SeasonId { get; set; }
-
     public byte Points { get; set; }
 
-    public byte FinishInsideTopN { get; set; }
+    public byte Position { get; set; }
 
-    [ForeignKey("SeasonId")]
-    [InverseProperty("SeasonFastestLapPoints")]
+    [ForeignKey("Id")]
+    [InverseProperty("SeasonFastestLapPoint")]
     public virtual Season Season { get; set; } = null!;
 }

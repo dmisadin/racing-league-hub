@@ -26,11 +26,11 @@ namespace F1StatsServer.Service
                 ImagePath = data.ImagePath,
                 LapsRequiredPercentage = data.LapsRequiredPercentage,
                 SeasonRacePoints = MyMapper<SeasonRacePoint, SeasonPointDto>.MapList(data.RacePointsDto),
-                SeasonLobbySettings = MyMapper<SeasonLobbySetting, SeasonLobbySettingDto>.MapList(data.LobbySettingDto),
-                SeasonAssists = MyMapper<SeasonAssist, SeasonAssistDto>.MapList(data.AssistDto),
+                SeasonLobbySetting = MyMapper<SeasonLobbySetting, SeasonLobbySettingDto>.Map(data.LobbySettingDto),
+                SeasonAssist = MyMapper<SeasonAssist, SeasonAssistDto>.Map(data.AssistDto),
                 SeasonQualPoints = MyMapper<SeasonQualPoint, SeasonPointDto>.MapList(data.QualPointsDto),
                 SeasonSprintPoints = MyMapper<SeasonSprintPoint, SeasonPointDto>.MapList(data.SprintPointsDto),
-                SeasonFastestLapPoints = MyMapper<SeasonFastestLapPoint, SeasonFastestLapPointDto>.MapList(data.FastestLapPointDto)
+                SeasonFastestLapPoint = MyMapper<SeasonFastestLapPoint, SeasonPointDto>.Map(data.FastestLapPointDto)
             };
 
             if (item == null)

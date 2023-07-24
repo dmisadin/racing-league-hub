@@ -182,9 +182,9 @@ public partial class AdventureContext : DbContext
 
         modelBuilder.Entity<SeasonAssist>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__SeasonAs__3214EC0773A7061B");
+            entity.HasKey(e => e.Id).HasName("PK_SeasonAssists_SeasonId");
 
-            entity.HasOne(d => d.Season).WithMany(p => p.SeasonAssists).HasConstraintName("FK_SeasonAssists_SeasonId");
+            entity.HasOne(d => d.Season).WithOne(p => p.SeasonAssist).HasConstraintName("FK_SeasonAssists_SeasonId");
         });
 
         modelBuilder.Entity<SeasonDriver>(entity =>
@@ -200,19 +200,19 @@ public partial class AdventureContext : DbContext
 
         modelBuilder.Entity<SeasonFastestLapPoint>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__SeasonFa__3214EC07AC8337D3");
+            entity.HasKey(e => e.Id).HasName("PK_SeasonFastestLapPoints_SeasonId");
 
-            entity.Property(e => e.FinishInsideTopN).HasDefaultValueSql("('10')");
+            entity.Property(e => e.Position).HasDefaultValueSql("('10')");
             entity.Property(e => e.Points).HasDefaultValueSql("('1')");
 
-            entity.HasOne(d => d.Season).WithMany(p => p.SeasonFastestLapPoints).HasConstraintName("FK_SeasonFastestLapPoints_SeasonId");
+            entity.HasOne(d => d.Season).WithOne(p => p.SeasonFastestLapPoint).HasConstraintName("FK_SeasonFastestLapPoints_SeasonId");
         });
 
         modelBuilder.Entity<SeasonLobbySetting>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__SeasonLo__3214EC070543EA8F");
+            entity.HasKey(e => e.Id).HasName("PK_SeasonLobbySettings_SeasonId");
 
-            entity.HasOne(d => d.Season).WithMany(p => p.SeasonLobbySettings).HasConstraintName("FK_SeasonLobbySettings_SeasonId");
+            entity.HasOne(d => d.Season).WithOne(p => p.SeasonLobbySetting).HasConstraintName("FK_SeasonLobbySettings_SeasonId");
         });
 
         modelBuilder.Entity<SeasonQualPoint>(entity =>

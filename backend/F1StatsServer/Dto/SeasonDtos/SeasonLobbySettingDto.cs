@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace F1StatsServer.Dto.SeasonDtos
@@ -40,5 +41,9 @@ namespace F1StatsServer.Dto.SeasonDtos
         public bool Collisions { get; set; }
 
         public bool Ghosting { get; set; }
+
+        [StringLength(15)]
+        [Unicode(false), DefaultValue("Manual")]
+        public string Start { get; set; } = null!;
     }
 }

@@ -30,6 +30,7 @@ namespace F1StatsServer.Infrastructure
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(200)]
         public IActionResult GetById(int id)
         {
             if (!_genericRepository.Has(id))
@@ -44,6 +45,7 @@ namespace F1StatsServer.Infrastructure
         }
 
         [HttpDelete]
+        [ProducesResponseType(200)]
         public IActionResult DeleteItem(int id)
         {
             if (!_genericRepository.Has(id))
@@ -58,8 +60,9 @@ namespace F1StatsServer.Infrastructure
         }
 
         [HttpPost]
+        [ProducesResponseType(200)]
         public IActionResult CreateItem(TDto item)
-        {
+        {   
             var itemFull = MyMapper<T, TDto>.Map(item);
             var generic = _genericRepository.CreateItem(itemFull);
 

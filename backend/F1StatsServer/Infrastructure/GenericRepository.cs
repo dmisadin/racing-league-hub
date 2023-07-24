@@ -1,6 +1,7 @@
 ﻿using F1StatsServer.Data;
 using F1StatsServer.Interface;
 using F1StatsServer.Util;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -50,8 +51,17 @@ namespace F1StatsServer.Infrastructure
 
         public bool Save()
         {
-            var saved = _context.SaveChanges();
-            return saved > 0;
+            try
+            {
+                var saved = _context.SaveChanges();
+                return saved > 0;
+            }
+            catch (DbUpdateException ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.Message.Contains("UC"))
+                    throw new Exception("Duplicate value inserted");
+                throw ex;    
+            }
         }
     }
 }

@@ -41,16 +41,16 @@ public partial class Season : EntityBase
     public virtual Platform? Platform { get; set; }
 
     [InverseProperty("Season")]
-    public virtual ICollection<SeasonAssist> SeasonAssists { get; set; } = new List<SeasonAssist>();
+    public virtual SeasonAssist SeasonAssist { get; set; }
 
     [InverseProperty("Season")]
     public virtual ICollection<SeasonDriver> SeasonDrivers { get; set; } = new List<SeasonDriver>();
 
     [InverseProperty("Season")]
-    public virtual ICollection<SeasonFastestLapPoint> SeasonFastestLapPoints { get; set; } = new List<SeasonFastestLapPoint>();
+    public virtual SeasonFastestLapPoint SeasonFastestLapPoint { get; set; }
 
     [InverseProperty("Season")]
-    public virtual ICollection<SeasonLobbySetting> SeasonLobbySettings { get; set; } = new List<SeasonLobbySetting>();
+    public virtual SeasonLobbySetting SeasonLobbySetting { get; set; }
 
     [InverseProperty("Season")]
     public virtual ICollection<SeasonQualPoint> SeasonQualPoints { get; set; } = new List<SeasonQualPoint>();

@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using F1StatsServer.Dto;
-using F1StatsServer.Model;
 
 namespace F1StatsServer.Util
 {

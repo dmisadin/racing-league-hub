@@ -9,8 +9,6 @@ namespace F1StatsServer.Model;
 
 public partial class SeasonLobbySetting : EntityBase
 {
-    public int SeasonId { get; set; }
-
     [StringLength(8)]
     [Unicode(false)]
     public string Qualifying { get; set; } = null!;
@@ -47,7 +45,11 @@ public partial class SeasonLobbySetting : EntityBase
 
     public bool Ghosting { get; set; }
 
-    [ForeignKey("SeasonId")]
-    [InverseProperty("SeasonLobbySettings")]
+    [StringLength(15)]
+    [Unicode(false)]
+    public string Start { get; set; } = null!;
+
+    [ForeignKey("Id")]
+    [InverseProperty("SeasonLobbySetting")]
     public virtual Season Season { get; set; } = null!;
 }
