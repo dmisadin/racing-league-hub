@@ -21,12 +21,14 @@ export class SeasonLobbySettingsComponent {
     raceDistancePercentage: [50, [Validators.required, Validators.min(25), Validators.max(100)]],
     weather: ["Dynamic", Validators.required],
     cornerCutting: ["Strict", Validators.required],
-    damage: ["Standard", Validators.required],
+    damage: ["Reduced", Validators.required],
+    damageRate: ["Standard", Validators.required],
     parcFerme: [true, Validators.required],
     equalCarPerformance: [true, Validators.required],
     safetyCar: ["Reduced", Validators.required],
     collisions: [true, Validators.required],
     ghosting: [false, Validators.required],
+    start: ["Manual", Validators.required],
   })
   
   ngOnInit(): void {
@@ -45,12 +47,13 @@ export class SeasonLobbySettingsComponent {
     { iconPath: 'lobby/racedistancepercentage.png', label: 'Race Distance', value: 50 },
     { iconPath: 'lobby/weather.png', label: 'Weather', value: 'Dynamic' },
     { iconPath: 'lobby/cornercutting.png', label: 'Corner cutting', value: 'strict' },
-    { iconPath: 'lobby/damage.png', label: 'Damage', value: 'Standard' },
+    { iconPath: 'lobby/damage.png', label: 'Damage', value: 'Reduced' },
+    { iconPath: 'lobby/damage.png', label: 'Damage Rate', value: 'Standard' },
     { iconPath: 'lobby/parcferme.png', label: 'Parc Ferme', value: true },
     { iconPath: 'lobby/equalcarperformance.png', label: 'Engine', value: true },
     { iconPath: 'lobby/safetycar.png', label: 'Safety Car', value: 'Reduced' },
     { iconPath: 'lobby/collisions.png', label: 'Collisions', value: true },
     { iconPath: 'lobby/ghosting.png', label: 'Ghosting', value: false },
-    //{ iconPath: 'lobby/start.png', label: 'Starts', value: 'Manual' },
+    { iconPath: 'lobby/start.png', label: 'Starts', value: 'Manual' },
   ]
 }

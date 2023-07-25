@@ -1,0 +1,39 @@
+<h1>Create racing calendar</h1>
+<form [formGroup]="grandPrixForm" (ngSubmit)="onSubmit()">
+
+    <app-section-flex [direction]="'column'" [justify]="'space-around'" [gap]="'40px'">
+
+        <div class="buttons">
+            <button type="button" 
+                (click)="addGrandPrixInfoItem()" 
+                [disabled]="getFormArray('list').controls.length >= maxAmount">
+                {{getFormArray('list').controls.length < maxAmount ? "Add Grand Prix" : ('Maximum is ' + maxAmount + ' Grand Prix') }} 
+            </button>
+        </div>
+
+        <table *ngIf="getFormArray('list').controls.length > 0">
+            <tr>
+                <th>Grand Prix Name</th>
+                <th>Start time</th>
+                <th>Time zone</th>
+                <th>Track</th>
+                <th>Country</th>
+                <th>Livestream</th>
+                <th>Sprint</th>
+                <th>Delete</th>
+            </tr>
+            <tr *ngFor="let gpItem of getFormArray('list').controls; let i = index">
+                <app-grandprix-info-item 
+                    [grandPrixInfoItem]="toFormGroup(gpItem)"
+                    [arrayIndex]="i" 
+                    (removeGrandPrixInfoItemEvent)="removeGrandPrixInfoItem($event)"
+                    >
+                </app-grandprix-info-item>
+            </tr>
+        </table>
+
+        <button type="submit" [disabled]="!grandPrixForm.valid || getFormArray('list').controls.length < 1">
+            {{ getFormArray('list').controls.length < 1 ? "There must be at least one Grand Prix" : "Submit race calendar"}}
+        </button>
+    </app-section-flex>
+</form>

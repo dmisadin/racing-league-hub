@@ -1,0 +1,43 @@
+<ng-container [formGroup]="grandPrixInfoItem">
+    <td>
+        <input type="text" placeholder="Australian Grand Prix" formControlName="name">
+    </td>
+
+    <td>
+        <input type="datetime-local" formControlName="startTime" />
+    </td>
+
+    <td>
+        <select class="timezone">
+            <option *ngFor="let t of timezone" value={{t}}>{{"UTC" + t}}</option>
+        </select>
+    </td>
+
+    <td>
+        <select formControlName="trackId">
+            <option *ngFor="let t of mockTracks" value={{t.id}}>{{t.name}}</option>
+        </select>
+    </td>
+
+    <td>
+        <select formControlName="countryId">
+            <option *ngFor="let c of mockCountries" value={{c.id}}>{{c.nameEnglish}}</option>
+        </select>
+    </td>
+
+    <td>
+        <input type="text" placeholder="youtube.com" formControlName="youTubeURL">
+    </td>
+
+    <td>
+        <app-switch [controlName]="'hasSprint'"></app-switch>
+    </td>
+
+    <td>
+        <app-btn-custom 
+            [faIcon]="faTrashCan" 
+            (OnClick)="removeGrandPrixInfoItem(arrayIndex)" 
+            [style]="{'margin': 'auto'}">
+        </app-btn-custom>
+    </td>
+</ng-container>

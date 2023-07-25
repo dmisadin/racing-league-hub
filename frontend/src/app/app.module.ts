@@ -36,14 +36,17 @@ import { TableRaceResultComponent } from './shared/components/table-race-result/
 import { TableQualifyingResultComponent } from './shared/components/table-qualifying-result/table-qualifying-result.component';
 import { DriverComponent } from './features/driver/driver.component';
 import { LeagueAddEditComponent } from './features/league/league-add-edit/league-add-edit.component';
-import { SeasonAddEditComponent } from './features/season/season-add-edit/season-add-edit.component';
-import { SeasonInfoFormComponent } from './features/season/season-add-edit/season-info-form/season-info-form.component';
-import { SeasonPointsComponent } from './features/season/season-add-edit/season-points/season-points.component';
-import { PointsItemComponent } from './features/season/season-add-edit/points-item/points-item.component';
-import { SeasonLobbySettingsComponent } from './features/season/season-add-edit/season-lobby-settings/season-lobby-settings.component';
-import { SeasonAssistsComponent } from './features/season/season-add-edit/season-assists/season-assists.component';
+import { SeasonFormsComponent } from './features/season/season-forms/season-forms.component';
+import { SeasonInfoFormComponent } from './features/season/season-forms/season-info-form/season-info-form.component';
+import { SeasonPointsComponent } from './features/season/season-forms/season-points/season-points.component';
+import { PointsItemComponent } from './features/season/season-forms/points-item/points-item.component';
+import { SeasonLobbySettingsComponent } from './features/season/season-forms/season-lobby-settings/season-lobby-settings.component';
+import { SeasonAssistsComponent } from './features/season/season-forms/season-assists/season-assists.component';
 import { SwitchComponent } from './shared/components/switch/switch.component';
 import { FormAlertComponent } from './shared/components/form-alert/form-alert.component';
+import { GrandPrixFormsComponent } from './features/grandprix/grandprix-forms/grandprix-forms.component';
+import { GrandprixInfoItemComponent } from './features/grandprix/grandprix-forms/grandprix-info-item/grandprix-info-item.component';
+import { DatetimeoffsetToLocalPipe } from './shared/pipes/datetimeoffset-to-local.pipe';
 
 @NgModule({
   declarations: [
@@ -73,7 +76,7 @@ import { FormAlertComponent } from './shared/components/form-alert/form-alert.co
     TableQualifyingResultComponent,
     DriverComponent,
     LeagueAddEditComponent,
-    SeasonAddEditComponent,
+    SeasonFormsComponent,
     SeasonInfoFormComponent,
     SeasonPointsComponent,
     PointsItemComponent,
@@ -81,6 +84,9 @@ import { FormAlertComponent } from './shared/components/form-alert/form-alert.co
     SeasonAssistsComponent,
     SwitchComponent,
     FormAlertComponent,
+    GrandPrixFormsComponent,
+    GrandprixInfoItemComponent,
+    DatetimeoffsetToLocalPipe,
   ],
   imports: [
     BrowserModule,
@@ -90,7 +96,7 @@ import { FormAlertComponent } from './shared/components/form-alert/form-alert.co
     HttpClientModule,
     FontAwesomeModule,
     ReactiveFormsModule,
-    ColorPickerModule
+    ColorPickerModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

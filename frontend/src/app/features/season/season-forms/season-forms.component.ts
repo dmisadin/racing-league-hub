@@ -4,11 +4,11 @@ import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
-  selector: 'app-season-add-edit',
-  templateUrl: './season-add-edit.component.html',
-  styleUrls: ['./season-add-edit.component.scss']
+  selector: 'app-season-forms',
+  templateUrl: './season-forms.component.html',
+  styleUrls: ['./season-forms.component.scss']
 })
-export class SeasonAddEditComponent {
+export class SeasonFormsComponent {
   faArrowLeft = faArrowLeft;
   faArrowRight = faArrowRight;
 

@@ -91,7 +91,12 @@
                     [iconPath]="mockLobby[6].iconPath"
                     [name]="mockLobby[6].label"
                 ></app-icon-label>
-                <app-switch [controlName]="'parcFerme'"></app-switch>
+                <select formControlName="damageRate">
+                    <option value="None">None</option>
+                    <option value="Reduced">Reduced</option>
+                    <option value="Standard">Standard</option>
+                    <option value="Simulation">Simulation</option>
+                </select>
             </div>
 
             <div class="label-input-row">
@@ -100,7 +105,7 @@
                     [iconPath]="mockLobby[7].iconPath"
                     [name]="mockLobby[7].label"
                 ></app-icon-label>
-                <app-switch [controlName]="'equalCarPerformance'"></app-switch>
+                <app-switch [controlName]="'parcFerme'"></app-switch>
             </div>
 
             <div class="label-input-row">
@@ -108,6 +113,15 @@
                     [width]="'165px'"
                     [iconPath]="mockLobby[8].iconPath"
                     [name]="mockLobby[8].label"
+                ></app-icon-label>
+                <app-switch [controlName]="'equalCarPerformance'"></app-switch>
+            </div>
+
+            <div class="label-input-row">
+                <app-icon-label 
+                    [width]="'165px'"
+                    [iconPath]="mockLobby[9].iconPath"
+                    [name]="mockLobby[9].label"
                 ></app-icon-label>
                 <select formControlName="safetyCar">
                     <option value="Off">Off</option>
@@ -120,8 +134,8 @@
             <div class="label-input-row">
                 <app-icon-label 
                     [width]="'165px'"
-                    [iconPath]="mockLobby[9].iconPath"
-                    [name]="mockLobby[9].label"
+                    [iconPath]="mockLobby[10].iconPath"
+                    [name]="mockLobby[10].label"
                 ></app-icon-label>
                 <app-switch [controlName]="'collisions'"></app-switch>
             </div>
@@ -129,12 +143,23 @@
             <div class="label-input-row">
                 <app-icon-label 
                     [width]="'165px'"
-                    [iconPath]="mockLobby[10].iconPath"
-                    [name]="mockLobby[10].label"
+                    [iconPath]="mockLobby[11].iconPath"
+                    [name]="mockLobby[11].label"
                 ></app-icon-label>
                 <app-switch [controlName]="'ghosting'"></app-switch>
             </div>
 
+            <div class="label-input-row">
+                <app-icon-label 
+                    [width]="'165px'"
+                    [iconPath]="mockLobby[12].iconPath"
+                    [name]="mockLobby[12].label"
+                ></app-icon-label>
+                <select formControlName="start">
+                    <option value="Manual">Manual</option>
+                    <option value="Automatic">Automatic</option>
+                </select>
+            </div>
         </app-section-flex>
     </form>
 </ng-container>
