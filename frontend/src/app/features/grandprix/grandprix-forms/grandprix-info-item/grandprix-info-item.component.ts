@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { ControlContainer, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -12,10 +12,25 @@ export class GrandprixInfoItemComponent {
   @Input() public grandPrixInfoItem!: FormGroup;
 	@Output() public removeGrandPrixInfoItemEvent: EventEmitter<number> = new EventEmitter<number>();
 	@Input() arrayIndex: number = 0;
+  timeForm!: FormGroup;
 	faTrashCan = faTrashCan;
 	
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
+  ngOnInit() {
+    this.timeForm = this.fb.group({
+      dateTime: ['', Validators.required],
+      timezone: ['+01:00']
+    });
+
+    this.timeForm.get('dateTime')?.valueChanges.subscribe(() => {
+      this.onDateTimeChange();
+    });
+
+    this.timeForm.get('timezone')?.valueChanges.subscribe(() => {
+      this.onDateTimeChange();
+    });
+  }
 
 	static addGrandPrixInfoItem(): FormGroup {
 		return new FormGroup({
@@ -24,21 +39,18 @@ export class GrandprixInfoItemComponent {
 			hasSprint: new FormControl(false, Validators.required),
 			youTubeURL: new FormControl("youtube.com", Validators.maxLength(255)),
 			trackId: new FormControl(0, Validators.required),
-			countryId: new FormControl(1, Validators.required),
 		});
 	}
 	public removeGrandPrixInfoItem(index: number): void {
 		this.removeGrandPrixInfoItemEvent.next(index);
 	}
-/* 
-  yourDateTimeOffset: string = "2023-07-19T12:30:00+00:00"; // Replace with your DateTimeOffset
 
-  onDateTimeChange(value: string ) {
-    // Convert the datetime-local input value back to DateTimeOffset format
-    const date = new Date(value);
-    this.yourDateTimeOffset = date.toISOString();
-    console.log(this.yourDateTimeOffset);
-  } */
+  onDateTimeChange() {
+    const dateTime = this.timeForm.get('dateTime')?.value;
+    const timezone = this.timeForm.get('timezone')?.value;
+    const startTime = dateTime + timezone;
+    this.grandPrixInfoItem.patchValue({ startTime: startTime });
+  }
   
   mockTracks = [
     {id: 0, name: "Albert Park Circuit"},

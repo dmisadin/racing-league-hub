@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { GrandprixInfoItemComponent } from './grandprix-info-item/grandprix-info-item.component';
 
 
@@ -22,8 +22,7 @@ export class GrandPrixFormsComponent {
 	onSubmit(): void {
 		this.isSubmitted = true;
 		console.log("Submitted form: ", this.grandPrixForm.value);
-		//Add redirect from form to created Season page.
-
+		//Add redirect from form to Season page.
 	}
 
 	ngOnInit() {
