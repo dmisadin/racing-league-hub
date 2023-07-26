@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { DropdownModule } from '@coreui/angular';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -42,7 +43,18 @@ import { GrandPrixComponent } from './features/grandprix/grandprix.component';
 import { TableRaceResultComponent } from './shared/components/table-race-result/table-race-result.component';
 import { TableQualifyingResultComponent } from './shared/components/table-qualifying-result/table-qualifying-result.component';
 import { DriverComponent } from './features/driver/driver.component';
-import { LeagueAddEditComponent } from './shared/components/league-add-edit/league-add-edit.component';
+import { LeagueAddEditComponent } from './features/league/league-add-edit/league-add-edit.component';
+import { SeasonFormsComponent } from './features/season/season-forms/season-forms.component';
+import { SeasonInfoFormComponent } from './features/season/season-forms/season-info-form/season-info-form.component';
+import { SeasonPointsComponent } from './features/season/season-forms/season-points/season-points.component';
+import { PointsItemComponent } from './features/season/season-forms/points-item/points-item.component';
+import { SeasonLobbySettingsComponent } from './features/season/season-forms/season-lobby-settings/season-lobby-settings.component';
+import { SeasonAssistsComponent } from './features/season/season-forms/season-assists/season-assists.component';
+import { SwitchComponent } from './shared/components/switch/switch.component';
+import { FormAlertComponent } from './shared/components/form-alert/form-alert.component';
+import { GrandPrixFormsComponent } from './features/grandprix/grandprix-forms/grandprix-forms.component';
+import { GrandprixInfoItemComponent } from './features/grandprix/grandprix-forms/grandprix-info-item/grandprix-info-item.component';
+import { DatetimeoffsetToLocalPipe } from './shared/pipes/datetimeoffset-to-local.pipe';
 
 @NgModule({
   declarations: [
@@ -72,16 +84,27 @@ import { LeagueAddEditComponent } from './shared/components/league-add-edit/leag
     TableQualifyingResultComponent,
     DriverComponent,
     LeagueAddEditComponent,
+    SeasonFormsComponent,
+    SeasonInfoFormComponent,
+    SeasonPointsComponent,
+    PointsItemComponent,
+    SeasonLobbySettingsComponent,
+    SeasonAssistsComponent,
+    SwitchComponent,
+    FormAlertComponent,
+    GrandPrixFormsComponent,
+    GrandprixInfoItemComponent,
+    DatetimeoffsetToLocalPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     DropdownModule,
-    FormsModule,
     HttpClientModule,
     FontAwesomeModule,
     ReactiveFormsModule,
+    ColorPickerModule,
   ],
   providers: [
     {

@@ -1,0 +1,27 @@
+@import "../../../../shared/style/form.scss";
+
+@include input-fields;
+@include form-setup;
+@include select;
+@include alert;
+
+:host {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+:host div{
+    width: fit-content;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+
+input[type=number] {
+    width: 80px;
+}

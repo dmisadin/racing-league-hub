@@ -1,0 +1,24 @@
+@import "../../../shared/style/form.scss";
+
+@include input-fields;
+@include form-setup;
+@include select;
+@include file-upload;
+@include color-picker;
+
+:host {
+    width: fit-content;
+    height: fit-content;
+}
+
+form {
+    width: 100%;
+}
+
+input[type=text] {
+    width: 320px;
+}
+
+textarea {
+    width: 480px;
+}

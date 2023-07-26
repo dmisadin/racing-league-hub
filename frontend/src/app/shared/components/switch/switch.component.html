@@ -1,0 +1,10 @@
+<div class="button-container" [formGroup]="parentFormGroup">
+    <label class="switch">
+        <div [ngClass]="status ? 'light' : 'dark'">Off</div>
+        <input class="switch__input" type="checkbox" formControlName={{controlName}}>
+        <div class="switch__box">
+            <div class="switch__check"></div>
+        </div>
+        <div [ngClass]="status ? 'dark' : 'light'">On</div>
+    </label>
+</div>
