@@ -16,11 +16,11 @@ namespace F1StatsServer.Service
             _genericRepository = genericRepository;
         }
 
-        public bool InsertData(GrandPrixInsertDto data)
+        public bool InsertData(List<GrandPrixInsertDto> data)
         {
-            var item = MyMapper<GrandPrix, GrandPrixInsertDto>.Map(data);
+            var item = MyMapper<GrandPrix, GrandPrixInsertDto>.MapList(data);
 
-            return _genericRepository.CreateItem(item);
+            return _genericRepository.CreateItemList(item);
         }
     }
 }

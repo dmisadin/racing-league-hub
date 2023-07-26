@@ -15,7 +15,7 @@ namespace F1StatsServer.Dto.GrandPrixDto
         [StringLength(255)]
         public string Name { get; set; } = null!;
 
-        //public DateTimeOffset StartTime { get; set; }
+        public DateTimeOffset StartTime { get; set; }
 
         public bool HasSprint { get; set; }
 

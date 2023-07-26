@@ -25,6 +25,13 @@ namespace F1StatsServer.Infrastructure
             return Save();
         }
 
+        public bool CreateItemList(List<T> items)
+        {
+            table.AddRange(items);
+
+            return Save();
+        }
+
         public T DeleteItem(int id)
         {
             T? existing = table.Find(id);

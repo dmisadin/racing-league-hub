@@ -1,4 +1,4 @@
-﻿using F1StatsServer.Dto;
+﻿using F1StatsServer.Dto.LeagueDto;
 
 namespace F1StatsServer.Interface
 {

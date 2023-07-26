@@ -55,7 +55,7 @@ namespace F1StatsServer.Controllers
 
         [HttpPost("create")]
         [ProducesResponseType(200)]
-        public IActionResult InsertData(GrandPrixInsertDto data)
+        public IActionResult InsertData(List<GrandPrixInsertDto> data)
         {
             if(data == null)
                 return BadRequest(ModelState);
