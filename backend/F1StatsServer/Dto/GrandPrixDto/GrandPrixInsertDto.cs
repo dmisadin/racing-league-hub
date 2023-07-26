@@ -10,8 +10,6 @@ namespace F1StatsServer.Dto.GrandPrixDto
 
         public int? TrackId { get; set; }
 
-        public int? CountryId { get; set; }
-
         [StringLength(255)]
         public string Name { get; set; } = null!;
 
