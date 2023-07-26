@@ -33,7 +33,5 @@ public partial class Country : EntityBase
 
     public virtual ICollection<Driver> Drivers { get; set; } = new List<Driver>();
 
-    public virtual ICollection<GrandPrix> GrandPrixes { get; set; } = new List<GrandPrix>();
-
     public virtual ICollection<Track> Tracks { get; set; } = new List<Track>();
 }

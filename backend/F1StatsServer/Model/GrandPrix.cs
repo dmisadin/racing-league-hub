@@ -14,8 +14,6 @@ public partial class GrandPrix : EntityBase
 
     public int? TrackId { get; set; }
 
-    public int? CountryId { get; set; }
-
     [StringLength(255)]
     public string Name { get; set; } = null!;
 
@@ -44,9 +42,5 @@ public partial class GrandPrix : EntityBase
 
     [InverseProperty("GrandPrix")]
     public virtual ICollection<Sprint> Sprints { get; set; } = new List<Sprint>();
-
-    [ForeignKey("CountryId")]
-    [InverseProperty("GrandPrixes")]
-    public virtual Country? Country { get; set; } 
 
 }

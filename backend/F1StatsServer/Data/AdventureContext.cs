@@ -107,10 +107,6 @@ public partial class AdventureContext : DbContext
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_GrandPrix_TrackId");
 
-            entity.HasOne(d => d.Country).WithMany(p => p.GrandPrixes)
-                .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("FK_GrandPrix_CountryId");
-
         });
 
         modelBuilder.Entity<League>(entity =>
