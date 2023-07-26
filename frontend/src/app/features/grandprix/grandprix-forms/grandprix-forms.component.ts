@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { GrandprixInfoItemComponent } from './grandprix-info-item/grandprix-info-item.component';
+import { grandPrixInsert } from 'app/shared/models/grandPrixInsert';
+import { firstValueFrom } from 'rxjs';
+import { AddGrandprixService } from 'app/core/services/add-grandprix.service';
 
 
 @Component({
@@ -17,12 +20,25 @@ export class GrandPrixFormsComponent {
 		list: this.fb.array([])
 	});
 
-	constructor(private fb: FormBuilder) { }
+	constructor(private fb: FormBuilder, private addGrandPrixService: AddGrandprixService) { }
 
 	onSubmit(): void {
 		this.isSubmitted = true;
 		console.log("Submitted form: ", this.grandPrixForm.value);
 		//Add redirect from form to Season page.
+    var value = this.getFormArray('list').value;
+
+    var grandPrixInsert : Array<grandPrixInsert> = new Array<grandPrixInsert>();
+    value.forEach((item: grandPrixInsert) => {
+      grandPrixInsert.push(item);
+    });
+
+    grandPrixInsert.forEach((item: grandPrixInsert) => {
+      item.seasonId = 1;
+    })
+
+    console.log(grandPrixInsert);
+    this.addGrandPrix(grandPrixInsert);
 	}
 
 	ngOnInit() {
@@ -40,6 +56,11 @@ export class GrandPrixFormsComponent {
 	public removeGrandPrixInfoItem(index: number): void {
 		this.getFormArray('list').removeAt(index);
 	}
+
+  async addGrandPrix(grandPrixInserts: Array<grandPrixInsert>): Promise<void>{
+    const result = await firstValueFrom(this.addGrandPrixService.addGrandPrix(grandPrixInserts));
+    console.log(result);
+  }
 
 	toFormGroup(a: AbstractControl) {
 		return a as FormGroup;
