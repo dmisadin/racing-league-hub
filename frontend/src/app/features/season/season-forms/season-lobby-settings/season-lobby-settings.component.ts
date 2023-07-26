@@ -21,8 +21,8 @@ export class SeasonLobbySettingsComponent {
 		raceDistancePercentage: [50, [Validators.required, Validators.min(25), Validators.max(100)]],
 		weather: ["Dynamic", Validators.required],
 		cornerCutting: ["Strict", Validators.required],
-		damage: ["Reduced", Validators.required],
-		damageRate: ["Standard", Validators.required],
+		carDamage: ["Reduced", Validators.required],
+		carDamageRate: ["Standard", Validators.required],
 		parcFerme: [true, Validators.required],
 		equalCarPerformance: [true, Validators.required],
 		safetyCar: ["Reduced", Validators.required],
@@ -39,7 +39,7 @@ export class SeasonLobbySettingsComponent {
 	toOnOff(statement: boolean) {
 		return statement ? "On" : "Off";
 	}
-	
+
 	mockLobby = [
 		{ iconPath: 'lobby/qualifying.png', label: 'Qualifying', value: 'Short' },
 		{ iconPath: 'lobby/formationlap.png', label: 'Formation Lap', value: true },

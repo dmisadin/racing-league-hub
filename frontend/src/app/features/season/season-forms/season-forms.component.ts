@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl } from '@angular/forms';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { AddSeasonService } from 'app/core/services/add-season.service';
+import { Points } from 'app/shared/models/season/Points';
+import { assist } from 'app/shared/models/season/assist';
+import { info } from 'app/shared/models/season/info';
+import { lobbySetting } from 'app/shared/models/season/lobbySetting';
+import { seasonInsert } from 'app/shared/models/season/seasonInsert';
+import { firstValueFrom } from 'rxjs';
 
 
 @Component({
@@ -28,13 +35,42 @@ export class SeasonFormsComponent {
 		// The rest of form group is added inside child components with parent.addControl()
 	});
 
-	constructor(private fb: FormBuilder) { }
+	constructor(private fb: FormBuilder, private addSeasonService: AddSeasonService) { }
 
 	onSubmit(): void {
 		this.isSubmitted = true;
 		console.log("Submitted form: ", this.seasonForm.value, this.seasonForm.valid, this.seasonForm);
+    var info : info = this.seasonForm.get('info')!.value;
+    var fastestLapPoints : Points[] = this.seasonForm.get('fastestLapPoints')!.value;
+
+
+    var seasonInsert : seasonInsert;
+    seasonInsert = {
+      leagueId : 1,
+      gameId : 1,
+      platformId : 1,
+      imagePath : '',
+      name : info.name,
+      lapsRequiredPercentage : info.lapsRequiredPercentage,
+      racePointsDto : this.seasonForm.get('racePoints')!.value,
+      qualPointsDto : this.seasonForm.get('qualPoints')!.value,
+      fastestLapPointDto : fastestLapPoints[0] || { position : 10, points : 1},
+      lobbySettingDto :  this.seasonForm.get('lobbySettings')!.value,
+      assistDto : this.seasonForm.get('assists')!.value
+    }
 		//Add redirect from form to created Season page.
+    console.log(seasonInsert);
+    this.addSeason(seasonInsert);
 	}
+
+  getPropArray(value: string): Points[] {
+    return this.seasonForm.get(value)?.value as Points[];
+  }
+
+  async addSeason(seasonInsert: seasonInsert): Promise<void>{
+    const result = await firstValueFrom(this.addSeasonService.addSeason(seasonInsert));
+    console.log(result);
+  }
 
 	nextStep() {
 		if (this.currentStep < this.totalSteps)

@@ -13,7 +13,7 @@ namespace F1StatsServer.Dto.LeagueDto
         [Required, NotNull]
         public string? Name { get; set; }
 
-        [Required, NotNull, DefaultValue("")]
+        [DefaultValue("")]
         public string? Description { get; set; }
 
         [Required, NotNull, DefaultValue("#000000")]
