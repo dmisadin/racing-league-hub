@@ -3,38 +3,28 @@
 <app-announcement-carousel></app-announcement-carousel>
 
 <app-section-flex [direction]="'row'" [title]="''" [justify]="'space-between'">
-  <app-btn-large
-    [label]="'Create your own league'"
-    [iconName]="faPlus"
-  ></app-btn-large>
-  <app-btn-large
-    [label]="'Find your place to race'"
-    [iconName]="faSearch"
-  ></app-btn-large>
-  <app-btn-large
-    [label]="'Check out the leaderboards'"
-    [iconName]="faStopwatch"
-  ></app-btn-large>
+
+    <a routerLink="/league/add">
+        <app-btn-large [label]="'Create your own league'" [iconName]="faPlus">
+        </app-btn-large>
+    </a>
+    <a routerLink="/leagues">
+        <app-btn-large [label]="'Find your place to race'" [iconName]="faSearch"></app-btn-large>
+    </a>
+    <app-btn-large [label]="'Check out the leaderboards'" [iconName]="faStopwatch"></app-btn-large>
 </app-section-flex>
 
 <div *ngIf="isDataLoaded">
-  <app-section-flex [direction]="'column'" [title]="'Recent results'">
-    <app-race-row
-      *ngFor="let item of grandPrixData"
-      [first]="item.grandPrixName"
-      [second]="item.leagueName"
-      [third]="item.seasonName"
-    >
-    </app-race-row>
-  </app-section-flex>
+    <app-section-flex [direction]="'column'" [title]="'Recent results'">
+        <a *ngFor="let item of grandPrixData" [routerLink]="['grandprix', item.id]">
+            <app-race-row [first]="item.grandPrixName" [second]="item.leagueName" [third]="item.seasonName">
+            </app-race-row>
+        </a>
+    </app-section-flex>
 </div>
 <div>
-  <app-section-flex [direction]="'column'" [title]="'Popular leagues'">
-    <app-race-row
-      *ngFor="let item of popularLeagues; index as i"
-      [first]="item.grandPrixName"
-      [second]="item.leagueName"
-      [third]="item.seasonName"
-    ></app-race-row>
-  </app-section-flex>
+    <app-section-flex [direction]="'column'" [title]="'Popular leagues'">
+        <app-race-row *ngFor="let item of popularLeagues; index as i" [first]="item.grandPrixName"
+            [second]="item.leagueName" [third]="item.seasonName"></app-race-row>
+    </app-section-flex>
 </div>

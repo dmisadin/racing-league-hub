@@ -55,6 +55,8 @@ import { FormAlertComponent } from './shared/components/form-alert/form-alert.co
 import { GrandPrixFormsComponent } from './features/grandprix/grandprix-forms/grandprix-forms.component';
 import { GrandprixInfoItemComponent } from './features/grandprix/grandprix-forms/grandprix-info-item/grandprix-info-item.component';
 import { DatetimeoffsetToLocalPipe } from './shared/pipes/datetimeoffset-to-local.pipe';
+import { NotFoundComponent } from './features/not-found/not-found.component';
+import { LeaguesListComponent } from './features/leagues-list/leagues-list.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +97,8 @@ import { DatetimeoffsetToLocalPipe } from './shared/pipes/datetimeoffset-to-loca
     GrandPrixFormsComponent,
     GrandprixInfoItemComponent,
     DatetimeoffsetToLocalPipe,
+    NotFoundComponent,
+    LeaguesListComponent,
   ],
   imports: [
     BrowserModule,
