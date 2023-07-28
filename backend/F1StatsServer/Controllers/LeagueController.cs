@@ -3,6 +3,7 @@ using F1StatsServer.Infrastructure;
 using F1StatsServer.Interface;
 using F1StatsServer.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Controllers
 {
@@ -20,12 +21,10 @@ namespace F1StatsServer.Controllers
         [HttpPost("create")]
         public IActionResult InsertLeague(LeagueInsertDto data)
         {
-            _leagueService.InsertLeague(data);
-
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            return Ok();
+            return Ok(_leagueService.InsertLeague(data));
         }
     }
 }

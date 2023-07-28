@@ -62,15 +62,26 @@
     justify-content: space-evenly;
     align-items: baseline;
 
-    font-family: v.$text-family;
+    font-family: v.$text-family;    
+
 }
 
 .season-name {
+    width: 100%;
     font-size: v.$text-size-m;
-    color: v.$neutral-800;
+    color: v.$neutral-800;    
+    
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .time-span {
+    width: 100%;
     font-size: v.$text-size-s;
-    color: v.$neutral-500;
+    color: v.$neutral-500;    
+    
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }

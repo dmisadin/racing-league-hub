@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace F1StatsServer.Dto
 {
-    public class RegionDto
+    public class PlatformDto
     {
         public int Id { get; set; }
         [Required, NotNull]

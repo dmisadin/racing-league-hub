@@ -2,7 +2,7 @@
     <h1>Setup basic information</h1>
     <form formGroupName="info">
         <div class="description">
-            Fill out the basic information about your league. 
+            Fill out the basic information about your league.
         </div>
         <label>
             Name*
@@ -13,22 +13,13 @@
         <input type="text" placeholder="Season 3" formControlName="name">
 
         <label>Game</label>
-        <select formControlName="game">
-            <option value="F123">F1 23</option>
-            <option value="F122">F1 22</option>
-            <option value="F12021">F1 2021</option>
-            <option value="F12020">F1 2020</option>
-            <option value="F12019">F1 2019</option>
+        <select formControlName="gameId">
+            <option *ngFor="let g of gameList" value={{g.id}}>{{g.name}}</option>
         </select>
 
         <label>Platform</label>
-        <select formControlName="platform">
-            <option value="PC">PC</option>
-            <option value="Steam"> └ Steam only</option>
-            <option value="EA"> └ EA only</option>
-            <option value="PS">PlayStation</option>
-            <option value="XBOX">XBOX</option>
-            <option value="Crossplay">Crossplay</option>
+        <select formControlName="platformId">
+            <option *ngFor="let p of platformList"  value={{p.id}}>{{p.name}}</option>
         </select>
 
         <label>

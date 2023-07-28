@@ -15,7 +15,7 @@ namespace F1StatsServer.Service
             _genericRepository = genericRepository;
         }
 
-        public bool InsertSeason(SeasonInsertDto data)
+        public int InsertSeason(SeasonInsertDto data)
         {
             var item = new Season
             {
@@ -34,7 +34,7 @@ namespace F1StatsServer.Service
             };
 
             if (item == null)
-                return false;
+                return -1;
 
             return _genericRepository.CreateItem(item);
         }

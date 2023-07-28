@@ -21,7 +21,7 @@ namespace F1StatsServer.Infrastructure
         [ProducesResponseType(200)]
         public IActionResult Get()
         {
-            var generic = _genericRepository.Get();
+            var generic = MyMapper<TDto, T>.MapList(_genericRepository.Get().ToList());
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
