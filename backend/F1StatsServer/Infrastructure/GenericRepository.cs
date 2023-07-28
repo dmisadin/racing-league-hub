@@ -18,11 +18,16 @@ namespace F1StatsServer.Infrastructure
             table = _context.Set<T>();
         }
 
-        public bool CreateItem(T item)
+        public int CreateItem(T item)
         {
             table.Add(item);
 
-            return Save();
+            var save = Save();
+
+            if (save == false)
+                return -1;
+
+            return item.Id; 
         }
 
         public bool CreateItemList(List<T> items)

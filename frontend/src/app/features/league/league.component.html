@@ -1,12 +1,13 @@
 <app-section-flex [direction]="'row'">
     <div class="flex-text-column">
-        <h1>F1 Adria Liga</h1>
+        <h1>{{leagueItem.name}}</h1>
         <div class="racing-day">
             Racing every Thursday at 20:00 CEST.
         </div>
         <div class="description">
-            Basic infromacije o ligi što već organizator želi.
-            Utrke se održavaju svakim četvrtkom u 20:00. Liga namjenjena za igrače iz ovog govornog područja.
+            {{leagueItem.description}}
+<!--        Basic infromacije o ligi što već organizator želi.
+            Utrke se održavaju svakim četvrtkom u 20:00. Liga namjenjena za igrače iz ovog govornog područja. -->
         </div>
         <div class="social-media">
             <app-btn-custom [faIcon]="faYoutube"></app-btn-custom>
@@ -20,16 +21,13 @@
     <img src="../../../assets/images/league/league-logo.png" alt="">
 </app-section-flex>
 
-
-
+<!-- 
 <app-section-flex [title]="'All seasons'" [direction]="'row'" class="wrapping" [gap]="'20px 10px'">
-    <app-season-card></app-season-card>
-    <app-season-card></app-season-card>
-    <app-season-card></app-season-card>
-    <app-season-card></app-season-card>
-    <app-season-card></app-season-card>
-    <app-season-card></app-season-card>
-    <app-season-card></app-season-card>
-    <app-season-card></app-season-card>
-    <app-season-card></app-season-card>
+    <app-season-card 
+        [logoPath]="'../../../assets/images/league/league-logo.png'" 
+        [gameName]="'F1 2021'" 
+        [text]="'Sezona 1'" 
+        [subtext]="'Jun 2023 - Oct 2023'"></app-season-card>
 </app-section-flex>
+
+ -->

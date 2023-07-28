@@ -24,7 +24,7 @@ export class SeasonFormsComponent {
 	preview = '';
 	isSubmitted: boolean = false;
 	stepFormNames = ["info", "qualPoints", "sprintPoints", "racePoints", "fastestLapPoints", "lobbySettings", "assists"]
-	infoValue = { name: "", game: "", platform: "", lapsRequiredPercentage: 90 };
+	infoValue = { name: "", gameId: 5, platformId: 1, lapsRequiredPercentage: 90 };
 
 	qualPointsArray = this.fb.array([]);
 	sprintPointsArray = this.fb.array([]);
@@ -47,8 +47,8 @@ export class SeasonFormsComponent {
     var seasonInsert : seasonInsert;
     seasonInsert = {
       leagueId : 1,
-      gameId : 1,
-      platformId : 1,
+      gameId : this.infoValue.gameId,
+      platformId : this.infoValue.platformId,
       imagePath : '',
       name : info.name,
       lapsRequiredPercentage : info.lapsRequiredPercentage,

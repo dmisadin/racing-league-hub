@@ -1,0 +1,10 @@
+<p>leagues-list works!</p>
+<ng-container *ngFor="let l of leagueList">
+    <a [routerLink]="[l.id]" >
+        <app-season-card
+            [text]="l.name"
+            [subtext]="l.description"
+            >
+        </app-season-card>
+    </a>
+</ng-container>
