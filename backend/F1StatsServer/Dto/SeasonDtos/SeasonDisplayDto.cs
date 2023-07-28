@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using F1StatsServer.Dto.GrandPrixDto;
+using F1StatsServer.Dto.DriverDto;
 
 namespace F1StatsServer.Dto.SeasonDtos
 {
@@ -32,7 +33,9 @@ namespace F1StatsServer.Dto.SeasonDtos
 
         public SeasonAssistDto? Assist { get; set; }
 
-        public List<GrandPrixStandardDto>? GrandPrixes { get; set; }
+        public List<GrandPrixSeasonDto>? GrandPrixes { get; set; }
+
+        public List<DriverSeasonDto>? Drivers { get; set; } 
 
     }
 }

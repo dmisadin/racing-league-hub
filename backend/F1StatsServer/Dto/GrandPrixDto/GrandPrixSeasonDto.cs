@@ -1,21 +1,30 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Dto.GrandPrixDto
 {
-    public class GrandPrixStandardDto
+    public class GrandPrixSeasonDto
     {
         [Required, NotNull]
-        public int SeasonId { get; set; }
-        [Required, NotNull]
         public string? Name { get; set; }
+
         //public DateTimeOffset Date { get; set; } //Will be added in the future
+
         [DefaultValue(false)]
         public bool HasSprint { get; set; }
+
         [DefaultValue("https://www.youtube.com")]
         public string? YoutubeUrl { get; set; }
+
+        public byte? Laps { get; set; }
+
+
+        [StringLength(2)]
+        [Unicode(false)]
+        public string? CountryIso { get; set; }
+
+        public List<RaceDto>? Races { get; set; }
     }
 }

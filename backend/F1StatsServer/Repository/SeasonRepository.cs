@@ -1,11 +1,13 @@
 ﻿using F1StatsServer.Data;
 using F1StatsServer.Dto;
+using F1StatsServer.Dto.DriverDto;
 using F1StatsServer.Dto.GrandPrixDto;
 using F1StatsServer.Dto.SeasonDtos;
 using F1StatsServer.Infrastructure;
 using F1StatsServer.Interface;
 using F1StatsServer.Model;
 using F1StatsServer.Util;
+using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Repository
 {
@@ -20,6 +22,7 @@ namespace F1StatsServer.Repository
         public IQueryable<SeasonDisplayDto> GetSeasonData(int id)
         {
             var query = _context.Set<Season>()
+                                .AsSplitQuery()
                                 .Where(c => c.Id == id)
                                 .Select(e => new SeasonDisplayDto
                                 {
@@ -33,8 +36,27 @@ namespace F1StatsServer.Repository
                                     SprintPoints = MyMapper<SeasonPointDto, SeasonSprintPoint>.MapList(e.SeasonSprintPoints.ToList()),
                                     LobbySetting = MyMapper<SeasonLobbySettingDto, SeasonLobbySetting>.Map(e.SeasonLobbySetting),
                                     Assist = MyMapper<SeasonAssistDto, SeasonAssist>.Map(e.SeasonAssist),
-                                    GrandPrixes = MyMapper<GrandPrixStandardDto, GrandPrix>.MapList(e.GrandPrixes.ToList()),
-                                    FastestLapPoint =MyMapper<SeasonPointDto, SeasonFastestLapPoint>.Map(e.SeasonFastestLapPoint),
+                                    FastestLapPoint = MyMapper<SeasonPointDto, SeasonFastestLapPoint>.Map(e.SeasonFastestLapPoint),
+                                    GrandPrixes = _context.Set<GrandPrix>()
+                                                          .Where(d => d.SeasonId == id)
+                                                          .Select(d => new GrandPrixSeasonDto
+                                                          {
+                                                              Name = d.Name,
+                                                              HasSprint = d.HasSprint,
+                                                              YoutubeUrl = d.YouTubeUrl,
+                                                              Laps = d.Track.Laps,
+                                                              CountryIso = d.Track.Country.Iso,
+                                                              Races = MyMapper<RaceDto, Race>.MapList(d.Races.ToList()),
+                                                          }).ToList(),
+                                    Drivers = _context.Set<SeasonDriver>()
+                                                      .Where(d => d.SeasonId == id)
+                                                      .Select(d => new DriverSeasonDto
+                                                      {
+                                                          Name = d.Driver.Name,
+                                                          TeamName = d.Team.Name,
+                                                          TeamColorHex = d.Team.ColorHex,
+                                                          TeamImagePath = d.Team.ImagePath,
+                                                      }).ToList(),
                                 });
 
             return query;
