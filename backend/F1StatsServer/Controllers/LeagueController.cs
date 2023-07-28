@@ -8,7 +8,7 @@ namespace F1StatsServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LeagueController : GenericController<League, LeagueDto>
+    public class LeagueController : GenericController<League, LeagueStandardDto>
     {
         private readonly ILeagueService _leagueService;
 
@@ -26,6 +26,20 @@ namespace F1StatsServer.Controllers
                 return BadRequest(ModelState);
 
             return Ok();
+        }
+
+        [HttpGet("display/{id}")]
+        public IActionResult GetLeagueData(int id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = _leagueService.GetLeagueData(id);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
         }
     }
 }

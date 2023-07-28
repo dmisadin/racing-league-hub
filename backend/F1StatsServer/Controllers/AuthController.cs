@@ -31,7 +31,7 @@ namespace F1StatsServer.Controllers
 
 
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(UserDto request)
+        public async Task<ActionResult<string>> Login(UserStandardDto request)
         {
             if (!_userRepository.CheckCredentials(request.Email, request.Password))
             {

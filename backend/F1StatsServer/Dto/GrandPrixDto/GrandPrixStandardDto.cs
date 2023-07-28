@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace F1StatsServer.Dto.GrandPrixDto
 {
-    public class GrandPrixDto
+    public class GrandPrixStandardDto
     {
         [Required, NotNull]
         public int SeasonId { get; set; }

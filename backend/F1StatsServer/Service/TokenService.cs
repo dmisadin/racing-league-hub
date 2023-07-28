@@ -10,7 +10,7 @@ namespace F1StatsServer.Service
     //Possible change would be to make method CreateToken() private and invoked through an instance of this class
     public class TokenService
     {
-        public static string CreateToken(UserDto request, IConfiguration configuration, bool isAdmin)
+        public static string CreateToken(UserStandardDto request, IConfiguration configuration, bool isAdmin)
         {
             List<Claim> claims = new()
             {

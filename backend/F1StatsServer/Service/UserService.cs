@@ -28,7 +28,7 @@ namespace F1StatsServer.Service
             return result;
         }
         
-        public string Login(UserDto request)
+        public string Login(UserStandardDto request)
         {
             User user = _userRepository.CheckRole(request.Email, request.Password);
 

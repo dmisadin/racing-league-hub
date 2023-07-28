@@ -8,10 +8,12 @@ namespace F1StatsServer.Service
     public class LeagueService : ILeagueService
     {
         private readonly IGenericRepository<League> _genericRepository;
+        private readonly ILeagueRepository _leagueRepository;
 
-        public LeagueService(IGenericRepository<League> genericRepository)
+        public LeagueService(IGenericRepository<League> genericRepository, ILeagueRepository leagueRepository)
         {
             _genericRepository = genericRepository;
+            _leagueRepository = leagueRepository;
         }
 
         //TODO: Swap SocialMedium initializer to use MyMapper<TDto,T>.MapList(data)
@@ -39,5 +41,20 @@ namespace F1StatsServer.Service
 
             return _genericRepository.CreateItem(item);
         }
+
+        public LeagueDisplayDto GetLeagueData(int id)
+        {
+            if (!_genericRepository.Has(id))
+                return null;
+
+            var item = _leagueRepository.GetLeagueData(id);
+            var itemQueried = item.FirstOrDefault();
+
+            if (itemQueried == null)
+                return null;
+
+            return itemQueried;
+        }
+
     }
 }

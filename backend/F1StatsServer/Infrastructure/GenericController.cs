@@ -21,10 +21,10 @@ namespace F1StatsServer.Infrastructure
         [ProducesResponseType(200)]
         public IActionResult Get()
         {
-            var generic = _genericRepository.Get();
-
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            var generic = _genericRepository.Get();
 
             return Ok(generic);
         }

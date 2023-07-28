@@ -1,6 +1,6 @@
 ﻿namespace F1StatsServer.Dto.UserDto
 {
-    public class UserDto
+    public class UserStandardDto
     {
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;

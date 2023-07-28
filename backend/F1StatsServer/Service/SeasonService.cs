@@ -9,10 +9,26 @@ namespace F1StatsServer.Service
     public class SeasonService : ISeasonService
     {
         private readonly IGenericRepository<Season> _genericRepository;
+        private readonly ISeasonRepository _seasonRepository;
 
-        public SeasonService(IGenericRepository<Season> genericRepository)
+        public SeasonService(IGenericRepository<Season> genericRepository, ISeasonRepository seasonRepository)
         {
             _genericRepository = genericRepository;
+            _seasonRepository = seasonRepository;
+        }
+
+        public SeasonDisplayDto GetSeasonData(int id)
+        {
+            if (!_genericRepository.Has(id))
+                return null;
+
+            var item = _seasonRepository.GetSeasonData(id);
+
+            if (item == null)
+                return null;
+
+            return item.FirstOrDefault();
+
         }
 
         public bool InsertSeason(SeasonInsertDto data)

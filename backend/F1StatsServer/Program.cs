@@ -26,6 +26,8 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 //Add specific repositories to application scope:
 builder.Services.AddScoped<IGrandPrixRepository, GrandPrixRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ILeagueRepository, LeagueRepository>();
+builder.Services.AddScoped<ISeasonRepository, SeasonRepository>();
 
 //Add services to application scope:
 builder.Services.AddScoped<ILeagueService, LeagueService>();
