@@ -1,9 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ControlContainer, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { GameListService } from 'app/core/services/game-list.service';
-import { Game } from 'app/shared/models/game';
+import { Game } from 'app/shared/models/Game';
 import { PlatformListService } from 'app/core/services/platform-list.service';
-import { Platform } from 'app/shared/models/platform'
+import { Platform } from 'app/shared/models/Platform'
 
 @Component({
     selector: 'app-season-info-form',

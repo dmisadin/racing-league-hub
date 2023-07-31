@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { registerUser } from 'app/shared/models/registerUser';
-import { User } from 'app/shared/models/user';
+import { registerUser } from 'app/shared/models/RegisterUser';
+import { User } from 'app/shared/models/User';
 import { BehaviorSubject, switchMap } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 

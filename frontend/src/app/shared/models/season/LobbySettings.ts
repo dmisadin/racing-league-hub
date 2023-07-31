@@ -1,4 +1,4 @@
-export class lobbySetting{
+export class LobbySettings{
   qualifying : string = '';
   raceDistancePercentage? : number | null = 50;
   formationLap? : boolean | null = false;

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from 'app/shared/models/user';
+import { User } from 'app/shared/models/User';
 import { AuthService } from 'app/core/services/auth.service';
 import { Observable, firstValueFrom } from 'rxjs';
-import { grandPrix } from 'app/shared/models/grandPrix';
+import { GrandPrix } from 'app/shared/models/GrandPrix';
 import { HomeDataService } from 'app/core/services/home-data.service';
 
 @Component({

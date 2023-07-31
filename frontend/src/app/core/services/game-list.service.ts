@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Game } from 'app/shared/models/game';
+import { Game } from 'app/shared/models/Game';
 import { Observable } from 'rxjs';
 import { AbstractGetService } from './abstractGetService';
 

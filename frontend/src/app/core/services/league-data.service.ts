@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { League } from 'app/shared/models/league';
+import { League } from 'app/shared/models/League';
 
 import { Observable } from 'rxjs';
 @Injectable({
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class LeagueDataService {
     isDataLoaded: boolean = true;
     
-    private baseUrl = 'https://localhost:44347/api/League';
+    private baseUrl = 'https://localhost:44347/api/League/display';
 
     constructor(private http: HttpClient) { }
 

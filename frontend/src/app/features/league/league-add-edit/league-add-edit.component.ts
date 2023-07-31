@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AddLeagueService } from 'app/core/services/add-league.service';
-import { leagueInsert } from 'app/shared/models/leagueInsert';
+import { leagueInsert } from 'app/shared/models/LeagueInsert';
 import { RegionListService } from 'app/core/services/region-list.service';
 import { ColorPickerService } from 'ngx-color-picker';
 import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
-import { Region } from 'app/shared/models/region';
+import { Region } from 'app/shared/models/Region';
 
 @Component({
     selector: 'app-league-add-edit',

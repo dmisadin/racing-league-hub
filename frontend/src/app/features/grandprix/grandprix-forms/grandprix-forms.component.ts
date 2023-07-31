@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { GrandprixInfoItemComponent } from './grandprix-info-item/grandprix-info-item.component';
-import { grandPrixInsert } from 'app/shared/models/grandPrixInsert';
+import { grandPrixInsert } from 'app/shared/models/GrandPrixInsert';
 import { firstValueFrom } from 'rxjs';
 import { AddGrandprixService } from 'app/core/services/add-grandprix.service';
 

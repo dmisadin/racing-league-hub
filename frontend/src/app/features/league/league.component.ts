@@ -4,7 +4,7 @@ import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { LeagueDataService } from 'app/core/services/league-data.service';
 import { Subscription } from 'rxjs';
-import { League } from 'app/shared/models/league';
+import { League } from 'app/shared/models/League';
 @Component({
     selector: 'app-league',
     templateUrl: './league.component.html',
@@ -17,8 +17,6 @@ export class LeagueComponent {
     faFacebook = faFacebook;
     faTwitch = faTwitch;
     faGlobe = faGlobe;
-
-
 
     leagueItem$!: Subscription;
     leagueItem = new League();

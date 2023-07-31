@@ -1,6 +1,6 @@
-import { Points } from "./Points";
-import { assist } from "./assist";
-import { lobbySetting } from "./lobbySetting";
+import { Point } from "./Point";
+import { Assists } from "./Assists";
+import { LobbySettings } from "./LobbySettings";
 
 export class seasonInsert{
   leagueId : number = 1;
@@ -9,10 +9,10 @@ export class seasonInsert{
   name : string = '';
   imagePath? : string | null = '';
   lapsRequiredPercentage? : number | null = 90;
-  racePointsDto! : Points[];
-  lobbySettingDto! : lobbySetting;
-  assistDto! : assist;
-  qualPointsDto? : Points[];
-  sprintPointsDto? : Points[];
-  fastestLapPointDto! : Points;
+  racePointsDto! : Point[];
+  lobbySettingDto! : LobbySettings;
+  assistDto! : Assists;
+  qualPointsDto? : Point[];
+  sprintPointsDto? : Point[];
+  fastestLapPointDto! : Point;
 }

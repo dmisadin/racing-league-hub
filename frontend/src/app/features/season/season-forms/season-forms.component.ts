@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl } from '@angular/forms';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { AddSeasonService } from 'app/core/services/add-season.service';
-import { Points } from 'app/shared/models/season/Points';
-import { assist } from 'app/shared/models/season/assist';
+import { Point } from 'app/shared/models/season/Point';
+import { Assists } from 'app/shared/models/season/Assists';
 import { info } from 'app/shared/models/season/info';
-import { lobbySetting } from 'app/shared/models/season/lobbySetting';
+import { LobbySettings } from 'app/shared/models/season/LobbySettings';
 import { seasonInsert } from 'app/shared/models/season/seasonInsert';
 import { firstValueFrom } from 'rxjs';
 
@@ -41,7 +41,7 @@ export class SeasonFormsComponent {
 		this.isSubmitted = true;
 		console.log("Submitted form: ", this.seasonForm.value, this.seasonForm.valid, this.seasonForm);
     var info : info = this.seasonForm.get('info')!.value;
-    var fastestLapPoints : Points[] = this.seasonForm.get('fastestLapPoints')!.value;
+    var fastestLapPoints : Point[] = this.seasonForm.get('fastestLapPoints')!.value;
 
 
     var seasonInsert : seasonInsert;
@@ -63,8 +63,8 @@ export class SeasonFormsComponent {
     this.addSeason(seasonInsert);
 	}
 
-  getPropArray(value: string): Points[] {
-    return this.seasonForm.get(value)?.value as Points[];
+  getPropArray(value: string): Point[] {
+    return this.seasonForm.get(value)?.value as Point[];
   }
 
   async addSeason(seasonInsert: seasonInsert): Promise<void>{
