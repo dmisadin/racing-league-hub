@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using F1StatsServer.Dto.ResultsDtos;
 
 namespace F1StatsServer.Dto.GrandPrixDto
 {

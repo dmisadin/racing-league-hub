@@ -5,6 +5,6 @@ namespace F1StatsServer.Interface
     public interface IUserService
     {
         string GetMyName();
-        string Login(UserStandardDto request);
+        string Login(UserDto request);
     }
 }

@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace F1StatsServer.Dto.SeasonDtos
 {
-    public class SeasonStandardDto
+    public class SeasonDto
     {
         [Required, NotNull]
         public int LeagueId { get; set; }

@@ -1,9 +1,12 @@
 ﻿using F1StatsServer.Data;
 using F1StatsServer.Dto;
 using F1StatsServer.Dto.GrandPrixDto;
+using F1StatsServer.Dto.ResultsDtos;
 using F1StatsServer.Infrastructure;
 using F1StatsServer.Interface;
 using F1StatsServer.Model;
+using F1StatsServer.Util;
+using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Repository
 {
@@ -50,14 +53,61 @@ namespace F1StatsServer.Repository
                                     Race = _context.Set<Race>().Where(c => c.GrandPrixId == id)
                                                                .Select(p => new RaceDto
                                                                {
+                                                                   DriverId = p.DriverId,
+                                                                   TeamId = p.TeamId,
+                                                                   PointsGained = p.PointsGained,
+                                                                   Id = p.Id,
                                                                    Position = p.Position,
+                                                                   IsReserve = p.IsReserve,
                                                                    TeamName = p.Team.Name,
                                                                    DriverName = p.Driver.Name,
+                                                                   DriverCountry = p.Driver.Country.Iso,
                                                                    RaceTime = p.RaceTime,
-                                                                   Penalty = p.TimePenalty,
-                                                                   Points = p.PointsGained,
-                                                                   Tyres = p.UsedTyres
-                                                               }).ToList()
+                                                                   TimePenalty = p.TimePenalty,
+                                                                   LapsCompleted = p.LapsCompleted,
+                                                                   GridPosition = p.GridPosition,
+                                                                   UsedTyres = p.UsedTyres,
+                                                                   FastestLapInMs = p.FastestLapInMs,
+                                                                   ResultStatus = p.ResultStatus,
+                                                                   PostRaceTimePenalty = p.PostRaceTimePenalty
+
+                                                               }).ToList(),
+                                    Qualifying = _context.Set<Qualifying>().Where(c => c.GrandPrixId == id)
+                                                                           .Select(p => new QualDto
+                                                                           {
+                                                                               DriverId = p.DriverId,
+                                                                               TeamId = p.TeamId,
+                                                                               PointsGained = p.PointsGained,
+                                                                               Id = p.Id,
+                                                                               Position = p.Position,
+                                                                               IsReserve = p.IsReserve,
+                                                                               TeamName = p.Team.Name,
+                                                                               DriverName = p.Driver.Name,
+                                                                               DriverCountry = p.Driver.Country.Iso,
+                                                                               FastestLapInMs = p.FastestLapInMs,
+                                                                               ResultStatus = p.ResultStatus,
+                                                                               BestTimeTyre = p.BestTimeTyre
+
+                                                                           }).ToList(),
+                                    Sprint = _context.Set<Sprint>().Where(c => c.GrandPrixId == id)
+                                                                   .Select(p => new RaceSprintDto 
+                                                                   {
+                                                                       DriverId = p.DriverId,
+                                                                       TeamId = p.TeamId,
+                                                                       PointsGained = p.PointsGained,
+                                                                       Id = p.Id,
+                                                                       Position = p.Position,
+                                                                       IsReserve = p.IsReserve,
+                                                                       TeamName = p.Team.Name,
+                                                                       DriverName = p.Driver.Name,
+                                                                       DriverCountry = p.Driver.Country.Iso,
+                                                                       RaceTime = p.RaceTime,
+                                                                       TimePenalty = p.TimePenalty,
+                                                                       LapsCompleted = p.LapsCompleted,
+                                                                       GridPosition = p.GridPosition,
+                                                                       UsedTyres = p.UsedTyres
+
+                                                                   }).ToList()
 
                                 }).ToList();
 

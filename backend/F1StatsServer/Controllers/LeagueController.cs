@@ -9,7 +9,7 @@ namespace F1StatsServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LeagueController : GenericController<League, LeagueStandardDto>
+    public class LeagueController : GenericController<League, LeagueDto>
     {
         private readonly ILeagueService _leagueService;
 

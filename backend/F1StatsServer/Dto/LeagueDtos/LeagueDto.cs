@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace F1StatsServer.Dto.LeagueDto
 {
-    public class LeagueStandardDto
+    public class LeagueDto
     {
         [Required, NotNull]
         public int RegionId { get; set; }

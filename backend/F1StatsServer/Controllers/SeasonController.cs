@@ -8,7 +8,7 @@ namespace F1StatsServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SeasonController : GenericController<Season, SeasonStandardDto>
+    public class SeasonController : GenericController<Season, SeasonDto>
     {
         private readonly ISeasonService _seasonService;
         public SeasonController(IGenericRepository<Season> genericRepository, ISeasonService seasonService) : base(genericRepository)
