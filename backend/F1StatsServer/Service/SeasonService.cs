@@ -31,6 +31,7 @@ namespace F1StatsServer.Service
 
         }
 
+
         public int InsertSeason(SeasonInsertDto data)
         {
             var item = new Season

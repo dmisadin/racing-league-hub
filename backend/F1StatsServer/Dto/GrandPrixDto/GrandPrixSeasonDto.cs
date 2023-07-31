@@ -25,6 +25,12 @@ namespace F1StatsServer.Dto.GrandPrixDto
         [Unicode(false)]
         public string? CountryIso { get; set; }
 
-        public List<RaceDto>? Races { get; set; }
+        public int? FastestDriverId { get; set; }
+
+        public List<ResultSeasonDto>? Races { get; set; }
+
+        public List<ResultSeasonDto>? Qualifications { get; set; }
+
+        public List<ResultSeasonDto>? Sprints { get; set; }
     }
 }

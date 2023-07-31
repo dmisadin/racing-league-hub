@@ -19,5 +19,12 @@ namespace F1StatsServer.Dto.DriverDto
         [StringLength(10)]
         [Unicode(false)]
         public string TeamColorHex { get; set; } = null!;
+
+        [StringLength(2)]
+        [Unicode(false)]
+        public string? CountryIso { get; set; }
+
+        public byte PenaltyPoints { get; set; }
+
     }
 }

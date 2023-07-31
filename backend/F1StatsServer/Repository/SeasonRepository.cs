@@ -46,7 +46,12 @@ namespace F1StatsServer.Repository
                                                               YoutubeUrl = d.YouTubeUrl,
                                                               Laps = d.Track.Laps,
                                                               CountryIso = d.Track.Country.Iso,
-                                                              Races = MyMapper<RaceDto, Race>.MapList(d.Races.ToList()),
+                                                              FastestDriverId = d.Races.Where(g => g.FastestLapInMs != null)
+                                                                                       .OrderBy(e => e.FastestLapInMs).Select(f => f.DriverId).FirstOrDefault(),
+                                                              Races = MyMapper<ResultSeasonDto, Race>.MapList(d.Races.ToList()),
+                                                              Qualifications = MyMapper<ResultSeasonDto, Qualifying>.MapList(d.Qualifyings.ToList()),
+                                                              Sprints = MyMapper<ResultSeasonDto, Sprint>.MapList(d.Sprints.ToList())
+
                                                           }).ToList(),
                                     Drivers = _context.Set<SeasonDriver>()
                                                       .Where(d => d.SeasonId == id)
@@ -56,6 +61,8 @@ namespace F1StatsServer.Repository
                                                           TeamName = d.Team.Name,
                                                           TeamColorHex = d.Team.ColorHex,
                                                           TeamImagePath = d.Team.ImagePath,
+                                                          CountryIso = d.Driver.Country.Iso,
+                                                          PenaltyPoints = d.PenaltyPoints
                                                       }).ToList(),
                                 });
 
