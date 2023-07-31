@@ -41,23 +41,23 @@ public partial class Season : EntityBase
     public virtual Platform? Platform { get; set; }
 
     [InverseProperty("Season")]
-    public virtual SeasonAssist SeasonAssist { get; set; }
+    public virtual SeasonAssists SeasonAssist { get; set; }
 
     [InverseProperty("Season")]
-    public virtual ICollection<SeasonDriver> SeasonDrivers { get; set; } = new List<SeasonDriver>();
+    public virtual ICollection<SeasonDrivers> SeasonDrivers { get; set; } = new List<SeasonDrivers>();
 
     [InverseProperty("Season")]
-    public virtual SeasonFastestLapPoint SeasonFastestLapPoint { get; set; }
+    public virtual SeasonFastestLapPoints SeasonFastestLapPoint { get; set; }
 
     [InverseProperty("Season")]
-    public virtual SeasonLobbySetting SeasonLobbySetting { get; set; }
+    public virtual SeasonLobbySettings SeasonLobbySetting { get; set; }
 
     [InverseProperty("Season")]
-    public virtual ICollection<SeasonQualPoint> SeasonQualPoints { get; set; } = new List<SeasonQualPoint>();
+    public virtual ICollection<SeasonQualPoints> SeasonQualPoints { get; set; } = new List<SeasonQualPoints>();
 
     [InverseProperty("Season")]
-    public virtual ICollection<SeasonRacePoint> SeasonRacePoints { get; set; } = new List<SeasonRacePoint>();
+    public virtual ICollection<SeasonRacePoints> SeasonRacePoints { get; set; } = new List<SeasonRacePoints>();
 
     [InverseProperty("Season")]
-    public virtual ICollection<SeasonSprintPoint> SeasonSprintPoints { get; set; } = new List<SeasonSprintPoint>();
+    public virtual ICollection<SeasonSprintPoints> SeasonSprintPoints { get; set; } = new List<SeasonSprintPoints>();
 }

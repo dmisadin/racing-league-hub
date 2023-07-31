@@ -29,7 +29,7 @@ public partial class Team : EntityBase
     public virtual ICollection<Race> Races { get; set; } = new List<Race>();
 
     [InverseProperty("Team")]
-    public virtual ICollection<SeasonDriver> SeasonDrivers { get; set; } = new List<SeasonDriver>();
+    public virtual ICollection<SeasonDrivers> SeasonDrivers { get; set; } = new List<SeasonDrivers>();
 
     [InverseProperty("Team")]
     public virtual ICollection<Sprint> Sprints { get; set; } = new List<Sprint>();

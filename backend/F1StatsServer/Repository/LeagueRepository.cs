@@ -29,7 +29,7 @@ namespace F1StatsServer.Repository
                                     SocialMediaId = p.SocialMediaId,
                                     ColorHex = p.ColorHex,
                                     ImagePath = p.ImagePath,
-                                    SocialMedia = _context.Set<SocialMedium>()
+                                    SocialMedia = _context.Set<SocialMedia>()
                                                           .Where(c => c.Id == p.SocialMediaId)
                                                           .Select(d => new SocialMediaDto
                                                           {

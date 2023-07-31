@@ -42,11 +42,11 @@ public partial class Driver : EntityBase
     public virtual ICollection<Race> Races { get; set; } = new List<Race>();
 
     [InverseProperty("Driver")]
-    public virtual ICollection<SeasonDriver> SeasonDrivers { get; set; } = new List<SeasonDriver>();
+    public virtual ICollection<SeasonDrivers> SeasonDrivers { get; set; } = new List<SeasonDrivers>();
 
     [ForeignKey("SocialMediaId")]
     [InverseProperty("Drivers")]
-    public virtual SocialMedium? SocialMedia { get; set; }
+    public virtual SocialMedia? SocialMedia { get; set; }
 
     [InverseProperty("Driver")]
     public virtual ICollection<Sprint> Sprints { get; set; } = new List<Sprint>();

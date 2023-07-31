@@ -1,6 +1,6 @@
 ﻿namespace F1StatsServer.Dto.SeasonDtos
 {
-    public class SeasonPointDto
+    public class SeasonPointsDto
     {
         public byte Position { get; set; }
 

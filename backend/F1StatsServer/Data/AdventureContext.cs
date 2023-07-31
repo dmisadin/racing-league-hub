@@ -38,21 +38,21 @@ public partial class AdventureContext : DbContext
 
     public virtual DbSet<Season> Seasons { get; set; }
 
-    public virtual DbSet<SeasonAssist> SeasonAssists { get; set; }
+    public virtual DbSet<SeasonAssists> SeasonAssists { get; set; }
 
-    public virtual DbSet<SeasonDriver> SeasonDrivers { get; set; }
+    public virtual DbSet<SeasonDrivers> SeasonDrivers { get; set; }
 
-    public virtual DbSet<SeasonFastestLapPoint> SeasonFastestLapPoints { get; set; }
+    public virtual DbSet<SeasonFastestLapPoints> SeasonFastestLapPoints { get; set; }
 
-    public virtual DbSet<SeasonLobbySetting> SeasonLobbySettings { get; set; }
+    public virtual DbSet<SeasonLobbySettings> SeasonLobbySettings { get; set; }
 
-    public virtual DbSet<SeasonQualPoint> SeasonQualPoints { get; set; }
+    public virtual DbSet<SeasonQualPoints> SeasonQualPoints { get; set; }
 
-    public virtual DbSet<SeasonRacePoint> SeasonRacePoints { get; set; }
+    public virtual DbSet<SeasonRacePoints> SeasonRacePoints { get; set; }
 
-    public virtual DbSet<SeasonSprintPoint> SeasonSprintPoints { get; set; }
+    public virtual DbSet<SeasonSprintPoints> SeasonSprintPoints { get; set; }
 
-    public virtual DbSet<SocialMedium> SocialMedia { get; set; }
+    public virtual DbSet<SocialMedia> SocialMedia { get; set; }
 
     public virtual DbSet<Sprint> Sprints { get; set; }
 
@@ -176,14 +176,14 @@ public partial class AdventureContext : DbContext
                 .HasConstraintName("FK_Season_PlatformId");
         });
 
-        modelBuilder.Entity<SeasonAssist>(entity =>
+        modelBuilder.Entity<SeasonAssists>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_SeasonAssists_SeasonId");
 
             entity.HasOne(d => d.Season).WithOne(p => p.SeasonAssist).HasConstraintName("FK_SeasonAssists_SeasonId");
         });
 
-        modelBuilder.Entity<SeasonDriver>(entity =>
+        modelBuilder.Entity<SeasonDrivers>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__SeasonDr__3214EC07601D5C59");
 
@@ -194,7 +194,7 @@ public partial class AdventureContext : DbContext
             entity.HasOne(d => d.Team).WithMany(p => p.SeasonDrivers).HasConstraintName("FK_SeasonDriver_TeamId");
         });
 
-        modelBuilder.Entity<SeasonFastestLapPoint>(entity =>
+        modelBuilder.Entity<SeasonFastestLapPoints>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_SeasonFastestLapPoints_SeasonId");
 
@@ -204,35 +204,35 @@ public partial class AdventureContext : DbContext
             entity.HasOne(d => d.Season).WithOne(p => p.SeasonFastestLapPoint).HasConstraintName("FK_SeasonFastestLapPoints_SeasonId");
         });
 
-        modelBuilder.Entity<SeasonLobbySetting>(entity =>
+        modelBuilder.Entity<SeasonLobbySettings>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_SeasonLobbySettings_SeasonId");
 
             entity.HasOne(d => d.Season).WithOne(p => p.SeasonLobbySetting).HasConstraintName("FK_SeasonLobbySettings_SeasonId");
         });
 
-        modelBuilder.Entity<SeasonQualPoint>(entity =>
+        modelBuilder.Entity<SeasonQualPoints>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__SeasonQu__3214EC079B192CD5");
 
             entity.HasOne(d => d.Season).WithMany(p => p.SeasonQualPoints).HasConstraintName("FK_SeasonQualPoints_SeasonId");
         });
 
-        modelBuilder.Entity<SeasonRacePoint>(entity =>
+        modelBuilder.Entity<SeasonRacePoints>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__SeasonRa__3214EC0729EA724F");
 
             entity.HasOne(d => d.Season).WithMany(p => p.SeasonRacePoints).HasConstraintName("FK_SeasonRacePoints_SeasonId");
         });
 
-        modelBuilder.Entity<SeasonSprintPoint>(entity =>
+        modelBuilder.Entity<SeasonSprintPoints>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__SeasonSp__3214EC070915FC3D");
 
             entity.HasOne(d => d.Season).WithMany(p => p.SeasonSprintPoints).HasConstraintName("FK_SeasonSprintPoints_SeasonId");
         });
 
-        modelBuilder.Entity<SocialMedium>(entity =>
+        modelBuilder.Entity<SocialMedia>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__SocialMe__3214EC07B022C64D");
         });

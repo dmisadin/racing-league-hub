@@ -26,7 +26,7 @@ namespace F1StatsServer.Service
                 ImagePath = data.ImagePath,
                 RegionId = data.RegionId,
                 ColorHex = data.ColorHex,
-                SocialMedia = new SocialMedium
+                SocialMedia = new SocialMedia
                 {
                     Website = data.Website,
                     Discord = data.Discord,

@@ -20,12 +20,12 @@ namespace F1StatsServer.Dto.SeasonDtos
 
         public byte LapsRequiredPercentage { get; set; }
 
-        public List<SeasonPointDto> RacePointsDto { get; set; } = null!;
-        public SeasonLobbySettingDto LobbySettingDto { get; set; } = null!;
-        public SeasonAssistDto AssistDto { get; set; } = null!;
-        public List<SeasonPointDto>? QualPointsDto { get; set; }
-        public List<SeasonPointDto>? SprintPointsDto { get; set; }
-        public SeasonPointDto FastestLapPointDto { get; set; } = null!;
+        public List<SeasonPointsDto> RacePointsDto { get; set; } = null!;
+        public SeasonLobbySettingsDto LobbySettingsDto { get; set; } = null!;
+        public SeasonAssistsDto AssistsDto { get; set; } = null!;
+        public List<SeasonPointsDto>? QualPointsDto { get; set; }
+        public List<SeasonPointsDto>? SprintPointsDto { get; set; }
+        public SeasonPointsDto FastestLapPointDto { get; set; } = null!;
 
     }
 }

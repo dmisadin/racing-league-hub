@@ -21,17 +21,17 @@ namespace F1StatsServer.Dto.SeasonDtos
 
         public PlatformDto? Platform { get; set; }
 
-        public List<SeasonPointDto>? RacePoints { get; set; }
+        public List<SeasonPointsDto>? RacePoints { get; set; }
 
-        public List<SeasonPointDto>? QualPoints { get; set; }
+        public List<SeasonPointsDto>? QualPoints { get; set; }
 
-        public List<SeasonPointDto>? SprintPoints { get; set; }
+        public List<SeasonPointsDto>? SprintPoints { get; set; }
 
-        public SeasonPointDto? FastestLapPoint { get; set; }
+        public SeasonPointsDto? FastestLapPoints { get; set; }
 
-        public SeasonLobbySettingDto? LobbySetting { get; set; }
+        public SeasonLobbySettingsDto? LobbySettings { get; set; }
 
-        public SeasonAssistDto? Assist { get; set; }
+        public SeasonAssistsDto? Assists { get; set; }
 
         public List<GrandPrixSeasonDto>? GrandPrixes { get; set; }
 

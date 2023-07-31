@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Model;
 
-public partial class SeasonAssist : EntityBase
+public partial class SeasonAssists : EntityBase
 {
     [StringLength(16)]
     [Unicode(false)]

@@ -41,5 +41,5 @@ public partial class League : EntityBase
 
     [ForeignKey("SocialMediaId")]
     [InverseProperty("Leagues")]
-    public virtual SocialMedium? SocialMedia { get; set; }
+    public virtual SocialMedia? SocialMedia { get; set; }
 }

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Model;
 
-public partial class SocialMedium : EntityBase
+public partial class SocialMedia : EntityBase
 {
     [StringLength(255)]
     [Unicode(false)]

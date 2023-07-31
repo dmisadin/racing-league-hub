@@ -32,12 +32,12 @@ namespace F1StatsServer.Repository
                                     LapsRequiredPercentage = e.LapsRequiredPercentage,
                                     Game = MyMapper<GameDto, Game>.Map(_context.Set<Game>().Where(d => d.Id == e.GameId).FirstOrDefault()),
                                     Platform = MyMapper<PlatformDto, Platform>.Map(_context.Set<Platform>().Where(d => d.Id == e.PlatformId).FirstOrDefault()),
-                                    QualPoints = MyMapper<SeasonPointDto, SeasonQualPoint>.MapList(e.SeasonQualPoints.ToList()),
-                                    RacePoints = MyMapper<SeasonPointDto, SeasonRacePoint>.MapList(e.SeasonRacePoints.ToList()),
-                                    SprintPoints = MyMapper<SeasonPointDto, SeasonSprintPoint>.MapList(e.SeasonSprintPoints.ToList()),
-                                    LobbySetting = MyMapper<SeasonLobbySettingDto, SeasonLobbySetting>.Map(e.SeasonLobbySetting),
-                                    Assist = MyMapper<SeasonAssistDto, SeasonAssist>.Map(e.SeasonAssist),
-                                    FastestLapPoint = MyMapper<SeasonPointDto, SeasonFastestLapPoint>.Map(e.SeasonFastestLapPoint),
+                                    QualPoints = MyMapper<SeasonPointsDto, SeasonQualPoints>.MapList(e.SeasonQualPoints.ToList()),
+                                    RacePoints = MyMapper<SeasonPointsDto, SeasonRacePoints>.MapList(e.SeasonRacePoints.ToList()),
+                                    SprintPoints = MyMapper<SeasonPointsDto, SeasonSprintPoints>.MapList(e.SeasonSprintPoints.ToList()),
+                                    LobbySettings = MyMapper<SeasonLobbySettingsDto, SeasonLobbySettings>.Map(e.SeasonLobbySetting),
+                                    Assists = MyMapper<SeasonAssistsDto, SeasonAssists>.Map(e.SeasonAssist),
+                                    FastestLapPoints = MyMapper<SeasonPointsDto, SeasonFastestLapPoints>.Map(e.SeasonFastestLapPoint),
                                     GrandPrixes = _context.Set<GrandPrix>()
                                                           .Where(d => d.SeasonId == id)
                                                           .Select(d => new GrandPrixSeasonDto
@@ -54,7 +54,7 @@ namespace F1StatsServer.Repository
                                                               Sprints = MyMapper<ResultSeasonDto, Sprint>.MapList(d.Sprints.ToList())
 
                                                           }).ToList(),
-                                    Drivers = _context.Set<SeasonDriver>()
+                                    Drivers = _context.Set<SeasonDrivers>()
                                                       .Where(d => d.SeasonId == id)
                                                       .Select(d => new DriverSeasonDto
                                                       {

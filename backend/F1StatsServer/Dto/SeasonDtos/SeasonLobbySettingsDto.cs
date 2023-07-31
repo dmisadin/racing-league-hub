@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace F1StatsServer.Dto.SeasonDtos
 {
-    public class SeasonLobbySettingDto
+    public class SeasonLobbySettingsDto
     {
         [StringLength(8)]
         [Unicode(false)]

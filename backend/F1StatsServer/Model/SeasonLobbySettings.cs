@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Model;
 
-public partial class SeasonLobbySetting : EntityBase
+public partial class SeasonLobbySettings : EntityBase
 {
     [StringLength(8)]
     [Unicode(false)]

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace F1StatsServer.Model;
 
 [Table("SeasonDriver")]
-public partial class SeasonDriver : EntityBase
+public partial class SeasonDrivers : EntityBase
 {
     public int DriverId { get; set; }
 

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Model;
 
-public partial class SeasonSprintPoint : EntityBase
+public partial class SeasonQualPoints : EntityBase
 {
     public int SeasonId { get; set; }
 
@@ -16,6 +16,6 @@ public partial class SeasonSprintPoint : EntityBase
     public byte Points { get; set; }
 
     [ForeignKey("SeasonId")]
-    [InverseProperty("SeasonSprintPoints")]
+    [InverseProperty("SeasonQualPoints")]
     public virtual Season Season { get; set; } = null!;
 }
