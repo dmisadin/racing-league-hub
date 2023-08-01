@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { grandPrixInsert } from 'app/shared/models/grandprix/GrandPrixInsert';
+import { GrandPrixInsert } from 'app/shared/models/grandprix/GrandPrixInsert';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class AddGrandprixService {
 
   constructor(private http: HttpClient) { }
 
-  public addGrandPrix(grandPrixInserts: Array<grandPrixInsert>): any {
+  public addGrandPrix(grandPrixInserts: Array<GrandPrixInsert>): any {
     let result = this.http.post<any>(this.baseUrl + '/create', grandPrixInserts);
     return result;
   }

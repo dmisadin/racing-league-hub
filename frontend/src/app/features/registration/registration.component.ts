@@ -1,7 +1,7 @@
 import { Component, DoCheck } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from 'app/core/services/auth.service';
-import { registerUser } from 'app/shared/models/user/RegisterUser';
+import { RegisterUser } from 'app/shared/models/user/RegisterUser';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
@@ -11,7 +11,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class RegistrationComponent implements DoCheck {
 
-  registerUser: registerUser = new registerUser;
+  registerUser: RegisterUser = new RegisterUser;
 
   //Find a solution to replace this.fb.group() which is deprecated
   registerForm = this.fb.group({
@@ -49,7 +49,7 @@ export class RegistrationComponent implements DoCheck {
     return pass === confirmPass ? null : { notSame: true }
   }
 
-  async register(registerUser: registerUser): Promise<void>{
+  async register(registerUser: RegisterUser): Promise<void>{
     const result = await firstValueFrom(this.authService.register(registerUser));
     console.log(result);
   }

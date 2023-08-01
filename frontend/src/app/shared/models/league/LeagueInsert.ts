@@ -1,4 +1,4 @@
-export class leagueInsert {
+export class LeagueInsert {
   regionId = 0;
   name = '';
   description = '';

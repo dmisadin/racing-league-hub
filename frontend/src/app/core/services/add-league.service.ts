@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { leagueInsert } from 'app/shared/models/league/LeagueInsert';
+import { LeagueInsert } from 'app/shared/models/league/LeagueInsert';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class AddLeagueService {
 
   constructor(private http: HttpClient) { }
 
-  public addLeague(leagueInsert: leagueInsert): any {
+  public addLeague(leagueInsert: LeagueInsert): any {
     let result = this.http.post<any>(this.baseUrl + '/create', leagueInsert);
     return result;
   }

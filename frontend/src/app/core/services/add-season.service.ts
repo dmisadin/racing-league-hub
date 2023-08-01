@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { seasonInsert } from 'app/shared/models/season/seasonInsert';
+import { SeasonInsert } from 'app/shared/models/season/SeasonInsert';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class AddSeasonService {
 
   constructor(private http: HttpClient) { }
 
-  public addSeason(seasonInsert: seasonInsert): any {
+  public addSeason(seasonInsert: SeasonInsert): any {
     let result = this.http.post<any>(this.baseUrl + '/create', seasonInsert);
     return result;
   }

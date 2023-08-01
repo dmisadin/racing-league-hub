@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { registerUser } from 'app/shared/models/user/RegisterUser';
+import { RegisterUser } from 'app/shared/models/user/RegisterUser';
 import { User } from 'app/shared/models/user/User';
 import { BehaviorSubject, switchMap } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
@@ -41,7 +41,7 @@ export class AuthService {
     });
   }
 
-  public register(registerUser: registerUser): any {
+  public register(registerUser: RegisterUser): any {
     let result = this.http.post<any>(this.baseUrl + '/register', registerUser);
     return result;
   }

@@ -14,7 +14,7 @@ export class Season {
     qualPoints?: Point[];
     sprintPoints?: Point[];
     racePoints?: Point[];
-    lobbySetting?: LobbySettings;
-    assist?: Assists;
+    lobbySettings?: LobbySettings;
+    assists?: Assists;
     grandPrixes?: GrandPrix[];
 }

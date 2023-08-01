@@ -2,7 +2,7 @@ import { Point } from "./Point";
 import { Assists } from "./Assists";
 import { LobbySettings } from "./LobbySettings";
 
-export class seasonInsert{
+export class SeasonInsert{
   leagueId : number = 1;
   gameId : number = 1;
   platformId : number = 1;

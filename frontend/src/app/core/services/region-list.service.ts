@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class RegionListService {
     isDataLoaded: boolean = true;
-    
+
     private baseUrl = 'https://localhost:44347/api/Region';
 
     constructor(private http: HttpClient) { }

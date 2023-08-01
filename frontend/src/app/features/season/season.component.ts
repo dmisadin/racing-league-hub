@@ -31,21 +31,21 @@ export class SeasonComponent {
                 this.seasonItem = data;
                 console.log(data)
 
-                this.assists = this.seasonItem.assist;
+                this.assists = this.seasonItem.assists;
                 this.assists = Object.entries(this.assists).map(([key, value]) => ({
                     icon: key.toLowerCase(),
                     name: this.camelCaseToWords(key),
                     value: typeof value !== "boolean" ? value : this.booleanToOnOff(value)
                 }));
                 console.log(this.assists)
-                this.lobbySettings = this.seasonItem.lobbySetting;
+                this.lobbySettings = this.seasonItem.lobbySettings;
                 this.lobbySettings = Object.entries(this.lobbySettings).map(([key, value]) => ({
                     icon: key.toLowerCase(),
                     name: this.camelCaseToWords(key),
                     value: typeof value !== "boolean" ? value : this.booleanToOnOff(value)
                 }));
                 console.log(this.lobbySettings)
-                
+
 
             })
         }

@@ -4,9 +4,9 @@ import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { AddSeasonService } from 'app/core/services/add-season.service';
 import { Point } from 'app/shared/models/season/Point';
 import { Assists } from 'app/shared/models/season/Assists';
-import { info } from 'app/shared/models/season/info';
+import { Info } from 'app/shared/models/season/Info';
 import { LobbySettings } from 'app/shared/models/season/LobbySettings';
-import { seasonInsert } from 'app/shared/models/season/seasonInsert';
+import { SeasonInsert } from 'app/shared/models/season/SeasonInsert';
 import { firstValueFrom } from 'rxjs';
 
 
@@ -40,11 +40,11 @@ export class SeasonFormsComponent {
 	onSubmit(): void {
 		this.isSubmitted = true;
 		console.log("Submitted form: ", this.seasonForm.value, this.seasonForm.valid, this.seasonForm);
-    var info : info = this.seasonForm.get('info')!.value;
+    var info : Info = this.seasonForm.get('info')!.value;
     var fastestLapPoints : Point[] = this.seasonForm.get('fastestLapPoints')!.value;
 
 
-    var seasonInsert : seasonInsert;
+    var seasonInsert : SeasonInsert;
     seasonInsert = {
       leagueId : 1,
       gameId : this.infoValue.gameId,
@@ -67,7 +67,7 @@ export class SeasonFormsComponent {
     return this.seasonForm.get(value)?.value as Point[];
   }
 
-  async addSeason(seasonInsert: seasonInsert): Promise<void>{
+  async addSeason(seasonInsert: SeasonInsert): Promise<void>{
     const result = await firstValueFrom(this.addSeasonService.addSeason(seasonInsert));
     console.log(result);
   }

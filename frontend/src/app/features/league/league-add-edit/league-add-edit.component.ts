@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AddLeagueService } from 'app/core/services/add-league.service';
-import { leagueInsert } from 'app/shared/models/league/LeagueInsert';
+import { LeagueInsert } from 'app/shared/models/league/LeagueInsert';
 import { RegionListService } from 'app/core/services/region-list.service';
 import { ColorPickerService } from 'ngx-color-picker';
 import { firstValueFrom } from 'rxjs';
@@ -55,7 +55,7 @@ export class LeagueAddEditComponent {
     public get color(): string {
         return this.leagueForm.controls['color'].value || '#000';
     }
-    
+
     public set color(value: string) {
         this.leagueForm.controls['color'].setValue(value);
     }
@@ -74,7 +74,7 @@ export class LeagueAddEditComponent {
         this.isSubmitted = true;
         console.log("Submitted form: ", this.leagueForm.value, this.leagueForm.valid);
 
-        var leagueInsert: leagueInsert;
+        var leagueInsert: LeagueInsert;
         leagueInsert = {
             regionId: this.leagueForm.value.regionId!,
             name: this.leagueForm.value.name!,
@@ -99,7 +99,7 @@ export class LeagueAddEditComponent {
             });
     }
 
-    async addLeague(leagueInsert: leagueInsert): Promise<number> {
+    async addLeague(leagueInsert: LeagueInsert): Promise<number> {
         const result: number = await firstValueFrom(this.addLeagueService.addLeague(leagueInsert));
         return result;
     }
