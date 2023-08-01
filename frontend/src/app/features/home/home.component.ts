@@ -5,7 +5,8 @@ import {
   faStopwatch, faPlayCircle, faCalendarDays,
 } from '@fortawesome/free-solid-svg-icons';
 import { HomeDataService } from 'app/core/services/home-data.service';
-import { grandPrix } from 'app/shared/models/grandPrix';
+import { RaceRow } from 'app/shared/models/homepage/RaceRow';
+
 import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 
 @Component({
@@ -21,14 +22,15 @@ export class HomeComponent implements OnInit {
   faCalendarDays = faCalendarDays;
 
   isDataLoaded: boolean = true;
-  grandPrixData: Array<grandPrix> = new Array();
-  popularLeagues: Array<grandPrix> = new Array();
+  grandPrixData: Array<RaceRow> = new Array();
+  popularLeagues: Array<RaceRow> = new Array();
 
   constructor(private homeDataService: HomeDataService) {}
 
   ngOnInit(): void {
     this.homeDataService.fetchData().subscribe((data) => {
       this.grandPrixData = data;
+      console.log(data)
       this.popularLeagues = this.grandPrixData.slice(0,3);
     })
   }

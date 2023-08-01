@@ -1,4 +1,4 @@
-export class assist{
+export class Assists{
   racingLine : string = '';
   gearbox : string = '';
   tractionControl : string = '';

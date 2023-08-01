@@ -51,6 +51,7 @@ namespace F1StatsServer.Repository
                                                       .Where(c => c.LeagueId == id)
                                                       .Select(d => new SeasonsInLeagueDto
                                                       {
+                                                            Id = d.Id,
                                                             Name = d.Name,
                                                             ImagePath = d.ImagePath,
                                                             Game = _context.Set<Game>().Where(e => e.Id == d.GameId).Select(f => f.Name).FirstOrDefault(),

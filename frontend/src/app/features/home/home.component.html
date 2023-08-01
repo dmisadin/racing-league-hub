@@ -17,14 +17,21 @@
 <div *ngIf="isDataLoaded">
     <app-section-flex [direction]="'column'" [title]="'Recent results'">
         <a *ngFor="let item of grandPrixData" [routerLink]="['grandprix', item.id]">
-            <app-race-row [first]="item.grandPrixName" [second]="item.leagueName" [third]="item.seasonName">
+            <app-race-row 
+                [first]="item.grandPrixName" 
+                [second]="item.seasonName" 
+                [third]="item.leagueName">
             </app-race-row>
         </a>
     </app-section-flex>
 </div>
 <div>
     <app-section-flex [direction]="'column'" [title]="'Popular leagues'">
-        <app-race-row *ngFor="let item of popularLeagues; index as i" [first]="item.grandPrixName"
-            [second]="item.leagueName" [third]="item.seasonName"></app-race-row>
+        <app-race-row 
+            *ngFor="let item of popularLeagues;" 
+            [first]="item.grandPrixName"
+            [second]="item.seasonName" 
+            [third]="item.leagueName">
+        </app-race-row>
     </app-section-flex>
 </div>

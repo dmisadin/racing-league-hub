@@ -10,24 +10,40 @@
             Utrke se održavaju svakim četvrtkom u 20:00. Liga namjenjena za igrače iz ovog govornog područja. -->
         </div>
         <div class="social-media">
-            <app-btn-custom [faIcon]="faYoutube"></app-btn-custom>
+<!--             <app-btn-custom [faIcon]="faYoutube"></app-btn-custom>
             <app-btn-custom [faIcon]="faDiscord"></app-btn-custom>
             <app-btn-custom [faIcon]="faInstagram"></app-btn-custom>
             <app-btn-custom [faIcon]="faFacebook"></app-btn-custom>
             <app-btn-custom [faIcon]="faTwitch"></app-btn-custom>
-            <app-btn-custom [faIcon]="faGlobe"></app-btn-custom>
+            <app-btn-custom [faIcon]="faGlobe"></app-btn-custom> -->
+            <a
+                *ngFor="let s of leagueItem.socialMedia | keyvalue"
+                href={{toExternalUrl(s.value)}} >
+                <app-btn-custom [faIcon]="socialMediaIcons[s.key]"></app-btn-custom>
+            </a>
         </div>
     </div>
     <img src="../../../assets/images/league/league-logo.png" alt="">
 </app-section-flex>
 
-<!-- 
+
 <app-section-flex [title]="'All seasons'" [direction]="'row'" class="wrapping" [gap]="'20px 10px'">
-    <app-season-card 
+<!--     <app-season-card
         [logoPath]="'../../../assets/images/league/league-logo.png'" 
         [gameName]="'F1 2021'" 
         [text]="'Sezona 1'" 
-        [subtext]="'Jun 2023 - Oct 2023'"></app-season-card>
+        [subtext]="'Jun 2023 - Oct 2023'">
+    </app-season-card>
+ -->
+    <ng-container *ngFor="let s of leagueItem.seasonsInLeague">
+        <a [routerLink]="['season', s.id]" >
+            <app-season-card
+                [text]="s.name"
+                [subtext]="s.platform.name"
+                [gameName]="'F1 2020'"
+                >
+            </app-season-card>
+        </a>
+    </ng-container>
 </app-section-flex>
 
- -->

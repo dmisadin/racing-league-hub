@@ -6,6 +6,7 @@ namespace F1StatsServer.Dto.SeasonDtos
 {
     public class SeasonsInLeagueDto
     {
+        public int Id { get; set; }
         public string? Game { get; set; }
 
         public string? Platform { get; set; }

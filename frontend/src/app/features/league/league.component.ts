@@ -1,24 +1,26 @@
 import { Component } from '@angular/core';
-import { faYoutube, faDiscord, faInstagram, faFacebook, faTwitch } from '@fortawesome/free-brands-svg-icons';
-import { faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faYoutube, faDiscord, faInstagram, faFacebook, faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { IconDefinition, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { LeagueDataService } from 'app/core/services/league-data.service';
 import { Subscription } from 'rxjs';
-import { League } from 'app/shared/models/league';
+import { League } from 'app/shared/models/league/League';
+
 @Component({
     selector: 'app-league',
     templateUrl: './league.component.html',
     styleUrls: ['./league.component.scss']
 })
 export class LeagueComponent {
-    faYoutube = faYoutube;
-    faDiscord = faDiscord;
-    faInstagram = faInstagram;
-    faFacebook = faFacebook;
-    faTwitch = faTwitch;
-    faGlobe = faGlobe;
-
-
+    socialMediaIcons = {
+        discord: faDiscord,
+        youTube: faYoutube,
+        instagram: faInstagram,
+        facebook: faFacebook,
+        twitch: faTwitch,
+        twitter: faTwitter,
+        website: faGlobe,
+    }
 
     leagueItem$!: Subscription;
     leagueItem = new League();
@@ -32,7 +34,7 @@ export class LeagueComponent {
         this.leagueItem$ = this.route.params.subscribe(params => {
             this.leagueId = params['id'];
         })
-        if(this.leagueId)
+        if (this.leagueId)
             this.leagueDataService.fetchData(this.leagueId).subscribe((data) => {
                 this.leagueItem = data;
                 console.log(this.leagueItem)
@@ -41,5 +43,13 @@ export class LeagueComponent {
 
     ngOnDestroy() {
         this.leagueItem$.unsubscribe();
+    }
+
+    /** External URL has to contain 'https://' */
+    toExternalUrl(url: string) {
+        if (!/^https?:\/\//i.test(url)) {
+            url = 'https://' + url;
+        }
+        return url;
     }
 }

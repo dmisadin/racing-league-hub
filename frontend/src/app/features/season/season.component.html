@@ -9,13 +9,20 @@
             Utrke se održavaju svakim četvrtkom u 20:00. Liga namjenjena za igrače iz ovog govornog područja.
         </div> -->
         <app-section-flex [direction]="'row'" class="wrapping" [titleM]="'Allowed assists'">
-            <app-icon-label [iconPath]="'assists/tractioncontrol.png'" [name]="'Traction Control'">Medium</app-icon-label>
-            <app-icon-label [iconPath]="'assists/abs.png'" [name]="'ABS'">Off</app-icon-label>
-            <app-icon-label [iconPath]="'assists/racingline.png'" [name]="'Racing Line'">Corners only</app-icon-label>
-            <app-icon-label [iconPath]="'assists/gearbox.png'" [name]="'Gearbox'">Manual</app-icon-label>
+            <app-icon-label 
+                *ngFor="let a of assists"
+                [iconPath]="'assists/' + a.icon + '.png'" 
+                [name]="a.name">
+                {{a.value}}
+            </app-icon-label>
         </app-section-flex>
         <app-section-flex [direction]="'row'" class="wrapping" [titleM]="'Lobby settings'">
-            <app-icon-label *ngFor="let l of mockLobby" [iconPath]="l.iconPath" [name]="l.name" [width]="'165px'">{{l.value}}</app-icon-label>
+            <app-icon-label 
+                *ngFor="let l of lobbySettings" 
+                [iconPath]="'lobby/' + l.icon + '.png'" 
+                [name]="l.name"
+                [width]="'240px'"
+                >{{l.value}}</app-icon-label>
         </app-section-flex>
     </div>
     <img src="../../../assets/images/league/league-logo.png" alt="">
@@ -53,10 +60,9 @@
 
 
 <app-section-flex [direction]="'row'" class="wrapping" [title]="'Race calendar'" [justify]="'space-between'" [gap]="'16px'">
-    <app-race-card></app-race-card>
-    <app-race-card></app-race-card>
-    <app-race-card></app-race-card>
-    <app-race-card></app-race-card>
-    <app-race-card></app-race-card>
-    <app-race-card></app-race-card>
+    <a *ngFor="let gp of seasonItem.grandPrixes" [routerLink]="['grandprix', gp.id]">
+        <app-race-card
+        [gpName]="gp.name"
+        ></app-race-card>
+    </a>
 </app-section-flex>

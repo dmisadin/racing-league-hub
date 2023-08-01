@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { grandPrix } from 'app/shared/models/grandPrix';
-import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
+import { RaceRow } from 'app/shared/models/homepage/RaceRow';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ export class HomeDataService {
 
   constructor(private http: HttpClient) {}
 
-  public fetchData(): Observable<grandPrix[]> {
-    return this.http.get<grandPrix[]>(this.baseUrl + '/homepage');
+  public fetchData(): Observable<RaceRow[]> {
+    return this.http.get<RaceRow[]>(this.baseUrl + '/homepage');
   }
 }

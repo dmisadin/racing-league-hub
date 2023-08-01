@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { League } from 'app/shared/models/league';
+import { League } from 'app/shared/models/league/League';
 import { Observable } from 'rxjs';
 
 @Injectable({

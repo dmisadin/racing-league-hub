@@ -6,6 +6,7 @@ namespace F1StatsServer.Dto.LeagueDto
 {
     public class LeagueDto
     {
+        public int Id { get; set; }
         [Required, NotNull]
         public int RegionId { get; set; }
 
