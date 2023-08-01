@@ -1,7 +1,7 @@
 import { Component, DoCheck } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from 'app/core/services/auth.service';
-import { registerUser } from 'app/shared/models/RegisterUser';
+import { registerUser } from 'app/shared/models/user/RegisterUser';
 import { firstValueFrom } from 'rxjs';
 
 @Component({

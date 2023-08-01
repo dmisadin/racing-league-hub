@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Platform } from 'app/shared/models/Platform'
-import { Season } from 'app/shared/models/Season';
+import { Season } from 'app/shared/models/season/Season';
 import { AbstractGetService } from './abstractGetService';
 
 @Injectable({

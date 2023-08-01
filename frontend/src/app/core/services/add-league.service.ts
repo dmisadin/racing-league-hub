@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { leagueInsert } from 'app/shared/models/LeagueInsert';
+import { leagueInsert } from 'app/shared/models/league/LeagueInsert';
 
 @Injectable({
   providedIn: 'root'

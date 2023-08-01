@@ -60,10 +60,9 @@
 
 
 <app-section-flex [direction]="'row'" class="wrapping" [title]="'Race calendar'" [justify]="'space-between'" [gap]="'16px'">
-    <app-race-card></app-race-card>
-    <app-race-card></app-race-card>
-    <app-race-card></app-race-card>
-    <app-race-card></app-race-card>
-    <app-race-card></app-race-card>
-    <app-race-card></app-race-card>
+    <a *ngFor="let gp of seasonItem.grandPrixes" [routerLink]="['grandprix', gp.id]">
+        <app-race-card
+        [gpName]="gp.name"
+        ></app-race-card>
+    </a>
 </app-section-flex>

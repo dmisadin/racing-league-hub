@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LeaguesListService } from 'app/core/services/leagues-list.service';
-import { League } from 'app/shared/models/League';
+import { League } from 'app/shared/models/league/League';
 
 @Component({
     selector: 'app-leagues-list',

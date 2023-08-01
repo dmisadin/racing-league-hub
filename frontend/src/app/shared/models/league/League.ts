@@ -1,6 +1,6 @@
-import { Season } from "./Season";
-import { Region } from "./Region";
-import { SocialMedia } from "./SocialMedia";
+import { Season } from "../season/Season";
+import { Region } from "../Region";
+import { SocialMedia } from "../SocialMedia";
 import { LeagueUser } from "./LeagueUser";
 
 export class League {

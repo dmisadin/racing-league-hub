@@ -1,4 +1,4 @@
-import { DatetimeoffsetToLocalPipe } from "../pipes/datetimeoffset-to-local.pipe";
+import { DatetimeoffsetToLocalPipe } from "../../pipes/datetimeoffset-to-local.pipe";
 
 export class grandPrixInsert{
   seasonId : number = 1;

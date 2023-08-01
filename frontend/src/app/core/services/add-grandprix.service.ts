@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { grandPrixInsert } from 'app/shared/models/GrandPrixInsert';
+import { grandPrixInsert } from 'app/shared/models/grandprix/GrandPrixInsert';
 
 @Injectable({
   providedIn: 'root'

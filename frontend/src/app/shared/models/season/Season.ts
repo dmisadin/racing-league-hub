@@ -1,9 +1,9 @@
-import { Game } from "./Game";
-import { Platform } from "./Platform";
-import { Assists } from "./season/Assists";
-import { LobbySettings } from "./season/LobbySettings";
-import { Point } from "./season/Point";
-import { GrandPrix } from "./GrandPrix";
+import { Game } from "../Game";
+import { Platform } from "../Platform";
+import { Assists } from "./Assists";
+import { LobbySettings } from "./LobbySettings";
+import { Point } from "./Point";
+import { GrandPrix } from "../grandprix/GrandPrix";
 
 export class Season {
     id?: number = 1;

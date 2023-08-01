@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SeasonDataService } from 'app/core/services/season-data.service';
-import { Season } from 'app/shared/models/Season';
+import { Season } from 'app/shared/models/season/Season';
 import { Assists } from 'app/shared/models/season/Assists';
 import { Subscription } from 'rxjs';
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AddLeagueService } from 'app/core/services/add-league.service';
-import { leagueInsert } from 'app/shared/models/LeagueInsert';
+import { leagueInsert } from 'app/shared/models/league/LeagueInsert';
 import { RegionListService } from 'app/core/services/region-list.service';
 import { ColorPickerService } from 'ngx-color-picker';
 import { firstValueFrom } from 'rxjs';
