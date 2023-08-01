@@ -5,6 +5,8 @@ namespace F1StatsServer.Dto
 {
     public class SocialMediaDto
     {
+        public int? Id { get; set; }
+
         [StringLength(255)]
         [Unicode(false)]
         public string? Website { get; set; }

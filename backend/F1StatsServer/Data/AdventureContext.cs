@@ -167,7 +167,7 @@ public partial class AdventureContext : DbContext
 
             entity.Property(e => e.LapsRequiredPercentage).HasDefaultValueSql("('90')");
 
-            entity.HasOne(d => d.GameNavigation).WithMany(p => p.Seasons).HasConstraintName("FK_Season_GameId");
+            entity.HasOne(d => d.Game).WithMany(p => p.Seasons).HasConstraintName("FK_Season_GameId");
 
             entity.HasOne(d => d.League).WithMany(p => p.Seasons).HasConstraintName("FK_Season_LeagueId");
 

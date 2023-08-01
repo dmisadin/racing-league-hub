@@ -14,6 +14,6 @@ public partial class Game : EntityBase
     [Unicode(false)]
     public string Name { get; set; } = null!;
 
-    [InverseProperty("GameNavigation")]
+    [InverseProperty("Game")]
     public virtual ICollection<Season> Seasons { get; set; } = new List<Season>();
 }

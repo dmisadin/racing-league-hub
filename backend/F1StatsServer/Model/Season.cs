@@ -27,7 +27,7 @@ public partial class Season : EntityBase
 
     [ForeignKey("GameId")]
     [InverseProperty("Seasons")]
-    public virtual Game GameNavigation { get; set; } = null!;
+    public virtual Game Game { get; set; } = null!;
 
     [InverseProperty("Season")]
     public virtual ICollection<GrandPrix> GrandPrixes { get; set; } = new List<GrandPrix>();

@@ -25,14 +25,13 @@ namespace F1StatsServer.Repository
                                 {
                                     Name = p.Name,
                                     Description = p.Description,
-                                    RegionId = p.RegionId,
-                                    SocialMediaId = p.SocialMediaId,
                                     ColorHex = p.ColorHex,
                                     ImagePath = p.ImagePath,
                                     SocialMedia = _context.Set<SocialMedia>()
                                                           .Where(c => c.Id == p.SocialMediaId)
                                                           .Select(d => new SocialMediaDto
                                                           {
+                                                              Id = d.Id,
                                                               Website = d.Website,
                                                               Discord = d.Discord,
                                                               YouTube = d.YouTube,
@@ -45,6 +44,7 @@ namespace F1StatsServer.Repository
                                                      .Where(c => c.Id == p.RegionId)
                                                      .Select(d => new RegionDto
                                                      {
+                                                         Id = d.Id,
                                                          Name = d.Name
                                                      }).FirstOrDefault(),
                                     SeasonsInLeague = p.Seasons
@@ -54,8 +54,25 @@ namespace F1StatsServer.Repository
                                                             Id = d.Id,
                                                             Name = d.Name,
                                                             ImagePath = d.ImagePath,
-                                                            Game = _context.Set<Game>().Where(e => e.Id == d.GameId).Select(f => f.Name).FirstOrDefault(),
-                                                            Platform = d.Platform.Name,
+                                                            Game = _context.Set<Game>().Where(e => e.Id == d.GameId)
+                                                                                       .Select(f => new GameDto
+                                                                                       {
+                                                                                           Id = f.Id,
+                                                                                           Name = f.Name
+                                                                                       }).FirstOrDefault(),
+                                                            Platform = _context.Set<Platform>().Where(e => e.Id == d.GameId)
+                                                                                       .Select(f => new PlatformDto
+                                                                                       {
+                                                                                           Id = f.Id,
+                                                                                           Name = f.Name
+                                                                                       }).FirstOrDefault(),
+                                                          StartTime = _context.Set<GrandPrix>().Where(e => e.SeasonId == d.Id)
+                                                                                                .OrderBy(f => f.StartTime)
+                                                                                                .Select(g => g.StartTime).FirstOrDefault(),
+                                                            EndTime = _context.Set<GrandPrix>().Where(e => e.SeasonId == d.Id)
+                                                                                                .OrderByDescending(f => f.StartTime)
+                                                                                                .Select(g => g.StartTime).FirstOrDefault(),
+
                                                       }).ToList(),
 
                                 });

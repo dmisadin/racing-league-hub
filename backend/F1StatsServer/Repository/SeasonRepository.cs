@@ -25,19 +25,19 @@ namespace F1StatsServer.Repository
             var query = _context.Set<Season>()
                                 .AsSplitQuery()
                                 .Where(c => c.Id == id)
-                                .Select(e => new SeasonDisplayDto
+                                .Select(b => new SeasonDisplayDto
                                 {
-                                    Name = e.Name,
-                                    ImagePath = e.ImagePath,
-                                    LapsRequiredPercentage = e.LapsRequiredPercentage,
-                                    Game = MyMapper<GameDto, Game>.Map(_context.Set<Game>().Where(d => d.Id == e.GameId).FirstOrDefault()),
-                                    Platform = MyMapper<PlatformDto, Platform>.Map(_context.Set<Platform>().Where(d => d.Id == e.PlatformId).FirstOrDefault()),
-                                    QualPoints = MyMapper<SeasonPointsDto, SeasonQualPoints>.MapList(e.SeasonQualPoints.ToList()),
-                                    RacePoints = MyMapper<SeasonPointsDto, SeasonRacePoints>.MapList(e.SeasonRacePoints.ToList()),
-                                    SprintPoints = MyMapper<SeasonPointsDto, SeasonSprintPoints>.MapList(e.SeasonSprintPoints.ToList()),
-                                    LobbySettings = MyMapper<SeasonLobbySettingsDto, SeasonLobbySettings>.Map(e.SeasonLobbySetting),
-                                    Assists = MyMapper<SeasonAssistsDto, SeasonAssists>.Map(e.SeasonAssist),
-                                    FastestLapPoints = MyMapper<SeasonPointsDto, SeasonFastestLapPoints>.Map(e.SeasonFastestLapPoint),
+                                    Name = b.Name,
+                                    ImagePath = b.ImagePath,
+                                    LapsRequiredPercentage = b.LapsRequiredPercentage,
+                                    Game = MyMapper<GameDto, Game>.Map(_context.Set<Game>().Where(d => d.Id == b.GameId).FirstOrDefault()),
+                                    Platform = MyMapper<PlatformDto, Platform>.Map(_context.Set<Platform>().Where(d => d.Id == b.PlatformId).FirstOrDefault()),
+                                    QualPoints = MyMapper<SeasonPointsDto, SeasonQualPoints>.MapList(b.SeasonQualPoints.ToList()),
+                                    RacePoints = MyMapper<SeasonPointsDto, SeasonRacePoints>.MapList(b.SeasonRacePoints.ToList()),
+                                    SprintPoints = MyMapper<SeasonPointsDto, SeasonSprintPoints>.MapList(b.SeasonSprintPoints.ToList()),
+                                    LobbySettings = MyMapper<SeasonLobbySettingsDto, SeasonLobbySettings>.Map(b.SeasonLobbySetting),
+                                    Assists = MyMapper<SeasonAssistsDto, SeasonAssists>.Map(b.SeasonAssist),
+                                    FastestLapPoints = MyMapper<SeasonPointsDto, SeasonFastestLapPoints>.Map(b.SeasonFastestLapPoint),
                                     GrandPrixes = _context.Set<GrandPrix>()
                                                           .Where(d => d.SeasonId == id)
                                                           .Select(d => new GrandPrixSeasonDto
@@ -49,10 +49,31 @@ namespace F1StatsServer.Repository
                                                               CountryIso = d.Track.Country.Iso,
                                                               FastestDriverId = d.Races.Where(g => g.FastestLapInMs != null)
                                                                                        .OrderBy(e => e.FastestLapInMs).Select(f => f.DriverId).FirstOrDefault(),
-                                                              Races = MyMapper<ResultSeasonDto, Race>.MapList(d.Races.ToList()),
-                                                              Qualifications = MyMapper<ResultSeasonDto, Qualifying>.MapList(d.Qualifyings.ToList()),
-                                                              Sprints = MyMapper<ResultSeasonDto, Sprint>.MapList(d.Sprints.ToList())
+                                                              Races = _context.Set<Race>()
+                                                                              .Where(g => g.GrandPrixId == d.Id)
+                                                                              .Select(f => new ResultSeasonDto
+                                                                              {
+                                                                                  DriverId = f.DriverId,
+                                                                                  TeamId = f.TeamId,
+                                                                                  PointsGained = f.PointsGained
+                                                                              }).ToList(),
+                                                              Qualifications = _context.Set<Qualifying>()
+                                                                              .Where(g => g.GrandPrixId == d.Id)
+                                                                              .Select(f => new ResultSeasonDto
+                                                                              {
+                                                                                  DriverId = f.DriverId,
+                                                                                  TeamId = f.TeamId,
+                                                                                  PointsGained = f.PointsGained
+                                                                              }).ToList(),
 
+                                                              Sprints = _context.Set<Sprint>()
+                                                                              .Where(g => g.GrandPrixId == d.Id)
+                                                                              .Select(f => new ResultSeasonDto
+                                                                              {
+                                                                                  DriverId = f.DriverId,
+                                                                                  TeamId = f.TeamId,
+                                                                                  PointsGained = f.PointsGained
+                                                                              }).ToList(),
                                                           }).ToList(),
                                     Drivers = _context.Set<SeasonDrivers>()
                                                       .Where(d => d.SeasonId == id)

@@ -7,10 +7,6 @@ namespace F1StatsServer.Dto.LeagueDto
 {
     public class LeagueDisplayDto
     {
-        [Required, NotNull]
-        public int RegionId { get; set; }
-
-        public int? SocialMediaId { get; set; }
 
         [Required, NotNull]
         public string? Name { get; set; }
