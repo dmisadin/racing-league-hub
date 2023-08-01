@@ -1,22 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace F1StatsServer.Dto.DriverDto
+namespace F1StatsServer.Dto.TrackDtos
 {
-    public class DriverSeasonDto
+    public class TrackSeasonDto
     {
         public int? Id { get; set; }
 
-        [StringLength(40)]
         public string Name { get; set; } = null!;
 
-        public int? TeamId { get; set; }
+        public string? Location { get; set; }
+
+        public string? ImagePath { get; set; }
 
         [StringLength(2)]
         [Unicode(false)]
         public string? CountryIso { get; set; }
-
-        public byte PenaltyPoints { get; set; }
-
     }
 }

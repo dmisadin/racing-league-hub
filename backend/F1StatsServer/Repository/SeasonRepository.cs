@@ -4,6 +4,7 @@ using F1StatsServer.Dto.DriverDto;
 using F1StatsServer.Dto.GrandPrixDto;
 using F1StatsServer.Dto.ResultsDtos;
 using F1StatsServer.Dto.SeasonDtos;
+using F1StatsServer.Dto.TrackDtos;
 using F1StatsServer.Infrastructure;
 using F1StatsServer.Interface;
 using F1StatsServer.Model;
@@ -45,8 +46,17 @@ namespace F1StatsServer.Repository
                                                               Name = d.Name,
                                                               HasSprint = d.HasSprint,
                                                               YoutubeUrl = d.YouTubeUrl,
-                                                              Laps = d.Track.Laps,
-                                                              CountryIso = d.Track.Country.Iso,
+                                                              StartTime = d.StartTime,
+                                                              Track = _context.Set<Track>()
+                                                                              .Where(g => g.Id == d.TrackId)
+                                                                              .Select(f => new TrackSeasonDto
+                                                                              {
+                                                                                  Id = f.Id,
+                                                                                  Name = f.Name,
+                                                                                  Location = f.Location,
+                                                                                  ImagePath = f.ImagePath,
+                                                                                  CountryIso = f.Country.Iso
+                                                                              }).FirstOrDefault(),
                                                               FastestDriverId = d.Races.Where(g => g.FastestLapInMs != null)
                                                                                        .OrderBy(e => e.FastestLapInMs).Select(f => f.DriverId).FirstOrDefault(),
                                                               Races = _context.Set<Race>()
@@ -79,13 +89,21 @@ namespace F1StatsServer.Repository
                                                       .Where(d => d.SeasonId == id)
                                                       .Select(d => new DriverSeasonDto
                                                       {
+                                                          Id = d.DriverId,
                                                           Name = d.Driver.Name,
-                                                          TeamName = d.Team.Name,
-                                                          TeamColorHex = d.Team.ColorHex,
-                                                          TeamImagePath = d.Team.ImagePath,
+                                                          TeamId = d.TeamId,
                                                           CountryIso = d.Driver.Country.Iso,
                                                           PenaltyPoints = d.PenaltyPoints
                                                       }).ToList(),
+
+                                    Teams = _context.Set<SeasonDrivers>()
+                                                    .Select(d => new TeamDto
+                                                    {
+                                                        Id = d.TeamId,
+                                                        Name = d.Team.Name,
+                                                        ImagePath = d.Team.ImagePath,
+                                                        ColorHex = d.Team.ColorHex
+                                                    }).Distinct().ToList()
                                 });
 
             return query;

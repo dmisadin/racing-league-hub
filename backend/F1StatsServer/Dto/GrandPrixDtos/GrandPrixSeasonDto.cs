@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using F1StatsServer.Dto.ResultsDtos;
+using F1StatsServer.Dto.TrackDtos;
 
 namespace F1StatsServer.Dto.GrandPrixDto
 {
@@ -11,7 +12,7 @@ namespace F1StatsServer.Dto.GrandPrixDto
         [Required, NotNull]
         public string? Name { get; set; }
 
-        //public DateTimeOffset Date { get; set; } //Will be added in the future
+        public DateTimeOffset? StartTime { get; set; }
 
         [DefaultValue(false)]
         public bool HasSprint { get; set; }
@@ -21,12 +22,9 @@ namespace F1StatsServer.Dto.GrandPrixDto
 
         public byte? Laps { get; set; }
 
-
-        [StringLength(2)]
-        [Unicode(false)]
-        public string? CountryIso { get; set; }
-
         public int? FastestDriverId { get; set; }
+
+        public TrackSeasonDto? Track { get; set; }
 
         public List<ResultSeasonDto>? Races { get; set; }
 

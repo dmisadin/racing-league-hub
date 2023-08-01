@@ -37,5 +37,7 @@ namespace F1StatsServer.Dto.SeasonDtos
 
         public List<DriverSeasonDto>? Drivers { get; set; } 
 
+        public List<TeamDto>? Teams { get; set; }
+
     }
 }

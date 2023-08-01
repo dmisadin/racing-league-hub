@@ -33,6 +33,10 @@ public partial class Track : EntityBase
 
     public byte Laps { get; set; }
 
+    [StringLength(64)]
+    [Unicode(false)]
+    public string? Location { get; set; }
+
     public virtual ICollection<GrandPrix> GrandPrixes { get; set; } = new List<GrandPrix>();
 
     public virtual Country? Country { get; set; }
