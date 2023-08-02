@@ -44,18 +44,50 @@
 
 
 <app-section-flex [direction]="'column'" [title]="'Points distribution'" >
-    <table>
-        <thead>
-            <th>Position</th>
-            <th *ngFor="let p of mockPoints; let i = index">P{{i+1}}</th>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Points</td>
-                <td *ngFor="let p of mockPoints;">{{p}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <app-section-flex [titleM]="'Qualifying points'" *ngIf="seasonItem.qualPoints?.length">
+        <table>
+            <thead>
+                <th>Position</th>
+                <th *ngFor="let qp of seasonItem.racePoints">P{{qp.position}}</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Points</td>
+                    <td *ngFor="let qp of seasonItem.racePoints">{{qp.points}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </app-section-flex>
+
+    <app-section-flex [titleM]="'Sprint points'" *ngIf="seasonItem.sprintPoints?.length">
+        <table>
+            <thead>
+                <th>Position</th>
+                <th *ngFor="let sp of seasonItem.racePoints">P{{sp.position}}</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Points</td>
+                    <td *ngFor="let sp of seasonItem.racePoints">{{sp.points}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </app-section-flex>
+
+    <app-section-flex [titleM]="'Race points'" *ngIf="seasonItem.racePoints?.length">
+        <table>
+            <thead>
+                <th>Position</th>
+                <th *ngFor="let rp of seasonItem.racePoints">P{{rp.position}}</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Points</td>
+                    <td *ngFor="let rp of seasonItem.racePoints">{{rp.points}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </app-section-flex>
 </app-section-flex>
 
 
