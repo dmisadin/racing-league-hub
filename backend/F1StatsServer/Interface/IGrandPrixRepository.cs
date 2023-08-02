@@ -1,10 +1,10 @@
-﻿using F1StatsServer.Dto.GrandPrixDto;
+﻿using F1StatsServer.Dto.GrandPrixDtos;
 
 namespace F1StatsServer.Interface
 {
     public interface IGrandPrixRepository
     {
         IQueryable GetData();
-        List<GrandPrixPageDto> GetTrackData(int id);
+        List<GrandPrixDisplayDto> GetTrackData(int id);
     }
 }

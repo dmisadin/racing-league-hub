@@ -1,4 +1,4 @@
-﻿namespace F1StatsServer.Dto.GrandPrixDto
+﻿namespace F1StatsServer.Dto.GrandPrixDtos
 {
     public class GrandPrixHomeDto
     {

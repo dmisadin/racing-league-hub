@@ -1,7 +1,7 @@
 ﻿using F1StatsServer.Data;
 using F1StatsServer.Dto;
-using F1StatsServer.Dto.DriverDto;
-using F1StatsServer.Dto.GrandPrixDto;
+using F1StatsServer.Dto.DriverDtos;
+using F1StatsServer.Dto.GrandPrixDtos;
 using F1StatsServer.Dto.ResultsDtos;
 using F1StatsServer.Dto.SeasonDtos;
 using F1StatsServer.Dto.TrackDtos;
@@ -45,7 +45,7 @@ namespace F1StatsServer.Repository
                                                           {
                                                               Name = d.Name,
                                                               HasSprint = d.HasSprint,
-                                                              YoutubeUrl = d.YouTubeUrl,
+                                                              YoutubeUrl = d.YoutubeUrl,
                                                               StartTime = d.StartTime,
                                                               Track = _context.Set<Track>()
                                                                               .Where(g => g.Id == d.TrackId)

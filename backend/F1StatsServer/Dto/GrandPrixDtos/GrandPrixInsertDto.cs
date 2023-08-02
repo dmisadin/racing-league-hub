@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace F1StatsServer.Dto.GrandPrixDto
+namespace F1StatsServer.Dto.GrandPrixDtos
 {
     public class GrandPrixInsertDto
     {

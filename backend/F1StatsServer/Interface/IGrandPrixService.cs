@@ -1,4 +1,4 @@
-﻿using F1StatsServer.Dto.GrandPrixDto;
+﻿using F1StatsServer.Dto.GrandPrixDtos;
 
 namespace F1StatsServer.Interface
 {

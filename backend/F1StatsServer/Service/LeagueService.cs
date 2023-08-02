@@ -1,4 +1,4 @@
-﻿using F1StatsServer.Dto.LeagueDto;
+﻿using F1StatsServer.Dto.LeagueDtos;
 using F1StatsServer.Infrastructure;
 using F1StatsServer.Interface;
 using F1StatsServer.Model;
@@ -30,7 +30,7 @@ namespace F1StatsServer.Service
                 {
                     Website = data.Website,
                     Discord = data.Discord,
-                    YouTube = data.YouTube,
+                    Youtube = data.Youtube,
                     Twitch = data.Twitch,
                     Facebook = data.Facebook,
                     Instagram = data.Instagram,

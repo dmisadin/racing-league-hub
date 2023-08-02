@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using F1StatsServer.Dto.ResultsDtos;
 using F1StatsServer.Dto.TrackDtos;
 
-namespace F1StatsServer.Dto.GrandPrixDto
+namespace F1StatsServer.Dto.GrandPrixDtos
 {
     public class GrandPrixSeasonDto
     {

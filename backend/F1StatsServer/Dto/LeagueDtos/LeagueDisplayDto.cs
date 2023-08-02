@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using F1StatsServer.Dto.SeasonDtos;
 
-namespace F1StatsServer.Dto.LeagueDto
+namespace F1StatsServer.Dto.LeagueDtos
 {
     public class LeagueDisplayDto
     {

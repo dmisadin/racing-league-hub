@@ -1,4 +1,4 @@
-﻿using F1StatsServer.Dto.DriverDto;
+﻿using F1StatsServer.Dto.DriverDtos;
 using F1StatsServer.Infrastructure;
 using F1StatsServer.Model;
 

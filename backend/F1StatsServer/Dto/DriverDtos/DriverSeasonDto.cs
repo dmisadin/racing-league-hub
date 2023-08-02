@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace F1StatsServer.Dto.DriverDto
+namespace F1StatsServer.Dto.DriverDtos
 {
     public class DriverSeasonDto
     {

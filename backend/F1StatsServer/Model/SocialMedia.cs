@@ -19,7 +19,7 @@ public partial class SocialMedia : EntityBase
 
     [StringLength(255)]
     [Unicode(false)]
-    public string? YouTube { get; set; }
+    public string? Youtube { get; set; }
 
     [StringLength(255)]
     [Unicode(false)]

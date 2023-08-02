@@ -21,10 +21,10 @@ public partial class GrandPrix : EntityBase
 
     public bool HasSprint { get; set; }
 
-    [Column("YouTubeURL")]
+    [Column("YoutubeUrl")]
     [StringLength(255)]
     [Unicode(false)]
-    public string? YouTubeUrl { get; set; }
+    public string? YoutubeUrl { get; set; }
 
     [InverseProperty("GrandPrix")]
     public virtual ICollection<Qualifying> Qualifyings { get; set; } = new List<Qualifying>();

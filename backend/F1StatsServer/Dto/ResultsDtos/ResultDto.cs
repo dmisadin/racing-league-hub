@@ -11,12 +11,5 @@ namespace F1StatsServer.Dto.ResultsDtos
 
         public bool? IsReserve { get; set; }
 
-        public string? TeamName { get; set; }
-
-        public string? DriverName { get; set; }
-
-        [StringLength(2)]
-        [Unicode(false)]
-        public string? DriverCountry { get; set; }
     }
 }

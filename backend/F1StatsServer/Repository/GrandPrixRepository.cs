@@ -1,6 +1,7 @@
 ﻿using F1StatsServer.Data;
 using F1StatsServer.Dto;
-using F1StatsServer.Dto.GrandPrixDto;
+using F1StatsServer.Dto.DriverDtos;
+using F1StatsServer.Dto.GrandPrixDtos;
 using F1StatsServer.Dto.ResultsDtos;
 using F1StatsServer.Dto.TrackDtos;
 using F1StatsServer.Infrastructure;
@@ -34,22 +35,37 @@ namespace F1StatsServer.Repository
             return query;            
         }
 
-        public List<GrandPrixPageDto> GetTrackData(int id)
+        public List<GrandPrixDisplayDto> GetTrackData(int id)
         {
             var query = _context.Set<GrandPrix>()
                                 .Where(c => c.Id == id)
-                                .Select(p => new GrandPrixPageDto
+                                .Select(p => new GrandPrixDisplayDto
                                 {
                                     GrandPrixName = p.Name,
                                     GrandPrixDate = p.StartTime,
-                                    YoutubeUrl = p.YouTubeUrl,
+                                    YoutubeUrl = p.YoutubeUrl,
                                     Track = new TrackDto
                                     {
-                                        TrackName = p.Track.Name,
-                                        Turns = p.Track.CornersTotal,
-                                        LeftTurns = p.Track.CornersLeft,
+                                        Id = p.Track.Id,
+                                        Name = p.Track.Name,
+                                        Location = p.Track.Location,
+                                        CornersTotal = p.Track.CornersTotal,
+                                        CornersLeft = p.Track.CornersLeft,
                                         Elevation = p.Track.Elevation,
-                                        Length = p.Track.Length
+                                        Length = p.Track.Length,
+                                        PitStop = p.Track.PitStop,
+                                        ImagePath = p.Track.ImagePath,
+                                        Laps = p.Track.Laps,
+                                        Country = new CountryDto
+                                        {
+                                            Id = p.Track.Country.Id,
+                                            NameCroatian = p.Track.Country.NameCroatian,
+                                            NameEnglish = p.Track.Country.NameEnglish,
+                                            Iso = p.Track.Country.Iso,
+                                            Iso3 = p.Track.Country.Iso3,
+                                            ImagePath = p.Track.Country.ImagePath
+                                        }
+
                                     },
                                     Race = _context.Set<Race>().Where(c => c.GrandPrixId == id)
                                                                .Select(p => new RaceDto
@@ -60,9 +76,6 @@ namespace F1StatsServer.Repository
                                                                    Id = p.Id,
                                                                    Position = p.Position,
                                                                    IsReserve = p.IsReserve,
-                                                                   TeamName = p.Team.Name,
-                                                                   DriverName = p.Driver.Name,
-                                                                   DriverCountry = p.Driver.Country.Iso,
                                                                    RaceTime = p.RaceTime,
                                                                    TimePenalty = p.TimePenalty,
                                                                    LapsCompleted = p.LapsCompleted,
@@ -82,16 +95,13 @@ namespace F1StatsServer.Repository
                                                                                Id = p.Id,
                                                                                Position = p.Position,
                                                                                IsReserve = p.IsReserve,
-                                                                               TeamName = p.Team.Name,
-                                                                               DriverName = p.Driver.Name,
-                                                                               DriverCountry = p.Driver.Country.Iso,
                                                                                FastestLapInMs = p.FastestLapInMs,
                                                                                ResultStatus = p.ResultStatus,
                                                                                BestTimeTyre = p.BestTimeTyre
 
                                                                            }).ToList(),
                                     Sprint = _context.Set<Sprint>().Where(c => c.GrandPrixId == id)
-                                                                   .Select(p => new RaceSprintDto 
+                                                                   .Select(p => new RaceSprintDto
                                                                    {
                                                                        DriverId = p.DriverId,
                                                                        TeamId = p.TeamId,
@@ -99,16 +109,31 @@ namespace F1StatsServer.Repository
                                                                        Id = p.Id,
                                                                        Position = p.Position,
                                                                        IsReserve = p.IsReserve,
-                                                                       TeamName = p.Team.Name,
-                                                                       DriverName = p.Driver.Name,
-                                                                       DriverCountry = p.Driver.Country.Iso,
                                                                        RaceTime = p.RaceTime,
                                                                        TimePenalty = p.TimePenalty,
                                                                        LapsCompleted = p.LapsCompleted,
                                                                        GridPosition = p.GridPosition,
                                                                        UsedTyres = p.UsedTyres
 
-                                                                   }).ToList()
+                                                                   }).ToList(),
+                                    Teams = _context.Set<Race>().Where(c => c.GrandPrixId == id)
+                                                                .Select(p => new TeamDto
+                                                                {
+                                                                    Id = p.TeamId,
+                                                                    Name = p.Team.Name,
+                                                                    ImagePath = p.Team.ImagePath,
+                                                                    ColorHex = p.Team.ColorHex
+                                                                }).Distinct().ToList(),
+
+                                    Drivers = _context.Set<Race>().Where(c => c.GrandPrixId == id)
+                                                                .Select(p => new DriverGrandPrixDto
+                                                                {
+                                                                   Id = p.DriverId,
+                                                                   Name = p.Driver.Name,
+                                                                   TeamId = p.TeamId,
+                                                                   CountryIso = p.Driver.Country.Iso
+                                                                }).Distinct().ToList()
+
 
                                 }).ToList();
 

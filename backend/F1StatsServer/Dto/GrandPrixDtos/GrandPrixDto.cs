@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
-namespace F1StatsServer.Dto.GrandPrixDto
+namespace F1StatsServer.Dto.GrandPrixDtos
 {
     public class GrandPrixDto
     {

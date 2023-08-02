@@ -1,6 +1,6 @@
 ﻿using F1StatsServer.Data;
 using F1StatsServer.Dto;
-using F1StatsServer.Dto.LeagueDto;
+using F1StatsServer.Dto.LeagueDtos;
 using F1StatsServer.Dto.SeasonDtos;
 using F1StatsServer.Infrastructure;
 using F1StatsServer.Interface;
@@ -31,10 +31,9 @@ namespace F1StatsServer.Repository
                                                           .Where(c => c.Id == p.SocialMediaId)
                                                           .Select(d => new SocialMediaDto
                                                           {
-                                                              Id = d.Id,
                                                               Website = d.Website,
                                                               Discord = d.Discord,
-                                                              YouTube = d.YouTube,
+                                                              Youtube = d.Youtube,
                                                               Twitch = d.Twitch,
                                                               Twitter = d.Twitter,
                                                               Instagram = d.Instagram,
@@ -60,7 +59,7 @@ namespace F1StatsServer.Repository
                                                                                            Id = f.Id,
                                                                                            Name = f.Name
                                                                                        }).FirstOrDefault(),
-                                                            Platform = _context.Set<Platform>().Where(e => e.Id == d.GameId)
+                                                            Platform = _context.Set<Platform>().Where(e => e.Id == d.PlatformId)
                                                                                        .Select(f => new PlatformDto
                                                                                        {
                                                                                            Id = f.Id,

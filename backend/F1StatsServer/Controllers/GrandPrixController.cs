@@ -1,4 +1,4 @@
-﻿using F1StatsServer.Dto.GrandPrixDto;
+﻿using F1StatsServer.Dto.GrandPrixDtos;
 using F1StatsServer.Infrastructure;
 using F1StatsServer.Interface;
 using F1StatsServer.Model;
@@ -38,7 +38,7 @@ namespace F1StatsServer.Controllers
 
         }
 
-        [HttpGet("page/{id}")]
+        [HttpGet("display/{id}")]
         [ProducesResponseType(200)]
         public IActionResult GetPageData(int id)
         {
