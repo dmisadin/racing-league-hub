@@ -5,5 +5,5 @@ export class SocialMedia {
     twitch: string = "";
     twitter: string = "";
     website: string = "";
-    youTube: string = "";
+    youtube: string = "";
 }
