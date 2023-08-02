@@ -1,0 +1,39 @@
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Team</th>
+            <th>Country</th>
+            <th>Driver</th>
+            <th *ngFor="let g of grandPrixes">
+                <div class="flag shadow">
+                    <!-- <img src="../../../../assets/images/country/{{r}}.svg" alt="race"> -->
+                    <img src="{{'https://hatscripts.github.io/circle-flags/flags/' + (g.track.countryIso | lowercase)  + '.svg'}}"
+                        alt="race" />
+                </div>
+            </th>
+
+            <th>Points</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let driver of driverPoints; let i = index">
+            <td>{{ i+1 }}</td>
+            <td>
+                <img src="../../../../assets/images/teams/{{ driver.teamId }}.png" alt="" />
+            </td>
+            <td>
+                <div class="flag shadow">
+                    <img class="shadow"
+                        src="https://hatscripts.github.io/circle-flags/flags/{{driver.countryIso | lowercase}}.svg"
+                        alt="race" />
+                    <!-- <img src="../../../../assets/images/country/{{1}}.svg" alt=""> -->
+                </div>
+            </td>
+            <td class="driver-name">{{driver.name}}</td>
+            <td *ngFor="let c of mockCountries" class="points">-</td>
+            <td>{{driver.points}}</td>
+        </tr>
+    </tbody>
+</table>
