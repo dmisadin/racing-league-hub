@@ -14,7 +14,7 @@ import { League } from 'app/shared/models/league/League';
 export class LeagueComponent {
     socialMediaIcons = {
         discord: faDiscord,
-        youTube: faYoutube,
+        youtube: faYoutube,
         instagram: faInstagram,
         facebook: faFacebook,
         twitch: faTwitch,

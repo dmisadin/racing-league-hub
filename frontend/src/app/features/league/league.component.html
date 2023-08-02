@@ -19,7 +19,7 @@
             <a
                 *ngFor="let s of leagueItem.socialMedia | keyvalue"
                 href={{toExternalUrl(s.value)}} >
-                <app-btn-custom [faIcon]="socialMediaIcons[s.key]"></app-btn-custom>
+                <app-btn-custom  [faIcon]="socialMediaIcons[s.key]"></app-btn-custom>
             </a>
         </div>
     </div>
@@ -40,7 +40,7 @@
             <app-season-card
                 [text]="s.name"
                 [subtext]="s.platform.name"
-                [gameName]="'F1 2020'"
+                [gameName]="s.game.name"
                 >
             </app-season-card>
         </a>

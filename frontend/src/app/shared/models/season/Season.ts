@@ -8,8 +8,8 @@ import { GrandPrix } from "../grandprix/GrandPrix";
 export class Season {
     id?: number = 1;
     name: string = "F1 League";
-    game: Game = { id: 5, name: "F1 23"};
     imagePath: string = "/";
+    game: Game = { id: 5, name: "F1 23"};
     platform: Platform = { id: 1, name: "PC"};
     qualPoints?: Point[];
     sprintPoints?: Point[];
