@@ -38,6 +38,7 @@ namespace F1StatsServer.Repository
         public List<GrandPrixDisplayDto> GetTrackData(int id)
         {
             var query = _context.Set<GrandPrix>()
+                                .AsSplitQuery()
                                 .Where(c => c.Id == id)
                                 .Select(p => new GrandPrixDisplayDto
                                 {
