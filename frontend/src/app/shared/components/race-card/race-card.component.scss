@@ -3,7 +3,8 @@
 :host {
     position: relative;
     width: 320px;
-    max-width: 360px;
+    /* max-width: 360px; */
+    flex-grow: 1;
     max-height: 320px;
     height: fit-content;
 
