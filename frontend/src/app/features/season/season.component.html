@@ -30,7 +30,9 @@
 
 
 <app-section-flex [direction]="'row'" [title]="'Drivers championship standings'" >
-    <app-table-driver-standings>
+    <app-table-driver-standings 
+        [grandPrixes]="seasonItem.grandPrixes"
+        [drivers]="seasonItem.drivers">
         
     </app-table-driver-standings>
 </app-section-flex>

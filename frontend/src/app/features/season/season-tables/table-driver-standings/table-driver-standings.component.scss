@@ -1,4 +1,4 @@
-@use "../../../../styles.scss" as v;
+@use "../../../../../styles.scss" as v;
 
 :host {
 
@@ -35,7 +35,7 @@ td>* {
 
 }
 
-.team-name {
+.driver-name {
     width: fit-content;
     min-width: 120px;
 }

@@ -39,7 +39,7 @@
         <a [routerLink]="['season', s.id]" >
             <app-season-card
                 [text]="s.name"
-                [subtext]="s.platform.name"
+                [subtext]="(s.startTime | date:'MMM y') + ' - ' + (s.endTime | date: 'MMM y')"
                 [gameName]="s.game.name"
                 >
             </app-season-card>

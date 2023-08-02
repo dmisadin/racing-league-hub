@@ -36,8 +36,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { SeasonComponent } from './features/season/season.component';
 import { IconLabelComponent } from './shared/components/icon-label/icon-label.component';
-import { TableDriverStandingsComponent } from './shared/components/table-driver-standings/table-driver-standings.component';
-import { TableTeamStandingsComponent } from './shared/components/table-team-standings/table-team-standings.component';
+import { TableDriverStandingsComponent } from './features/season/season-tables/table-driver-standings/table-driver-standings.component';
+import { TableTeamStandingsComponent } from './features/season/season-tables/table-team-standings/table-team-standings.component';
 import { RaceCardComponent } from './shared/components/race-card/race-card.component';
 import { GrandPrixComponent } from './features/grandprix/grandprix.component';
 import { TableRaceResultComponent } from './shared/components/table-race-result/table-race-result.component';
@@ -54,9 +54,9 @@ import { SwitchComponent } from './shared/components/switch/switch.component';
 import { FormAlertComponent } from './shared/components/form-alert/form-alert.component';
 import { GrandPrixFormsComponent } from './features/grandprix/grandprix-forms/grandprix-forms.component';
 import { GrandprixInfoItemComponent } from './features/grandprix/grandprix-forms/grandprix-info-item/grandprix-info-item.component';
-import { DatetimeoffsetToLocalPipe } from './shared/pipes/datetimeoffset-to-local.pipe';
 import { NotFoundComponent } from './features/not-found/not-found.component';
 import { LeaguesListComponent } from './features/leagues-list/leagues-list.component';
+import { MediumdateToMonthyearPipe } from './shared/pipes/mediumdate-to-monthyear.pipe';
 
 @NgModule({
   declarations: [
@@ -96,9 +96,9 @@ import { LeaguesListComponent } from './features/leagues-list/leagues-list.compo
     FormAlertComponent,
     GrandPrixFormsComponent,
     GrandprixInfoItemComponent,
-    DatetimeoffsetToLocalPipe,
     NotFoundComponent,
     LeaguesListComponent,
+    MediumdateToMonthyearPipe,
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,3 @@
-import { DatetimeoffsetToLocalPipe } from "../../pipes/datetimeoffset-to-local.pipe";
-
 export class GrandPrixInsert{
   seasonId : number = 1;
   trackId : number = 1;
