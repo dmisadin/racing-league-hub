@@ -6,5 +6,6 @@ namespace F1StatsServer.Interface
     {
         int InsertLeague(LeagueInsertDto data);
         LeagueDisplayDto GetLeagueData(int id);
+        List<LeaguesDisplayDto> GetLeagues();
     }
 }

@@ -17,6 +17,37 @@ namespace F1StatsServer.Repository
             _context = context;
         }
 
+        public List<LeaguesDisplayDto> GetLeagues()
+        {
+            var query = _context.Set<League>()
+                                .Select(p => new LeaguesDisplayDto
+                                {
+                                    Id = p.Id,
+                                    Name = p.Name,
+                                    ColorHex = p.ColorHex,
+                                    ImagePath = p.ImagePath,
+                                    Platform = _context.Set<Season>()
+                                                       .Where(c => c.LeagueId == p.Id)
+                                                       .OrderByDescending(c => c.GrandPrixes.OrderByDescending(e=> e.StartTime).Take(1).Select(d => d.StartTime).FirstOrDefault())
+                                                       .Take(1)
+                                                       .Select(c => new PlatformDto
+                                                       {
+                                                           Id = c.PlatformId,
+                                                           Name = c.Platform.Name
+                                                       }).FirstOrDefault(),
+                                    Game = _context.Set<Season>()
+                                                       .Where(c => c.LeagueId == p.Id)
+                                                       .OrderByDescending(c => c.GrandPrixes.OrderByDescending(e => e.StartTime).Take(1).Select(d => d.StartTime).FirstOrDefault())
+                                                       .Take(1)
+                                                       .Select(c => new GameDto
+                                                       {
+                                                           Id = c.GameId,
+                                                           Name = c.Game.Name
+                                                       }).FirstOrDefault(),
+                                }).ToList();
+            return query;
+        }
+
         public IQueryable<LeagueDisplayDto> GetLeagueData(int id)
         {
             var query = _context.Set<League>()

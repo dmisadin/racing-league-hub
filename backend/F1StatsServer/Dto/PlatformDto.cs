@@ -5,7 +5,7 @@ namespace F1StatsServer.Dto
 {
     public class PlatformDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [Required, NotNull]
         public string? Name { get; set; }
     }

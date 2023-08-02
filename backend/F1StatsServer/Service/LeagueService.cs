@@ -56,5 +56,15 @@ namespace F1StatsServer.Service
             return itemQueried;
         }
 
+        public List<LeaguesDisplayDto> GetLeagues()
+        {
+            var item = _leagueRepository.GetLeagues();
+
+            if (item == null)
+                return null;
+
+            return item;
+        }
+
     }
 }

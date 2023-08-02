@@ -27,6 +27,20 @@ namespace F1StatsServer.Controllers
             return Ok(_leagueService.InsertLeague(data));
         }
 
+        [HttpGet("display")]
+        public IActionResult GetLeagues()
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = _leagueService.GetLeagues();
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+        }
+
         [HttpGet("display/{id}")]
         public IActionResult GetLeagueData(int id)
         {
