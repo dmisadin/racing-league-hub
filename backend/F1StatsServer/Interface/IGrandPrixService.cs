@@ -4,6 +4,6 @@ namespace F1StatsServer.Interface
 {
     public interface IGrandPrixService
     {
-        public bool InsertData(List<GrandPrixInsertDto> data);
+        public int InsertData(List<GrandPrixInsertDto> data);
     }
 }

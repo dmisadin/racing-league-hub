@@ -6,6 +6,8 @@
 
         public int? TeamId { get; set; }
 
+        public byte? ResultStatus { get; set; }
+
         public byte? PointsGained { get; set; }
 
     }

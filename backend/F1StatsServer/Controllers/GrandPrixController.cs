@@ -1,4 +1,5 @@
 ﻿using F1StatsServer.Dto.GrandPrixDtos;
+using F1StatsServer.Dto.ResultsDtos;
 using F1StatsServer.Infrastructure;
 using F1StatsServer.Interface;
 using F1StatsServer.Model;
@@ -13,16 +14,18 @@ namespace F1StatsServer.Controllers
         public IGenericRepository<GrandPrix> _genericRepository;
         public IGrandPrixRepository _grandPrixRepository;
         private readonly IGrandPrixService _grandPrixService;
+        private readonly IResultService _resultService;
 
         public GrandPrixController(
             IGenericRepository<GrandPrix> genericRepository,
             IGrandPrixRepository grandPrixRepository,
-            IGrandPrixService grandPrixService
-            ) : base(genericRepository)
+            IGrandPrixService grandPrixService,
+            IResultService resultService) : base(genericRepository)
         {
             _genericRepository = genericRepository;
             _grandPrixRepository = grandPrixRepository;
             _grandPrixService = grandPrixService;
+            _resultService = resultService;
         }
 
         [HttpGet("homepage")]
@@ -63,6 +66,21 @@ namespace F1StatsServer.Controllers
             var result = _grandPrixService.InsertData(data);
 
             if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            return Ok(result);
+        }
+
+        [HttpPost("create/{id}/results")]
+        [ProducesResponseType(200)]
+        public IActionResult InsertResults(ResultInsertDto data,int id)
+        {
+            if(data == null)
+                return BadRequest(ModelState);
+
+            var result = _resultService.InsertResults(data, id);
+
+            if (ModelState.IsValid || result == -1)
                 return BadRequest(ModelState);
 
             return Ok(result);

@@ -8,7 +8,7 @@ namespace F1StatsServer.Infrastructure
         T GetById(int id);
         bool Has(int id);
         int CreateItem(T item);
-        bool CreateItemList(List<T> items);
+        int CreateItemList(List<T> items);
         T DeleteItem(int id);
         bool Save();
     }

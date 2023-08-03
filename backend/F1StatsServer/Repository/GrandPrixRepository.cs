@@ -140,5 +140,62 @@ namespace F1StatsServer.Repository
 
             return query;
         }
+
+        public int InsertResultsNoSprint(ResultInsertDto data, int id)
+        {
+            var races = MyMapper<Race, RaceInsertDto>.MapList(data.Races);
+            var quals = MyMapper<Qualifying, QualInsertDto>.MapList(data.Quals);
+
+            foreach (Race race in races)
+                race.GrandPrixId = id;
+            foreach (Qualifying qualifying in quals)
+                qualifying.GrandPrixId = id;
+
+            try
+            {
+                _context.Set<Race>().AddRange(races);
+                _context.Set<Qualifying>().AddRange(quals);
+                var result = _context.SaveChanges();
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+        public int InsertResults(ResultInsertDto data, int id)
+        {
+            var races = MyMapper<Race, RaceInsertDto>.MapList(data.Races);
+            var quals = MyMapper<Qualifying, QualInsertDto>.MapList(data.Quals);
+            var sprints = MyMapper<Sprint, SprintInsertDto>.MapList(data.Sprints);
+
+            foreach (Race race in races)
+                race.GrandPrixId = id;
+            foreach (Qualifying qualifying in quals)
+                qualifying.GrandPrixId = id;
+            foreach (Sprint sprint in sprints)
+                sprint.GrandPrixId = id;
+
+            try
+            {
+                _context.Set<Race>().AddRange(races);
+                _context.Set<Qualifying>().AddRange(quals);
+                _context.Set<Sprint>().AddRange(sprints);
+                var result = _context.SaveChanges();
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+        public bool HasSprint(int id)
+        {
+            return _context.Set<GrandPrix>().Where(d => d.Id == id).Select(p => p.HasSprint).FirstOrDefault();
+        }
     }
 }

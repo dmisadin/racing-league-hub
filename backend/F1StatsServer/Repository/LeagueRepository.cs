@@ -28,7 +28,9 @@ namespace F1StatsServer.Repository
                                     ImagePath = p.ImagePath,
                                     Platform = _context.Set<Season>()
                                                        .Where(c => c.LeagueId == p.Id)
-                                                       .OrderByDescending(c => c.GrandPrixes.OrderByDescending(e=> e.StartTime).Take(1).Select(d => d.StartTime).FirstOrDefault())
+                                                       .OrderByDescending(c => c.GrandPrixes.OrderByDescending(e=> e.StartTime)
+                                                                                            .Take(1).Select(d => d.StartTime)
+                                                                                            .FirstOrDefault())
                                                        .Take(1)
                                                        .Select(c => new PlatformDto
                                                        {
@@ -37,7 +39,9 @@ namespace F1StatsServer.Repository
                                                        }).FirstOrDefault(),
                                     Game = _context.Set<Season>()
                                                        .Where(c => c.LeagueId == p.Id)
-                                                       .OrderByDescending(c => c.GrandPrixes.OrderByDescending(e => e.StartTime).Take(1).Select(d => d.StartTime).FirstOrDefault())
+                                                       .OrderByDescending(c => c.GrandPrixes.OrderByDescending(e => e.StartTime)
+                                                                                            .Take(1).Select(d => d.StartTime)
+                                                                                            .FirstOrDefault())
                                                        .Take(1)
                                                        .Select(c => new GameDto
                                                        {

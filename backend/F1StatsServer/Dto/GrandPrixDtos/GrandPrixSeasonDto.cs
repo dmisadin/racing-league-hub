@@ -20,8 +20,6 @@ namespace F1StatsServer.Dto.GrandPrixDtos
         [DefaultValue("https://www.youtube.com")]
         public string? YoutubeUrl { get; set; }
 
-        public byte? Laps { get; set; }
-
         public int? FastestDriverId { get; set; }
 
         public TrackSeasonDto? Track { get; set; }

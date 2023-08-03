@@ -3,8 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace F1StatsServer.Dto.ResultsDtos
 {
-    public class QualDto : ResultDto
-    {
+    public class QualInsertDto : ResultSeasonDto
+    {        
+        public byte? Position { get; set; }
+
+        public bool? IsReserve { get; set; }
+
         public int? FastestLapInMs { get; set; }
 
         [StringLength(2)]

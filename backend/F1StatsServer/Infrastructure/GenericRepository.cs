@@ -30,11 +30,16 @@ namespace F1StatsServer.Infrastructure
             return item.Id; 
         }
 
-        public bool CreateItemList(List<T> items)
+        public int CreateItemList(List<T> items)
         {
             table.AddRange(items);
 
-            return Save();
+            var save = Save();
+
+            if(save == false) 
+                return -1;
+
+            return 0;
         }
 
         public T DeleteItem(int id)

@@ -16,7 +16,7 @@ namespace F1StatsServer.Service
             _genericRepository = genericRepository;
         }
 
-        public bool InsertData(List<GrandPrixInsertDto> data)
+        public int InsertData(List<GrandPrixInsertDto> data)
         {
             var item = MyMapper<GrandPrix, GrandPrixInsertDto>.MapList(data);
 
