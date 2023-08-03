@@ -21,6 +21,8 @@ public partial class Sprint : EntityBase
     [Column(TypeName = "decimal(8, 3)")]
     public decimal RaceTime { get; set; }
 
+    public byte ResultStatus { get; set; }
+
     public byte TimePenalty { get; set; }
 
     public byte LapsCompleted { get; set; }

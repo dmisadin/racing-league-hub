@@ -1,7 +1,7 @@
 @use "../../../../../styles.scss" as v;
 
 :host {
-
+    display: contents;
     width: 100%;
 }
 
@@ -35,7 +35,7 @@ td>* {
 
 }
 
-.team-name {
+.driver-name {
     width: fit-content;
     min-width: 120px;
 }

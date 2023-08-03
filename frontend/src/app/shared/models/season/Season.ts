@@ -20,6 +20,7 @@ export class Season {
     assists?: Assists;
     grandPrixes: GrandPrix[] = [];
     drivers: Driver[] = [];
+    teams: Team[] = [];
 }
 
 export interface Driver {
@@ -28,4 +29,11 @@ export interface Driver {
     teamId: number
     countryIso: string
     penaltyPoints: number
+}
+
+export interface Team {
+    id: number
+    name: string
+    imagePath: string
+    colorHex: string
 }

@@ -65,22 +65,24 @@ namespace F1StatsServer.Repository
                                                               {
                                                                   DriverId = race.DriverId,
                                                                   TeamId = race.TeamId,
-                                                                  PointsGained = race.PointsGained
+                                                                  PointsGained = race.PointsGained,
+                                                                  ResultStatus = race.ResultStatus
                                                               }).ToList(),
                                                               Qualifying = grandPrix.Qualifyings.Select(qualifying => new ResultSeasonDto
                                                               {
                                                                   DriverId = qualifying.DriverId,
                                                                   TeamId = qualifying.TeamId,
-                                                                  PointsGained = qualifying.PointsGained
+                                                                  PointsGained = qualifying.PointsGained,
+                                                                  ResultStatus = qualifying.ResultStatus
                                                               }).ToList(),
 
                                                               Sprint = grandPrix.Sprints.Select(sprint => new ResultSeasonDto
                                                               {
                                                                   DriverId = sprint.DriverId,
                                                                   TeamId = sprint.TeamId,
-                                                                  PointsGained = sprint.PointsGained
+                                                                  PointsGained = sprint.PointsGained,
+                                                                  ResultStatus = sprint.ResultStatus
                                                               }).ToList(),
-
                                                           }).ToList(),
 
                                     Drivers = season.SeasonDrivers.Select(seasonDriver => new DriverSeasonDto
