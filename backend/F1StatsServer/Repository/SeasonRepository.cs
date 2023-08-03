@@ -65,7 +65,8 @@ namespace F1StatsServer.Repository
                                                                               {
                                                                                   DriverId = f.DriverId,
                                                                                   TeamId = f.TeamId,
-                                                                                  PointsGained = f.PointsGained
+                                                                                  PointsGained = f.PointsGained,
+                                                                                  ResultStatus = f.ResultStatus
                                                                               }).ToList(),
                                                               Qualifications = _context.Set<Qualifying>()
                                                                               .Where(g => g.GrandPrixId == d.Id)
@@ -73,7 +74,8 @@ namespace F1StatsServer.Repository
                                                                               {
                                                                                   DriverId = f.DriverId,
                                                                                   TeamId = f.TeamId,
-                                                                                  PointsGained = f.PointsGained
+                                                                                  PointsGained = f.PointsGained,
+                                                                                  ResultStatus = f.ResultStatus
                                                                               }).ToList(),
 
                                                               Sprints = _context.Set<Sprint>()
@@ -82,7 +84,8 @@ namespace F1StatsServer.Repository
                                                                               {
                                                                                   DriverId = f.DriverId,
                                                                                   TeamId = f.TeamId,
-                                                                                  PointsGained = f.PointsGained
+                                                                                  PointsGained = f.PointsGained,
+                                                                                  ResultStatus = f.ResultStatus
                                                                               }).ToList(),
                                                           }).ToList(),
                                     Drivers = _context.Set<SeasonDrivers>()

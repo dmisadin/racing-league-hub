@@ -10,13 +10,7 @@ interface SessionResult {
     driverId: number
     teamId: number
     pointsGained: number
-}
-
-interface Team {
-    id: number
-    name: string
-    imagePath: string
-    colorHex: string
+    resultStatus: number
 }
 
 export class GrandPrix {
@@ -31,5 +25,4 @@ export class GrandPrix {
     races: SessionResult[] = [];
     qualifications: SessionResult[] = [];
     sprints: SessionResult[] = [];
-    teams: Team[] = [];
 }

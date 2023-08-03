@@ -7,8 +7,6 @@ namespace F1StatsServer.Dto.ResultsDtos
     {
         public int? FastestLapInMs { get; set; }
 
-        public byte? ResultStatus { get; set; }
-
         [StringLength(2)]
         [Unicode(false)]
         public string? BestTimeTyre { get; set; }

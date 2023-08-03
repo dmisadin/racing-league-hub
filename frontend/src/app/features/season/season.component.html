@@ -29,21 +29,11 @@
 </app-section-flex>
 
 
-<app-section-flex [direction]="'row'" [title]="'Drivers championship standings'" >
-    <app-table-driver-standings 
-        [grandPrixes]="seasonItem.grandPrixes"
-        [drivers]="seasonItem.drivers">
-        
-    </app-table-driver-standings>
-</app-section-flex>
-
-
-<app-section-flex [direction]="'row'" [title]="'Constructors championship standings'" >
-    <app-table-team-standings>
-        
-    </app-table-team-standings>
-</app-section-flex>
-
+<app-standings-tables 
+    [grandPrixes]="seasonItem.grandPrixes"
+    [drivers]="seasonItem.drivers"
+    [teams]="seasonItem.teams">
+</app-standings-tables>
 
 <app-section-flex [direction]="'column'" [title]="'Points distribution'" >
     <app-section-flex [titleM]="'Qualifying points'" *ngIf="seasonItem.qualPoints?.length">

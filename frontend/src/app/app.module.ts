@@ -36,8 +36,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { SeasonComponent } from './features/season/season.component';
 import { IconLabelComponent } from './shared/components/icon-label/icon-label.component';
-import { TableDriverStandingsComponent } from './features/season/season-tables/table-driver-standings/table-driver-standings.component';
-import { TableTeamStandingsComponent } from './features/season/season-tables/table-team-standings/table-team-standings.component';
+import { StandingsTablesComponent } from './features/season/season-tables/standings-tables/standings-tables.component';
 import { RaceCardComponent } from './shared/components/race-card/race-card.component';
 import { GrandPrixComponent } from './features/grandprix/grandprix.component';
 import { TableRaceResultComponent } from './shared/components/table-race-result/table-race-result.component';
@@ -78,8 +77,7 @@ import { MediumdateToMonthyearPipe } from './shared/pipes/mediumdate-to-monthyea
     SeasonCardComponent,
     SeasonComponent,
     IconLabelComponent,
-    TableDriverStandingsComponent,
-    TableTeamStandingsComponent,
+    StandingsTablesComponent,
     RaceCardComponent,
     GrandPrixComponent,
     TableRaceResultComponent,
