@@ -23,10 +23,10 @@ const routes: Routes = [
     { path: 'leagues/:id', title: 'League Page', component: LeagueComponent },
     { path: 'leagues/:id/season/:id', component: SeasonComponent },
     { path: 'leagues', component: LeaguesListComponent },
+    { path: 'grandprix/edit', component: GrandPrixFormsComponent },
     { path: 'grandprix/:id', component: GrandPrixComponent },
     { path: 'driver', component: DriverComponent },
     { path: 'season/edit', component: SeasonFormsComponent },
-    { path: 'grandprix/edit', component: GrandPrixFormsComponent },
     { path: '**', component: NotFoundComponent }
 ];
 

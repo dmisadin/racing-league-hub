@@ -35,7 +35,7 @@ namespace F1StatsServer.Repository
             return query;            
         }
 
-        public List<GrandPrixDisplayDto> GetGrandPrixData(int id)
+        public GrandPrixDisplayDto? GetGrandPrixData(int id)
         {
             var query = _context.Set<GrandPrix>()
                                 .AsSplitQuery()
@@ -136,7 +136,7 @@ namespace F1StatsServer.Repository
                                                                 }).Distinct().ToList()
 
 
-                                }).ToList();
+                                }).FirstOrDefault();
 
             return query;
         }

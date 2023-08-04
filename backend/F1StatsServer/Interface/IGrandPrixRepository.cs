@@ -6,7 +6,7 @@ namespace F1StatsServer.Interface
     public interface IGrandPrixRepository
     {
         IQueryable GetData();
-        List<GrandPrixDisplayDto> GetGrandPrixData(int id);
+        GrandPrixDisplayDto? GetGrandPrixData(int id);
         bool HasSprint(int id);
         int InsertResults(ResultInsertDto data, int id);
         int InsertResultsNoSprint(ResultInsertDto data, int id);
