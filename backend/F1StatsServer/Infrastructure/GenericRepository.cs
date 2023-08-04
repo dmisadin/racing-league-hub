@@ -77,7 +77,11 @@ namespace F1StatsServer.Infrastructure
             {
                 if (ex.InnerException != null && ex.InnerException.Message.Contains("UC"))
                     throw new Exception("Duplicate value inserted");
-                throw ex;    
+                throw ex;
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }

@@ -35,7 +35,7 @@ namespace F1StatsServer.Repository
             return query;            
         }
 
-        public List<GrandPrixDisplayDto> GetTrackData(int id)
+        public List<GrandPrixDisplayDto> GetGrandPrixData(int id)
         {
             var query = _context.Set<GrandPrix>()
                                 .AsSplitQuery()
