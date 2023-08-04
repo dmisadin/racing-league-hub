@@ -1,22 +1,20 @@
 @use ".././styles.scss" as v;
 
+
 .grid-container {
-  background: v.$neutral-200;
+    padding-top: 96px;
 
-  height: 100vh;
-  overflow-y: scroll;
-  padding-top: 96px;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
 
-  display: grid;
-  grid-template-columns: 1fr 4fr 1fr;
-  grid-template-rows: 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  
-  justify-items: center;
+    justify-items: center;
+    align-items: start;
 }
 
 
 #left-side {
-  width: 360px;
+    width: 360px;
 }

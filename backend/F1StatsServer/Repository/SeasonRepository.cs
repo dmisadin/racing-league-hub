@@ -43,6 +43,7 @@ namespace F1StatsServer.Repository
                                                           .Where(d => d.SeasonId == id)
                                                           .Select(d => new GrandPrixSeasonDto
                                                           {
+                                                              Id = d.Id,
                                                               Name = d.Name,
                                                               HasSprint = d.HasSprint,
                                                               YoutubeUrl = d.YoutubeUrl,
@@ -55,11 +56,12 @@ namespace F1StatsServer.Repository
                                                                                   Name = f.Name,
                                                                                   Location = f.Location,
                                                                                   ImagePath = f.ImagePath,
-                                                                                  CountryIso = f.Country.Iso
+                                                                                  CountryIso = f.Country.Iso,
+                                                                                  CountryName = f.Country.NameEnglish
                                                                               }).FirstOrDefault(),
                                                               FastestDriverId = d.Races.Where(g => g.FastestLapInMs != null)
                                                                                        .OrderBy(e => e.FastestLapInMs).Select(f => f.DriverId).FirstOrDefault(),
-                                                              Races = _context.Set<Race>()
+                                                              Race = _context.Set<Race>()
                                                                               .Where(g => g.GrandPrixId == d.Id)
                                                                               .Select(f => new ResultSeasonDto
                                                                               {
@@ -68,7 +70,7 @@ namespace F1StatsServer.Repository
                                                                                   PointsGained = f.PointsGained,
                                                                                   ResultStatus = f.ResultStatus
                                                                               }).ToList(),
-                                                              Qualifications = _context.Set<Qualifying>()
+                                                              Qualifying = _context.Set<Qualifying>()
                                                                               .Where(g => g.GrandPrixId == d.Id)
                                                                               .Select(f => new ResultSeasonDto
                                                                               {
@@ -78,7 +80,7 @@ namespace F1StatsServer.Repository
                                                                                   ResultStatus = f.ResultStatus
                                                                               }).ToList(),
 
-                                                              Sprints = _context.Set<Sprint>()
+                                                              Sprint = _context.Set<Sprint>()
                                                                               .Where(g => g.GrandPrixId == d.Id)
                                                                               .Select(f => new ResultSeasonDto
                                                                               {

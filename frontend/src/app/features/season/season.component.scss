@@ -63,3 +63,10 @@ tr {
     border: 0px solid;
     transition: all .1s linear;
 }
+
+.loading {
+    width: fit-content;
+    height: fit-content;
+
+    align-self: center;
+}

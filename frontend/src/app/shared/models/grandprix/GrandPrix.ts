@@ -4,6 +4,7 @@ class Track {
     location: string = "";
     imagePath: string | null = "";
     countryIso: string = "";
+    countryName: string = "";
 }
 
 interface SessionResult {
@@ -22,7 +23,7 @@ export class GrandPrix {
     youtubeUrl: string = 'youtube.com';
     fastestDriverId?: number;
     track!: Track;
-    races: SessionResult[] = [];
-    qualifications: SessionResult[] = [];
-    sprints: SessionResult[] = [];
+    race: SessionResult[] = [];
+    qualifying: SessionResult[] = [];
+    sprint: SessionResult[] = [];
 }

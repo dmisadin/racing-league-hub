@@ -1,24 +1,24 @@
 * {
-  border: none;
-  margin: 0px;
-  box-sizing: border-box;
+    border: none;
+    margin: 0px;
+    box-sizing: border-box;
 }
 
 // defining global rule that router-outlet element is never displayed since it is always empty
 // and can mess with the positioning of other elements
-router-outlet{
-  display: none;
+router-outlet {
+    display: none;
 }
 
 @font-face {
-  font-family: 'Bebas Neue';
-  src: url('./assets/fonts/BebasNeue-Regular.ttf') format('truetype');
-  font-weight: 500 600;
+    font-family: 'Bebas Neue';
+    src: url('./assets/fonts/BebasNeue-Regular.ttf') format('truetype');
+    font-weight: 500 600;
 }
 
 @font-face {
-  font-family: 'Roboto';
-  src: url('./assets/fonts/Roboto-Regular.ttf');
+    font-family: 'Roboto';
+    src: url('./assets/fonts/Roboto-Regular.ttf');
 }
 
 $primary: #4441E5;
@@ -62,13 +62,15 @@ $shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
 
 html,
 body {
-  height: 100%;
+    height: 100%;
 }
 
 body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background: $neutral-200;
 }
+
 a {
     display: contents;
     text-decoration: none;

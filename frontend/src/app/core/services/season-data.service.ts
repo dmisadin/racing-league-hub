@@ -7,7 +7,7 @@ import { AbstractGetService } from './abstractGetService';
 @Injectable({
   providedIn: 'root'
 })
-export class SeasonDataService  extends AbstractGetService<Season> {
+export class SeasonDataService extends AbstractGetService<Season> {
     constructor(http: HttpClient) {
         super(http, 'https://localhost:44347/api/Season/display/');
     }

@@ -27,7 +27,7 @@ namespace F1StatsServer.Repository
                         join League in _context.Set<League>() on Season.LeagueId equals League.Id
                         select new GrandPrixHomeDto { 
                             Id = GrandPrix.Id,
-                            GrandPrixName = GrandPrix.Name,
+                            Name = GrandPrix.Name,
                             SeasonName = Season.Name,
                             LeagueName = League.Name
                         };
@@ -42,8 +42,8 @@ namespace F1StatsServer.Repository
                                 .Where(c => c.Id == id)
                                 .Select(p => new GrandPrixDisplayDto
                                 {
-                                    GrandPrixName = p.Name,
-                                    GrandPrixDate = p.StartTime,
+                                    Name = p.Name,
+                                    StartTime = p.StartTime,
                                     YoutubeUrl = p.YoutubeUrl,
                                     Track = new TrackDto
                                     {
