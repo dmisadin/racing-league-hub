@@ -9,13 +9,13 @@
 <div class="info">
   <div class="flex-text-column">
     <div class="country-name">{{gpName}}</div>
-    <div class="race-info">{{startTime}}</div>
+    <div class="race-info">{{startTime | date: 'longDate'}}</div>
     <div class="race-info small">{{trackName}}</div>
   </div>
   <div class="buttons">
     <div class="flag shadow">
       <img
-        src="https://hatscripts.github.io/circle-flags/flags/{{countryIso|lowercase}}.svg"
+        src="https://hatscripts.github.io/circle-flags/flags/{{countryIso | lowercase}}.svg"
         alt="flag"
       />
     </div>

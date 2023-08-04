@@ -17,6 +17,9 @@ export class StandingsTablesComponent {
     teamPoints: any[] = [];
 
     ngOnChanges() {
+        // Add functionality to count Qualifying and Sprint points.
+        // Check if the points are even given out for those sessions.
+
         this.drivers.forEach(driver => {
             this.driverPoints.push({
                 pointsSum: 0,
@@ -34,7 +37,7 @@ export class StandingsTablesComponent {
         });
 
         this.grandPrixes.forEach((gp, i) => {
-            gp.races.forEach(race => {
+            gp.race.forEach(race => {
                 const dp = this.driverPoints.find(d => d.id === race.driverId);
                 dp.pointsSum += race.pointsGained;
                 dp.points[i] = race.pointsGained;
@@ -43,7 +46,6 @@ export class StandingsTablesComponent {
                 const tp = this.teamPoints.find(team => team.id === race.teamId);
                 tp.pointsSum += race.pointsGained;
                 tp.points[i] += race.pointsGained;
-                console.log(this.teamPoints)
             });
         });
         this.driverPoints.sort((a, b) => b.pointsSum - a.pointsSum);

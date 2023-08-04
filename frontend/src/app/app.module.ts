@@ -56,6 +56,7 @@ import { GrandprixInfoItemComponent } from './features/grandprix/grandprix-forms
 import { NotFoundComponent } from './features/not-found/not-found.component';
 import { LeaguesListComponent } from './features/leagues-list/leagues-list.component';
 import { MediumdateToMonthyearPipe } from './shared/pipes/mediumdate-to-monthyear.pipe';
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { MediumdateToMonthyearPipe } from './shared/pipes/mediumdate-to-monthyea
     NotFoundComponent,
     LeaguesListComponent,
     MediumdateToMonthyearPipe,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

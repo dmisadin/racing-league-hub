@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 export class SeasonComponent {
     seasonItem$!: Subscription;
     seasonItem = new Season();
-    isDataLoaded: boolean = true;
+    isDataLoaded: boolean = false;
     seasonId: number = 0;
     assists: any;
     lobbySettings: any;
@@ -26,6 +26,7 @@ export class SeasonComponent {
         })
         if (this.seasonId) {
             this.seasonDataService.getOne(this.seasonId).subscribe((data) => {
+                this.isDataLoaded = true;
                 this.seasonItem = data;
 
                 this.assists = this.seasonItem.assists;
@@ -34,7 +35,7 @@ export class SeasonComponent {
                     name: this.camelCaseToWords(key),
                     value: typeof value !== "boolean" ? value : this.booleanToOnOff(value)
                 }));
-                
+
                 this.lobbySettings = this.seasonItem.lobbySettings;
                 this.lobbySettings = Object.entries(this.lobbySettings).map(([key, value]) => ({
                     icon: key.toLowerCase(),

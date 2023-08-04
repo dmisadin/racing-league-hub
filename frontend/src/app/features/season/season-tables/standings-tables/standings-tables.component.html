@@ -68,7 +68,7 @@
                 <td class="team-name">{{ t.name }}</td>
                 <td *ngFor="let p of t.points; let j = index" 
                     class="points">
-                    {{ grandPrixes[j].races.length ? p : '-'}}
+                    {{ grandPrixes[j].race.length ? p : '-'}}
                 </td>
                 <td> {{ t.pointsSum }} </td>
             </tr>

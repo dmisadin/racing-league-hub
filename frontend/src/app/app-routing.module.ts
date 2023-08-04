@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/login/login.component';
-import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { LeagueComponent } from './features/league/league.component';
 import { SeasonComponent } from './features/season/season.component';
 import { GrandPrixComponent } from './features/grandprix/grandprix.component';
@@ -22,6 +21,7 @@ const routes: Routes = [
     { path: 'league/add', title: 'Add League', component: LeagueAddEditComponent },
     { path: 'leagues/:id', title: 'League Page', component: LeagueComponent },
     { path: 'leagues/:id/season/:id', component: SeasonComponent },
+    { path: 'leagues/:id/season/:id/grandprix/:id', component: GrandPrixComponent },
     { path: 'leagues', component: LeaguesListComponent },
     { path: 'grandprix/edit', component: GrandPrixFormsComponent },
     { path: 'grandprix/:id', component: GrandPrixComponent },

@@ -56,7 +56,8 @@ namespace F1StatsServer.Repository
                                                                   Name = grandPrix.Track.Name,
                                                                   Location = grandPrix.Track.Location,
                                                                   ImagePath = grandPrix.Track.ImagePath,
-                                                                  CountryIso = grandPrix.Track.Country.Iso
+                                                                  CountryIso = grandPrix.Track.Country.Iso,
+                                                                  CountryName = grandPrix.Track.Country.Name
                                                               },
                                                               FastestDriverId = grandPrix.Races.Where(race => race.FastestLapInMs != null)
                                                                                        .OrderBy(race => race.FastestLapInMs)
