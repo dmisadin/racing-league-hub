@@ -59,7 +59,7 @@ namespace F1StatsServer.Repository
                                                                               }).FirstOrDefault(),
                                                               FastestDriverId = d.Races.Where(g => g.FastestLapInMs != null)
                                                                                        .OrderBy(e => e.FastestLapInMs).Select(f => f.DriverId).FirstOrDefault(),
-                                                              Races = _context.Set<Race>()
+                                                              Race = _context.Set<Race>()
                                                                               .Where(g => g.GrandPrixId == d.Id)
                                                                               .Select(f => new ResultSeasonDto
                                                                               {
@@ -67,7 +67,7 @@ namespace F1StatsServer.Repository
                                                                                   TeamId = f.TeamId,
                                                                                   PointsGained = f.PointsGained
                                                                               }).ToList(),
-                                                              Qualifications = _context.Set<Qualifying>()
+                                                              Qualifying = _context.Set<Qualifying>()
                                                                               .Where(g => g.GrandPrixId == d.Id)
                                                                               .Select(f => new ResultSeasonDto
                                                                               {
@@ -76,7 +76,7 @@ namespace F1StatsServer.Repository
                                                                                   PointsGained = f.PointsGained
                                                                               }).ToList(),
 
-                                                              Sprints = _context.Set<Sprint>()
+                                                              Sprint = _context.Set<Sprint>()
                                                                               .Where(g => g.GrandPrixId == d.Id)
                                                                               .Select(f => new ResultSeasonDto
                                                                               {

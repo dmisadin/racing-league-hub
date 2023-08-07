@@ -72,5 +72,20 @@ namespace F1StatsServer.Infrastructure
 
             return Ok(generic);
         }
+
+        [HttpPut()]
+        [ProducesResponseType(200)]
+        public IActionResult UpdateItem(TDto item, int id)
+        {
+            var itemFull = MyMapper<T,TDto>.Map(item);
+            itemFull.Id = id;
+
+            var generic = _genericRepository.UpdateItem(itemFull);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            return Ok(generic);
+        }
     }
 }

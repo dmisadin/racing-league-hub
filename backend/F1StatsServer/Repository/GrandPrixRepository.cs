@@ -45,6 +45,8 @@ namespace F1StatsServer.Repository
                                     GrandPrixName = p.Name,
                                     GrandPrixDate = p.StartTime,
                                     YoutubeUrl = p.YoutubeUrl,
+                                    FastestDriverId = p.Races.Where(g => g.FastestLapInMs != null)
+                                                                                       .OrderBy(e => e.FastestLapInMs).Select(f => f.DriverId).FirstOrDefault(),
                                     Track = new TrackDto
                                     {
                                         Id = p.Track.Id,

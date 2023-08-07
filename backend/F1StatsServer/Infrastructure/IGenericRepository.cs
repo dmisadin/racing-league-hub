@@ -11,5 +11,6 @@ namespace F1StatsServer.Infrastructure
         int CreateItemList(List<T> items);
         T DeleteItem(int id);
         bool Save();
+        int UpdateItem(T item);
     }
 }

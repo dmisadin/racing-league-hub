@@ -84,5 +84,16 @@ namespace F1StatsServer.Infrastructure
                 throw;
             }
         }
+
+        public int UpdateItem(T item)
+        {
+            table.Update(item);
+            var save = Save();
+
+            if (save == false)
+                return -1;
+
+            return 0;
+        }
     }
 }

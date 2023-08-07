@@ -24,10 +24,10 @@ namespace F1StatsServer.Dto.GrandPrixDtos
 
         public TrackSeasonDto? Track { get; set; }
 
-        public List<ResultSeasonDto>? Races { get; set; }
+        public List<ResultSeasonDto>? Race { get; set; }
 
-        public List<ResultSeasonDto>? Qualifications { get; set; }
+        public List<ResultSeasonDto>? Qualifying { get; set; }
 
-        public List<ResultSeasonDto>? Sprints { get; set; }
+        public List<ResultSeasonDto>? Sprint { get; set; }
     }
 }
