@@ -1,5 +1,7 @@
 @use "../../../styles.scss" as v;
+@import "../../shared/style/loading.scss";
 
+@include loading-icon;
 :host {
     padding: 0 20px;
     width: 100%;
@@ -62,11 +64,4 @@ tr {
     width: 100%;
     border: 0px solid;
     transition: all .1s linear;
-}
-
-.loading {
-    width: fit-content;
-    height: fit-content;
-
-    align-self: center;
 }

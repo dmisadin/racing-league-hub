@@ -18,8 +18,4 @@ export class NavbarComponent implements OnInit {
     console.log('Klik na Login!');
     this.router.navigate(['login']);
   }
-
-  navHome() {
-    this.router.navigate(['']);
-  }
 }

@@ -3,7 +3,7 @@ import { Platform } from "../Platform";
 import { Assists } from "./Assists";
 import { LobbySettings } from "./LobbySettings";
 import { Point } from "./Point";
-import { GrandPrix } from "../grandprix/GrandPrix";
+import { SeasonGrandPrix } from "../grandprix/GrandPrix";
 
 export class Season {
     id?: number = 1;
@@ -18,7 +18,7 @@ export class Season {
     fastestLapPoints?: Point;
     lobbySettings?: LobbySettings;
     assists?: Assists;
-    grandPrixes: GrandPrix[] = [];
+    grandPrixes: SeasonGrandPrix[] = [];
     drivers: Driver[] = [];
     teams: Team[] = [];
 }

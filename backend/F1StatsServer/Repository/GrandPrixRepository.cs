@@ -45,11 +45,11 @@ namespace F1StatsServer.Repository
                                 .Select(grandPrix => new GrandPrixDisplayDto
                                 {
                                     Name = grandPrix.Name,
-                                    Date = grandPrix.StartTime,
+                                    StartTime = grandPrix.StartTime,
                                     YoutubeUrl = grandPrix.YoutubeUrl,
                                     FastestDriverId = grandPrix.Races.Where(race => race.FastestLapInMs != null)
-                                                             .OrderBy(race => race.FastestLapInMs)
-                                                             .Select(race => race.DriverId).FirstOrDefault(),
+                                                                    .OrderBy(race => race.FastestLapInMs)
+                                                                    .Select(race => race.DriverId).FirstOrDefault(),
                                     Track = new TrackDto
                                     {
                                         Id = grandPrix.Track.Id,
