@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using F1StatsServer.Interface;
+using F1StatsServer.Model;
 using F1StatsServer.Util;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F1StatsServer.Infrastructure
@@ -73,17 +75,17 @@ namespace F1StatsServer.Infrastructure
             return Ok(generic);
         }
 
-        [HttpPut()]
+        [HttpPatch("{id}")]
         [ProducesResponseType(200)]
-        public IActionResult UpdateItem(TDto item, int id)
+        public IActionResult UpdateItem([FromBody]JsonPatchDocument<T> item, int id)
         {
-            var itemFull = MyMapper<T,TDto>.Map(item);
-            itemFull.Id = id;
-
-            var generic = _genericRepository.UpdateItem(itemFull);
+            var fromDb = _genericRepository.GetById(id);
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            item.ApplyTo(fromDb, ModelState);
+            var generic = _genericRepository.UpdateItem(fromDb);
 
             return Ok(generic);
         }
