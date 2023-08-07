@@ -35,7 +35,7 @@ namespace F1StatsServer.Repository
             return query;            
         }
 
-        public List<GrandPrixDisplayDto> GetTrackData(int id)
+        public GrandPrixDisplayDto GetTrackData(int id)
         {
             var query = _context.Set<GrandPrix>()
                                 .AsSplitQuery()
@@ -45,6 +45,8 @@ namespace F1StatsServer.Repository
                                     Name = p.Name,
                                     StartTime = p.StartTime,
                                     YoutubeUrl = p.YoutubeUrl,
+                                    FastestDriverId = p.Races.Where(g => g.FastestLapInMs != null)
+                                                       .OrderBy(e => e.FastestLapInMs).Select(f => f.DriverId).FirstOrDefault(),
                                     Track = new TrackDto
                                     {
                                         Id = p.Track.Id,
@@ -136,7 +138,7 @@ namespace F1StatsServer.Repository
                                                                 }).Distinct().ToList()
 
 
-                                }).ToList();
+                                }).FirstOrDefault();
 
             return query;
         }

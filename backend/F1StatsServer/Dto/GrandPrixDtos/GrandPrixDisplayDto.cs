@@ -13,6 +13,8 @@ namespace F1StatsServer.Dto.GrandPrixDtos
 
         public string? YoutubeUrl { get; set; }
 
+        public int? FastestDriverId { get; set; }
+
         public TrackDto? Track { get; set; }
 
         public IEnumerable<RaceDto>? Race { get; set; }

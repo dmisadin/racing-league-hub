@@ -15,6 +15,8 @@ export class GrandPrixComponent {
     gpItem$!: Subscription;
     gpItem = new GrandPrix();
     gpId: number = 0;
+    isDataLoaded: boolean = false;
+    fastestLap = {driverName: '', teamId: 0, countryIso: 'hr',  lapTimeInMs: 0}
     constructor(private gpDataService: GrandprixDataService, private route: ActivatedRoute) { }
 
     ngOnInit(): void {
@@ -24,7 +26,27 @@ export class GrandPrixComponent {
         if (this.gpId) {
             this.gpDataService.getOne(this.gpId).subscribe((data) => {
                 console.log(data)
+                this.gpItem = data;
+                this.isDataLoaded = true;
+
+                if(data.fastestDriverId){
+                    const raceEntry = data.race.find(r => r.driverId === data.fastestDriverId)
+                    if(raceEntry) {
+                        const driver = data.drivers!.find(d => d.id === data.fastestDriverId);
+                        this.fastestLap = {
+                            driverName: driver!.name,
+                            teamId: raceEntry.teamId, 
+                            countryIso: driver!.countryIso,  
+                            lapTimeInMs: raceEntry.fastestLapInMs as number,
+                        }
+                    }
+                }
             })
         }
+
+    }
+
+    goToYoutube() {
+        window.open(this.gpItem.youtubeUrl, '_blank');
     }
 }

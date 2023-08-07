@@ -1,4 +1,6 @@
-<p (click)="navHome()">f1 league stats</p>
+<a routerLink="/">
+    <p>f1 league stats</p>
+</a>
 <app-btn-custom
   *ngIf="!(isLoggedIn$ | async); else loggedUser"
   [label]="'Login'"

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { GrandPrix } from 'app/shared/models/grandprix/GrandPrix';
+import { SeasonGrandPrix } from 'app/shared/models/grandprix/GrandPrix';
 import { Driver, Team } from 'app/shared/models/season/Season';
 
 @Component({
@@ -8,7 +8,7 @@ import { Driver, Team } from 'app/shared/models/season/Season';
     styleUrls: ['./standings-tables.component.scss'],
 })
 export class StandingsTablesComponent {
-    @Input() grandPrixes: GrandPrix[] = [];
+    @Input() grandPrixes: SeasonGrandPrix[] = [];
     @Input() drivers: Driver[] = [];
     @Input() teams: Team[] = [];
 

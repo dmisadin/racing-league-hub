@@ -5,6 +5,6 @@ namespace F1StatsServer.Interface
     public interface IGrandPrixRepository
     {
         IQueryable GetData();
-        List<GrandPrixDisplayDto> GetTrackData(int id);
+        GrandPrixDisplayDto GetTrackData(int id);
     }
 }

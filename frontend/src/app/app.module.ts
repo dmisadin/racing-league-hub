@@ -39,8 +39,8 @@ import { IconLabelComponent } from './shared/components/icon-label/icon-label.co
 import { StandingsTablesComponent } from './features/season/season-tables/standings-tables/standings-tables.component';
 import { RaceCardComponent } from './shared/components/race-card/race-card.component';
 import { GrandPrixComponent } from './features/grandprix/grandprix.component';
-import { TableRaceResultComponent } from './shared/components/table-race-result/table-race-result.component';
-import { TableQualifyingResultComponent } from './shared/components/table-qualifying-result/table-qualifying-result.component';
+import { TableRaceResultComponent } from './features/grandprix/grandprix-tables/table-race-result/table-race-result.component';
+import { TableQualifyingResultComponent } from './features/grandprix/grandprix-tables/table-qualifying-result/table-qualifying-result.component';
 import { DriverComponent } from './features/driver/driver.component';
 import { LeagueAddEditComponent } from './features/league/league-add-edit/league-add-edit.component';
 import { SeasonFormsComponent } from './features/season/season-forms/season-forms.component';
@@ -57,6 +57,7 @@ import { NotFoundComponent } from './features/not-found/not-found.component';
 import { LeaguesListComponent } from './features/leagues-list/leagues-list.component';
 import { MediumdateToMonthyearPipe } from './shared/pipes/mediumdate-to-monthyear.pipe';
 import { FooterComponent } from './shared/components/footer/footer.component';
+import { RaceTimePipe } from './shared/pipes/race-time.pipe';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
     LeaguesListComponent,
     MediumdateToMonthyearPipe,
     FooterComponent,
+    RaceTimePipe,
   ],
   imports: [
     BrowserModule,
