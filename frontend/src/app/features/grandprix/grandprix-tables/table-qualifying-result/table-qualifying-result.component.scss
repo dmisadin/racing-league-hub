@@ -1,41 +1,20 @@
 @use "../../../../../styles.scss" as v;
+@import "../../../../shared/style/table.scss";
+
+@include table-setup;
+/* 
+:root{
+    --team-hover: #ffffff;
+}
+tr:hover {
+    background-color: var(--team-hover);
+}
+ */
 
 :host {
-
     width: 100%;
 }
 
-table {
-    width: fit-content;
-    text-align: left;
-    vertical-align: middle;
-    border-collapse: collapse;
-}
-
-tr {
-    height: 48px;
-    width: 100%;
-    border: 0px solid;
-    transition: all .1s linear;
-}
-
-tr:hover {
-    background-color: v.$neutral-300;
-}
-
-tr>* {
-    padding: 0 16px;
-}
-
-td {
-    height: 48px;
-    min-width: 48px;
-    vertical-align: middle;
-}
-
-td>* {
-    vertical-align: middle;
-}
 
 .driver-name {
     width: fit-content;
@@ -79,23 +58,17 @@ td div.flag {
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
 }
 
-
-.tyreth {
-
-    width: fit-content;
-    max-width: 250px;
-}
-
 .tyres {
 
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 8px;
-
+    
+    height: inherit;
     width: fit-content;
     max-width: 250px;
-
+    
     img {
         height: 50%;
         width: auto;

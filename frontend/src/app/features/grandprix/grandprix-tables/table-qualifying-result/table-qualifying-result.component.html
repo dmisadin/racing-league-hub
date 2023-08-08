@@ -7,7 +7,7 @@
             <th>Driver</th>
             <th>Best time</th>
             <th>Gap</th>
-            <th class="tyreth">Tyre</th>
+            <th>Tyre</th>
         </tr>
     </thead>
     <tbody>
@@ -18,9 +18,8 @@
             </td>
             <td>
                 <div class="flag shadow">
-                    <img class="shadow" src="https://hatscripts.github.io/circle-flags/flags/{{q.countryIso | lowercase}}.svg"
-                        alt="race" />
-                    <!-- <img src="../../../../assets/images/country/{{1}}.svg" alt=""> -->
+                    <img class="shadow" 
+                        src="../../../../../assets/images/country/flags/{{q.countryIso | lowercase}}.svg" alt="race" />
                 </div>
             </td>
             <td class="driver-name">{{q.driverName}}</td>
@@ -37,9 +36,14 @@
                 <ng-container *ngIf="q.resultStatus === 3 && q.position !==1 && q.fastestLapInMs">
                     {{ '+' + ((q.fastestLapInMs - qualifying[0].fastestLapInMs ) / 1000 | number:'0.3-3') }}
                 </ng-container>
+                <ng-container *ngIf="q.position === 1">
+                    Δ
+                </ng-container>
             </td>
-            <td class="tyres">
-                <img *ngIf="q.bestTimeTyre" src="../../../../assets/images/icons/tyre/{{ q.bestTimeTyre | lowercase }}.svg" alt="" />
+            <td>
+                <div class="tyres">
+                    <img *ngIf="q.bestTimeTyre" src="../../../../assets/images/icons/tyre/{{ q.bestTimeTyre | lowercase }}.svg" alt="" />
+                </div>
             </td>
         </tr>
     </tbody>

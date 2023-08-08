@@ -26,6 +26,15 @@
     <img src="../../../assets/images/league/league-logo.png" alt="">
 </app-section-flex>
 
+<app-btn-custom
+    [faIcon]="isEditMode ? faCircleXmark : faPen"
+    [label]=" isEditMode ? 'Cancel Edit' : 'Edit'"
+    (click)="toggleEditForm()"
+>
+</app-btn-custom>
+<router-outlet>
+
+</router-outlet>
 
 <app-section-flex [title]="'All seasons'" [direction]="'row'" class="wrapping" [gap]="'20px 10px'">
 <!--     <app-season-card

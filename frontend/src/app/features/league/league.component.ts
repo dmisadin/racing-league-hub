@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { faYoutube, faDiscord, faInstagram, faFacebook, faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { IconDefinition, faGlobe } from '@fortawesome/free-solid-svg-icons';
-import { ActivatedRoute } from '@angular/router';
+import { IconDefinition, faGlobe, faPen, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LeagueDataService } from 'app/core/services/league-data.service';
 import { Subscription } from 'rxjs';
 import { League } from 'app/shared/models/league/League';
@@ -21,21 +21,24 @@ export class LeagueComponent {
         twitter: faTwitter,
         website: faGlobe,
     }
+    faPen = faPen;
+    faCircleXmark = faCircleXmark;
 
     leagueItem$!: Subscription;
     leagueItem = new League();
-
-    isDataLoaded: boolean = true;
     leagueId: number = 0;
 
-    constructor(private leagueDataService: LeagueDataService, private route: ActivatedRoute) { }
+    isDataLoaded: boolean = true;
+    isEditMode: boolean = false;
+
+    constructor(private leagueDataService: LeagueDataService, private route: ActivatedRoute, private router: Router) { }
 
     ngOnInit(): void {
         this.leagueItem$ = this.route.params.subscribe(params => {
             this.leagueId = params['id'];
         })
         if (this.leagueId)
-            this.leagueDataService.fetchData(this.leagueId).subscribe((data) => {
+            this.leagueDataService.getById(this.leagueId).subscribe((data) => {
                 this.leagueItem = data;
                 console.log(this.leagueItem)
             })
@@ -51,5 +54,14 @@ export class LeagueComponent {
             url = 'https://' + url;
         }
         return url;
+    }
+
+    toggleEditForm() {
+        if (this.isEditMode)
+            this.router.navigate(['./'], { relativeTo: this.route });
+        else
+            this.router.navigate(['edit'], { relativeTo: this.route });
+
+        this.isEditMode = !this.isEditMode;
     }
 }

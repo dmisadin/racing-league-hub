@@ -1,49 +1,18 @@
 @use "../../../../../styles.scss" as v;
+@import "../../../../shared/style/table.scss";
+
+@include table-setup;
 
 :host {
     display: contents;
     width: 100%;
 }
 
-table {
-    width: 100%;
-    text-align: left;
-    vertical-align: middle;
-    border-collapse: collapse
-}
 
-tr {
-    height: 48px;
-    width: 100%;
-    border: 0px solid;
-    transition: all .1s linear;
-}
-
-tr:hover {
-    background-color: v.$neutral-300;
-}
-
-
-td {
-    height: 48px;
-    min-width: 48px;
-    vertical-align: middle;
-}
-
-td>* {
-    vertical-align: middle;
-
-}
 
 .driver-name {
     width: fit-content;
     min-width: 120px;
-}
-
-
-td img {
-    height: 80%;
-    /* width: auto; */
 }
 
 .flag {

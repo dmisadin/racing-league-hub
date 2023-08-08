@@ -8,9 +8,7 @@
                 <th>Driver</th>
                 <th *ngFor="let g of grandPrixes">
                     <div class="flag shadow">
-                        <!-- <img src="../../../../assets/images/country/{{r}}.svg" alt="race"> -->
-                        <img src="{{'https://hatscripts.github.io/circle-flags/flags/' + (g.track.countryIso | lowercase)  + '.svg'}}"
-                            alt="race" />
+                        <img src="../../../../../assets/images/country/flags/{{g.track.countryIso | lowercase}}.svg" alt="race" />
                     </div>
                 </th>
     
@@ -27,7 +25,7 @@
                 <td>
                     <div class="flag shadow">
                         <img class="shadow"
-                            src="https://hatscripts.github.io/circle-flags/flags/{{driver.countryIso | lowercase}}.svg"
+                            src="../../../../../assets/images/country/flags/{{driver.countryIso | lowercase}}.svg"
                             alt="race" />
                     </div>
                 </td>

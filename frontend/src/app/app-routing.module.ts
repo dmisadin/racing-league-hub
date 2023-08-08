@@ -19,7 +19,12 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
     { path: 'register', component: RegistrationComponent },
     { path: 'league/add', title: 'Add League', component: LeagueAddEditComponent },
-    { path: 'leagues/:id', title: 'League Page', component: LeagueComponent },
+    {
+        path: 'leagues/:id', title: 'League Page', component: LeagueComponent,
+        children: [
+            { path: 'edit', component: LeagueAddEditComponent}
+        ]
+    },
     { path: 'leagues/:id/season/:id', component: SeasonComponent },
     { path: 'leagues/:id/season/:id/grandprix/:id', component: GrandPrixComponent },
     { path: 'leagues', component: LeaguesListComponent },

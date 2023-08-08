@@ -4,9 +4,10 @@ import { AddLeagueService } from 'app/core/services/add-league.service';
 import { LeagueInsert } from 'app/shared/models/league/LeagueInsert';
 import { RegionListService } from 'app/core/services/region-list.service';
 import { ColorPickerService } from 'ngx-color-picker';
-import { firstValueFrom } from 'rxjs';
-import { Router } from '@angular/router';
+import { firstValueFrom, switchMap } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Region } from 'app/shared/models/Region';
+import { LeagueDataService } from 'app/core/services/league-data.service';
 
 @Component({
     selector: 'app-league-add-edit',
@@ -24,6 +25,19 @@ export class LeagueAddEditComponent {
     isSubmitted: boolean = false;
     regexUrl = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
     preview = '';
+    title = "Create new League";
+    buttonText = "Create"
+    id?: number;
+    loading = false;
+
+    constructor(private fb: FormBuilder,
+        private cpService: ColorPickerService,
+        private addLeagueService: AddLeagueService,
+        private leagueDataService: LeagueDataService,
+        private regionListService: RegionListService,
+        private router: Router,
+        private route: ActivatedRoute,
+    ) { }
 
     leagueForm = this.fb.group({
         name: ['', Validators.required],
@@ -31,43 +45,50 @@ export class LeagueAddEditComponent {
         description: '',
         leagueLogo: '',
         color: '#000',
-        website: ['', Validators.pattern(this.regexUrl)],
-        discord: ['', Validators.pattern(this.regexUrl)],
-        youtube: ['', Validators.pattern(this.regexUrl)],
-        twitch: ['', Validators.pattern(this.regexUrl)],
-        facebook: ['', Validators.pattern(this.regexUrl)],
-        instagram: ['', Validators.pattern(this.regexUrl)],
+        socialMedia: this.fb.group({
+            website: ['', Validators.pattern(this.regexUrl)],
+            discord: ['', Validators.pattern(this.regexUrl)],
+            youtube: ['', Validators.pattern(this.regexUrl)],
+            twitch: ['', Validators.pattern(this.regexUrl)],
+            facebook: ['', Validators.pattern(this.regexUrl)],
+            instagram: ['', Validators.pattern(this.regexUrl)],
+            twitter: ['', Validators.pattern(this.regexUrl)],
+        }),
     })
-
-    constructor(private fb: FormBuilder,
-        private cpService: ColorPickerService,
-        private addLeagueService: AddLeagueService,
-        private regionListService: RegionListService,
-        private router: Router) { }
 
     ngOnInit() {
         this.regionListService.fetchData().subscribe((data) => {
             this.regionList = data;
             console.log(this.regionList)
         })
+
+        this.id = this.route.snapshot.params['id'];
+        this.route.parent!.params.subscribe(params => {
+            this.id = params['id'];
+        });
+
+        if (this.id) {
+            // edit mode
+            this.loading = true;
+            this.leagueDataService.getById(this.id)
+                .subscribe(data => {
+                    console.log(data)
+                    this.title = "Edit " + data.name;
+                    this.buttonText = "Edit";
+                    this.leagueForm.patchValue(data);
+                    this.loading = false;
+                    this.color = data.colorHex;
+                });
+        }
     }
 
     public get color(): string {
-        return this.leagueForm.controls['color'].value || '#000';
+        return this.leagueForm.controls['color'].value || "#000000";
     }
 
     public set color(value: string) {
         this.leagueForm.controls['color'].setValue(value);
     }
-
-    social = [
-        { name: 'Website', placeholder: 'www.adria.gg' },
-        { name: 'Discord', placeholder: 'discord.gg/esportadria' },
-        { name: 'YouTube', placeholder: 'youtube.com/EsportAdria' },
-        { name: 'Twitch', placeholder: 'twitch.tv/EsportAdria' },
-        { name: 'Facebook', placeholder: 'facebook.com/EsportAdriagg' },
-        { name: 'Instagram', placeholder: 'instagram.com/EsportAdria' },
-    ]
 
 
     onSubmit(): void {
@@ -81,13 +102,9 @@ export class LeagueAddEditComponent {
             description: this.leagueForm.value.description!,
             colorHex: this.leagueForm.value.color!,
             imagePath: this.leagueForm.value.leagueLogo,
-            website: this.leagueForm.value.website,
-            discord: this.leagueForm.value.discord,
-            youtube: this.leagueForm.value.youtube,
-            twitch: this.leagueForm.value.twitch,
-            facebook: this.leagueForm.value.facebook,
-            instagram: this.leagueForm.value.instagram
+            ...this.leagueForm.value.socialMedia
         }
+        console.log(leagueInsert)
         this.addLeague(leagueInsert)
             .then(res => {
                 // Redirect user to the created League page
@@ -103,5 +120,17 @@ export class LeagueAddEditComponent {
         const result: number = await firstValueFrom(this.addLeagueService.addLeague(leagueInsert));
         return result;
     }
+
+
+    social = [
+        { name: 'Website', placeholder: 'www.adria.gg' },
+        { name: 'Discord', placeholder: 'discord.gg/esportadria' },
+        { name: 'YouTube', placeholder: 'youtube.com/EsportAdria' },
+        { name: 'Twitch', placeholder: 'twitch.tv/EsportAdria' },
+        { name: 'Facebook', placeholder: 'facebook.com/EsportAdriagg' },
+        { name: 'Instagram', placeholder: 'instagram.com/EsportAdria' },
+        { name: 'Twitter', placeholder: 'twitter.com/EsportAdria' },
+    ]
+
 }
 

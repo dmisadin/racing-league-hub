@@ -1,58 +1,58 @@
 <table>
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Team</th>
-            <th></th>
-            <th>Driver</th>
-            <th>Race time</th>
-            <th>Penalty</th>
-            <th>Post Race Penalty</th>
-            <th>Points</th>
-            <th class="tyreth">Tyres</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let r of race">
-            <td>{{ r.position }}</td>
-            <td>
-                <img src="../../../../assets/images/teams/{{ r.teamId }}.png" alt="team" />
-            </td>
-            <td>
-                <div class="flag shadow">
-                    <img class="shadow" src="https://hatscripts.github.io/circle-flags/flags/{{r.countryIso | lowercase}}.svg"
-                        alt="flag" />
-                </div>
-            </td>
-            <td class="driver-name">{{r.driverName}}</td>
-            <td>
-                <ng-container *ngIf="r.resultStatus === 3 && r.raceTime; else notime">
-                    <ng-container *ngIf="r.position===1; else gap">
-                        {{r.raceTime | raceTime}}
-                    </ng-container>
-                    <ng-template #gap>
-                        {{ '+' + ( r.raceTime - race[0].raceTime | raceTime)}}
-                    </ng-template>
+    <tr>
+        <th>#</th>
+        <th>Team</th>
+        <th colspan="2">Driver</th>
+        <th>Race time</th>
+        <th>Penalty</th>
+        <th>Post Race Penalty</th>
+        <th>Points</th>
+        <th>Tyres</th>
+    </tr>
+    <tr *ngFor="let r of race"> <!-- [style]="'--team-hover:'+ findTeam(r.teamId)?.colorHex" -->
+        <td>{{ r.position }}</td>
+        <td>
+            <img src="../../../../assets/images/teams/{{ r.teamId }}.png" alt="team" />
+        </td>
+        <td>
+            <div class="flag shadow">
+                <img class="shadow"
+                    src="../../../../../assets/images/country/flags/{{r.countryIso | lowercase}}.svg" alt="flag" />
+            </div>
+        </td>
+        <td class="driver-name">{{r.driverName}}</td>
+        <td style="text-align: end;">
+            <ng-container *ngIf="r.resultStatus === 3 && r.raceTime; else notime">
+                <ng-container *ngIf="r.position===1; else gap">
+                    {{r.raceTime | raceTime}}
                 </ng-container>
-                <ng-template #notime>
-                    {{ resultStatus[r.resultStatus] }}
+                <ng-template #gap>
+                    {{ '+' + ( r.raceTime - race[0].raceTime | raceTime)}}
                 </ng-template>
-            </td>
-            <td>
-                <ng-container *ngIf="r.timePenalty">
-                    {{'+' + r.timePenalty + "sec"}}
-                </ng-container>
-            </td>
-            <td>
-                <ng-container *ngIf="r.postRaceTimePenalty">
-                    {{'+' + r.postRaceTimePenalty + "sec"}}
-                </ng-container>
-            </td>
-            <td>{{r.pointsGained}}</td>
-            <td class="tyres">
-                <img *ngFor="let tyre of r.tyres" src="../../../../assets/images/icons/tyre/{{ tyre | lowercase}}.svg"
-                    alt="tyre" />
-            </td>
-        </tr>
-    </tbody>
+            </ng-container>
+            <ng-template #notime>
+                {{ resultStatus[r.resultStatus] }}
+            </ng-template>
+        </td>
+        <td>
+            <ng-container *ngIf="r.timePenalty">
+                {{'+' + r.timePenalty + "sec"}}
+            </ng-container>
+        </td>
+        <td>
+            <ng-container *ngIf="r.postRaceTimePenalty">
+                {{'+' + r.postRaceTimePenalty + "sec"}}
+            </ng-container>
+        </td>
+        <td>{{r.pointsGained}}</td>
+        <td>
+            <div class="tyres">
+                <img 
+                    *ngFor="let tyre of r.tyres" 
+                    src="../../../../assets/images/icons/tyre/{{ tyre | lowercase}}.svg"
+                    alt="tyre" 
+                />
+            </div>
+        </td>
+    </tr>
 </table>

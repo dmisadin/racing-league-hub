@@ -10,21 +10,22 @@
             <app-icon-label [iconPath]="'track_features/cornersLeft.svg'" [name]="'Left turns'">{{gpItem.track.cornersLeft}}</app-icon-label>
             <app-icon-label [iconPath]="'track_features/cornersRight.svg'" [name]="'Right turns'">{{gpItem.track.cornersTotal - gpItem.track.cornersLeft}}</app-icon-label>
             <app-icon-label [iconPath]="'track_features/length.svg'" [name]="'Track length'">{{gpItem.track.length + 'm'}}</app-icon-label>
-            <app-icon-label [iconPath]="'track_features/elevation.svg'" [name]="'Elevation change'">{{gpItem.track.elevation}}</app-icon-label>
+            <app-icon-label [iconPath]="'track_features/elevation.svg'" [name]="'Elevation change'">{{gpItem.track.elevation + 'm'}}</app-icon-label>
         </app-section-flex>
 
     </div>
     <img class="track-map" src="../../../assets/images/track/map_detail/{{gpItem.track.id}}.png" alt="">
 </app-section-flex>
 
-<app-section-flex [title]="'Race results'" *ngIf="isDataLoaded && gpItem.race.length">
+<app-section-flex [width]="'fit-content'" [title]="'Race results'" *ngIf="isDataLoaded && gpItem.race.length">
     <app-table-race-result
         [session]="gpItem.race"
         [drivers]="gpItem.drivers"
+        [teams]="gpItem.teams"
     ></app-table-race-result>
 </app-section-flex>
 
-<app-section-flex [title]="'Qualifying results'" *ngIf="isDataLoaded && gpItem.qualifying.length">
+<app-section-flex [width]="'fit-content'" [title]="'Qualifying results'" *ngIf="isDataLoaded && gpItem.qualifying.length">
     <app-table-qualifying-result
         [session]="gpItem.qualifying"
         [drivers]="gpItem.drivers"
@@ -40,8 +41,7 @@
         <thead>
             <tr>
                 <th>Team</th>
-                <th></th>
-                <th>Driver</th>
+                <th colspan="2">Driver</th>
                 <th>Time</th>
             </tr>
         </thead>
