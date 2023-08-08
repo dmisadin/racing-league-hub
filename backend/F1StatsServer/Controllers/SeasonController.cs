@@ -29,12 +29,12 @@ namespace F1StatsServer.Controllers
 
         [HttpGet("display/{id}")]
         [ProducesResponseType(200, Type = typeof(SeasonDisplayDto))]
-        public IActionResult GetSeasonData(int id)
+        public async Task<IActionResult> GetSeasonData(int id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = _seasonService.GetSeasonData(id);
+            var result = await _seasonService.GetSeasonData(id);
 
             if (result == null)
                 return NotFound();

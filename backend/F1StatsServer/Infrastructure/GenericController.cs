@@ -4,6 +4,7 @@ using F1StatsServer.Model;
 using F1StatsServer.Util;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F1StatsServer.Infrastructure
@@ -36,10 +37,10 @@ namespace F1StatsServer.Infrastructure
         [ProducesResponseType(200)]
         public IActionResult GetById(int id)
         {
-            if (!_genericRepository.Has(id))
-                return NotFound();
-
             var generic = _genericRepository.GetById(id);
+
+            if (generic == null)
+                return NotFound();
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -51,10 +52,10 @@ namespace F1StatsServer.Infrastructure
         [ProducesResponseType(200)]
         public IActionResult DeleteItem(int id)
         {
-            if (!_genericRepository.Has(id))
-                return NotFound();
-
             var generic = _genericRepository.DeleteItem(id);
+
+            if (generic == null)
+                return NotFound();
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -65,12 +66,12 @@ namespace F1StatsServer.Infrastructure
         [HttpPost]
         [ProducesResponseType(200)]
         public IActionResult CreateItem(TDto item)
-        {   
-            var itemFull = MyMapper<T, TDto>.Map(item);
-            var generic = _genericRepository.CreateItem(itemFull);
-
+        {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            var itemFull = MyMapper<T, TDto>.Map(item);
+            var generic = _genericRepository.CreateItem(itemFull);
 
             return Ok(generic);
         }
@@ -79,12 +80,17 @@ namespace F1StatsServer.Infrastructure
         [ProducesResponseType(200)]
         public IActionResult UpdateItem([FromBody]JsonPatchDocument<T> item, int id)
         {
-            var fromDb = _genericRepository.GetById(id);
+            foreach (var operation in item.Operations)
+                if (operation.OperationType != Microsoft.AspNetCore.JsonPatch.Operations.OperationType.Replace)
+                    return BadRequest("Patch request must contain only replace operations");
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            T fromDb = _genericRepository.GetById(id);
+
             item.ApplyTo(fromDb, ModelState);
+
             var generic = _genericRepository.UpdateItem(fromDb);
 
             return Ok(generic);

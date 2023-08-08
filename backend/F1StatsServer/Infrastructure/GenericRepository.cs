@@ -36,7 +36,7 @@ namespace F1StatsServer.Infrastructure
 
             var save = Save();
 
-            if(save == false) 
+            if (save == false) 
                 return -1;
 
             return 0;
@@ -46,6 +46,9 @@ namespace F1StatsServer.Infrastructure
         {
             T? existing = table.Find(id);
 
+            if (existing == null)
+                return null;
+
             table.Remove(existing);
             Save();
             return existing;
@@ -53,17 +56,32 @@ namespace F1StatsServer.Infrastructure
 
         public IQueryable<T> Get()
         {
-            return table;
+            return table.AsNoTracking();
         }
 
         public T GetById(int id)
         {
-            return table.Find(id);
+            var result = table.Find(id);
+            if (result == null)
+                return null;
+
+            return result;
         }
 
         public bool Has(int id)
         {
             return table.Any((c) => c.Id == id);
+        }
+
+        public int UpdateItem(T item)
+        {
+            table.Update(item);
+            var save = Save();
+
+            if (save == false)
+                return -1;
+
+            return 0;
         }
 
         public bool Save()
@@ -83,17 +101,6 @@ namespace F1StatsServer.Infrastructure
             {
                 throw;
             }
-        }
-
-        public int UpdateItem(T item)
-        {
-            table.Update(item);
-            var save = Save();
-
-            if (save == false)
-                return -1;
-
-            return 0;
         }
     }
 }

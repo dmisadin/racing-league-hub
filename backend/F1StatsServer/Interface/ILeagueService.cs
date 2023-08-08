@@ -5,7 +5,7 @@ namespace F1StatsServer.Interface
     public interface ILeagueService
     {
         int InsertLeague(LeagueInsertDto data);
-        LeagueDisplayDto GetLeagueData(int id);
-        List<LeaguesDisplayDto> GetLeagues();
+        Task<LeagueDisplayDto> GetLeagueDataAsync(int id);
+        Task<List<LeaguesDisplayDto>> GetLeaguesAsync();
     }
 }

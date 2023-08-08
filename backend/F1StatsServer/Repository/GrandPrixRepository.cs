@@ -25,122 +25,121 @@ namespace F1StatsServer.Repository
             var query = from GrandPrix in _context.Set<GrandPrix>()
                         join Season in _context.Set<Season>() on GrandPrix.SeasonId equals Season.Id
                         join League in _context.Set<League>() on Season.LeagueId equals League.Id
-                        select new GrandPrixHomeDto { 
+                        select new GrandPrixHomeDto
+                        {
                             Id = GrandPrix.Id,
                             GrandPrixName = GrandPrix.Name,
                             SeasonName = Season.Name,
                             LeagueName = League.Name
                         };
-                        
-            return query;            
+
+            return query;
         }
 
-        public GrandPrixDisplayDto? GetGrandPrixData(int id)
+        public async Task<GrandPrixDisplayDto?> GetGrandPrixData(int id)
         {
             var query = _context.Set<GrandPrix>()
                                 .AsSplitQuery()
-                                .Where(c => c.Id == id)
-                                .Select(p => new GrandPrixDisplayDto
+                                .AsNoTracking()
+                                .Where(grandPrix => grandPrix.Id == id)
+                                .Select(grandPrix => new GrandPrixDisplayDto
                                 {
-                                    GrandPrixName = p.Name,
-                                    GrandPrixDate = p.StartTime,
-                                    YoutubeUrl = p.YoutubeUrl,
-                                    FastestDriverId = p.Races.Where(g => g.FastestLapInMs != null)
-                                                                                       .OrderBy(e => e.FastestLapInMs).Select(f => f.DriverId).FirstOrDefault(),
+                                    GrandPrixName = grandPrix.Name,
+                                    GrandPrixDate = grandPrix.StartTime,
+                                    YoutubeUrl = grandPrix.YoutubeUrl,
+                                    FastestDriverId = grandPrix.Races.Where(race => race.FastestLapInMs != null)
+                                                             .OrderBy(race => race.FastestLapInMs)
+                                                             .Select(race => race.DriverId).FirstOrDefault(),
                                     Track = new TrackDto
                                     {
-                                        Id = p.Track.Id,
-                                        Name = p.Track.Name,
-                                        Location = p.Track.Location,
-                                        CornersTotal = p.Track.CornersTotal,
-                                        CornersLeft = p.Track.CornersLeft,
-                                        Elevation = p.Track.Elevation,
-                                        Length = p.Track.Length,
-                                        PitStop = p.Track.PitStop,
-                                        ImagePath = p.Track.ImagePath,
-                                        Laps = p.Track.Laps,
+                                        Id = grandPrix.Track.Id,
+                                        Name = grandPrix.Track.Name,
+                                        Location = grandPrix.Track.Location,
+                                        CornersTotal = grandPrix.Track.CornersTotal,
+                                        CornersLeft = grandPrix.Track.CornersLeft,
+                                        Elevation = grandPrix.Track.Elevation,
+                                        Length = grandPrix.Track.Length,
+                                        PitStop = grandPrix.Track.PitStop,
+                                        ImagePath = grandPrix.Track.ImagePath,
+                                        Laps = grandPrix.Track.Laps,
                                         Country = new CountryDto
                                         {
-                                            Id = p.Track.Country.Id,
-                                            NameCroatian = p.Track.Country.NameCroatian,
-                                            NameEnglish = p.Track.Country.NameEnglish,
-                                            Iso = p.Track.Country.Iso,
-                                            Iso3 = p.Track.Country.Iso3,
-                                            ImagePath = p.Track.Country.ImagePath
+                                            Id = grandPrix.Track.Country.Id,
+                                            NameCroatian = grandPrix.Track.Country.NameCroatian,
+                                            NameEnglish = grandPrix.Track.Country.NameEnglish,
+                                            Iso = grandPrix.Track.Country.Iso,
+                                            Iso3 = grandPrix.Track.Country.Iso3,
+                                            ImagePath = grandPrix.Track.Country.ImagePath
                                         }
 
                                     },
-                                    Race = _context.Set<Race>().Where(c => c.GrandPrixId == id)
-                                                               .Select(p => new RaceDto
-                                                               {
-                                                                   DriverId = p.DriverId,
-                                                                   TeamId = p.TeamId,
-                                                                   PointsGained = p.PointsGained,
-                                                                   Id = p.Id,
-                                                                   Position = p.Position,
-                                                                   IsReserve = p.IsReserve,
-                                                                   RaceTime = p.RaceTime,
-                                                                   TimePenalty = p.TimePenalty,
-                                                                   LapsCompleted = p.LapsCompleted,
-                                                                   GridPosition = p.GridPosition,
-                                                                   UsedTyres = p.UsedTyres,
-                                                                   FastestLapInMs = p.FastestLapInMs,
-                                                                   ResultStatus = p.ResultStatus,
-                                                                   PostRaceTimePenalty = p.PostRaceTimePenalty
 
-                                                               }).ToList(),
-                                    Qualifying = _context.Set<Qualifying>().Where(c => c.GrandPrixId == id)
-                                                                           .Select(p => new QualDto
-                                                                           {
-                                                                               DriverId = p.DriverId,
-                                                                               TeamId = p.TeamId,
-                                                                               PointsGained = p.PointsGained,
-                                                                               Id = p.Id,
-                                                                               Position = p.Position,
-                                                                               IsReserve = p.IsReserve,
-                                                                               FastestLapInMs = p.FastestLapInMs,
-                                                                               ResultStatus = p.ResultStatus,
-                                                                               BestTimeTyre = p.BestTimeTyre
+                                    Race = grandPrix.Races.Select(race => new RaceDto
+                                    {
+                                        DriverId = race.DriverId,
+                                        TeamId = race.TeamId,
+                                        PointsGained = race.PointsGained,
+                                        Id = race.Id,
+                                        Position = race.Position,
+                                        IsReserve = race.IsReserve,
+                                        RaceTime = race.RaceTime,
+                                        TimePenalty = race.TimePenalty,
+                                        LapsCompleted = race.LapsCompleted,
+                                        GridPosition = race.GridPosition,
+                                        UsedTyres = race.UsedTyres,
+                                        FastestLapInMs = race.FastestLapInMs,
+                                        ResultStatus = race.ResultStatus,
+                                        PostRaceTimePenalty = race.PostRaceTimePenalty
+                                    }).ToList(),
 
-                                                                           }).ToList(),
-                                    Sprint = _context.Set<Sprint>().Where(c => c.GrandPrixId == id)
-                                                                   .Select(p => new RaceSprintDto
-                                                                   {
-                                                                       DriverId = p.DriverId,
-                                                                       TeamId = p.TeamId,
-                                                                       PointsGained = p.PointsGained,
-                                                                       Id = p.Id,
-                                                                       Position = p.Position,
-                                                                       IsReserve = p.IsReserve,
-                                                                       RaceTime = p.RaceTime,
-                                                                       TimePenalty = p.TimePenalty,
-                                                                       LapsCompleted = p.LapsCompleted,
-                                                                       GridPosition = p.GridPosition,
-                                                                       UsedTyres = p.UsedTyres
+                                    Qualifying = grandPrix.Qualifyings.Select(qualifying => new QualDto
+                                    {
+                                        DriverId = qualifying.DriverId,
+                                        TeamId = qualifying.TeamId,
+                                        PointsGained = qualifying.PointsGained,
+                                        Id = qualifying.Id,
+                                        Position = qualifying.Position,
+                                        IsReserve = qualifying.IsReserve,
+                                        FastestLapInMs = qualifying.FastestLapInMs,
+                                        ResultStatus = qualifying.ResultStatus,
+                                        BestTimeTyre = qualifying.BestTimeTyre
+                                    }).ToList(),
 
-                                                                   }).ToList(),
-                                    Teams = _context.Set<Race>().Where(c => c.GrandPrixId == id)
-                                                                .Select(p => new TeamDto
-                                                                {
-                                                                    Id = p.TeamId,
-                                                                    Name = p.Team.Name,
-                                                                    ImagePath = p.Team.ImagePath,
-                                                                    ColorHex = p.Team.ColorHex
-                                                                }).Distinct().ToList(),
+                                    Sprint = grandPrix.Sprints.Select(sprint => new RaceSprintDto
+                                    {
+                                        DriverId = sprint.DriverId,
+                                        TeamId = sprint.TeamId,
+                                        PointsGained = sprint.PointsGained,
+                                        Id = sprint.Id,
+                                        Position = sprint.Position,
+                                        IsReserve = sprint.IsReserve,
+                                        RaceTime = sprint.RaceTime,
+                                        TimePenalty = sprint.TimePenalty,
+                                        LapsCompleted = sprint.LapsCompleted,
+                                        GridPosition = sprint.GridPosition,
+                                        UsedTyres = sprint.UsedTyres
 
-                                    Drivers = _context.Set<Race>().Where(c => c.GrandPrixId == id)
-                                                                .Select(p => new DriverGrandPrixDto
-                                                                {
-                                                                   Id = p.DriverId,
-                                                                   Name = p.Driver.Name,
-                                                                   TeamId = p.TeamId,
-                                                                   CountryIso = p.Driver.Country.Iso
-                                                                }).Distinct().ToList()
+                                    }).ToList(),
+                                    Teams = grandPrix.Races.Select(race => new TeamDto
+                                    {
+                                        Id = race.TeamId,
+                                        Name = race.Team.Name,
+                                        ImagePath = race.Team.ImagePath,
+                                        ColorHex = race.Team.ColorHex
+                                    }).Distinct().ToList(),
+
+                                    Drivers = grandPrix.Races.Select(race => new DriverGrandPrixDto
+                                    {
+                                        Id = race.DriverId,
+                                        Name = race.Driver.Name,
+                                        TeamId = race.TeamId,
+                                        CountryIso = race.Driver.Country.Iso
+                                    }).Distinct().ToList()
 
 
-                                }).FirstOrDefault();
+                                }).FirstOrDefaultAsync();
 
-            return query;
+            return await query;
         }
 
         public int InsertResultsNoSprint(ResultInsertDto data, int id)

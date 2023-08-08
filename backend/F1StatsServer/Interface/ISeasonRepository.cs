@@ -4,6 +4,6 @@ namespace F1StatsServer.Interface
 {
     public interface ISeasonRepository
     {
-        IQueryable<SeasonDisplayDto> GetSeasonData(int id);
+        Task<SeasonDisplayDto> GetSeasonData(int id);
     }
 }

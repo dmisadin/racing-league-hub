@@ -60,7 +60,7 @@ builder.Services.AddSwaggerGen(options =>
 
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
-builder.Services.AddDbContext<AdventureContext>(options =>
+builder.Services.AddDbContextPool<AdventureContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetSection("DefaultConnection").Value)
                    .LogTo(Console.WriteLine, LogLevel.Information);

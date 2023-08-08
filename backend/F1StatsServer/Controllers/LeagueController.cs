@@ -28,12 +28,12 @@ namespace F1StatsServer.Controllers
         }
 
         [HttpGet("display")]
-        public IActionResult GetLeagues()
+        public async Task<IActionResult> GetLeaguesAsync()
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = _leagueService.GetLeagues();
+            var result = await _leagueService.GetLeaguesAsync();
 
             if (result == null)
                 return NotFound();
@@ -42,12 +42,12 @@ namespace F1StatsServer.Controllers
         }
 
         [HttpGet("display/{id}")]
-        public IActionResult GetLeagueData(int id)
+        public async Task<IActionResult> GetLeagueDataAsync(int id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = _leagueService.GetLeagueData(id);
+            var result = await _leagueService.GetLeagueDataAsync(id);
 
             if (result == null)
                 return NotFound();

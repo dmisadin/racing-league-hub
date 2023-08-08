@@ -17,17 +17,17 @@ namespace F1StatsServer.Service
             _seasonRepository = seasonRepository;
         }
 
-        public SeasonDisplayDto GetSeasonData(int id)
+        public async Task<SeasonDisplayDto> GetSeasonData(int id)
         {
             if (!_genericRepository.Has(id))
                 return null;
 
-            var item = _seasonRepository.GetSeasonData(id);
+            var item = await _seasonRepository.GetSeasonData(id);
 
             if (item == null)
                 return null;
 
-            return item.FirstOrDefault();
+            return item;
 
         }
 

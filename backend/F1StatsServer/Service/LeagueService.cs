@@ -42,23 +42,22 @@ namespace F1StatsServer.Service
             return _genericRepository.CreateItem(item);
         }
 
-        public LeagueDisplayDto GetLeagueData(int id)
+        public async Task<LeagueDisplayDto> GetLeagueDataAsync(int id)
         {
             if (!_genericRepository.Has(id))
                 return null;
 
-            var item = _leagueRepository.GetLeagueData(id);
-            var itemQueried = item.FirstOrDefault();
+            var item = await _leagueRepository.GetLeagueDataAsync(id);
 
-            if (itemQueried == null)
+            if (item == null)
                 return null;
 
-            return itemQueried;
+            return item;
         }
 
-        public List<LeaguesDisplayDto> GetLeagues()
+        public async Task<List<LeaguesDisplayDto>> GetLeaguesAsync()
         {
-            var item = _leagueRepository.GetLeagues();
+            var item = await _leagueRepository.GetLeaguesAsync();
 
             if (item == null)
                 return null;

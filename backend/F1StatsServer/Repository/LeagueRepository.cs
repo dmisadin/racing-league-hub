@@ -6,6 +6,7 @@ using F1StatsServer.Infrastructure;
 using F1StatsServer.Interface;
 using F1StatsServer.Model;
 using F1StatsServer.Util;
+using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Repository
 {
@@ -17,100 +18,88 @@ namespace F1StatsServer.Repository
             _context = context;
         }
 
-        public List<LeaguesDisplayDto> GetLeagues()
+        public async Task<List<LeaguesDisplayDto>> GetLeaguesAsync()
         {
             var query = _context.Set<League>()
-                                .Select(p => new LeaguesDisplayDto
+                                .AsNoTracking()
+                                .Select(league => new LeaguesDisplayDto
                                 {
-                                    Id = p.Id,
-                                    Name = p.Name,
-                                    ColorHex = p.ColorHex,
-                                    ImagePath = p.ImagePath,
-                                    Platform = _context.Set<Season>()
-                                                       .Where(c => c.LeagueId == p.Id)
-                                                       .OrderByDescending(c => c.GrandPrixes.OrderByDescending(e=> e.StartTime)
-                                                                                            .Take(1).Select(d => d.StartTime)
-                                                                                            .FirstOrDefault())
-                                                       .Take(1)
-                                                       .Select(c => new PlatformDto
-                                                       {
-                                                           Id = c.PlatformId,
-                                                           Name = c.Platform.Name
-                                                       }).FirstOrDefault(),
-                                    Game = _context.Set<Season>()
-                                                       .Where(c => c.LeagueId == p.Id)
-                                                       .OrderByDescending(c => c.GrandPrixes.OrderByDescending(e => e.StartTime)
-                                                                                            .Take(1).Select(d => d.StartTime)
-                                                                                            .FirstOrDefault())
-                                                       .Take(1)
-                                                       .Select(c => new GameDto
-                                                       {
-                                                           Id = c.GameId,
-                                                           Name = c.Game.Name
-                                                       }).FirstOrDefault(),
-                                }).ToList();
-            return query;
+                                    Id = league.Id,
+                                    Name = league.Name,
+                                    ColorHex = league.ColorHex,
+                                    ImagePath = league.ImagePath,
+                                    Platform = league.Seasons.OrderByDescending(season => season.GrandPrixes.OrderByDescending(grandPrix => grandPrix.StartTime)
+                                                                                             .Take(1).Select(grandPrix => grandPrix.StartTime)
+                                                                                             .FirstOrDefault())
+                                                        .Take(1)
+                                                        .Select(season => new PlatformDto
+                                                        {
+                                                            Id = season.PlatformId,
+                                                            Name = season.Platform.Name
+                                                        }).FirstOrDefault(),
+                                    Game = league.Seasons.OrderByDescending(season => season.GrandPrixes.OrderByDescending(grandPrix => grandPrix.StartTime)
+                                                                                         .Take(1).Select(grandPrix => grandPrix.StartTime)
+                                                                                         .FirstOrDefault())
+                                                    .Take(1)
+                                                    .Select(season => new GameDto
+                                                    {
+                                                        Id = season.GameId,
+                                                        Name = season.Game.Name
+                                                    }).FirstOrDefault(),
+                                }).ToListAsync();
+            return await query;
         }
 
-        public IQueryable<LeagueDisplayDto> GetLeagueData(int id)
+        public async Task<LeagueDisplayDto> GetLeagueDataAsync(int id)
         {
             var query = _context.Set<League>()
-                                .Where(c => c.Id == id)
-                                .Select(p => new LeagueDisplayDto
+                                .AsNoTracking()
+                                .Where(league => league.Id == id)
+                                .Select(league => new LeagueDisplayDto
                                 {
-                                    Name = p.Name,
-                                    Description = p.Description,
-                                    ColorHex = p.ColorHex,
-                                    ImagePath = p.ImagePath,
-                                    SocialMedia = _context.Set<SocialMedia>()
-                                                          .Where(c => c.Id == p.SocialMediaId)
-                                                          .Select(d => new SocialMediaDto
-                                                          {
-                                                              Website = d.Website,
-                                                              Discord = d.Discord,
-                                                              Youtube = d.Youtube,
-                                                              Twitch = d.Twitch,
-                                                              Twitter = d.Twitter,
-                                                              Instagram = d.Instagram,
-                                                              Facebook = d.Facebook,
-                                                          }).FirstOrDefault(),
-                                    Region = _context.Set<Region>()
-                                                     .Where(c => c.Id == p.RegionId)
-                                                     .Select(d => new RegionDto
-                                                     {
-                                                         Id = d.Id,
-                                                         Name = d.Name
-                                                     }).FirstOrDefault(),
-                                    SeasonsInLeague = p.Seasons
-                                                      .Where(c => c.LeagueId == id)
-                                                      .Select(d => new SeasonsInLeagueDto
+                                    Name = league.Name,
+                                    Description = league.Description,
+                                    ColorHex = league.ColorHex,
+                                    ImagePath = league.ImagePath,
+                                    SocialMedia = new SocialMediaDto
+                                    {
+                                        Website = league.SocialMedia.Website,
+                                        Discord = league.SocialMedia.Discord,
+                                        Youtube = league.SocialMedia.Youtube,
+                                        Twitch = league.SocialMedia.Twitch,
+                                        Twitter = league.SocialMedia.Twitter,
+                                        Instagram = league.SocialMedia.Instagram,
+                                        Facebook = league.SocialMedia.Facebook
+                                    },
+                                    Region = new RegionDto
+                                    {
+                                        Id = league.RegionId,
+                                        Name = league.Region.Name
+                                    },
+                                    SeasonsInLeague = league.Seasons
+                                                      .Select(season => new SeasonsInLeagueDto
                                                       {
-                                                            Id = d.Id,
-                                                            Name = d.Name,
-                                                            ImagePath = d.ImagePath,
-                                                            Game = _context.Set<Game>().Where(e => e.Id == d.GameId)
-                                                                                       .Select(f => new GameDto
-                                                                                       {
-                                                                                           Id = f.Id,
-                                                                                           Name = f.Name
-                                                                                       }).FirstOrDefault(),
-                                                            Platform = _context.Set<Platform>().Where(e => e.Id == d.PlatformId)
-                                                                                       .Select(f => new PlatformDto
-                                                                                       {
-                                                                                           Id = f.Id,
-                                                                                           Name = f.Name
-                                                                                       }).FirstOrDefault(),
-                                                          StartTime = _context.Set<GrandPrix>().Where(e => e.SeasonId == d.Id)
-                                                                                                .OrderBy(f => f.StartTime)
-                                                                                                .Select(g => g.StartTime).FirstOrDefault(),
-                                                            EndTime = _context.Set<GrandPrix>().Where(e => e.SeasonId == d.Id)
-                                                                                                .OrderByDescending(f => f.StartTime)
-                                                                                                .Select(g => g.StartTime).FirstOrDefault(),
-
+                                                          Id = season.Id,
+                                                          Name = season.Name,
+                                                          ImagePath = season.ImagePath,
+                                                          Game = new GameDto
+                                                          {
+                                                              Id = season.GameId,
+                                                              Name = season.Game.Name
+                                                          },
+                                                          Platform = new PlatformDto
+                                                          {
+                                                              Id = season.PlatformId,
+                                                              Name = season.Platform.Name
+                                                          },
+                                                          StartTime = season.GrandPrixes.OrderBy(grandPrix => grandPrix.StartTime)
+                                                                                   .Select(grandPrix => grandPrix.StartTime).FirstOrDefault(),
+                                                          EndTime = season.GrandPrixes.OrderByDescending(grandPrix => grandPrix.StartTime)
+                                                                                   .Select(grandPrix => grandPrix.StartTime).FirstOrDefault()
                                                       }).ToList(),
 
-                                });
-            return query;
+                                }).FirstOrDefaultAsync();
+            return await query;
         }
 
     }
