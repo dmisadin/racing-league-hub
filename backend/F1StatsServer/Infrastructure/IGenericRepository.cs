@@ -1,4 +1,5 @@
 ﻿using F1StatsServer.Util;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace F1StatsServer.Infrastructure
 {
@@ -11,6 +12,6 @@ namespace F1StatsServer.Infrastructure
         int CreateItemList(List<T> items);
         T DeleteItem(int id);
         bool Save();
-        int UpdateItem(T item);
+        int UpdateItem(JsonPatchDocument<T> item, int id);
     }
 }

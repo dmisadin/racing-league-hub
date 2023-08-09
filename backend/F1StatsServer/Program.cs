@@ -39,7 +39,6 @@ builder.Services.AddScoped<IGrandPrixService, GrandPrixService>();
 builder.Services.AddScoped<IResultService, ResultService>();
 
 
-
 builder.Configuration.AddEnvironmentVariables()
     .AddUserSecrets(Assembly.GetExecutingAssembly(), true);
 

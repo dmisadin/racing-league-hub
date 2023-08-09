@@ -87,13 +87,9 @@ namespace F1StatsServer.Infrastructure
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            T fromDb = _genericRepository.GetById(id);
+            var result = _genericRepository.UpdateItem(item, id);
 
-            item.ApplyTo(fromDb, ModelState);
-
-            var generic = _genericRepository.UpdateItem(fromDb);
-
-            return Ok(generic);
+            return Ok(result);
         }
     }
 }

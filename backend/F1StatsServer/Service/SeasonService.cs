@@ -24,9 +24,6 @@ namespace F1StatsServer.Service
 
             var item = await _seasonRepository.GetSeasonData(id);
 
-            if (item == null)
-                return null;
-
             return item;
 
         }

@@ -1,6 +1,7 @@
 ﻿using F1StatsServer.Data;
 using F1StatsServer.Interface;
 using F1StatsServer.Util;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -62,10 +63,8 @@ namespace F1StatsServer.Infrastructure
         public T GetById(int id)
         {
             var result = table.Find(id);
-            if (result == null)
-                return null;
 
-            return result;
+            return result ?? null;
         }
 
         public bool Has(int id)
@@ -73,9 +72,13 @@ namespace F1StatsServer.Infrastructure
             return table.Any((c) => c.Id == id);
         }
 
-        public int UpdateItem(T item)
+        public int UpdateItem(JsonPatchDocument<T> item, int id)
         {
-            table.Update(item);
+            var fromDb = _context.IncludeAll(_context.Set<T>()).Where(p => p.Id == id).FirstOrDefault();
+
+            item.ApplyTo(fromDb);
+
+            table.Update(fromDb);
             var save = Save();
 
             if (save == false)

@@ -49,18 +49,12 @@ namespace F1StatsServer.Service
 
             var item = await _leagueRepository.GetLeagueDataAsync(id);
 
-            if (item == null)
-                return null;
-
             return item;
         }
 
         public async Task<List<LeaguesDisplayDto>> GetLeaguesAsync()
         {
             var item = await _leagueRepository.GetLeaguesAsync();
-
-            if (item == null)
-                return null;
 
             return item;
         }
