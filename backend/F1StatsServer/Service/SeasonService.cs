@@ -17,7 +17,7 @@ namespace F1StatsServer.Service
             _seasonRepository = seasonRepository;
         }
 
-        public async Task<SeasonDisplayDto> GetSeasonData(int id)
+        public async Task<SeasonDisplayDto> GetSeasonDataAsync(int id)
         {
             if (!_genericRepository.Has(id))
                 return null;
@@ -29,7 +29,7 @@ namespace F1StatsServer.Service
         }
 
 
-        public int InsertSeason(SeasonInsertDto data)
+        public async Task<int> InsertSeasonAsync(SeasonInsertDto data)
         {
             var item = new Season
             {
@@ -50,7 +50,7 @@ namespace F1StatsServer.Service
             if (item == null)
                 return -1;
 
-            return _genericRepository.CreateItem(item);
+            return await _genericRepository.CreateItemAsync(item);
         }
     }
 }

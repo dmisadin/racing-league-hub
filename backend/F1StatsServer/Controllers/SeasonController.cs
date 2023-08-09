@@ -17,9 +17,9 @@ namespace F1StatsServer.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult InsertSeason(SeasonInsertDto data)
+        public async Task<IActionResult> InsertSeason(SeasonInsertDto data)
         {
-            _seasonService.InsertSeason(data);
+            await _seasonService.InsertSeasonAsync(data);
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -34,7 +34,7 @@ namespace F1StatsServer.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _seasonService.GetSeasonData(id);
+            var result = await _seasonService.GetSeasonDataAsync(id);
 
             if (result == null)
                 return NotFound();

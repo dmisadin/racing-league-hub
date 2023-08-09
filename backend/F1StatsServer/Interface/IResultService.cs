@@ -4,6 +4,6 @@ namespace F1StatsServer.Interface
 {
     public interface IResultService
     {
-        int InsertResults(ResultInsertDto data, int grandPrixId);
+        Task<int> InsertResultsAsync(ResultInsertDto data, int grandPrixId);
     }
 }

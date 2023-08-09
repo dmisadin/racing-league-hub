@@ -19,11 +19,11 @@ namespace F1StatsServer.Infrastructure
             table = _context.Set<T>();
         }
 
-        public int CreateItem(T item)
+        public async Task<int> CreateItemAsync(T item)
         {
-            table.Add(item);
+            await table.AddRangeAsync(item);
 
-            var save = Save();
+            var save = await SaveAsync();
 
             if (save == false)
                 return -1;
@@ -31,11 +31,11 @@ namespace F1StatsServer.Infrastructure
             return item.Id; 
         }
 
-        public int CreateItemList(List<T> items)
+        public async Task<int> CreateItemListAsync(List<T> items)
         {
-            table.AddRange(items);
+            await table.AddRangeAsync(items);
 
-            var save = Save();
+            var save = await SaveAsync();
 
             if (save == false) 
                 return -1;
@@ -43,26 +43,29 @@ namespace F1StatsServer.Infrastructure
             return 0;
         }
 
-        public T DeleteItem(int id)
+        public async Task<T> DeleteItemAsync(int id)
         {
-            T? existing = table.Find(id);
+            T? existing = await table.FindAsync(id);
 
             if (existing == null)
                 return null;
 
             table.Remove(existing);
-            Save();
+            var result = await SaveAsync();
+            if (result == false)
+                return null;
+
             return existing;
         }
 
-        public IQueryable<T> Get()
+        public async Task<List<T>> GetAsync()
         {
-            return table.AsNoTracking();
+            return await table.AsNoTracking().ToListAsync();
         }
 
-        public T GetById(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            var result = table.Find(id);
+            var result = await table.FindAsync(id);
 
             return result ?? null;
         }
@@ -72,14 +75,14 @@ namespace F1StatsServer.Infrastructure
             return table.Any((c) => c.Id == id);
         }
 
-        public int UpdateItem(JsonPatchDocument<T> item, int id)
+        public async Task<int> UpdateItemAsync(JsonPatchDocument<T> item, int id)
         {
-            var fromDb = _context.IncludeAll(_context.Set<T>()).Where(p => p.Id == id).FirstOrDefault();
+            var fromDb = await _context.IncludeAll(_context.Set<T>()).Where(p => p.Id == id).FirstOrDefaultAsync();
 
             item.ApplyTo(fromDb);
 
             table.Update(fromDb);
-            var save = Save();
+            var save = await SaveAsync();
 
             if (save == false)
                 return -1;
@@ -87,11 +90,11 @@ namespace F1StatsServer.Infrastructure
             return 0;
         }
 
-        public bool Save()
+        public async Task<bool> SaveAsync()
         {
             try
             {
-                var saved = _context.SaveChanges();
+                var saved = await _context.SaveChangesAsync();
                 return saved > 0;
             }
             catch (DbUpdateException ex)

@@ -4,6 +4,6 @@ namespace F1StatsServer.Interface
 {
     public interface IGrandPrixService
     {
-        public int InsertData(List<GrandPrixInsertDto> data);
+        public Task<int> InsertDataAsync(List<GrandPrixInsertDto> data);
     }
 }

@@ -19,16 +19,16 @@ namespace F1StatsServer.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult InsertLeague(LeagueInsertDto data)
+        public async Task<IActionResult> InsertLeague(LeagueInsertDto data)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            return Ok(_leagueService.InsertLeague(data));
+            return Ok(await _leagueService.InsertLeagueAsync(data));
         }
 
         [HttpGet("display")]
-        public async Task<IActionResult> GetLeaguesAsync()
+        public async Task<IActionResult> GetLeagues()
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -42,7 +42,7 @@ namespace F1StatsServer.Controllers
         }
 
         [HttpGet("display/{id}")]
-        public async Task<IActionResult> GetLeagueDataAsync(int id)
+        public async Task<IActionResult> GetLeagueData(int id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

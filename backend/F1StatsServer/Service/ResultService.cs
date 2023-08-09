@@ -14,14 +14,14 @@ namespace F1StatsServer.Service
             _grandPrixRepository = grandPrixRepository;
         }
 
-        public int InsertResults(ResultInsertDto data, int grandPrixId)
+        public async Task<int> InsertResultsAsync(ResultInsertDto data, int grandPrixId)
         {
             int result;
 
             if (_grandPrixRepository.HasSprint(grandPrixId) && (data.Sprints != null || data.Sprints.Count > 0 ))
-                result = _grandPrixRepository.InsertResults(data, grandPrixId);
+                result = await _grandPrixRepository.InsertResultsAsync(data, grandPrixId);
             else
-                result = _grandPrixRepository.InsertResultsNoSprint(data, grandPrixId);
+                result = await _grandPrixRepository.InsertResultsNoSprintAsync(data, grandPrixId);
 
             return result;
         }

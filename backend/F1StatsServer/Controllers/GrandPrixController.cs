@@ -30,9 +30,9 @@ namespace F1StatsServer.Controllers
 
         [HttpGet("homepage")]
         [ProducesResponseType(200)]
-        public IActionResult GetHomepageData()
+        public async Task<IActionResult> GetHomepageData()
         {
-            var grandPrix = _grandPrixRepository.GetData();
+            var grandPrix = await _grandPrixRepository.GetDataAsync();
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -45,10 +45,10 @@ namespace F1StatsServer.Controllers
         [ProducesResponseType(200)]
         public async Task<IActionResult> GetGrandPrixData(int id)
         {
-            if (!_genericRepository.Has(id))
+            if (! _genericRepository.Has(id))
                 return NotFound();
 
-            var grandPrix = await _grandPrixRepository.GetGrandPrixData(id);
+            var grandPrix = await _grandPrixRepository.GetGrandPrixDataAsync(id);
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -58,12 +58,12 @@ namespace F1StatsServer.Controllers
 
         [HttpPost("create")]
         [ProducesResponseType(200)]
-        public IActionResult InsertData(List<GrandPrixInsertDto> data)
+        public async Task<IActionResult> InsertData(List<GrandPrixInsertDto> data)
         {
             if(data == null)
                 return BadRequest(ModelState);
 
-            var result = _grandPrixService.InsertData(data);
+            var result = await _grandPrixService.InsertDataAsync(data);
 
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -73,12 +73,12 @@ namespace F1StatsServer.Controllers
 
         [HttpPost("create/{id}/results")]
         [ProducesResponseType(200)]
-        public IActionResult InsertResults(ResultInsertDto data,int id)
+        public async Task<IActionResult> InsertResults(ResultInsertDto data,int id)
         {
             if(data == null)
                 return BadRequest(ModelState);
 
-            var result = _resultService.InsertResults(data, id);
+            var result = await _resultService.InsertResultsAsync(data, id);
 
             if (ModelState.IsValid || result == -1)
                 return BadRequest(ModelState);

@@ -20,7 +20,7 @@ namespace F1StatsServer.Repository
             _context = context;
         }
 
-        public IQueryable GetData()
+        public async Task<GrandPrixHomeDto> GetDataAsync()
         {
             var query = from GrandPrix in _context.Set<GrandPrix>()
                         join Season in _context.Set<Season>() on GrandPrix.SeasonId equals Season.Id
@@ -32,11 +32,12 @@ namespace F1StatsServer.Repository
                             SeasonName = Season.Name,
                             LeagueName = League.Name
                         };
+            var result = await query.FirstOrDefaultAsync();
 
-            return query;
+            return result;
         }
 
-        public async Task<GrandPrixDisplayDto?> GetGrandPrixData(int id)
+        public async Task<GrandPrixDisplayDto?> GetGrandPrixDataAsync(int id)
         {
             var query = _context.Set<GrandPrix>()
                                 .AsSplitQuery()
@@ -142,7 +143,7 @@ namespace F1StatsServer.Repository
             return await query;
         }
 
-        public int InsertResultsNoSprint(ResultInsertDto data, int id)
+        public async Task<int> InsertResultsNoSprintAsync(ResultInsertDto data, int id)
         {
             var races = MyMapper<Race, RaceInsertDto>.MapList(data.Races);
             var quals = MyMapper<Qualifying, QualInsertDto>.MapList(data.Quals);
@@ -154,9 +155,9 @@ namespace F1StatsServer.Repository
 
             try
             {
-                _context.Set<Race>().AddRange(races);
-                _context.Set<Qualifying>().AddRange(quals);
-                var result = _context.SaveChanges();
+                await _context.Set<Race>().AddRangeAsync(races);
+                await _context.Set<Qualifying>().AddRangeAsync(quals);
+                var result = await _context.SaveChangesAsync();
                 return result;
             }
             catch (Exception)
@@ -166,7 +167,7 @@ namespace F1StatsServer.Repository
 
         }
 
-        public int InsertResults(ResultInsertDto data, int id)
+        public async Task<int> InsertResultsAsync(ResultInsertDto data, int id)
         {
             var races = MyMapper<Race, RaceInsertDto>.MapList(data.Races);
             var quals = MyMapper<Qualifying, QualInsertDto>.MapList(data.Quals);
@@ -181,10 +182,10 @@ namespace F1StatsServer.Repository
 
             try
             {
-                _context.Set<Race>().AddRange(races);
-                _context.Set<Qualifying>().AddRange(quals);
-                _context.Set<Sprint>().AddRange(sprints);
-                var result = _context.SaveChanges();
+                await _context.Set<Race>().AddRangeAsync(races);
+                await _context.Set<Qualifying>().AddRangeAsync(quals);
+                await _context.Set<Sprint>().AddRangeAsync(sprints);
+                var result = await _context.SaveChangesAsync();
                 return result;
             }
             catch (Exception)

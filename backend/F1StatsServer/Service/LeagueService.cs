@@ -17,7 +17,7 @@ namespace F1StatsServer.Service
         }
 
         //TODO: Swap SocialMedium initializer to use MyMapper<TDto,T>.MapList(data)
-        public int InsertLeague(LeagueInsertDto data)
+        public async Task<int> InsertLeagueAsync(LeagueInsertDto data)
         {
             var item = new League
             {
@@ -39,7 +39,7 @@ namespace F1StatsServer.Service
             if (item == null)
                 return -1;
 
-            return _genericRepository.CreateItem(item);
+            return await _genericRepository.CreateItemAsync(item);
         }
 
         public async Task<LeagueDisplayDto> GetLeagueDataAsync(int id)

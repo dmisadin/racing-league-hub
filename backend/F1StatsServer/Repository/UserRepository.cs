@@ -42,7 +42,7 @@ namespace F1StatsServer.Repository
                 return false;
             _context.AddAsync(user);
 
-            return Save();
+            return _context.SaveChanges() > 0;
         }
 
         public User CheckRole(string email, string password)

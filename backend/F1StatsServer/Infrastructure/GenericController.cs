@@ -22,12 +22,12 @@ namespace F1StatsServer.Infrastructure
 
         [HttpGet]
         [ProducesResponseType(200)]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var generic = MyMapper<TDto, T>.MapList(_genericRepository.Get().ToList());
+            var generic = MyMapper<TDto, T>.MapList(await _genericRepository.GetAsync());
 
 
             return Ok(generic);
@@ -35,9 +35,9 @@ namespace F1StatsServer.Infrastructure
 
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var generic = _genericRepository.GetById(id);
+            var generic = await _genericRepository.GetByIdAsync(id);
 
             if (generic == null)
                 return NotFound();
@@ -50,9 +50,9 @@ namespace F1StatsServer.Infrastructure
 
         [HttpDelete]
         [ProducesResponseType(200)]
-        public IActionResult DeleteItem(int id)
+        public async Task<IActionResult> DeleteItem(int id)
         {
-            var generic = _genericRepository.DeleteItem(id);
+            var generic = await _genericRepository.DeleteItemAsync(id);
 
             if (generic == null)
                 return NotFound();
@@ -65,20 +65,20 @@ namespace F1StatsServer.Infrastructure
 
         [HttpPost]
         [ProducesResponseType(200)]
-        public IActionResult CreateItem(TDto item)
+        public async Task<IActionResult> CreateItem(TDto item)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var itemFull = MyMapper<T, TDto>.Map(item);
-            var generic = _genericRepository.CreateItem(itemFull);
+            var generic = await _genericRepository.CreateItemAsync(itemFull);
 
             return Ok(generic);
         }
 
         [HttpPatch("{id}")]
         [ProducesResponseType(200)]
-        public IActionResult UpdateItem([FromBody]JsonPatchDocument<T> item, int id)
+        public async Task<IActionResult> UpdateItem([FromBody]JsonPatchDocument<T> item, int id)
         {
             foreach (var operation in item.Operations)
                 if (operation.OperationType != Microsoft.AspNetCore.JsonPatch.Operations.OperationType.Replace)
@@ -87,7 +87,7 @@ namespace F1StatsServer.Infrastructure
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = _genericRepository.UpdateItem(item, id);
+            var result = await _genericRepository.UpdateItemAsync(item, id);
 
             return Ok(result);
         }

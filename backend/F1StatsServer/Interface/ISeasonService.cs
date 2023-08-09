@@ -4,7 +4,7 @@ namespace F1StatsServer.Interface
 {
     public interface ISeasonService
     {
-        int InsertSeason(SeasonInsertDto data);
-        Task<SeasonDisplayDto> GetSeasonData(int id);
+        Task<int> InsertSeasonAsync(SeasonInsertDto data);
+        Task<SeasonDisplayDto> GetSeasonDataAsync(int id);
     }
 }

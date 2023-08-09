@@ -5,10 +5,10 @@ namespace F1StatsServer.Interface
 {
     public interface IGrandPrixRepository
     {
-        IQueryable GetData();
-        Task<GrandPrixDisplayDto?> GetGrandPrixData(int id);
+        Task<GrandPrixHomeDto> GetDataAsync();
+        Task<GrandPrixDisplayDto?> GetGrandPrixDataAsync(int id);
         bool HasSprint(int id);
-        int InsertResults(ResultInsertDto data, int id);
-        int InsertResultsNoSprint(ResultInsertDto data, int id);
+        Task<int> InsertResultsAsync(ResultInsertDto data, int id);
+        Task<int> InsertResultsNoSprintAsync(ResultInsertDto data, int id);
     }
 }

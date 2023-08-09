@@ -16,11 +16,11 @@ namespace F1StatsServer.Service
             _genericRepository = genericRepository;
         }
 
-        public int InsertData(List<GrandPrixInsertDto> data)
+        public async Task<int> InsertDataAsync(List<GrandPrixInsertDto> data)
         {
             var item = MyMapper<GrandPrix, GrandPrixInsertDto>.MapList(data);
 
-            return _genericRepository.CreateItemList(item);
+            return await _genericRepository.CreateItemListAsync(item);
         }
     }
 }

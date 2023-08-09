@@ -5,13 +5,13 @@ namespace F1StatsServer.Infrastructure
 {
     public interface IGenericRepository<T> where T : EntityBase
     {
-        IQueryable<T> Get();
-        T GetById(int id);
+        Task<List<T>> GetAsync();
+        Task<T> GetByIdAsync(int id);
         bool Has(int id);
-        int CreateItem(T item);
-        int CreateItemList(List<T> items);
-        T DeleteItem(int id);
-        bool Save();
-        int UpdateItem(JsonPatchDocument<T> item, int id);
+        Task<int> CreateItemAsync(T item);
+        Task<int> CreateItemListAsync(List<T> items);
+        Task<T> DeleteItemAsync(int id);
+        Task<bool> SaveAsync();
+        Task<int> UpdateItemAsync(JsonPatchDocument<T> item, int id);
     }
 }
