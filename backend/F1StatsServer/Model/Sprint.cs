@@ -37,8 +37,6 @@ public partial class Sprint : EntityBase
     [Unicode(false)]
     public string? UsedTyres { get; set; }
 
-    public byte ResultStatus { get; set; }
-
     [ForeignKey("DriverId")]
     [InverseProperty("Sprints")]
     public virtual Driver Driver { get; set; } = null!;

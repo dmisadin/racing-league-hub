@@ -31,9 +31,21 @@
         </div>
         <div class="form-column" formGroupName="socialMedia">
             <h2>Social Media Links</h2>
-            <ng-container *ngFor="let s of social">
+            <ng-container *ngFor="let s of social | slice:0:2">
                 <label>{{s.name}}</label>
-                <input type="text" placeholder="{{s.placeholder}}" formControlName="{{s.name | lowercase}}">
+                <input type="text" 
+                    placeholder="{{s.placeholder}}" 
+                    formControlName="{{s.name | lowercase}}"
+                >
+            </ng-container>
+            <ng-container *ngFor="let s of social | slice: 2">
+                <label>{{s.name}}</label>
+                <input type="text" 
+                    placeholder="{{s.placeholder.split('/')[1]}}" 
+                    formControlName="{{s.name | lowercase}}"
+                    [style]="'padding-left:' + s.left"
+                >
+                <span class="placeholder"> {{s.placeholder.split('/')[0]}}/ </span>
             </ng-container>
         </div>
     </app-section-flex>

@@ -10,7 +10,5 @@
 
         public byte? PointsGained { get; set; }
 
-        public byte? ResultStatus { get; set; }
-
     }
 }

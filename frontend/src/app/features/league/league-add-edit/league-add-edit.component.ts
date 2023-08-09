@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AddLeagueService } from 'app/core/services/add-league.service';
 import { LeagueInsert } from 'app/shared/models/league/LeagueInsert';
 import { RegionListService } from 'app/core/services/region-list.service';
-import { ColorPickerService } from 'ngx-color-picker';
+//import { ColorPickerService } from 'ngx-color-picker';
 import { firstValueFrom, switchMap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Region } from 'app/shared/models/Region';
@@ -31,7 +31,7 @@ export class LeagueAddEditComponent {
     loading = false;
 
     constructor(private fb: FormBuilder,
-        private cpService: ColorPickerService,
+        //private cpService: ColorPickerService,
         private addLeagueService: AddLeagueService,
         private leagueDataService: LeagueDataService,
         private regionListService: RegionListService,
@@ -44,15 +44,15 @@ export class LeagueAddEditComponent {
         regionId: [1, Validators.required],
         description: '',
         leagueLogo: '',
-        color: '#000',
+        color: '#000000',
         socialMedia: this.fb.group({
             website: ['', Validators.pattern(this.regexUrl)],
             discord: ['', Validators.pattern(this.regexUrl)],
-            youtube: ['', Validators.pattern(this.regexUrl)],
-            twitch: ['', Validators.pattern(this.regexUrl)],
-            facebook: ['', Validators.pattern(this.regexUrl)],
-            instagram: ['', Validators.pattern(this.regexUrl)],
-            twitter: ['', Validators.pattern(this.regexUrl)],
+            youtube: [''],
+            twitch: [''],
+            facebook: [''],
+            instagram: [''],
+            twitter: [''],
         }),
     })
 
@@ -78,8 +78,11 @@ export class LeagueAddEditComponent {
                     this.leagueForm.patchValue(data);
                     this.loading = false;
                     this.color = data.colorHex;
+                    this.leagueForm.markAsPristine();
+                    this.subToChanges();
                 });
         }
+
     }
 
     public get color(): string {
@@ -90,10 +93,18 @@ export class LeagueAddEditComponent {
         this.leagueForm.controls['color'].setValue(value);
     }
 
+    subToChanges() {
+        this.leagueForm.valueChanges.subscribe(data => {
+            console.log('All changes', data);
+        })
 
+        this.leagueForm.get('socialMedia')!.valueChanges.subscribe(data => {
+            console.log('Social changes', data);
+        })
+    }
     onSubmit(): void {
         this.isSubmitted = true;
-        console.log("Submitted form: ", this.leagueForm.value, this.leagueForm.valid);
+        console.log("Submitted form: ", this.leagueForm);
 
         var leagueInsert: LeagueInsert;
         leagueInsert = {
@@ -108,10 +119,10 @@ export class LeagueAddEditComponent {
         this.addLeague(leagueInsert)
             .then(res => {
                 // Redirect user to the created League page
-                this.router.navigate(['leagues/', res]);
+                this.router.navigate(['leagues', res]);
             }).catch(err => {
                 console.log(err)
-                // Redirect user to the home page. TO DO: Fail page
+                // Redirect user to the home page. TO DO: Fail page ili alert service
                 this.router.navigate(['']);
             });
     }
@@ -123,13 +134,13 @@ export class LeagueAddEditComponent {
 
 
     social = [
-        { name: 'Website', placeholder: 'www.adria.gg' },
-        { name: 'Discord', placeholder: 'discord.gg/esportadria' },
-        { name: 'YouTube', placeholder: 'youtube.com/EsportAdria' },
-        { name: 'Twitch', placeholder: 'twitch.tv/EsportAdria' },
-        { name: 'Facebook', placeholder: 'facebook.com/EsportAdriagg' },
-        { name: 'Instagram', placeholder: 'instagram.com/EsportAdria' },
-        { name: 'Twitter', placeholder: 'twitter.com/EsportAdria' },
+        { name: 'Website', placeholder: 'adria.gg/', left: "86px" },
+        { name: 'Discord', placeholder: 'discord.gg/esportadria', left: "102px" },
+        { name: 'YouTube', placeholder: 'youtube.com/EsportAdria', left: "120px" },
+        { name: 'Twitch', placeholder: 'twitch.tv/EsportAdria', left: "88px" },
+        { name: 'Facebook', placeholder: 'facebook.com/EsportAdriagg', left: "130px" },
+        { name: 'Instagram', placeholder: 'instagram.com/EsportAdria', left: "134px" },
+        { name: 'Twitter', placeholder: 'twitter.com/EsportAdria', left: "108px" },
     ]
 
 }
