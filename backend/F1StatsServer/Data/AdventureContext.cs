@@ -99,7 +99,7 @@ public partial class AdventureContext : DbContext
 
         modelBuilder.Entity<GrandPrix>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK_GrandPri__3214EC0760201A28");
+            entity.HasKey(e => e.Id).HasName("PK_GrandPrixId");
 
             entity.HasOne(d => d.Season).WithMany(p => p.GrandPrixes).HasConstraintName("FK_GrandPrix_SeasonId");
 
