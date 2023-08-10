@@ -17,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let driver of driverPoints; let i = index">
+            <tr *ngFor="let driver of driverPoints | slice:0:showDriverCount; let i = index">
                 <td>{{ i+1 }}</td>
                 <td>
                     <img src="../../../../assets/images/teams/{{ driver.teamId }}.png" alt="" />
@@ -39,6 +39,7 @@
             </tr>
         </tbody>
     </table>
+    <app-btn-custom *ngIf="showDriverCount <=20" (click)="showDriverCount=drivers.length" [label]="'Show more drivers'"></app-btn-custom>
 </app-section-flex>
 
 <app-section-flex [title]="'Constructors championship standings'">
@@ -60,7 +61,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let t of teamPoints; let i = index">
+            <tr *ngFor="let t of teamPoints | slice:0:showTeamCount; let i = index">
                 <td>{{ i + 1 }}</td>
                 <td><img src="../../../../assets/images/teams/{{t.id}}.png" alt="" /></td>
                 <td class="team-name">{{ t.name }}</td>

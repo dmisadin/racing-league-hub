@@ -58,6 +58,7 @@ import { LeaguesListComponent } from './features/leagues-list/leagues-list.compo
 import { MediumdateToMonthyearPipe } from './shared/pipes/mediumdate-to-monthyear.pipe';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { RaceTimePipe } from './shared/pipes/race-time.pipe';
+import { LeagueInfoComponent } from './features/league/league-info/league-info.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { RaceTimePipe } from './shared/pipes/race-time.pipe';
     MediumdateToMonthyearPipe,
     FooterComponent,
     RaceTimePipe,
+    LeagueInfoComponent,
   ],
   imports: [
     BrowserModule,

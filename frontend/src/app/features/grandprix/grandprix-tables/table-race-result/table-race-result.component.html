@@ -9,15 +9,15 @@
         <th>Points</th>
         <th>Tyres</th>
     </tr>
-    <tr *ngFor="let r of race"> <!-- [style]="'--team-hover:'+ findTeam(r.teamId)?.colorHex" -->
+    <tr *ngFor="let r of race; let i = index"> <!-- [style]="'--team-hover:'+ findTeam(r.teamId)?.colorHex" -->
         <td>{{ r.position }}</td>
         <td>
             <img src="../../../../assets/images/teams/{{ r.teamId }}.png" alt="team" />
         </td>
         <td>
             <div class="flag shadow">
-                <img class="shadow"
-                    src="../../../../../assets/images/country/flags/{{r.countryIso | lowercase}}.svg" alt="flag" />
+                <img class="shadow" src="../../../../../assets/images/country/flags/{{r.countryIso | lowercase}}.svg"
+                    alt="flag" />
             </div>
         </td>
         <td class="driver-name">{{r.driverName}}</td>
@@ -27,7 +27,10 @@
                     {{r.raceTime | raceTime}}
                 </ng-container>
                 <ng-template #gap>
-                    {{ '+' + ( r.raceTime - race[0].raceTime | raceTime)}}
+                    {{ '+' + ( !lapDiff[i] ?
+                    ( r.raceTime - race[0].raceTime | raceTime) :
+                    ( lapDiff[i] + " lap" + (lapDiff[i]>1 ? 's' : '')))
+                    }}
                 </ng-template>
             </ng-container>
             <ng-template #notime>
@@ -47,11 +50,8 @@
         <td>{{r.pointsGained}}</td>
         <td>
             <div class="tyres">
-                <img 
-                    *ngFor="let tyre of r.tyres" 
-                    src="../../../../assets/images/icons/tyre/{{ tyre | lowercase}}.svg"
-                    alt="tyre" 
-                />
+                <img *ngFor="let tyre of r.tyres" src="../../../../assets/images/icons/tyre/{{ tyre | lowercase}}.svg"
+                    alt="tyre" />
             </div>
         </td>
     </tr>

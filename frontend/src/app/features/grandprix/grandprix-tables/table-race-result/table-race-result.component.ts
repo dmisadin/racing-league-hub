@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { SessionResult } from 'app/shared/models/grandprix/GrandPrix';
 import { RaceResult } from 'app/shared/models/grandprix/Results';
 import { resultStatus } from 'app/shared/models/resultStatus';
 import { Driver, Team } from 'app/shared/models/season/Season';
+
 @Component({
     selector: 'app-table-race-result',
     templateUrl: './table-race-result.component.html',
@@ -16,11 +16,16 @@ export class TableRaceResultComponent {
     @Input() teams: Team[] = [];
     resultStatus = resultStatus;
 
+    lapDiff: number[] = [];
+
     race: RaceResult[] = [];
 
     ngOnChanges() {
         this.session.forEach(entry => {
             const driver = this.drivers.find(d => d.id === entry.driverId);
+
+            this.lapDiff.push(this.session[0].lapsCompleted - entry.lapsCompleted)
+
             this.race.push({
                 ...entry,
                 driverName: driver?.name || '',
@@ -29,6 +34,7 @@ export class TableRaceResultComponent {
             });
         });
         console.log(this.race)
+        console.log(this.lapDiff)
     }
 
     findTeam(teamId: number) {

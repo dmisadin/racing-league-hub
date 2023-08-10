@@ -1,16 +1,4 @@
-@use "../../../styles.scss" as v;
-
-:host {
-    padding: 0 20px;
-    width: 100%;
-
-
-    display: flex;
-    flex-direction: column;
-    align-items: space-between;
-    gap: 32px;
-}
-
+@use "../../../../styles.scss" as v;
 
 .flex-text-column {
     min-height: 160px;

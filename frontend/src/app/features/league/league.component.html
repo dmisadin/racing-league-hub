@@ -1,43 +1,8 @@
-<app-section-flex [direction]="'row'">
-    <div class="flex-text-column">
-        <h1>{{leagueItem.name}}</h1>
-        <div class="racing-day">
-            Racing every Thursday at 20:00 CEST.
-        </div>
-        <div class="description">
-            {{leagueItem.description}}
-<!--        Basic infromacije o ligi što već organizator želi.
-            Utrke se održavaju svakim četvrtkom u 20:00. Liga namjenjena za igrače iz ovog govornog područja. -->
-        </div>
-        <div class="social-media">
-<!--             <app-btn-custom [faIcon]="faYoutube"></app-btn-custom>
-            <app-btn-custom [faIcon]="faDiscord"></app-btn-custom>
-            <app-btn-custom [faIcon]="faInstagram"></app-btn-custom>
-            <app-btn-custom [faIcon]="faFacebook"></app-btn-custom>
-            <app-btn-custom [faIcon]="faTwitch"></app-btn-custom>
-            <app-btn-custom [faIcon]="faGlobe"></app-btn-custom> -->
-            <a
-                *ngFor="let s of leagueItem.socialMedia | keyvalue"
-                href={{toExternalUrl(s.value)}} >
-                <app-btn-custom  [faIcon]="socialMediaIcons[s.key]"></app-btn-custom>
-            </a>
-        </div>
-    </div>
-    <img src="../../../assets/images/league/league-logo.png" alt="">
-</app-section-flex>
 
-<app-btn-custom
-    [faIcon]="isEditMode ? faCircleXmark : faPen"
-    [label]=" isEditMode ? 'Cancel Edit' : 'Edit'"
-    (click)="toggleEditForm()"
->
-</app-btn-custom>
-<router-outlet>
-
-</router-outlet>
+<router-outlet (activate)="onOutletLoaded($event)"> </router-outlet>
 
 <app-section-flex [title]="'All seasons'" [direction]="'row'" class="wrapping" [gap]="'20px 10px'">
-<!--     <app-season-card
+    <!--     <app-season-card
         [logoPath]="'../../../assets/images/league/league-logo.png'" 
         [gameName]="'F1 2021'" 
         [text]="'Sezona 1'" 
@@ -45,14 +10,10 @@
     </app-season-card>
  -->
     <ng-container *ngFor="let s of leagueItem.seasonsInLeague">
-        <a [routerLink]="['season', s.id]" >
-            <app-season-card
-                [text]="s.name"
-                [subtext]="(s.startTime | date:'MMM y') + ' - ' + (s.endTime | date: 'MMM y')"
-                [gameName]="s.game.name"
-                >
+        <a [routerLink]="['season', s.id]">
+            <app-season-card [text]="s.name"
+                [subtext]="(s.startTime | date:'MMM y') + ' - ' + (s.endTime | date: 'MMM y')" [gameName]="s.game.name">
             </app-season-card>
         </a>
     </ng-container>
 </app-section-flex>
-

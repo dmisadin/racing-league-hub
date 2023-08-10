@@ -46,6 +46,7 @@ namespace F1StatsServer.Repository
                                                           .Where(grandPrix => grandPrix.SeasonId == id)
                                                           .Select(grandPrix => new GrandPrixSeasonDto
                                                           {
+                                                              Id = grandPrix.Id,
                                                               Name = grandPrix.Name,
                                                               HasSprint = grandPrix.HasSprint,
                                                               YoutubeUrl = grandPrix.YoutubeUrl,
@@ -57,7 +58,7 @@ namespace F1StatsServer.Repository
                                                                   Location = grandPrix.Track.Location,
                                                                   ImagePath = grandPrix.Track.ImagePath,
                                                                   CountryIso = grandPrix.Track.Country.Iso,
-                                                                  CountryName = grandPrix.Track.Country.Name
+                                                                  CountryName = grandPrix.Track.Country.NameEnglish
                                                               },
                                                               FastestDriverId = grandPrix.Races.Where(race => race.FastestLapInMs != null)
                                                                                        .OrderBy(race => race.FastestLapInMs)

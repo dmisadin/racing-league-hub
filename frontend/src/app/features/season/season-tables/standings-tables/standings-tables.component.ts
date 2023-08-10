@@ -12,7 +12,8 @@ export class StandingsTablesComponent {
     @Input() drivers: Driver[] = [];
     @Input() teams: Team[] = [];
 
-
+    showDriverCount = 20;
+    showTeamCount = 10;
     driverPoints: any[] = [];
     teamPoints: any[] = [];
 

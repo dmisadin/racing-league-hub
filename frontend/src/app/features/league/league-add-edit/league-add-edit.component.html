@@ -18,16 +18,17 @@
                 formControlName="description"></textarea>
 
             <label class="custom-upload" for="img">Upload League logo</label>
-            <input type="file" id="img" name="img" accept="image/png, image/jpeg, image/svg" formControlName="leagueLogo">
+            <input type="file" id="img" name="img" accept="image/png, image/jpeg, image/svg" formControlName="imagePath">
             
             <img *ngIf="preview" [src]="preview" class="preview" />
 
             <label>Pick a color for your league</label>
+            <!-- type="color" -->
             <input class="color-input" 
                 [value]="color" 
                 [(colorPicker)]="color" 
                 [style.background]="color"
-                formControlName="color" />
+                formControlName="colorHex" />
         </div>
         <div class="form-column" formGroupName="socialMedia">
             <h2>Social Media Links</h2>
@@ -49,5 +50,8 @@
             </ng-container>
         </div>
     </app-section-flex>
-    <button type="submit" [disabled]="isSubmitted">{{buttonText + ' ' + leagueForm.value.name}}</button>
+    <div class="btn-container">
+        <app-btn-custom [label]="'Cancel'" [faIcon]="faCircleXmark" [colorClass]="'red'" (click)="closeEditForm()"></app-btn-custom>
+        <button type="submit" [disabled]="isSubmitted">{{buttonText + ' ' + leagueForm.value.name}}</button>
+    </div>
 </form>

@@ -5,6 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LeagueDataService } from 'app/core/services/league-data.service';
 import { Subscription } from 'rxjs';
 import { League } from 'app/shared/models/league/League';
+import { ButtonClickService } from 'app/core/services/button-click.service';
+import { LeagueInfoComponent } from './league-info/league-info.component';
+import { LeagueAddEditComponent } from './league-add-edit/league-add-edit.component';
 
 @Component({
     selector: 'app-league',
@@ -29,9 +32,10 @@ export class LeagueComponent {
     leagueId: number = 0;
 
     isDataLoaded: boolean = true;
-    isEditMode: boolean = false;
 
-    constructor(private leagueDataService: LeagueDataService, private route: ActivatedRoute, private router: Router) { }
+    constructor(private leagueDataService: LeagueDataService,
+        private route: ActivatedRoute,
+        private router: Router) { }
 
     ngOnInit(): void {
         this.leagueItem$ = this.route.params.subscribe(params => {
@@ -47,21 +51,13 @@ export class LeagueComponent {
     ngOnDestroy() {
         this.leagueItem$.unsubscribe();
     }
-
-    /** External URL has to contain 'https://' */
-    toExternalUrl(url: string) {
-        if (!/^https?:\/\//i.test(url)) {
-            url = 'https://' + url;
+    
+    onOutletLoaded(component: LeagueInfoComponent | LeagueAddEditComponent) {
+        if (component instanceof LeagueInfoComponent) {
+            component.leagueItem = this.leagueItem;
         }
-        return url;
-    }
-
-    toggleEditForm() {
-        if (this.isEditMode)
-            this.router.navigate(['./'], { relativeTo: this.route });
-        else
-            this.router.navigate(['edit'], { relativeTo: this.route });
-
-        this.isEditMode = !this.isEditMode;
+        else if (component instanceof LeagueAddEditComponent) {
+            console.log("edit add comp")
+        }
     }
 }
