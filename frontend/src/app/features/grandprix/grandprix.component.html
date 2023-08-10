@@ -1,8 +1,13 @@
 <img *ngIf="!isDataLoaded" src="../../../assets/images/common/loading.gif" alt="Loading..." class="loading">
 <app-section-flex [direction]="'row'" *ngIf="isDataLoaded">
+<img *ngIf="!isDataLoaded" src="../../../assets/images/common/loading.gif" alt="Loading..." class="loading">
+<app-section-flex [direction]="'row'" *ngIf="isDataLoaded">
     <div class="flex-text-column">
         <h1>{{gpItem.name}}</h1>
+        <h1>{{gpItem.name}}</h1>
         <h2>F1 Adria Liga</h2>
+        <div class="track-name">{{gpItem.track.name + ' - ' + (gpItem.startTime | date:'d MMMM y')}}</div>
+        <app-btn-custom [faIcon]="faPlay" [label]="'Race Video'" (click)="goToYoutube()"></app-btn-custom>
         <div class="track-name">{{gpItem.track.name + ' - ' + (gpItem.startTime | date:'d MMMM y')}}</div>
         <app-btn-custom [faIcon]="faPlay" [label]="'Race Video'" (click)="goToYoutube()"></app-btn-custom>
         <app-section-flex [direction]="'row'" class="wrapping"  [justify]="'flex-start'">
@@ -34,8 +39,11 @@
 
 <app-section-flex [title]="'Sprint results'" *ngIf="gpItem.sprint.length">
     sprint rez
+<app-section-flex [title]="'Sprint results'" *ngIf="gpItem.sprint.length">
+    sprint rez
 </app-section-flex>
 
+<app-section-flex [title]="'Fastest lap of the race'" [direction]="'row'" [justify]="'flex-start'" *ngIf="isDataLoaded && gpItem.fastestDriverId">
 <app-section-flex [title]="'Fastest lap of the race'" [direction]="'row'" [justify]="'flex-start'" *ngIf="isDataLoaded && gpItem.fastestDriverId">
     <table>
         <thead>
@@ -48,11 +56,15 @@
         <tbody>
             <tr>
                 <td> <img src="../../../../assets/images/teams/{{fastestLap.teamId}}.png" alt=""> </td>
+                <td> <img src="../../../../assets/images/teams/{{fastestLap.teamId}}.png" alt=""> </td>
                 <td>
                     <div class="flag shadow">
                         <img class="shadow" src="https://hatscripts.github.io/circle-flags/flags/{{fastestLap.countryIso | lowercase}}.svg" alt="flag">
+                        <img class="shadow" src="https://hatscripts.github.io/circle-flags/flags/{{fastestLap.countryIso | lowercase}}.svg" alt="flag">
                     </div>
                 </td>
+                <td class="driver-name">{{fastestLap.driverName}}</td>
+                <td>{{fastestLap.lapTimeInMs/1000 | raceTime}}</td>
                 <td class="driver-name">{{fastestLap.driverName}}</td>
                 <td>{{fastestLap.lapTimeInMs/1000 | raceTime}}</td>
             </tr>
