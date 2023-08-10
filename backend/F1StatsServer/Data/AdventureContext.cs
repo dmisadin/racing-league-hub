@@ -72,12 +72,12 @@ public partial class AdventureContext : DbContext
 
         modelBuilder.Entity<Country>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Country__3214EC07A75AB5FA");
+            entity.HasKey(e => e.Id).HasName("PK__CountryId");
         });
 
         modelBuilder.Entity<Driver>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Driver__3214EC07957B33AC");
+            entity.HasKey(e => e.Id).HasName("PK__DriverId");
 
             entity.HasOne(d => d.Platform).WithMany(p => p.Drivers)
                 .OnDelete(DeleteBehavior.SetNull)
@@ -94,7 +94,7 @@ public partial class AdventureContext : DbContext
 
         modelBuilder.Entity<Game>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Game__3214EC0764E480FF");
+            entity.HasKey(e => e.Id).HasName("PK__GameId");
         });
 
         modelBuilder.Entity<GrandPrix>(entity =>
@@ -111,7 +111,7 @@ public partial class AdventureContext : DbContext
 
         modelBuilder.Entity<League>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__League__3214EC07379E033B");
+            entity.HasKey(e => e.Id).HasName("PK__LeagueId");
 
             entity.HasOne(d => d.Region).WithMany(p => p.Leagues).HasConstraintName("FK_League_RegionId");
 
@@ -122,7 +122,7 @@ public partial class AdventureContext : DbContext
 
         modelBuilder.Entity<LeagueUser>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__LeagueUs__3214EC076AB8F897");
+            entity.HasKey(e => e.Id).HasName("PK__LeagueUserId");
 
             entity.HasOne(d => d.League).WithMany(p => p.LeagueUsers).HasConstraintName("FK_LeagueUser_LeagueId");
 
@@ -131,12 +131,12 @@ public partial class AdventureContext : DbContext
 
         modelBuilder.Entity<Platform>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Platform__3214EC07500B5EF5");
+            entity.HasKey(e => e.Id).HasName("PK__PlatformId");
         });
 
         modelBuilder.Entity<Qualifying>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Qualifyi__3214EC074E099639");
+            entity.HasKey(e => e.Id).HasName("PK__QualifyingId");
 
             entity.HasOne(d => d.Driver).WithMany(p => p.Qualifyings).HasConstraintName("FK_Qualifying_DriverId");
 
@@ -147,7 +147,7 @@ public partial class AdventureContext : DbContext
 
         modelBuilder.Entity<Race>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Race__3214EC0750D3589B");
+            entity.HasKey(e => e.Id).HasName("PK__RaceId");
 
             entity.HasOne(d => d.Driver).WithMany(p => p.Races).HasConstraintName("FK_Race_DriverId");
 
@@ -158,12 +158,12 @@ public partial class AdventureContext : DbContext
 
         modelBuilder.Entity<Region>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Region__3214EC07AA3ED67F");
+            entity.HasKey(e => e.Id).HasName("PK__RegionId");
         });
 
         modelBuilder.Entity<Season>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Season__3214EC07AE88DF26");
+            entity.HasKey(e => e.Id).HasName("PK__SeasonId");
 
             entity.Property(e => e.LapsRequiredPercentage).HasDefaultValueSql("('90')");
 
@@ -185,7 +185,7 @@ public partial class AdventureContext : DbContext
 
         modelBuilder.Entity<SeasonDrivers>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__SeasonDr__3214EC07601D5C59");
+            entity.HasKey(e => e.Id).HasName("PK__SeasonDriverId");
 
             entity.HasOne(d => d.Driver).WithMany(p => p.SeasonDrivers).HasConstraintName("FK_SeasonDriver_DriverId");
 
@@ -213,33 +213,33 @@ public partial class AdventureContext : DbContext
 
         modelBuilder.Entity<SeasonQualPoints>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__SeasonQu__3214EC079B192CD5");
+            entity.HasKey(e => e.Id).HasName("PK__SeasonQualPointsId");
 
             entity.HasOne(d => d.Season).WithMany(p => p.SeasonQualPoints).HasConstraintName("FK_SeasonQualPoints_SeasonId");
         });
 
         modelBuilder.Entity<SeasonRacePoints>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__SeasonRa__3214EC0729EA724F");
+            entity.HasKey(e => e.Id).HasName("PK__SeasonRacePointsId");
 
             entity.HasOne(d => d.Season).WithMany(p => p.SeasonRacePoints).HasConstraintName("FK_SeasonRacePoints_SeasonId");
         });
 
         modelBuilder.Entity<SeasonSprintPoints>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__SeasonSp__3214EC070915FC3D");
+            entity.HasKey(e => e.Id).HasName("PK__SeasonSprintPointsId");
 
             entity.HasOne(d => d.Season).WithMany(p => p.SeasonSprintPoints).HasConstraintName("FK_SeasonSprintPoints_SeasonId");
         });
 
         modelBuilder.Entity<SocialMedia>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__SocialMe__3214EC07B022C64D");
+            entity.HasKey(e => e.Id).HasName("PK__SocialMediaId");
         });
 
         modelBuilder.Entity<Sprint>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Sprint__3214EC07F7CEC330");
+            entity.HasKey(e => e.Id).HasName("PK__SprintId");
 
             entity.HasOne(d => d.Driver).WithMany(p => p.Sprints).HasConstraintName("FK_SprintDriver_DriverId");
 
@@ -250,14 +250,14 @@ public partial class AdventureContext : DbContext
 
         modelBuilder.Entity<Team>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Team__3214EC0747A43CBA");
+            entity.HasKey(e => e.Id).HasName("PK__TeamId");
 
             entity.Property(e => e.ColorHex).HasDefaultValueSql("('#000')");
         });
 
         modelBuilder.Entity<Track>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Track__3214EC078A666317");
+            entity.HasKey(e => e.Id).HasName("PK__TrackId");
 
             entity.Property(e => e.Laps).HasDefaultValueSql("('52')");
 
@@ -268,7 +268,7 @@ public partial class AdventureContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__User__3214EC07F7F96EAB");
+            entity.HasKey(e => e.Id).HasName("PK__UserId");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -52,13 +52,13 @@ namespace F1StatsServer.Infrastructure
         [ProducesResponseType(200)]
         public async Task<IActionResult> DeleteItem(int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var generic = await _genericRepository.DeleteItemAsync(id);
 
             if (generic == null)
                 return NotFound();
-
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
 
             return Ok(generic);
         }

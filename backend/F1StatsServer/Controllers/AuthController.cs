@@ -23,6 +23,8 @@ namespace F1StatsServer.Controllers
         [Authorize]
         public IActionResult GetMe()
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             var username = _userService.GetMyName();
 
@@ -33,6 +35,9 @@ namespace F1StatsServer.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login(UserDto request)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             if (!_userRepository.CheckCredentials(request.Email, request.Password))
             {
                 return BadRequest("User not found.");

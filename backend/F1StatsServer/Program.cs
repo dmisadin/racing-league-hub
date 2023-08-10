@@ -37,6 +37,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISeasonService, SeasonService>();
 builder.Services.AddScoped<IGrandPrixService, GrandPrixService>();
 builder.Services.AddScoped<IResultService, ResultService>();
+builder.Services.AddScoped<IDriverService, DriverService>();
 
 
 builder.Configuration.AddEnvironmentVariables()

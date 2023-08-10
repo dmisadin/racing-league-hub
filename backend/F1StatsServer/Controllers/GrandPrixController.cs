@@ -34,9 +34,6 @@ namespace F1StatsServer.Controllers
         {
             var grandPrix = await _grandPrixRepository.GetDataAsync();
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             return Ok(grandPrix);
 
         }
@@ -50,9 +47,6 @@ namespace F1StatsServer.Controllers
 
             var grandPrix = await _grandPrixRepository.GetGrandPrixDataAsync(id);
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             return Ok(grandPrix);
         }
 
@@ -62,11 +56,11 @@ namespace F1StatsServer.Controllers
         {
             if(data == null)
                 return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+
+                return BadRequest(ModelState);
 
             var result = await _grandPrixService.InsertDataAsync(data);
-
-            if(!ModelState.IsValid)
-                return BadRequest(ModelState);
 
             return Ok(result);
         }

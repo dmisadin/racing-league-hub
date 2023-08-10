@@ -31,9 +31,6 @@ namespace F1StatsServer.Controllers
         [ProducesResponseType(200, Type = typeof(SeasonDisplayDto))]
         public async Task<IActionResult> GetSeasonData(int id)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var result = await _seasonService.GetSeasonDataAsync(id);
 
             if (result == null)

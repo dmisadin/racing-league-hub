@@ -30,9 +30,6 @@ namespace F1StatsServer.Controllers
         [HttpGet("display")]
         public async Task<IActionResult> GetLeagues()
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var result = await _leagueService.GetLeaguesAsync();
 
             if (result == null)
@@ -44,9 +41,6 @@ namespace F1StatsServer.Controllers
         [HttpGet("display/{id}")]
         public async Task<IActionResult> GetLeagueData(int id)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var result = await _leagueService.GetLeagueDataAsync(id);
 
             if (result == null)
