@@ -20,7 +20,7 @@ namespace F1StatsServer.Repository
             _context = context;
         }
 
-        public async Task<GrandPrixHomeDto> GetDataAsync()
+        public async Task<List<GrandPrixHomeDto>> GetDataAsync()
         {
             var query = from GrandPrix in _context.Set<GrandPrix>()
                         join Season in _context.Set<Season>() on GrandPrix.SeasonId equals Season.Id
@@ -32,7 +32,7 @@ namespace F1StatsServer.Repository
                             SeasonName = Season.Name,
                             LeagueName = League.Name
                         };
-            var result = await query.FirstOrDefaultAsync();
+            var result = await query.ToListAsync();
 
             return result;
         }

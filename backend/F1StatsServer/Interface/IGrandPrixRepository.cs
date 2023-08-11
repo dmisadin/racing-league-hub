@@ -5,7 +5,7 @@ namespace F1StatsServer.Interface
 {
     public interface IGrandPrixRepository
     {
-        Task<GrandPrixHomeDto> GetDataAsync();
+        Task<List<GrandPrixHomeDto>> GetDataAsync();
         Task<GrandPrixDisplayDto?> GetGrandPrixDataAsync(int id);
         bool HasSprint(int id);
         Task<int> InsertResultsAsync(ResultInsertDto data, int id);
