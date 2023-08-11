@@ -183,7 +183,12 @@
     /* Firefox */
     input[type=number] {
         width: 80px;
+        appearance: textfield;
         -moz-appearance: textfield;
+    }
+
+    .placeholder {
+        margin: -53px 0 14px 21px;
     }
 }
 

@@ -7,9 +7,9 @@ namespace F1StatsServer.Dto.GrandPrixDtos
 {
     public class GrandPrixDisplayDto
     {
-        public string? GrandPrixName { get; set; }
+        public string? Name { get; set; }
 
-        public DateTimeOffset? GrandPrixDate { get; set; }
+        public DateTimeOffset? StartTime { get; set; }
 
         public string? YoutubeUrl { get; set; }
 

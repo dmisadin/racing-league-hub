@@ -1,5 +1,7 @@
 @use "../../../styles.scss" as v;
+@import "../../shared/style/loading.scss";
 
+@include loading-icon;
 :host {
     padding: 0 20px;
     width: 100%;

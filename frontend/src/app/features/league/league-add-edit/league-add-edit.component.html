@@ -1,5 +1,5 @@
 <form [formGroup]="leagueForm" (ngSubmit)="onSubmit()">
-    <h1>Create new league</h1>
+    <h1>{{title}}</h1>
     <app-section-flex [direction]="'row'" [justify]="'space-around'" [gap]="'40px'">
         <div class="form-column">
             <h2>Basic league info</h2>
@@ -18,21 +18,40 @@
                 formControlName="description"></textarea>
 
             <label class="custom-upload" for="img">Upload League logo</label>
-            <input type="file" id="img" name="img" accept="image/png, image/jpeg, image/svg" formControlName="leagueLogo">
+            <input type="file" id="img" name="img" accept="image/png, image/jpeg, image/svg" formControlName="imagePath">
             
             <img *ngIf="preview" [src]="preview" class="preview" />
 
             <label>Pick a color for your league</label>
-            <input class="color-input" [value]="color" [(colorPicker)]="color" [style.background]="color"
-                formControlName="color" />
+            <!-- type="color" -->
+            <input class="color-input" 
+                [value]="color" 
+                [(colorPicker)]="color" 
+                [style.background]="color"
+                formControlName="colorHex" />
         </div>
-        <div class="form-column">
+        <div class="form-column" formGroupName="socialMedia">
             <h2>Social Media Links</h2>
-            <ng-container *ngFor="let s of social">
+            <ng-container *ngFor="let s of social | slice:0:2">
                 <label>{{s.name}}</label>
-                <input type="text" placeholder="{{s.placeholder}}" formControlName="{{s.name.toLowerCase()}}">
+                <input type="text" 
+                    placeholder="{{s.placeholder}}" 
+                    formControlName="{{s.name | lowercase}}"
+                >
+            </ng-container>
+            <ng-container *ngFor="let s of social | slice: 2">
+                <label>{{s.name}}</label>
+                <input type="text" 
+                    placeholder="{{s.placeholder.split('/')[1]}}" 
+                    formControlName="{{s.name | lowercase}}"
+                    [style]="'padding-left:' + s.left"
+                >
+                <span class="placeholder"> {{s.placeholder.split('/')[0]}}/ </span>
             </ng-container>
         </div>
     </app-section-flex>
-    <button type="submit" [disabled]="isSubmitted">Create League</button>
+    <div class="btn-container">
+        <app-btn-custom [label]="'Cancel'" [faIcon]="faCircleXmark" [colorClass]="'red'" (click)="closeEditForm()"></app-btn-custom>
+        <button type="submit" [disabled]="isSubmitted">{{buttonText + ' ' + leagueForm.value.name}}</button>
+    </div>
 </form>

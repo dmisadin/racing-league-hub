@@ -1,0 +1,76 @@
+@use "../../../../../styles.scss" as v;
+@import "../../../../shared/style/table.scss";
+
+@include table-setup;
+/* 
+:root{
+    --team-hover: #ffffff;
+}
+tr:hover {
+    background-color: var(--team-hover);
+}
+ */
+
+:host {
+    width: 100%;
+}
+
+
+.driver-name {
+    width: fit-content;
+    min-width: 120px;
+}
+
+
+td img {
+    height: 80%;
+    /* width: auto; */
+}
+
+.flag {
+    min-width: 32px;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+th div.flag {
+    margin: auto;
+}
+
+td div.flag {
+    height: 32px;
+    width: 32px;
+}
+
+.flag img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+}
+
+.points {
+    text-align: center;
+}
+
+.shadow {
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+}
+
+.tyres {
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    
+    height: inherit;
+    width: fit-content;
+    max-width: 250px;
+    
+    img {
+        height: 50%;
+        width: auto;
+    }
+}

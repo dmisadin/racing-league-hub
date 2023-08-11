@@ -15,6 +15,5 @@ export class BtnCustomComponent {
 
   emitEvent() {
     this.OnClick.emit();
-    console.log('icon: ', this.faIcon ? true : false);
   }
 }

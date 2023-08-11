@@ -16,5 +16,6 @@ namespace F1StatsServer.Dto.TrackDtos
         [StringLength(2)]
         [Unicode(false)]
         public string? CountryIso { get; set; }
+        public string? CountryName { get; set; }
     }
 }

@@ -46,6 +46,7 @@ namespace F1StatsServer.Repository
                                                           .Where(grandPrix => grandPrix.SeasonId == id)
                                                           .Select(grandPrix => new GrandPrixSeasonDto
                                                           {
+                                                              Id = grandPrix.Id,
                                                               Name = grandPrix.Name,
                                                               HasSprint = grandPrix.HasSprint,
                                                               YoutubeUrl = grandPrix.YoutubeUrl,
@@ -56,7 +57,8 @@ namespace F1StatsServer.Repository
                                                                   Name = grandPrix.Track.Name,
                                                                   Location = grandPrix.Track.Location,
                                                                   ImagePath = grandPrix.Track.ImagePath,
-                                                                  CountryIso = grandPrix.Track.Country.Iso
+                                                                  CountryIso = grandPrix.Track.Country.Iso,
+                                                                  CountryName = grandPrix.Track.Country.NameEnglish
                                                               },
                                                               FastestDriverId = grandPrix.Races.Where(race => race.FastestLapInMs != null)
                                                                                        .OrderBy(race => race.FastestLapInMs)
@@ -65,22 +67,24 @@ namespace F1StatsServer.Repository
                                                               {
                                                                   DriverId = race.DriverId,
                                                                   TeamId = race.TeamId,
-                                                                  PointsGained = race.PointsGained
+                                                                  PointsGained = race.PointsGained,
+                                                                  ResultStatus = race.ResultStatus
                                                               }).ToList(),
                                                               Qualifying = grandPrix.Qualifyings.Select(qualifying => new ResultSeasonDto
                                                               {
                                                                   DriverId = qualifying.DriverId,
                                                                   TeamId = qualifying.TeamId,
-                                                                  PointsGained = qualifying.PointsGained
+                                                                  PointsGained = qualifying.PointsGained,
+                                                                  ResultStatus = qualifying.ResultStatus
                                                               }).ToList(),
 
                                                               Sprint = grandPrix.Sprints.Select(sprint => new ResultSeasonDto
                                                               {
                                                                   DriverId = sprint.DriverId,
                                                                   TeamId = sprint.TeamId,
-                                                                  PointsGained = sprint.PointsGained
+                                                                  PointsGained = sprint.PointsGained,
+                                                                  ResultStatus = sprint.ResultStatus
                                                               }).ToList(),
-
                                                           }).ToList(),
 
                                     Drivers = season.SeasonDrivers.Select(seasonDriver => new DriverSeasonDto

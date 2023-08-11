@@ -52,11 +52,11 @@ img {
 .social-media {
     width: fit-content;
     height: fit-content;
-/*     max-width: 120px;
+    /*     max-width: 120px;
     max-height: 160px; 
     min-width: 90px;
     align-self: flex-end;*/
-    
+
 
     display: flex;
     flex-direction: row;
@@ -64,4 +64,12 @@ img {
     align-items: center;
     flex-wrap: wrap;
     gap: 12px;
+}
+
+.title {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

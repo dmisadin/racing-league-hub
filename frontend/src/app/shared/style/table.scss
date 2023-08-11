@@ -4,6 +4,8 @@
 
     table {
         width: fit-content;
+        align-self: flex-start;
+
         text-align: left;
         vertical-align: middle;
         border-collapse: collapse;
@@ -13,22 +15,18 @@
         height: 48px;
         width: 100%;
         border: 0px solid;
-        transition: all .1s linear;
     }
-/* 
+
     tr:hover {
-        background-color: v.$neutral-300;
+        background-color: v.$neutral-100;
     }
- */
-    td, th {
+
+    td,
+    th {
         padding: 0 16px;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
-    }
-    tr td:last-child, th:last-child {
-        text-align: right;
-        width: 110px;
     }
 
     th {
@@ -41,9 +39,24 @@
         height: 48px;
         min-width: 48px;
         vertical-align: middle;
+        img {
+            height: 80%;
+        }
     }
 
     td>* {
         vertical-align: middle;
+    }
+
+    // Set border-radius on the top-left and bottom-left of the first table data on the table row
+    td:first-child,
+    th:first-child {
+        border-radius: 10px 0 0 10px;
+    }
+
+    // Set border-radius on the top-right and bottom-right of the last table data on the table row
+    td:last-child,
+    th:last-child {
+        border-radius: 0 10px 10px 0;
     }
 }

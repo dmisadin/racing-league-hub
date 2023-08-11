@@ -28,7 +28,7 @@ namespace F1StatsServer.Repository
                         select new GrandPrixHomeDto
                         {
                             Id = GrandPrix.Id,
-                            GrandPrixName = GrandPrix.Name,
+                            Name = GrandPrix.Name,
                             SeasonName = Season.Name,
                             LeagueName = League.Name
                         };
@@ -45,12 +45,12 @@ namespace F1StatsServer.Repository
                                 .Where(grandPrix => grandPrix.Id == id)
                                 .Select(grandPrix => new GrandPrixDisplayDto
                                 {
-                                    GrandPrixName = grandPrix.Name,
-                                    GrandPrixDate = grandPrix.StartTime,
+                                    Name = grandPrix.Name,
+                                    StartTime = grandPrix.StartTime,
                                     YoutubeUrl = grandPrix.YoutubeUrl,
                                     FastestDriverId = grandPrix.Races.Where(race => race.FastestLapInMs != null)
-                                                             .OrderBy(race => race.FastestLapInMs)
-                                                             .Select(race => race.DriverId).FirstOrDefault(),
+                                                                    .OrderBy(race => race.FastestLapInMs)
+                                                                    .Select(race => race.DriverId).FirstOrDefault(),
                                     Track = new TrackDto
                                     {
                                         Id = grandPrix.Track.Id,

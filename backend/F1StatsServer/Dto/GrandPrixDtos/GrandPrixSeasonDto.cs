@@ -9,6 +9,8 @@ namespace F1StatsServer.Dto.GrandPrixDtos
 {
     public class GrandPrixSeasonDto
     {
+        public int Id { get; set; }
+
         [Required, NotNull]
         public string? Name { get; set; }
 

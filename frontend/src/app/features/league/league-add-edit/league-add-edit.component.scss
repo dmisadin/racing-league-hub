@@ -9,6 +9,7 @@
 :host {
     width: fit-content;
     height: fit-content;
+    align-self: center;
 }
 
 form {
@@ -21,4 +22,14 @@ input[type=text] {
 
 textarea {
     width: 480px;
+}
+
+.btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 32px;
+}
+button {
+    width: fit-content;
 }

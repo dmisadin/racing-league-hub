@@ -36,12 +36,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { SeasonComponent } from './features/season/season.component';
 import { IconLabelComponent } from './shared/components/icon-label/icon-label.component';
-import { TableDriverStandingsComponent } from './shared/components/table-driver-standings/table-driver-standings.component';
-import { TableTeamStandingsComponent } from './shared/components/table-team-standings/table-team-standings.component';
+import { StandingsTablesComponent } from './features/season/season-tables/standings-tables/standings-tables.component';
 import { RaceCardComponent } from './shared/components/race-card/race-card.component';
 import { GrandPrixComponent } from './features/grandprix/grandprix.component';
-import { TableRaceResultComponent } from './shared/components/table-race-result/table-race-result.component';
-import { TableQualifyingResultComponent } from './shared/components/table-qualifying-result/table-qualifying-result.component';
+import { TableRaceResultComponent } from './features/grandprix/grandprix-tables/table-race-result/table-race-result.component';
+import { TableQualifyingResultComponent } from './features/grandprix/grandprix-tables/table-qualifying-result/table-qualifying-result.component';
 import { DriverComponent } from './features/driver/driver.component';
 import { LeagueAddEditComponent } from './features/league/league-add-edit/league-add-edit.component';
 import { SeasonFormsComponent } from './features/season/season-forms/season-forms.component';
@@ -54,9 +53,12 @@ import { SwitchComponent } from './shared/components/switch/switch.component';
 import { FormAlertComponent } from './shared/components/form-alert/form-alert.component';
 import { GrandPrixFormsComponent } from './features/grandprix/grandprix-forms/grandprix-forms.component';
 import { GrandprixInfoItemComponent } from './features/grandprix/grandprix-forms/grandprix-info-item/grandprix-info-item.component';
-import { DatetimeoffsetToLocalPipe } from './shared/pipes/datetimeoffset-to-local.pipe';
 import { NotFoundComponent } from './features/not-found/not-found.component';
 import { LeaguesListComponent } from './features/leagues-list/leagues-list.component';
+import { MediumdateToMonthyearPipe } from './shared/pipes/mediumdate-to-monthyear.pipe';
+import { FooterComponent } from './shared/components/footer/footer.component';
+import { RaceTimePipe } from './shared/pipes/race-time.pipe';
+import { LeagueInfoComponent } from './features/league/league-info/league-info.component';
 
 @NgModule({
   declarations: [
@@ -78,8 +80,7 @@ import { LeaguesListComponent } from './features/leagues-list/leagues-list.compo
     SeasonCardComponent,
     SeasonComponent,
     IconLabelComponent,
-    TableDriverStandingsComponent,
-    TableTeamStandingsComponent,
+    StandingsTablesComponent,
     RaceCardComponent,
     GrandPrixComponent,
     TableRaceResultComponent,
@@ -96,9 +97,12 @@ import { LeaguesListComponent } from './features/leagues-list/leagues-list.compo
     FormAlertComponent,
     GrandPrixFormsComponent,
     GrandprixInfoItemComponent,
-    DatetimeoffsetToLocalPipe,
     NotFoundComponent,
     LeaguesListComponent,
+    MediumdateToMonthyearPipe,
+    FooterComponent,
+    RaceTimePipe,
+    LeagueInfoComponent,
   ],
   imports: [
     BrowserModule,

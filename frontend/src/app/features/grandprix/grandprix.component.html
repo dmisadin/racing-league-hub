@@ -1,53 +1,72 @@
-<app-section-flex [direction]="'row'">
+<img *ngIf="!isDataLoaded" src="../../../assets/images/common/loading.gif" alt="Loading..." class="loading">
+<app-section-flex [direction]="'row'" *ngIf="isDataLoaded">
+<img *ngIf="!isDataLoaded" src="../../../assets/images/common/loading.gif" alt="Loading..." class="loading">
+<app-section-flex [direction]="'row'" *ngIf="isDataLoaded">
     <div class="flex-text-column">
-        <h1>Velika nagrada Austrije</h1>
+        <h1>{{gpItem.name}}</h1>
+        <h1>{{gpItem.name}}</h1>
         <h2>F1 Adria Liga</h2>
-        <div class="track-name">Red Bull Ring - 30 June 2023</div>
-        <app-btn-custom [faIcon]="faPlay" [label]="'Race Video'"></app-btn-custom>
+        <div class="track-name">{{gpItem.track.name + ' - ' + (gpItem.startTime | date:'d MMMM y')}}</div>
+        <app-btn-custom [faIcon]="faPlay" [label]="'Race Video'" (click)="goToYoutube()"></app-btn-custom>
+        <div class="track-name">{{gpItem.track.name + ' - ' + (gpItem.startTime | date:'d MMMM y')}}</div>
+        <app-btn-custom [faIcon]="faPlay" [label]="'Race Video'" (click)="goToYoutube()"></app-btn-custom>
         <app-section-flex [direction]="'row'" class="wrapping"  [justify]="'flex-start'">
-            <app-icon-label [iconPath]="'track_features/turns.svg'" [name]="'Turns'">18</app-icon-label>
-            <app-icon-label [iconPath]="'track_features/turnleft.svg'" [name]="'Left turns'">6</app-icon-label>
-            <app-icon-label [iconPath]="'track_features/length.svg'" [name]="'Track length'">5.423m</app-icon-label>
-            <app-icon-label [iconPath]="'track_features/elevation.svg'"
-                [name]="'Elevation change'">102.3m</app-icon-label>
+            <app-icon-label [iconPath]="'track_features/cornersTotal.svg'" [name]="'Turns'">{{gpItem.track.cornersTotal}}</app-icon-label>
+            <app-icon-label [iconPath]="'track_features/cornersLeft.svg'" [name]="'Left turns'">{{gpItem.track.cornersLeft}}</app-icon-label>
+            <app-icon-label [iconPath]="'track_features/cornersRight.svg'" [name]="'Right turns'">{{gpItem.track.cornersTotal - gpItem.track.cornersLeft}}</app-icon-label>
+            <app-icon-label [iconPath]="'track_features/length.svg'" [name]="'Track length'">{{gpItem.track.length + 'm'}}</app-icon-label>
+            <app-icon-label [iconPath]="'track_features/elevation.svg'" [name]="'Elevation change'">{{gpItem.track.elevation + 'm'}}</app-icon-label>
         </app-section-flex>
 
     </div>
-    <img class="track-map" src="../../../assets/images/track/map_detail/17.png" alt="">
+    <img class="track-map" src="../../../assets/images/track/map_detail/{{gpItem.track.id}}.png" alt="">
 </app-section-flex>
 
-<app-section-flex [title]="'Race results'">
-    <app-table-race-result></app-table-race-result>
+<app-section-flex [width]="'fit-content'" [title]="'Race results'" *ngIf="isDataLoaded && gpItem.race.length">
+    <app-table-race-result
+        [session]="gpItem.race"
+        [drivers]="gpItem.drivers"
+        [teams]="gpItem.teams"
+    ></app-table-race-result>
 </app-section-flex>
 
-<app-section-flex [title]="'Qualifying results'">
-    <app-table-qualifying-result></app-table-qualifying-result>
+<app-section-flex [width]="'fit-content'" [title]="'Qualifying results'" *ngIf="isDataLoaded && gpItem.qualifying.length">
+    <app-table-qualifying-result
+        [session]="gpItem.qualifying"
+        [drivers]="gpItem.drivers"
+    ></app-table-qualifying-result>
 </app-section-flex>
 
-<app-section-flex [title]="'Fastest lap of the race'" [direction]="'row'" [justify]="'flex-start'">
+<app-section-flex [title]="'Sprint results'" *ngIf="gpItem.sprint.length">
+    sprint rez
+<app-section-flex [title]="'Sprint results'" *ngIf="gpItem.sprint.length">
+    sprint rez
+</app-section-flex>
+
+<app-section-flex [title]="'Fastest lap of the race'" [direction]="'row'" [justify]="'flex-start'" *ngIf="isDataLoaded && gpItem.fastestDriverId">
+<app-section-flex [title]="'Fastest lap of the race'" [direction]="'row'" [justify]="'flex-start'" *ngIf="isDataLoaded && gpItem.fastestDriverId">
     <table>
         <thead>
             <tr>
                 <th>Team</th>
-                <th></th>
-                <th>Driver</th>
+                <th colspan="2">Driver</th>
                 <th>Time</th>
-                <th class="tyreth">Tyre</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td> <img src="../../../../assets/images/teams/1.png" alt=""> </td>
+                <td> <img src="../../../../assets/images/teams/{{fastestLap.teamId}}.png" alt=""> </td>
+                <td> <img src="../../../../assets/images/teams/{{fastestLap.teamId}}.png" alt=""> </td>
                 <td>
                     <div class="flag shadow">
-                        <img class="shadow" src="https://hatscripts.github.io/circle-flags/flags/rs.svg" alt="race">
+                        <img class="shadow" src="https://hatscripts.github.io/circle-flags/flags/{{fastestLap.countryIso | lowercase}}.svg" alt="flag">
+                        <img class="shadow" src="https://hatscripts.github.io/circle-flags/flags/{{fastestLap.countryIso | lowercase}}.svg" alt="flag">
                     </div>
                 </td>
-                <td class="driver-name">Dimitrije Minić</td>
-                <td>3:45.678</td>
-                <td class="tyres">
-                    <img src="../../../../assets/images/icons/tyre/s.svg" alt="">
-                </td>
+                <td class="driver-name">{{fastestLap.driverName}}</td>
+                <td>{{fastestLap.lapTimeInMs/1000 | raceTime}}</td>
+                <td class="driver-name">{{fastestLap.driverName}}</td>
+                <td>{{fastestLap.lapTimeInMs/1000 | raceTime}}</td>
             </tr>
         </tbody>
     </table>

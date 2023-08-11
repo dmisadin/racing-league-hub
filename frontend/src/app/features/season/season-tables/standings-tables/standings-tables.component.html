@@ -1,0 +1,76 @@
+<app-section-flex [title]="'Drivers championship standings'">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Team</th>
+                <th>Country</th>
+                <th>Driver</th>
+                <th *ngFor="let g of grandPrixes">
+                    <div class="flag shadow">
+                        <img src="../../../../../assets/images/country/flags/{{g.track.countryIso | lowercase}}.svg" alt="race" />
+                    </div>
+                </th>
+    
+                <th>Points</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let driver of driverPoints | slice:0:showDriverCount; let i = index">
+                <td>{{ i+1 }}</td>
+                <td>
+                    <img src="../../../../assets/images/teams/{{ driver.teamId }}.png" alt="" />
+                </td>
+                <td>
+                    <div class="flag shadow">
+                        <img class="shadow"
+                            src="../../../../../assets/images/country/flags/{{driver.countryIso | lowercase}}.svg"
+                            alt="race" />
+                    </div>
+                </td>
+                <td class="driver-name">{{driver.name}}</td>
+                <td *ngFor="let p of driver.points; let i = index" class="points">
+                    {{ p ? p :
+                    ( driver.resultStatus[i] ?
+                    (driver.resultStatus[i] !== 3 ? resultStatus[driver.resultStatus[i]] : 0 ) : '-') }}
+                </td>
+                <td>{{driver.pointsSum}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <app-btn-custom *ngIf="showDriverCount <=20" (click)="showDriverCount=drivers.length" [label]="'Show more drivers'"></app-btn-custom>
+</app-section-flex>
+
+<app-section-flex [title]="'Constructors championship standings'">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Team</th>
+                <th></th>
+                <th *ngFor="let gp of grandPrixes">
+                    <div class="flag shadow">
+                        <img src="{{'https://hatscripts.github.io/circle-flags/flags/' + (gp.track.countryIso | lowercase)  + '.svg'}}"
+                            alt="race" />
+                    </div>
+                </th>
+    
+                <th>Points</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let t of teamPoints | slice:0:showTeamCount; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td><img src="../../../../assets/images/teams/{{t.id}}.png" alt="" /></td>
+                <td class="team-name">{{ t.name }}</td>
+                <td *ngFor="let p of t.points; let j = index" 
+                    class="points">
+                    {{ grandPrixes[j].race.length ? p : '-'}}
+                </td>
+                <td> {{ t.pointsSum }} </td>
+            </tr>
+        </tbody>
+    </table>
+</app-section-flex>

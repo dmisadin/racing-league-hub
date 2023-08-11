@@ -4,7 +4,7 @@
 
 <app-section-flex [direction]="'row'" [title]="''" [justify]="'space-between'">
 
-    <a routerLink="/league/add">
+    <a routerLink="/leagues/add">
         <app-btn-large [label]="'Create your own league'" [iconName]="faPlus">
         </app-btn-large>
     </a>
@@ -18,7 +18,7 @@
     <app-section-flex [direction]="'column'" [title]="'Recent results'">
         <a *ngFor="let item of grandPrixData" [routerLink]="['grandprix', item.id]">
             <app-race-row 
-                [first]="item.grandPrixName" 
+                [first]="item.name" 
                 [second]="item.seasonName" 
                 [third]="item.leagueName">
             </app-race-row>
@@ -29,7 +29,7 @@
     <app-section-flex [direction]="'column'" [title]="'Popular leagues'">
         <app-race-row 
             *ngFor="let item of popularLeagues;" 
-            [first]="item.grandPrixName"
+            [first]="item.name"
             [second]="item.seasonName" 
             [third]="item.leagueName">
         </app-race-row>

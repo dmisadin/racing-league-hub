@@ -1,0 +1,31 @@
+<app-section-flex [direction]="'row'" [justify]="'space-between'">
+    <div class="flex-text-column">
+
+        <div class="title">
+            <h1>{{leagueItem.name}}</h1>
+
+            <app-btn-custom 
+                *ngIf="!isEditMode" 
+                [label]="'Edit'" 
+                [faIcon]="faPen"
+                (click)="openEditForm()">
+            </app-btn-custom>
+        </div>
+
+        <div class="racing-day">
+            Racing every Thursday at 20:00 CEST. Placeholder.
+        </div>
+
+        <div class="description">
+            {{leagueItem.description}}
+        </div>
+
+        <div class="social-media">
+            <a *ngFor="let s of leagueItem.socialMedia | keyvalue" href={{toExternalUrl(s.value)}}>
+                <app-btn-custom [faIcon]="socialMediaIcons[s.key]"></app-btn-custom>
+            </a>
+        </div>
+    </div>
+
+    <img src="../../../assets/images/league/league-logo.png" alt="">
+</app-section-flex>

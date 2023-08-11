@@ -13,7 +13,7 @@ export class LeagueDataService {
 
     constructor(private http: HttpClient) { }
 
-    public fetchData(id: number): Observable<League> {
+    public getById(id: number): Observable<League> {
         return this.http.get<League>(this.baseUrl + '/' + id);
     }
 }
