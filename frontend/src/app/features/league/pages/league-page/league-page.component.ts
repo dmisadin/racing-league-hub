@@ -2,19 +2,19 @@ import { Component } from '@angular/core';
 import { faYoutube, faDiscord, faInstagram, faFacebook, faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { IconDefinition, faGlobe, faPen, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LeagueDataService } from 'app/core/services/league-data.service';
+import { LeagueDataService } from 'app/features/league/services/league-data.service';
 import { Subscription } from 'rxjs';
 import { League } from 'app/shared/models/league/League';
 import { ButtonClickService } from 'app/core/services/button-click.service';
-import { LeagueInfoComponent } from './league-info/league-info.component';
-import { LeagueAddEditComponent } from './league-add-edit/league-add-edit.component';
+import { LeagueInfoComponent } from '../../components/league-info/league-info.component';
+import { LeagueAddEditComponent } from '../../components/league-add-edit/league-add-edit.component';
 
 @Component({
-    selector: 'app-league',
-    templateUrl: './league.component.html',
-    styleUrls: ['./league.component.scss']
+    selector: 'app-league-page',
+    templateUrl: './league-page.component.html',
+    styleUrls: ['./league-page.component.scss']
 })
-export class LeagueComponent {
+export class LeaguePageComponent {
     socialMediaIcons = {
         discord: faDiscord,
         youtube: faYoutube,

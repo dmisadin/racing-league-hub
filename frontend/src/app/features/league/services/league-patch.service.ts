@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractPatchService } from './abstractPatchService';
+import { AbstractPatchService } from '../../../core/services/abstractPatchService';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({

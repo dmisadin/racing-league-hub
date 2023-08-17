@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { League } from 'app/shared/models/league/League';
 import { faYoutube, faDiscord, faInstagram, faFacebook, faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faGlobe, faPen, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-import { LeagueDataService } from 'app/core/services/league-data.service';
+import { LeagueDataService } from 'app/features/league/services/league-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonClickService } from 'app/core/services/button-click.service';
 import { Subscription } from 'rxjs';
@@ -35,7 +35,7 @@ export class LeagueInfoComponent {
     isEditMode: boolean = false;
 
     ngOnInit(): void {
-        this.leagueItem = this.route.snapshot.data['asyncData']; //Use of resolver in router.
+        this.leagueItem = this.route.snapshot.data['league']; //Use of resolver in router.
 
         if (this.router.url.includes('edit')) {
             this.isEditMode = true;

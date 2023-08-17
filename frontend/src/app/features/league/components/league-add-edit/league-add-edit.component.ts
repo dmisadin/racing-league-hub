@@ -7,9 +7,9 @@ import { RegionListService } from 'app/core/services/region-list.service';
 import { firstValueFrom, switchMap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Region } from 'app/shared/models/Region';
-import { LeagueDataService } from 'app/core/services/league-data.service';
+import { LeagueDataService } from 'app/features/league/services/league-data.service';
 import { JsonPatch } from 'app/shared/models/JsonPatch';
-import { LeaguePatchService } from 'app/core/services/league-patch.service';
+import { LeaguePatchService } from 'app/features/league/services/league-patch.service';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { ButtonClickService } from 'app/core/services/button-click.service';
 
