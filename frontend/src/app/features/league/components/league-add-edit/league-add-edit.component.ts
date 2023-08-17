@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AddLeagueService } from 'app/core/services/add-league.service';
+import { Component } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AddLeagueService } from 'app/features/league/services/add-league.service';
 import { LeagueInsert } from 'app/shared/models/league/LeagueInsert';
 import { RegionListService } from 'app/core/services/region-list.service';
 //import { ColorPickerService } from 'ngx-color-picker';

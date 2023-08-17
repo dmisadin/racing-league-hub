@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SeasonDataService } from 'app/core/services/season-data.service';
+import { SeasonDataService } from 'app/features/season/services/season-data.service';
 import { Season } from 'app/shared/models/season/Season';
 import { Assists } from 'app/shared/models/season/Assists';
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'app-season',
-    templateUrl: './season.component.html',
-    styleUrls: ['./season.component.scss']
+    selector: 'app-season-page',
+    templateUrl: './season-page.component.html',
+    styleUrls: ['./season-page.component.scss']
 })
-export class SeasonComponent {
+export class SeasonPageComponent {
     seasonItem$!: Subscription;
     seasonItem = new Season();
     isDataLoaded: boolean = false;

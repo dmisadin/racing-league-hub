@@ -30,22 +30,10 @@ import {
     faCoffee,
     faPlus,
 } from '@fortawesome/free-solid-svg-icons';
-import { SeasonComponent } from './features/season/season.component';
-import { IconLabelComponent } from './shared/components/icon-label/icon-label.component';
-import { StandingsTablesComponent } from './features/season/season-tables/standings-tables/standings-tables.component';
-import { RaceCardComponent } from './shared/components/race-card/race-card.component';
 import { GrandPrixComponent } from './features/grandprix/grandprix.component';
 import { TableRaceResultComponent } from './features/grandprix/grandprix-tables/table-race-result/table-race-result.component';
 import { TableQualifyingResultComponent } from './features/grandprix/grandprix-tables/table-qualifying-result/table-qualifying-result.component';
 import { DriverComponent } from './features/driver/driver.component';
-import { SeasonFormsComponent } from './features/season/season-forms/season-forms.component';
-import { SeasonInfoFormComponent } from './features/season/season-forms/season-info-form/season-info-form.component';
-import { SeasonPointsComponent } from './features/season/season-forms/season-points/season-points.component';
-import { PointsItemComponent } from './features/season/season-forms/points-item/points-item.component';
-import { SeasonLobbySettingsComponent } from './features/season/season-forms/season-lobby-settings/season-lobby-settings.component';
-import { SeasonAssistsComponent } from './features/season/season-forms/season-assists/season-assists.component';
-import { SwitchComponent } from './shared/components/switch/switch.component';
-import { FormAlertComponent } from './shared/components/form-alert/form-alert.component';
 import { GrandPrixFormsComponent } from './features/grandprix/grandprix-forms/grandprix-forms.component';
 import { GrandprixInfoItemComponent } from './features/grandprix/grandprix-forms/grandprix-info-item/grandprix-info-item.component';
 import { NotFoundComponent } from './features/not-found/not-found.component';
@@ -70,22 +58,10 @@ import { SharedModule } from './shared/shared.module';
         LoginComponent,
         RegistrationComponent,
         UserInfoComponent,
-        SeasonComponent,
-        IconLabelComponent,
-        StandingsTablesComponent,
-        RaceCardComponent,
         GrandPrixComponent,
         TableRaceResultComponent,
         TableQualifyingResultComponent,
         DriverComponent,
-        SeasonFormsComponent,
-        SeasonInfoFormComponent,
-        SeasonPointsComponent,
-        PointsItemComponent,
-        SeasonLobbySettingsComponent,
-        SeasonAssistsComponent,
-        SwitchComponent,
-        FormAlertComponent,
         GrandPrixFormsComponent,
         GrandprixInfoItemComponent,
         NotFoundComponent,

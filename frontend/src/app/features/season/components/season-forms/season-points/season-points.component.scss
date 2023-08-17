@@ -1,6 +1,6 @@
-@use "../../../../../styles.scss" as v;
-@import "../../../../shared/style/form.scss";
-@import "../../../../shared/style/flex.scss";
+@use "../../../../../../styles.scss" as v;
+@import "../../../../../shared/style/form.scss";
+@import "../../../../../shared/style/flex.scss";
 
 @include input-fields;
 @include form-setup;

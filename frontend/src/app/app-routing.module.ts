@@ -2,12 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/login/login.component';
-import { SeasonComponent } from './features/season/season.component';
 import { GrandPrixComponent } from './features/grandprix/grandprix.component';
 import { DriverComponent } from './features/driver/driver.component';
 import { RegistrationComponent } from './features/registration/registration.component';
 import { loginGuard } from './core/guards/login.guard';
-import { SeasonFormsComponent } from './features/season/season-forms/season-forms.component';
 import { GrandPrixFormsComponent } from './features/grandprix/grandprix-forms/grandprix-forms.component';
 import { NotFoundComponent } from './features/not-found/not-found.component';
 
@@ -22,7 +20,6 @@ const routes: Routes = [
     { path: 'grandprix/edit', component: GrandPrixFormsComponent },
     { path: 'grandprix/:id', component: GrandPrixComponent },
     { path: 'driver', component: DriverComponent },
-    { path: 'season/edit', component: SeasonFormsComponent },
     { path: '**', component: NotFoundComponent }
 ];
 
@@ -36,6 +33,7 @@ export class AppRoutingModule { }
 
 /*
 
+    { path: 'season/edit', component: SeasonFormsComponent },
     { path: 'leagues/:id/season/:id', title: 'Season',component: SeasonComponent },
     { path: 'leagues/:id/season/:id/grandprix/:id', title: 'Grand Prix', component: GrandPrixComponent },
 */

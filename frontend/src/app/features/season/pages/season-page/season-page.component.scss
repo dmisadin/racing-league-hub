@@ -1,5 +1,5 @@
-@use "../../../styles.scss" as v;
-@import "../../shared/style/loading.scss";
+@use "../../../../../styles.scss" as v;
+@import "../../../../shared/style/loading.scss";
 
 @include loading-icon;
 :host {

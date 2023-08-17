@@ -1,11 +1,12 @@
 /* @use "../../../../../styles.scss" as v; */
-@import "../../../../shared/style/form.scss";
-@import "../../../../shared/style/flex.scss";
+@import "../../../../../shared/style/form.scss";
+@import "../../../../../shared/style/flex.scss";
 
 @include input-fields;
 @include form-setup;
 @include select;
 @include switch;
+@include alert;
 
 :host {
     align-self: center;

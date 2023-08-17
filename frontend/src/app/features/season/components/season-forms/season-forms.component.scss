@@ -3,25 +3,23 @@
 @include input-fields;
 @include form-setup;
 @include select;
+@include file-upload;
 @include alert;
 
 :host {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    width: 100%;
+}
+form {
+    width: 100%;
 }
 
-:host div{
+button {
     width: fit-content;
     height: fit-content;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 20px;
+    /* align-self: flex-end; */
 }
 
-
-input[type=number] {
-    width: 80px;
+.prev-next {
+    width: 72px;
+    display: flex;
 }

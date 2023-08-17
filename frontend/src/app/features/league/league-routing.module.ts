@@ -18,7 +18,9 @@ const routes: Routes = [
         component: LeagueAddEditComponent
     },
     {
-        path: ':id', title: 'League', component: LeaguePageComponent,
+        path: ':id', 
+        title: 'League', 
+        component: LeaguePageComponent,
         children: [
             {
                 path: '',
@@ -34,6 +36,10 @@ const routes: Routes = [
                 component: LeagueAddEditComponent
             },
         ]
+    },
+    {
+        path: ':id/season', // Future rework?
+        loadChildren: () => import("../season/season.module").then(m => m.SeasonModule),
     },
 ];
 

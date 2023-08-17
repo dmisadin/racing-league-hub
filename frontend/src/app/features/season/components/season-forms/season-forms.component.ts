@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl } from '@angular/forms';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { AddSeasonService } from 'app/core/services/add-season.service';
+import { AddSeasonService } from 'app/features/season/services/add-season.service';
 import { Point } from 'app/shared/models/season/Point';
 import { Assists } from 'app/shared/models/season/Assists';
 import { Info } from 'app/shared/models/season/Info';

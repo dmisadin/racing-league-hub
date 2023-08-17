@@ -1,11 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { League } from 'app/shared/models/league/League';
 import { faYoutube, faDiscord, faInstagram, faFacebook, faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faGlobe, faPen, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-import { LeagueDataService } from 'app/features/league/services/league-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ButtonClickService } from 'app/core/services/button-click.service';
-import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -42,7 +39,7 @@ export class LeagueInfoComponent {
         }
     }
 
-    /** External URL has to contain 'https://' */
+    /** Appends 'https://' to a given string, because external URL has to contain.  */
     toExternalUrl(url: string) {
         if (!/^https?:\/\//i.test(url)) {
             url = 'https://' + url;

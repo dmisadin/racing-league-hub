@@ -1,4 +1,4 @@
-@use "../../../../styles.scss" as v;
+@use "../../../../../styles.scss" as v;
 
 :host {
     position: relative;
@@ -30,7 +30,7 @@
     height: 172px;
 
     flex: 1 1 auto;
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, .1) 50%), url("../../../../assets/images/track/photo/17.jpg");
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, .1) 50%), url("../../../../../assets/images/track/photo/17.jpg");
     background-size: cover, cover; 
     /* background-size: 100%;
     transition: background-size .25s ease; */
