@@ -16,22 +16,25 @@
 
 <div *ngIf="isDataLoaded">
     <app-section-flex [direction]="'column'" [title]="'Recent results'">
-        <a *ngFor="let item of grandPrixData" [routerLink]="['grandprix', item.id]">
-            <app-race-row 
-                [first]="item.name" 
-                [second]="item.seasonName" 
-                [third]="item.leagueName">
-            </app-race-row>
-        </a>
+        <app-race-row 
+            *ngFor="let item of grandPrixData" 
+            [first]="item.name" 
+            [second]="item.season.name" 
+            [third]="item.league.name"
+            [routerLink]="['leagues', item.league.id, 'season', item.season.id ,'grandprix', item.id]"
+            >
+        </app-race-row>
     </app-section-flex>
 </div>
 <div>
-    <app-section-flex [direction]="'column'" [title]="'Popular leagues'">
+    <app-section-flex [direction]="'column'" [title]="'Active seasons'">
         <app-race-row 
             *ngFor="let item of popularLeagues;" 
             [first]="item.name"
-            [second]="item.seasonName" 
-            [third]="item.leagueName">
+            [routerLink]="['leagues', item.id]"
+            >
+            <img src="../../../assets/images/game/black/F12021.svg" alt="F1 2021" class="racerow-icon">
+            <img src="../../../assets/images/icons/platform/steam.svg" alt="Steam" class="racerow-icon">
         </app-race-row>
     </app-section-flex>
 </div>

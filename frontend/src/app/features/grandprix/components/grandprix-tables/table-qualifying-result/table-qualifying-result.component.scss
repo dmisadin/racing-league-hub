@@ -1,5 +1,5 @@
-@use "../../../../../styles.scss" as v;
-@import "../../../../shared/style/table.scss";
+@use "../../../../../../styles.scss" as v;
+@import "../../../../../shared/style/table.scss";
 
 @include table-setup;
 /* 
@@ -64,11 +64,11 @@ td div.flag {
     justify-content: flex-start;
     align-items: center;
     gap: 8px;
-
+    
     height: inherit;
     width: fit-content;
     max-width: 250px;
-
+    
     img {
         height: 50%;
         width: auto;

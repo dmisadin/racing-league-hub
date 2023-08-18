@@ -14,6 +14,10 @@ const routes: Routes = [
         title: "Season",
         component: SeasonPageComponent
     },
+    {
+        path: ':id/grandprix',
+        loadChildren: () => import("../grandprix/grandprix.module").then(m => m.GrandprixModule),
+    }
 ];
 
 @NgModule({

@@ -29,8 +29,15 @@ namespace F1StatsServer.Repository
                         {
                             Id = GrandPrix.Id,
                             Name = GrandPrix.Name,
-                            SeasonName = Season.Name,
-                            LeagueName = League.Name
+                            Season = new Dto.SeasonDtos.SeasonHomeDto { 
+                                Id = Season.Id,
+                                Name = Season.Name
+                            },
+                            League = new Dto.LeagueDtos.LeagueHomeDto
+                            {
+                                Id = League.Id,
+                                Name = League.Name
+                            }
                         };
             var result = await query.ToListAsync();
 

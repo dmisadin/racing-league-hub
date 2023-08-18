@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
-import { GrandprixDataService } from 'app/core/services/grandprix-data.service';
+import { GrandprixDataService } from 'app/features/grandprix/services/grandprix-data.service';
 import { GrandPrix } from 'app/shared/models/grandprix/GrandPrix';
 import { Subscription } from 'rxjs';
 

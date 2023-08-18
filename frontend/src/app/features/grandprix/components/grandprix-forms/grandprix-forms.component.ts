@@ -3,7 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from 
 import { GrandprixInfoItemComponent } from './grandprix-info-item/grandprix-info-item.component';
 import { GrandPrixInsert } from 'app/shared/models/grandprix/GrandPrixInsert';
 import { firstValueFrom } from 'rxjs';
-import { AddGrandprixService } from 'app/core/services/add-grandprix.service';
+import { AddGrandprixService } from 'app/features/grandprix/services/add-grandprix.service';
 
 
 @Component({

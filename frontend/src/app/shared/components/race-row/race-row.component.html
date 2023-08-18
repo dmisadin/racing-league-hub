@@ -1,6 +1,8 @@
 <div class="text-item"> {{first}} </div>
 <div *ngIf="second" class="text-item second"> {{second}} </div>
 <div *ngIf="third" class="text-item third"> {{third}} </div>
-<ng-content></ng-content>
+<div class="icon-container">
+    <ng-content></ng-content>
+</div>
 <app-btn-custom *ngIf="faIcon" [label]="''" [colorClass]="'dark'" [faIcon]="faIcon" (OnClick)="imeFunkcije()">
 </app-btn-custom>

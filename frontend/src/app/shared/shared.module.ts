@@ -9,7 +9,7 @@ import { IconLabelComponent } from './components/icon-label/icon-label.component
 import { FormAlertComponent } from './components/form-alert/form-alert.component';
 import { SwitchComponent } from './components/switch/switch.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { RaceRowComponent } from './components/race-row/race-row.component';
 
 @NgModule({
     declarations: [
@@ -19,6 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
         IconLabelComponent,
         FormAlertComponent,
         SwitchComponent,
+
+        RaceRowComponent,
     ],
     imports: [
         CommonModule,
@@ -32,6 +34,8 @@ import { ReactiveFormsModule } from '@angular/forms';
         IconLabelComponent,
         FormAlertComponent,
         SwitchComponent,
+        
+        RaceRowComponent,
     ]
 })
 export class SharedModule { }

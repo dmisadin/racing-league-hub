@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AbstractGetService } from './abstractGetService';
+import { AbstractGetService } from '../../../core/services/abstractGetService';
 import { GrandPrix } from 'app/shared/models/grandprix/GrandPrix';
 @Injectable({
   providedIn: 'root'

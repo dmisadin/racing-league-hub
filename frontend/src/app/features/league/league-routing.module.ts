@@ -13,7 +13,7 @@ const routes: Routes = [
         component: LeaguesListComponent
     },
     {
-        path: 'leagues/add',
+        path: 'add',
         title: 'Add League',
         component: LeagueAddEditComponent
     },

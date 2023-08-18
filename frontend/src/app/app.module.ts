@@ -12,7 +12,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertComponent } from './shared/components/alert/alert.component';
 import { AnnouncementCarouselComponent } from './shared/components/announcement-carousel/announcement-carousel.component';
 import { BtnLargeComponent } from './shared/components/btn-large/btn-large.component';
-import { RaceRowComponent } from './shared/components/race-row/race-row.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { SidebarRaceComponent } from './shared/components/sidebar-race/sidebar-race.component';
 import { LoginComponent } from './features/login/login.component';
@@ -30,12 +29,9 @@ import {
     faCoffee,
     faPlus,
 } from '@fortawesome/free-solid-svg-icons';
-import { GrandPrixComponent } from './features/grandprix/grandprix.component';
-import { TableRaceResultComponent } from './features/grandprix/grandprix-tables/table-race-result/table-race-result.component';
-import { TableQualifyingResultComponent } from './features/grandprix/grandprix-tables/table-qualifying-result/table-qualifying-result.component';
+
 import { DriverComponent } from './features/driver/driver.component';
-import { GrandPrixFormsComponent } from './features/grandprix/grandprix-forms/grandprix-forms.component';
-import { GrandprixInfoItemComponent } from './features/grandprix/grandprix-forms/grandprix-info-item/grandprix-info-item.component';
+
 import { NotFoundComponent } from './features/not-found/not-found.component';
 import { LeaguesListComponent } from './features/league/pages/leagues-list/leagues-list.component';
 import { MediumdateToMonthyearPipe } from './shared/pipes/mediumdate-to-monthyear.pipe';
@@ -52,18 +48,12 @@ import { SharedModule } from './shared/shared.module';
         AlertComponent,
         AnnouncementCarouselComponent,
         BtnLargeComponent,
-        RaceRowComponent,
         SidebarComponent,
         SidebarRaceComponent,
         LoginComponent,
         RegistrationComponent,
         UserInfoComponent,
-        GrandPrixComponent,
-        TableRaceResultComponent,
-        TableQualifyingResultComponent,
         DriverComponent,
-        GrandPrixFormsComponent,
-        GrandprixInfoItemComponent,
         NotFoundComponent,
         LeaguesListComponent,
         MediumdateToMonthyearPipe,
