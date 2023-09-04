@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SeasonDataService } from 'app/features/season/services/season-data.service';
 import { Season } from 'app/shared/models/season/Season';
-import { Assists } from 'app/shared/models/season/Assists';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -28,7 +27,7 @@ export class SeasonPageComponent {
             this.seasonDataService.getOne(this.seasonId).subscribe((data) => {
                 this.isDataLoaded = true;
                 this.seasonItem = data;
-
+                // WARNING: Transfer to template using "keyvalue" pipe. boleanToOnOff() can become a custom pipe.
                 this.assists = this.seasonItem.assists;
                 this.assists = Object.entries(this.assists).map(([key, value]) => ({
                     icon: key.toLowerCase(),

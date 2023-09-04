@@ -22,23 +22,34 @@ namespace F1StatsServer.Repository
 
         public async Task<List<GrandPrixHomeDto>> GetDataAsync()
         {
-            var query = from GrandPrix in _context.Set<GrandPrix>()
+            var query = (from GrandPrix in _context.Set<GrandPrix>()
                         join Season in _context.Set<Season>() on GrandPrix.SeasonId equals Season.Id
                         join League in _context.Set<League>() on Season.LeagueId equals League.Id
+                        join Track in _context.Set<Track>() on GrandPrix.TrackId equals Track.Id
+                        orderby GrandPrix.StartTime descending
                         select new GrandPrixHomeDto
                         {
                             Id = GrandPrix.Id,
                             Name = GrandPrix.Name,
-                            Season = new Dto.SeasonDtos.SeasonHomeDto { 
+                            StartTime = GrandPrix.StartTime,
+                            YoutubeUrl = GrandPrix.YoutubeUrl,
+                            Season = new Dto.SeasonDtos.SeasonHomeDto 
+                            { 
                                 Id = Season.Id,
-                                Name = Season.Name
+                                Name = Season.Name,
                             },
                             League = new Dto.LeagueDtos.LeagueHomeDto
                             {
                                 Id = League.Id,
                                 Name = League.Name
+                            },
+                            Track = new Dto.TrackDtos.TrackHomeDto
+                            {
+                                Id = Track.Id,
+                                Name = Track.Name,
+                                Location = Track.Location
                             }
-                        };
+                        }).Take(5);
             var result = await query.ToListAsync();
 
             return result;

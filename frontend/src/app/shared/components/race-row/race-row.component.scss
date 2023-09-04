@@ -21,7 +21,7 @@
 }
 
 .text-item {
-    width: 40%;
+    width: 30%;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -29,13 +29,17 @@
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
-    font-size: v.$text-size-m;
+    font-size: v.$text-size-s;
     line-height: 150%;
 
     color: v.$neutral-900;
 
 }
-
+.text-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 .second {
     color: v.$neutral-500;
 }
@@ -45,7 +49,9 @@
     font-size: v.$text-size-s;
     color: v.$neutral-500;
 }
-
+.description {
+    color: v.$neutral-500;
+}
 button {
 
     padding: 8px 32px 8px 24px;

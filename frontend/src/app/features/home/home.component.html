@@ -19,10 +19,18 @@
         <app-race-row 
             *ngFor="let item of grandPrixData" 
             [first]="item.name" 
-            [second]="item.season.name" 
-            [third]="item.league.name"
+            [firstDescription]="item.track.location"
+            [second]="item.league.name" 
+            [secondDescription]="item.season.name"
+            [third]="calculateTimeSince(item.startTime) + ' ago'"
             [routerLink]="['leagues', item.league.id, 'season', item.season.id ,'grandprix', item.id]"
             >
+            <app-btn-custom
+                [label]="'Race video'"
+                [faIcon]="faPlayCircle"
+                (click)="goToExternal(item.youtubeUrl, $event)"
+                >
+            </app-btn-custom>
         </app-race-row>
     </app-section-flex>
 </div>

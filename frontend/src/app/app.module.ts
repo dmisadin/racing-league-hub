@@ -34,9 +34,7 @@ import { DriverComponent } from './features/driver/driver.component';
 
 import { NotFoundComponent } from './features/not-found/not-found.component';
 import { LeaguesListComponent } from './features/league/pages/leagues-list/leagues-list.component';
-import { MediumdateToMonthyearPipe } from './shared/pipes/mediumdate-to-monthyear.pipe';
 import { FooterComponent } from './shared/components/footer/footer.component';
-import { RaceTimePipe } from './shared/pipes/race-time.pipe';
 
 import { SharedModule } from './shared/shared.module';
 
@@ -56,9 +54,7 @@ import { SharedModule } from './shared/shared.module';
         DriverComponent,
         NotFoundComponent,
         LeaguesListComponent,
-        MediumdateToMonthyearPipe,
         FooterComponent,
-        RaceTimePipe,
     ],
     imports: [
         BrowserModule,

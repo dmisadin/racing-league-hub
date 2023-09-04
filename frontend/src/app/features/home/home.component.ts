@@ -44,4 +44,33 @@ export class HomeComponent implements OnInit {
         console.log('Klik na cijeli red result-row.');
     }
 
+
+    calculateTimeSince(dateSent: Date | string) {
+        let currentDate = new Date();
+        dateSent = new Date(dateSent);
+
+        //seconds
+        let time = (currentDate.getTime() - dateSent.getTime()) / 1000;
+        if (time < 60)
+            return time + " sec";
+        //minutes
+        time = Math.floor(time / 60);
+        if (time < 60)
+            return time + " min";
+        //hours
+        time = Math.floor(time / 60);
+        if (time < 24)
+            return time + " hrs";
+        //days
+        time = Math.floor(time / 24);
+        if(time <= 366)
+            return time + " days"
+        //years
+        time = Math.floor(time / 365);
+        return time + " year"
+    }
+    goToExternal(url: string, event: Event) {
+        window.open(url, '_blank');
+        event.stopPropagation(); // opens a link, but prevents opening Grand Prix page
+    }
 }

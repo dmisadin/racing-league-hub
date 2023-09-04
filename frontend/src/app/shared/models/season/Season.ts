@@ -37,8 +37,3 @@ export interface Team {
     imagePath: string
     colorHex: string
 }
-
-export class SeasonHome {
-    id: number = 1;
-    name: string = "Season 1";
-}

@@ -1,6 +1,18 @@
-<div class="text-item"> {{first}} </div>
-<div *ngIf="second" class="text-item second"> {{second}} </div>
-<div *ngIf="third" class="text-item third"> {{third}} </div>
+<div *ngIf="first" class="text-group text-item">
+    <div> {{first}} </div>
+    <div *ngIf="firstDescription" class="description">{{firstDescription}}</div>
+</div>
+
+<div *ngIf="second" class="text-group text-item">
+    <div> {{second}} </div>
+    <div *ngIf="secondDescription" class="description">{{secondDescription}}</div>
+</div>
+
+<div *ngIf="third" class="text-group text-item third">
+    <div> {{third}} </div>
+    <div *ngIf="thirdDescription" class="description">{{thirdDescription}}</div>
+</div>
+
 <div class="icon-container">
     <ng-content></ng-content>
 </div>
