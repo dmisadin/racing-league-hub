@@ -7,7 +7,8 @@ import { Assists } from 'app/shared/models/season/Assists';
 import { Info } from 'app/shared/models/season/Info';
 import { LobbySettings } from 'app/shared/models/season/LobbySettings';
 import { SeasonInsert } from 'app/shared/models/season/SeasonInsert';
-import { firstValueFrom } from 'rxjs';
+import { Subscription, firstValueFrom } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -23,6 +24,8 @@ export class SeasonFormsComponent {
     totalSteps = 8;
     preview = '';
     isSubmitted: boolean = false;
+    season$!: Subscription;
+    leagueId: number = 0;
     stepFormNames = ["info", "qualPoints", "sprintPoints", "racePoints", "fastestLapPoints", "lobbySettings", "assists"]
     infoValue = { name: "", gameId: 5, platformId: 1, lapsRequiredPercentage: 90 };
 
@@ -35,7 +38,13 @@ export class SeasonFormsComponent {
         // The rest of form group is added inside child components with parent.addControl()
     });
 
-    constructor(private fb: FormBuilder, private addSeasonService: AddSeasonService) { }
+    constructor(private fb: FormBuilder, private addSeasonService: AddSeasonService, private route: ActivatedRoute) { }
+
+    ngOnInit() {
+        this.season$ = this.route.params.subscribe(params => {
+            this.leagueId = params['leagueId'];
+        })
+    }
 
     onSubmit(): void {
         this.isSubmitted = true;
@@ -46,7 +55,7 @@ export class SeasonFormsComponent {
 
         var seasonInsert: SeasonInsert;
         seasonInsert = {
-            leagueId: 1,
+            leagueId: this.leagueId,
             gameId: this.infoValue.gameId,
             platformId: this.infoValue.platformId,
             imagePath: '',
@@ -54,9 +63,10 @@ export class SeasonFormsComponent {
             lapsRequiredPercentage: info.lapsRequiredPercentage,
             racePointsDto: this.seasonForm.get('racePoints')!.value,
             qualPointsDto: this.seasonForm.get('qualPoints')!.value,
+            sprintPointsDto: this.seasonForm.get('sprintPoints')!.value,
             fastestLapPointDto: fastestLapPoints[0] || { position: 10, points: 1 },
-            lobbySettingDto: this.seasonForm.get('lobbySettings')!.value,
-            assistDto: this.seasonForm.get('assists')!.value
+            lobbySettingsDto: this.seasonForm.get('lobbySettings')!.value,
+            assistsDto: this.seasonForm.get('assists')!.value
         }
         //Add redirect from form to created Season page.
         console.log(seasonInsert);

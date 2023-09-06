@@ -10,12 +10,12 @@ const routes: Routes = [
         component: SeasonFormsComponent
     },
     {
-        path: ':id',
+        path: ':seasonId',
         title: "Season",
         component: SeasonPageComponent
     },
     {
-        path: ':id/grandprix',
+        path: ':seasonId/grandprix',
         loadChildren: () => import("../grandprix/grandprix.module").then(m => m.GrandprixModule),
     }
 ];

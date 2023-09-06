@@ -15,13 +15,15 @@ export class GrandPrixComponent {
     gpItem$!: Subscription;
     gpItem = new GrandPrix();
     gpId: number = 0;
+    seasonId: number = 0;
     isDataLoaded: boolean = false;
     fastestLap = {driverName: '', teamId: 0, countryIso: 'hr',  lapTimeInMs: 0}
     constructor(private gpDataService: GrandprixDataService, private route: ActivatedRoute) { }
 
     ngOnInit(): void {
         this.gpItem$ = this.route.params.subscribe(params => {
-            this.gpId = params['id'];
+            this.gpId = params['grandPrixId'];
+            //this.seasonId = params['seasonId'];
         })
         if (this.gpId) {
             this.gpDataService.getOne(this.gpId).subscribe((data) => {
@@ -43,7 +45,6 @@ export class GrandPrixComponent {
                 }
             })
         }
-
     }
 
     goToYoutube() {

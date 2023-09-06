@@ -72,7 +72,7 @@ export class LeagueAddEditComponent {
             console.log(this.regionList)
         })
 
-        this.id = this.route.snapshot.params['id'];
+        this.id = this.route.snapshot.params['leagueId'];
         this.route.parent!.params.subscribe(params => {
             this.id = params['id'];
         });

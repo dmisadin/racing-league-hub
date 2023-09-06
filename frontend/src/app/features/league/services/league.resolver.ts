@@ -10,7 +10,7 @@ export class LeagueResolver implements Resolve<League> {
 
     resolve(route: ActivatedRouteSnapshot): Observable<League> {
 
-        const id = parseInt(route.paramMap.get("id") || '0');
+        const id = parseInt(route.paramMap.get("leagueId") || '0');
         return this.dataService.getById(id);
     }
 }

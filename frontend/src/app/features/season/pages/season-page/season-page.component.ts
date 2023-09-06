@@ -21,7 +21,7 @@ export class SeasonPageComponent {
 
     ngOnInit(): void {
         this.seasonItem$ = this.route.params.subscribe(params => {
-            this.seasonId = params['id'];
+            this.seasonId = params['seasonId'];
         })
         if (this.seasonId) {
             this.seasonDataService.getOne(this.seasonId).subscribe((data) => {

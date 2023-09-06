@@ -39,7 +39,7 @@ export class LeaguePageComponent {
 
     ngOnInit(): void {
         this.leagueItem$ = this.route.params.subscribe(params => {
-            this.leagueId = params['id'];
+            this.leagueId = params['leagueId'];
         })
         if (this.leagueId)
             this.leagueDataService.getById(this.leagueId).subscribe((data) => {

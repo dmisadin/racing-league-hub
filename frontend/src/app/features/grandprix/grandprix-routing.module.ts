@@ -11,7 +11,7 @@ const routes: Routes = [
         component: GrandPrixFormsComponent,
     },
     {
-        path: ":id",
+        path: ":grandPrixId",
         component: GrandPrixComponent,
     },
 ]

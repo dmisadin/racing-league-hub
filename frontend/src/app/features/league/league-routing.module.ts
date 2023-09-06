@@ -18,7 +18,7 @@ const routes: Routes = [
         component: LeagueAddEditComponent
     },
     {
-        path: ':id', 
+        path: ':leagueId', 
         title: 'League', 
         component: LeaguePageComponent,
         children: [
@@ -38,7 +38,7 @@ const routes: Routes = [
         ]
     },
     {
-        path: ':id/season', // Future rework?
+        path: ':leagueId/season', // Future rework?
         loadChildren: () => import("../season/season.module").then(m => m.SeasonModule),
     },
 ];

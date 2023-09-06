@@ -9,9 +9,9 @@ export class SeasonInsert{
   name : string = '';
   imagePath? : string | null = '';
   lapsRequiredPercentage? : number | null = 90;
+  lobbySettingsDto! : LobbySettings;
+  assistsDto! : Assists;
   racePointsDto! : Point[];
-  lobbySettingDto! : LobbySettings;
-  assistDto! : Assists;
   qualPointsDto? : Point[];
   sprintPointsDto? : Point[];
   fastestLapPointDto! : Point;
