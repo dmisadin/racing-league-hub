@@ -1,20 +1,19 @@
-@use ".././styles.scss" as v;
+@use "../styles.scss" as v;
 
 
 .grid-container {
-    padding-top: 96px;
+    position: absolute;
+    top: 64px;
+    left: 240px;
 
+    width: calc(100% - 240px);
+    padding: 20px 20px 64px 40px;
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-columns: 6fr 2fr;
     grid-template-rows: 1fr;
-    grid-column-gap: 0px;
+    grid-column-gap: 20px;
     grid-row-gap: 0px;
 
     justify-items: center;
     align-items: start;
-}
-
-
-#left-side {
-    width: 360px;
 }

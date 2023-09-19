@@ -74,7 +74,7 @@ export class LeagueAddEditComponent {
 
         this.id = this.route.snapshot.params['leagueId'];
         this.route.parent!.params.subscribe(params => {
-            this.id = params['id'];
+            this.id = params['leagueId'];
         });
 
         if (this.id) {
@@ -83,7 +83,7 @@ export class LeagueAddEditComponent {
             this.isEditMode = true;
             this.leagueDataService.getById(this.id)
                 .subscribe(data => {
-                    console.log(data)
+                    console.log("editmode data: ", data)
                     this.title = "Edit " + data.name;
                     this.buttonText = "Edit";
                     this.leagueForm.patchValue({...data, regionId: data.region?.id});

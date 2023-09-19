@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { DropdownModule } from '@coreui/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { DropdownModule } from '@coreui/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,10 +15,11 @@ import { BtnLargeComponent } from './shared/components/btn-large/btn-large.compo
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { SidebarRaceComponent } from './shared/components/sidebar-race/sidebar-race.component';
 import { LoginComponent } from './features/login/login.component';
-import { UserInfoComponent } from './shared/components/user-info/user-info.component';
 import { RegistrationComponent } from './features/registration/registration.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { UtilityBarComponent } from './shared/components/utility-bar/utility-bar.component';
+
 import {
     FontAwesomeModule,
     FaIconLibrary,
@@ -50,28 +51,28 @@ import { SharedModule } from './shared/shared.module';
         SidebarRaceComponent,
         LoginComponent,
         RegistrationComponent,
-        UserInfoComponent,
         DriverComponent,
         NotFoundComponent,
         LeaguesListComponent,
         FooterComponent,
+        UtilityBarComponent,
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        DropdownModule,
         HttpClientModule,
         FontAwesomeModule,
+        DropdownModule,
         ReactiveFormsModule,
         ColorPickerModule,
-        SharedModule
+        SharedModule,
     ],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
-            multi: true,
+            multi: true
         },
     ],
     bootstrap: [AppComponent],

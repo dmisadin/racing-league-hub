@@ -10,5 +10,7 @@ namespace F1StatsServer.Interface
         bool HasSprint(int id);
         Task<int> InsertResultsAsync(ResultInsertDto data, int id);
         Task<int> InsertResultsNoSprintAsync(ResultInsertDto data, int id);
+        Task<List<GrandPrixHomeDto>> GetGrandPrixStartingSoon();
+        Task<List<GrandPrixHomeDto>> GetGrandPrixLive();
     }
 }

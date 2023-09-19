@@ -10,6 +10,10 @@ import { FormAlertComponent } from './components/form-alert/form-alert.component
 import { SwitchComponent } from './components/switch/switch.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RaceRowComponent } from './components/race-row/race-row.component';
+import { UrlHttpPipe } from './pipes/url-http.pipe';
+import { DateDiffFromNowPipe } from './pipes/date-diff-from-now.pipe';
+import { NoSpacePipe } from './pipes/no-space.pipe';
+import { UserInfoComponent } from './components/user-info/user-info.component';
 
 @NgModule({
     declarations: [
@@ -19,8 +23,12 @@ import { RaceRowComponent } from './components/race-row/race-row.component';
         IconLabelComponent,
         FormAlertComponent,
         SwitchComponent,
-
         RaceRowComponent,
+        UserInfoComponent,
+
+        UrlHttpPipe,
+        DateDiffFromNowPipe,
+        NoSpacePipe,
     ],
     imports: [
         CommonModule,
@@ -34,8 +42,15 @@ import { RaceRowComponent } from './components/race-row/race-row.component';
         IconLabelComponent,
         FormAlertComponent,
         SwitchComponent,
-        
         RaceRowComponent,
+        UserInfoComponent,
+        
+        UrlHttpPipe,
+        DateDiffFromNowPipe,
+        NoSpacePipe,
+    ],
+    providers: [
+        DateDiffFromNowPipe,
     ]
 })
 export class SharedModule { }

@@ -22,10 +22,13 @@ namespace F1StatsServer.Repository
 
         public async Task<List<GrandPrixHomeDto>> GetDataAsync()
         {
+            DateTimeOffset threeHoursAgo = DateTimeOffset.Now.AddHours(-3);
+
             var query = (from GrandPrix in _context.Set<GrandPrix>()
                         join Season in _context.Set<Season>() on GrandPrix.SeasonId equals Season.Id
                         join League in _context.Set<League>() on Season.LeagueId equals League.Id
                         join Track in _context.Set<Track>() on GrandPrix.TrackId equals Track.Id
+                        where GrandPrix.StartTime < threeHoursAgo
                         orderby GrandPrix.StartTime descending
                         select new GrandPrixHomeDto
                         {
@@ -216,6 +219,80 @@ namespace F1StatsServer.Repository
         public bool HasSprint(int id)
         {
             return _context.Set<GrandPrix>().Where(d => d.Id == id).Select(p => p.HasSprint).FirstOrDefault();
+        }
+
+        public async Task<List<GrandPrixHomeDto>> GetGrandPrixStartingSoon()
+        {
+            var query =  from GrandPrix in _context.Set<GrandPrix>()
+                         join Season in _context.Set<Season>() on GrandPrix.SeasonId equals Season.Id
+                         join League in _context.Set<League>() on Season.LeagueId equals League.Id
+                         join Track in _context.Set<Track>() on GrandPrix.TrackId equals Track.Id
+                         where GrandPrix.StartTime > DateTime.Now
+                         orderby GrandPrix.StartTime ascending
+                         select new GrandPrixHomeDto
+                         {
+                             Id = GrandPrix.Id,
+                             Name = GrandPrix.Name,
+                             StartTime = GrandPrix.StartTime,
+                             YoutubeUrl = GrandPrix.YoutubeUrl,
+                             Season = new Dto.SeasonDtos.SeasonHomeDto
+                             {
+                                 Id = Season.Id,
+                                 Name = Season.Name,
+                             },
+                             League = new Dto.LeagueDtos.LeagueHomeDto
+                             {
+                                 Id = League.Id,
+                                 Name = League.Name
+                             },
+                             Track = new Dto.TrackDtos.TrackHomeDto
+                             {
+                                 Id = Track.Id,
+                                 Name = Track.Name,
+                                 Location = Track.Location
+                             }
+                         };
+            var result = await query.ToListAsync();
+
+            return result;
+        }
+
+        public async Task<List<GrandPrixHomeDto>> GetGrandPrixLive()
+        {
+            DateTimeOffset twoHoursAgo = DateTimeOffset.Now.AddHours(-2);
+
+            var query = from GrandPrix in _context.Set<GrandPrix>()
+                        join Season in _context.Set<Season>() on GrandPrix.SeasonId equals Season.Id
+                        join League in _context.Set<League>() on Season.LeagueId equals League.Id
+                        join Track in _context.Set<Track>() on GrandPrix.TrackId equals Track.Id
+                        where GrandPrix.StartTime >= twoHoursAgo && GrandPrix.StartTime <= DateTime.Now
+                        orderby GrandPrix.StartTime descending
+                        select new GrandPrixHomeDto
+                        {
+                            Id = GrandPrix.Id,
+                            Name = GrandPrix.Name,
+                            StartTime = GrandPrix.StartTime,
+                            YoutubeUrl = GrandPrix.YoutubeUrl,
+                            Season = new Dto.SeasonDtos.SeasonHomeDto
+                            {
+                                Id = Season.Id,
+                                Name = Season.Name,
+                            },
+                            League = new Dto.LeagueDtos.LeagueHomeDto
+                            {
+                                Id = League.Id,
+                                Name = League.Name
+                            },
+                            Track = new Dto.TrackDtos.TrackHomeDto
+                            {
+                                Id = Track.Id,
+                                Name = Track.Name,
+                                Location = Track.Location
+                            }
+                        };
+            var result = await query.ToListAsync();
+
+            return result;
         }
     }
 }

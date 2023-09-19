@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
             console.log(data)
         })
         this.leagueListService.fetchData().subscribe(data => {
-            this.popularLeagues = data.slice(0, 5);
+            this.popularLeagues = data;
             console.log(data)
         })
     }

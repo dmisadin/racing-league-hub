@@ -4,18 +4,18 @@ import { AuthService } from 'app/core/services/auth.service';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+    selector: 'app-navbar',
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  isLoggedIn$ = this.authService.isLoggedIn$;
-  constructor(public router: Router, private authService: AuthService) {}
+    isLoggedIn$ = this.authService.isLoggedIn$;
+    constructor(public router: Router, private authService: AuthService) { }
 
-  ngOnInit(): void {}
+    ngOnInit(): void { }
 
-  login() {
-    console.log('Klik na Login!');
-    this.router.navigate(['login']);
-  }
+    login() {
+        console.log('Klik na Login!');
+        this.router.navigate(['login']);
+    }
 }

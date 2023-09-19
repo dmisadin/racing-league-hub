@@ -1,8 +1,9 @@
+<!-- 
 <app-alert></app-alert>
 
 <app-announcement-carousel></app-announcement-carousel>
-
-<app-section-flex [direction]="'row'" [title]="''" [justify]="'space-between'">
+ -->
+<app-section-flex [direction]="'row'" [title]="'Explore racing community'" [justify]="'space-between'">
 
     <a routerLink="/leagues/add">
         <app-btn-large [label]="'Create your own league'" [iconName]="faPlus">
@@ -22,7 +23,7 @@
             [firstDescription]="item.track.location"
             [second]="item.league.name" 
             [secondDescription]="item.season.name"
-            [third]="calculateTimeSince(item.startTime) + ' ago'"
+            [third]="(item.startTime | dateDiffFromNow) + ' ago'"
             [routerLink]="['leagues', item.league.id, 'season', item.season.id ,'grandprix', item.id]"
             >
             <app-btn-custom
@@ -37,12 +38,12 @@
 <div>
     <app-section-flex [direction]="'column'" [title]="'Active seasons'">
         <app-race-row 
-            *ngFor="let item of popularLeagues;" 
-            [first]="item.name"
-            [routerLink]="['leagues', item.id]"
+            *ngFor="let league of popularLeagues;" 
+            [first]="league.name"
+            [routerLink]="['leagues', league.id]"
             >
-            <img src="../../../assets/images/game/black/F12021.svg" alt="F1 2021" class="racerow-icon">
-            <img src="../../../assets/images/icons/platform/steam.svg" alt="Steam" class="racerow-icon">
+            <img src="../../../assets/images/game/black/{{league.game.name | noSpace}}.svg" *ngIf="league.game" alt="Game" class="racerow-icon">
+            <img src="../../../assets/images/icons/platform/{{league.platform.name | lowercase}}.svg" *ngIf="league.platform" alt="Platform" class="racerow-icon">
         </app-race-row>
     </app-section-flex>
 </div>

@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class LeaguesListService {
     isDataLoaded: boolean = true;
     
-    private baseUrl = 'https://localhost:44347/api/League';
+    private baseUrl = 'https://localhost:44347/api/League/display';
 
     constructor(private http: HttpClient) { }
 

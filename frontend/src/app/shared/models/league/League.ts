@@ -3,6 +3,8 @@ import { Region } from "../Region";
 import { SocialMedia } from "../SocialMedia";
 import { LeagueUser } from "./LeagueUser";
 import { SeasonInLeague } from "../season/SeasonInLeague";
+import { Platform } from "../Platform";
+import { Game } from "../Game";
 
 export class League {
     id: number = 1;
@@ -13,5 +15,7 @@ export class League {
     socialMedia?: SocialMedia;
     region?: Region;
     seasonsInLeague?: SeasonInLeague[] = [];
+    platform?: Platform;
+    game?: Game;
     //leagueUsers?: LeagueUser[] = [];
 }
