@@ -1,9 +1,9 @@
-@use "../../../../../styles.scss" as v;
+@use "../../../../../app/shared/style/variables" as v;
 
 :host {
     padding: 0 20px;
     width: 100%;
-
+    min-width: 720px;
 
     display: flex;
     flex-direction: column;

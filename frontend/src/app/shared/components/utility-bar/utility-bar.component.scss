@@ -1,7 +1,4 @@
-@use "../../../../styles.scss" as v;
-
-
-@import "@coreui/coreui/scss/coreui";
+@use "../../../../app/shared/style/variables" as v;
 
 :host {
     position: fixed;
@@ -28,4 +25,18 @@ a {
     font-weight: 400;
     font-size: 32px;
     text-transform: uppercase;
+}
+
+.btn {
+    background-color: v.$neutral-100;
+    :hover {
+        background-color: v.$neutral-300;
+    }
+}
+li button:focus {
+    background-color: v.$primary;
+}
+
+.dropdown-menu {
+    background-color: v.$neutral-200;
 }

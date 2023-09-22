@@ -1,12 +1,12 @@
-@use "../styles.scss" as v;
+@use "../app/shared/style/variables" as v;
 
 
 .grid-container {
     position: absolute;
     top: 64px;
-    left: 240px;
+    left: 200px;
 
-    width: calc(100% - 240px);
+    width: calc(100% - 200px);
     padding: 20px 20px 64px 40px;
     display: grid;
     grid-template-columns: 6fr 2fr;

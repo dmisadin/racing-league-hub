@@ -1,42 +1,42 @@
-@use "../../../../styles.scss" as v;
+@use "../../../../app/shared/style/variables" as v;
 
 
 :host {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 16px;
 
-  width: 100%;
-  height: fit-content;
+    width: 100%;
+    height: fit-content;
 }
 
 :host-context(.wrapping) .flex-container {
-  flex-wrap: wrap;
+    flex-wrap: wrap;
 }
 
 .flex-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    //align-items: center;
+    gap: 16px;
 
-  width: 100%;
-  height: fit-content;
+    width: 100%;
+    height: fit-content;
 }
 
 h1 {
-  align-self: flex-start;
-  height: 48px;
+    align-self: flex-start;
+    height: 48px;
 
-  font-family: v.$title-family;
-  font-size:  v.$title-size-l;
-  color: v.$neutral-900;
+    font-family: v.$title-family;
+    font-size: v.$title-size-l;
+    color: v.$neutral-900;
 }
 
 h2 {
-  color: v.$neutral-800;
-  font-family: v.$title-family;
-  font-size: v.$title-size-m;
+    color: v.$neutral-800;
+    font-family: v.$title-family;
+    font-size: v.$title-size-m;
 }

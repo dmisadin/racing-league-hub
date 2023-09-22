@@ -8,18 +8,5 @@
     (OnClick)="login()">
 </app-btn-custom>
 <ng-template #loggedUser>
-    <c-dropdown>
-        <button cDropdownToggle>{{name}}</button>
-        <ul cDropdownMenu style="background-color: white;">
-            <li><button cDropdownItem>Action</button></li>
-            <li><button cDropdownItem>Get me!</button></li>
-            <li><button cDropdownItem>Something else here</button></li>
-            <li>
-                <button (click)="logout()" cDropdownItem>
-                    Logout!
-                </button>
-            </li>
-        </ul>
-    </c-dropdown>
+    <button (click)="logout()"> Logout! </button>
 </ng-template>
-

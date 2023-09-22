@@ -1,4 +1,4 @@
-@use "../../../../../../styles.scss" as v;
+@use "../../../../../../app/shared/style/variables" as v;
 @import "../../../../../shared/style/table.scss";
 
 @include table-setup;
@@ -33,6 +33,7 @@ td img {
     height: 40px;
     overflow: hidden;
     border-radius: 50%;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
 }
 
 th div.flag {
@@ -52,10 +53,6 @@ td div.flag {
 
 .points {
     text-align: center;
-}
-
-.shadow {
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
 }
 
 .tyres {

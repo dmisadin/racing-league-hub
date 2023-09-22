@@ -87,14 +87,13 @@
     
     
     <app-section-flex [direction]="'row'" class="wrapping" [title]="'Race calendar'" [justify]="'space-between'" [gap]="'16px'">
-        <a *ngFor="let gp of seasonItem.grandPrixes" [routerLink]="['grandprix', gp.id]">
-            <app-race-card
-            [gpName]="gp.track.countryName"
-            [startTime]="gp.startTime"
-            [trackId]="gp.track.id"
-            [trackName]="gp.track.name"
-            [countryIso]="gp.track.countryIso"
-            ></app-race-card>
-        </a>
+        <app-race-card *ngFor="let gp of seasonItem.grandPrixes" 
+                        [routerLink]="['grandprix', gp.id]"
+                        [gpName]="gp.track.countryName"
+                        [startTime]="gp.startTime"
+                        [trackId]="gp.track.id"
+                        [trackName]="gp.track.name"
+                        [countryIso]="gp.track.countryIso">
+        </app-race-card>
     </app-section-flex>
 </ng-container>

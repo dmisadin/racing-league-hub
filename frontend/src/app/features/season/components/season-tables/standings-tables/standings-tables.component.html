@@ -7,7 +7,7 @@
                 <th>Country</th>
                 <th>Driver</th>
                 <th *ngFor="let g of grandPrixes" [routerLink]="['grandprix', g.id]" class="link">
-                    <div class="flag shadow" [routerLink]="['grandprix', g.id]">
+                    <div class="flag" [routerLink]="['grandprix', g.id]">
                         <img src="../../../../../assets/images/country/flags/{{g.track.countryIso | lowercase}}.svg" alt="race" />
                     </div>
                 </th>
@@ -23,8 +23,8 @@
                     <img src="../../../../assets/images/teams/{{ driver.teamId }}.png" alt="" />
                 </td>
                 <td>
-                    <div class="flag shadow">
-                        <img class="shadow"
+                    <div class="flag">
+                        <img
                             src="../../../../../assets/images/country/flags/{{driver.countryIso | lowercase}}.svg"
                             alt="race" />
                     </div>
@@ -50,7 +50,7 @@
                 <th>Team</th>
                 <th></th>
                 <th *ngFor="let gp of grandPrixes">
-                    <div class="flag shadow">
+                    <div class="flag">
                         <img src="{{'https://hatscripts.github.io/circle-flags/flags/' + (gp.track.countryIso | lowercase)  + '.svg'}}"
                             alt="race" />
                     </div>

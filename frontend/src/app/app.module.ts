@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'ngx-color-picker';
-import { DropdownModule } from '@coreui/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -63,7 +62,6 @@ import { SharedModule } from './shared/shared.module';
         BrowserAnimationsModule,
         HttpClientModule,
         FontAwesomeModule,
-        DropdownModule,
         ReactiveFormsModule,
         ColorPickerModule,
         SharedModule,

@@ -1,4 +1,4 @@
-@use "../../../styles.scss" as v;
+@use "../../../app/shared/style/variables" as v;
 
 @mixin table-setup {
 
@@ -17,7 +17,7 @@
         border: 0px solid;
     }
 
-    tr:hover {
+    tr:hover td {
         background-color: v.$neutral-100;
     }
 
