@@ -1,0 +1,40 @@
+<div cdkDropList class="result-table" (cdkDropListDropped)="drop($event)" [formGroup]="raceResultFrom">
+    <ng-container formArrayName="results">
+        <div [formGroupName]="i"
+            class="result-row" 
+            *ngFor="let race of results.controls; let i = index" 
+            cdkDrag>
+            <fa-icon [icon]="faUpDown" [size]="'xl'"></fa-icon>
+            <input formControlName="position" type="number" placeholder=1>
+    
+            <select formControlName="driverId">
+                <option *ngFor="let d of drivers" value={{d.id}} >{{d.name}}</option>
+            </select>
+    
+            <select formControlName="teamId">
+                <option *ngFor="let t of teams" value={{t.id}}>{{t.name}}</option>
+            </select>
+    
+            <input formControlName="raceTime" type="number" placeholder=1234.567 class="wide-input">
+
+            
+            <select formControlName="resultStatus">
+                <option *ngFor="let status of resultStatus; let i = index" value={{status.code}}>{{status.value}}</option>
+            </select>
+
+            <input formControlName="timePenalty" type="number" placeholder=3>
+
+            <input formControlName="postRaceTimePenalty" type="number" placeholder=5>
+
+            <input formControlName="gridPosition" type="number" placeholder=5>
+
+            <input formControlName="fastestLapInMs" type="number" placeholder=78901 class="wide-input">
+
+            <input formControlName="pointsGained" type="number" placeholder=25>
+
+            <app-switch [controlName]="'isReserve'" [onOff]="false"></app-switch>
+
+            <input formControlName="usedTyres" type="text" placeholder=smhiw>
+        </div>
+    </ng-container>
+</div>

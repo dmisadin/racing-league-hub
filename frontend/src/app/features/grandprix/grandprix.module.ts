@@ -12,6 +12,7 @@ import { GrandprixRoutingModule } from './grandprix-routing.module';
 import { SharedModule } from 'app/shared/shared.module';
 
 import { RaceTimePipe } from 'app/shared/pipes/race-time.pipe';
+import { GrandprixRaceResultFormComponent } from './components/grandprix-forms/grandprix-race-result-form/grandprix-race-result-form.component';
 
 
 
@@ -24,6 +25,7 @@ import { RaceTimePipe } from 'app/shared/pipes/race-time.pipe';
         TableRaceResultComponent,
 
         RaceTimePipe,
+          GrandprixRaceResultFormComponent,
     ],
     imports: [
         CommonModule,

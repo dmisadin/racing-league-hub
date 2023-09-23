@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DragDropModule} from '@angular/cdk/drag-drop';
 
 import { SectionFlexComponent } from './components/section-flex/section-flex.component';
 import { BtnCustomComponent } from './components/btn-custom/btn-custom.component';
@@ -34,6 +35,7 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
         CommonModule,
         FontAwesomeModule,
         ReactiveFormsModule,
+        DragDropModule
     ],
     exports: [
         SectionFlexComponent,
@@ -48,6 +50,9 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
         UrlHttpPipe,
         DateDiffFromNowPipe,
         NoSpacePipe,
+
+        DragDropModule,
+        FontAwesomeModule,
     ],
     providers: [
         DateDiffFromNowPipe,
