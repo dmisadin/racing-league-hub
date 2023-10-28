@@ -1,0 +1,21 @@
+{
+  "name": "gamestate",
+  "version": "1.0.0",
+  "description": "Catch events from game state.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "f1",
+    "codemasters",
+    "udp",
+    "telemetry"
+  ],
+  "author": "Dominik Mišadin",
+  "license": "MIT",
+  "dependencies": {
+    "@racehub-io/f1-telemetry-client": "^0.2.12",
+    "express": "^4.18.2"
+  }
+}

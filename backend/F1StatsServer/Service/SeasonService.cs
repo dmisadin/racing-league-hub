@@ -28,6 +28,17 @@ namespace F1StatsServer.Service
 
         }
 
+        public async Task<SeasonSessionPointsDto> GetSeasonSessionPointsAsync(int id)
+        {
+            if (!_genericRepository.Has(id))
+                return null;
+
+            var item = await _seasonRepository.GetSeasonSessionPoints(id);
+
+            return item;
+
+        }
+
 
         public async Task<int> InsertSeasonAsync(SeasonInsertDto data)
         {

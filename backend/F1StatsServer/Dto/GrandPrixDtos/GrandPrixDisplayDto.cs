@@ -7,6 +7,7 @@ namespace F1StatsServer.Dto.GrandPrixDtos
 {
     public class GrandPrixDisplayDto
     {
+        public int Id { get; set; }
         public string? Name { get; set; }
 
         public DateTimeOffset? StartTime { get; set; }

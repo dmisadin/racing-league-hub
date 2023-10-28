@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
+import { SessionPointsService } from 'app/core/services/season-list.service';
 import { GrandprixDataService } from 'app/features/grandprix/services/grandprix-data.service';
 import { GrandPrix } from 'app/shared/models/grandprix/GrandPrix';
+import { SessionPoints } from 'app/shared/models/season/SessionPoints';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -16,14 +18,18 @@ export class GrandPrixComponent {
     gpItem = new GrandPrix();
     gpId: number = 0;
     seasonId: number = 0;
+    sessionPoints?: SessionPoints;
     isDataLoaded: boolean = false;
-    fastestLap = {driverName: '', teamId: 0, countryIso: 'hr',  lapTimeInMs: 0}
-    constructor(private gpDataService: GrandprixDataService, private route: ActivatedRoute) { }
+    fastestLap = { driverName: '', teamId: 0, countryIso: 'hr', lapTimeInMs: 0 }
+
+    constructor(private gpDataService: GrandprixDataService,
+        private sessionPointsService: SessionPointsService,
+        private route: ActivatedRoute) { }
 
     ngOnInit(): void {
         this.gpItem$ = this.route.params.subscribe(params => {
             this.gpId = params['grandPrixId'];
-            //this.seasonId = params['seasonId'];
+            this.seasonId = params['seasonId'];
         })
         if (this.gpId) {
             this.gpDataService.getOne(this.gpId).subscribe((data) => {
@@ -31,19 +37,26 @@ export class GrandPrixComponent {
                 this.gpItem = data;
                 this.isDataLoaded = true;
 
-                if(data.fastestDriverId){
+                if (data.fastestDriverId) {
                     const raceEntry = data.race.find(r => r.driverId === data.fastestDriverId)
-                    if(raceEntry) {
+                    if (raceEntry) {
                         const driver = data.drivers!.find(d => d.id === data.fastestDriverId);
                         this.fastestLap = {
                             driverName: driver!.name,
-                            teamId: raceEntry.teamId, 
-                            countryIso: driver!.countryIso,  
+                            teamId: raceEntry.teamId,
+                            countryIso: driver!.countryIso,
                             lapTimeInMs: raceEntry.fastestLapInMs as number,
                         }
                     }
                 }
-            })
+            });
+        }
+
+        if (this.seasonId) {
+            this.sessionPointsService.getOne(this.seasonId).subscribe(data => {
+                this.sessionPoints = data;
+                console.log(this.sessionPoints)
+            });
         }
     }
 

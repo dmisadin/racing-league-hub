@@ -1,4 +1,4 @@
-@use "../../../../../shared/style/variables";
+@use "../../../../../shared/style/variables" as v;
 @import "../../../../../shared/style/form.scss";
 
 :host {
@@ -9,22 +9,27 @@
 @include input-fields-small;
 @include select-small;
 
-input.wide-input {
-    width: 100px;
-}
-
 option {
     text-transform: capitalize;
+}
+
+.table-input-header {
+    display: grid;
+    grid-template-columns: 100px 126px 132px 100px 88px repeat(3, 40px) 100px repeat(2, 40px) 100px;
+    grid-template-rows: 1fr;
+    align-items: center;
+
+    font-size: v.$text-size-xs;
 }
 
 // Drag and drop related styling
 .result-table {
     width: 100%;
     max-width: 100%;
-    border: solid 1px #ccc;
+    border: solid 1px v.$neutral-300;
     min-height: 60px;
     display: block;
-    background: white;
+    background: v.$neutral-100;
     border-radius: 4px;
     overflow: hidden;
 }
@@ -32,18 +37,37 @@ option {
 .result-row {
     width: 100%;
     height: 48px;
-    padding: 20px 10px;
+    padding: 0 10px;
 
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+    gap: 4px;
     
-    cursor: move;
-    border-bottom: solid 1px #ccc;
+    cursor: grab;
+    border-bottom: solid 1px v.$neutral-300;
     color: rgba(0, 0, 0, 0.87);
-    background: white;
-    font-size: 14px;
+    background: v.$neutral-100;
+
+    font-size: v.$text-size-xs;
+    text-align: center;
+
+    img.icon {
+        width: 40px;
+        padding: 6px;
+    }
+}
+div[cdkDragDisabled] {
+    cursor: default;
+
+    :last-child {
+        text-align: center;
+    }
+}
+
+.cdk-drop-list-dragging {
+    cursor: grabbing;
 }
 
 .cdk-drag-preview {

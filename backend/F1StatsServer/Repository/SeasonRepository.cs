@@ -108,5 +108,24 @@ namespace F1StatsServer.Repository
 
             return await query;
         }
+
+        public async Task<SeasonSessionPointsDto> GetSeasonSessionPoints(int id)
+        {
+            var query = _context.Set<Season>()
+                                .AsSplitQuery()
+                                .AsNoTracking()
+                                .Where(season => season.Id == id)
+                                .Select(season => new SeasonSessionPointsDto
+                                {
+                                    QualPoints = MyMapper<SeasonPointsDto, SeasonQualPoints>.MapList(season.SeasonQualPoints.ToList()),
+                                    RacePoints = MyMapper<SeasonPointsDto, SeasonRacePoints>.MapList(season.SeasonRacePoints.ToList()),
+                                    SprintPoints = MyMapper<SeasonPointsDto, SeasonSprintPoints>.MapList(season.SeasonSprintPoints.ToList()),
+                                    FastestLapPoints = MyMapper<SeasonPointsDto, SeasonFastestLapPoints>.Map(season.SeasonFastestLapPoint),
+
+                                }).FirstOrDefaultAsync();
+
+            return await query;
+        }
     }
+
 }

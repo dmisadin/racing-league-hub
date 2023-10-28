@@ -28,7 +28,8 @@
 <app-section-flex *ngIf="isDataLoaded" [direction]="'row'" [title]="'Race results form'">
     <app-grandprix-race-result-form [session]="gpItem.race" 
                                     [drivers]="gpItem.drivers"
-                                    [teams]="gpItem.teams">
+                                    [teams]="gpItem.teams"
+                                    [sessionPoints]="sessionPoints">
     </app-grandprix-race-result-form>
 </app-section-flex>
 

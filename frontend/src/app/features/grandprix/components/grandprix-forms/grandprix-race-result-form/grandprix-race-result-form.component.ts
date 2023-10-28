@@ -2,10 +2,11 @@ import { Component, Input } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { RaceResult } from 'app/shared/models/grandprix/Results';
 import { Driver, Team } from 'app/shared/models/season/Season';
-import { AbstractControl, ControlContainer, FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, ControlContainer, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faUpDown } from '@fortawesome/free-solid-svg-icons';
 import { resultStatus } from 'app/shared/models/resultStatus';
+import { SessionPoints } from 'app/shared/models/season/SessionPoints';
 
 @Component({
     selector: 'app-grandprix-race-result-form',
@@ -16,13 +17,9 @@ export class GrandprixRaceResultFormComponent {
     @Input() session: RaceResult[] = [];
     @Input() drivers: Driver[] = [];
     @Input() teams: Team[] = [];
+    @Input() sessionPoints?: SessionPoints;
     faUpDown = faUpDown;
-    resultStatus = Object.values(resultStatus);
-    movies = [
-        { position: 1, ime: "magija" },
-        { position: 2, ime: "shrooom" },
-        { position: 3, ime: "Dux" },
-    ];
+    resultStatus = Object.values(resultStatus).slice(3, 8);
     grandprixId = 0;
 
     constructor(private fb: FormBuilder,
@@ -34,12 +31,14 @@ export class GrandprixRaceResultFormComponent {
     })
 
     ngOnInit() {
-        console.log(this.session)
         this.grandprixId = this.route.snapshot.params['grandprixId'];
         this.session.forEach((el) => {
             this.addResult(el)
         });
-        console.log(this.resultStatus)
+
+        if (this.sessionPoints) {
+
+        }
     }
 
     get results() {
@@ -48,10 +47,11 @@ export class GrandprixRaceResultFormComponent {
 
     addResult(result: RaceResult) {
         const resultRow = this.fb.group({
+            id: [result.id],
             grandprixId: [this.grandprixId],
             teamId: [result.teamId],
             driverId: [result.driverId],
-            position: [result.position],
+            position: [{value: result.position, disabled: true}],
             raceTime: [result.raceTime],
             resultStatus: [result.resultStatus],
             timePenalty: [result.timePenalty],
@@ -59,7 +59,7 @@ export class GrandprixRaceResultFormComponent {
             lapsCompleted: [result.lapsCompleted],
             gridPosition: [result.gridPosition],
             fastestLapInMs: [result.fastestLapInMs],
-            pointsGained: [result.pointsGained],
+            pointsGained: [{value: result.pointsGained, disabled: true}],
             isReserve: [result.isReserve],
             usedTyres: [result.usedTyres],
         });
@@ -67,27 +67,50 @@ export class GrandprixRaceResultFormComponent {
     }
 
     drop(event: CdkDragDrop<string[]>) {
-        moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+        let formArrayValue: RaceResult[] = this.results.getRawValue(); //za vrijednosti i disableanih FormControla
+        const minIndex = Math.min(event.previousIndex, event.currentIndex);
+        const maxIndex = Math.max(event.previousIndex, event.currentIndex);
+        console.log(minIndex, maxIndex)
 
-        this.session.forEach((el, i) => el.position = i + 1)
+        moveItemInArray(formArrayValue, event.previousIndex, event.currentIndex);
+        
+        for (let i = minIndex; i <= maxIndex; i++) {
+            formArrayValue[i].position = i + 1;
+        }
+        const positionWithFastestLap = this.findPositionWithFastestLap(formArrayValue);
+
+        formArrayValue.forEach((el: RaceResult, i: number) => {
+            el.pointsGained = this.calculatePointsGained(el.position, positionWithFastestLap);
+        })
+
+
+        //let formValueSorted = this.results.value.sort((a: RaceResult, b: RaceResult) => a.position - b.position);
+        this.results.patchValue(formArrayValue);
+        console.log("TEST PATCH VALUE ", this.results.value)
+    }
+
+    findPositionWithFastestLap(results: RaceResult[]): number {
+        const raceResult = results.reduce((prev, curr) => {
+            if (curr.fastestLapInMs && prev.fastestLapInMs)
+                return curr.fastestLapInMs < prev.fastestLapInMs ? curr : prev;
+            else if (!curr.fastestLapInMs)
+                return prev;
+            else
+                return curr;
+        });
+        return raceResult.position;
+    }
+
+    calculatePointsGained(position: number, positionWithFastestLap: number) {
+        let pointsSum = 0;
+        if (this.sessionPoints?.racePoints)
+            pointsSum += this.sessionPoints.racePoints.find(rp => rp.position === position)?.points || 0;
+
+        if (this.sessionPoints?.fastestLapPoints
+            && position === positionWithFastestLap
+            && position <= this.sessionPoints.fastestLapPoints.position) {
+            pointsSum += this.sessionPoints.fastestLapPoints.points;
+        }
+        return pointsSum;
     }
 }
-
-/*
-{
-            grandprixId: [this.grandprixId],
-            teamId: [0],
-            driverId: [0],
-            position: [0],
-            raceTime: [0.0],
-            resultStatus: [3],
-            timePenalty: [0],
-            postRaceTimePenalty: [0],
-            lapsCompleted: [0],
-            gridPosition: [0],
-            fastestLapInMS:  [0],
-            pointsGained: [0],
-            isReserve: [false],
-            usedTyres: [""],
-        }
-*/
