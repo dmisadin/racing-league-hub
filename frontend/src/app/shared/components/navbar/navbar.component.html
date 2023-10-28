@@ -1,14 +1,11 @@
-<a routerLink="/">
-    <p>f1 league stats</p>
-</a>
-<app-btn-custom
-  *ngIf="!(isLoggedIn$ | async); else loggedUser"
-  [label]="'Login'"
-  [colorClass]="'light'"
-  (OnClick)="login()"
->
-</app-btn-custom>
-
-<ng-template #loggedUser>
-  <app-user-info></app-user-info>
-</ng-template>
+<ul>
+    <li [routerLink]="['/']">
+        Leagues
+    </li>
+    <li [routerLink]="['/']">
+        Second
+    </li>
+    <li [routerLink]="['/']">
+        Third
+    </li>
+</ul>

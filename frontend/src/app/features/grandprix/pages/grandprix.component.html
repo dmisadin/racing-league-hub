@@ -1,0 +1,85 @@
+<img *ngIf="!isDataLoaded" src="../../../assets/images/common/loading.gif" alt="Loading..." class="loading" />
+
+<app-section-flex *ngIf="isDataLoaded" [direction]="'row'">
+    <div class="flex-text-column">
+        <h1>{{ gpItem.name }}</h1>
+        <h2>F1 Adria Liga</h2>
+        <div class="track-name">
+            {{ gpItem.track.name + " - " + (gpItem.startTime | date : "d MMMM y") }}
+        </div>
+        <app-btn-custom [faIcon]="faPlay" [label]="'Race Video'" (click)="goToYoutube()"></app-btn-custom>
+        <app-section-flex [direction]="'row'" class="wrapping" [justify]="'flex-start'">
+            <app-icon-label [iconPath]="'track_features/cornersTotal.svg'" [name]="'Turns'">{{
+                gpItem.track.cornersTotal }}</app-icon-label>
+            <app-icon-label [iconPath]="'track_features/cornersLeft.svg'" [name]="'Left turns'">{{
+                gpItem.track.cornersLeft }}</app-icon-label>
+            <app-icon-label [iconPath]="'track_features/cornersRight.svg'" [name]="'Right turns'">{{
+                gpItem.track.cornersTotal - gpItem.track.cornersLeft
+                }}</app-icon-label>
+            <app-icon-label [iconPath]="'track_features/length.svg'" [name]="'Track length'">{{ gpItem.track.length
+                + "m" }}</app-icon-label>
+            <app-icon-label [iconPath]="'track_features/elevation.svg'" [name]="'Elevation change'">{{
+                gpItem.track.elevation + "m" }}</app-icon-label>
+        </app-section-flex>
+    </div>
+    <img class="track-map" src="../../../assets/images/track/map_detail/{{ gpItem.track.id }}.png" alt="" />
+</app-section-flex>
+
+<app-section-flex *ngIf="isDataLoaded" [direction]="'row'" [title]="'Race results form'">
+    <app-grandprix-race-result-form [session]="gpItem.race" 
+                                    [drivers]="gpItem.drivers"
+                                    [teams]="gpItem.teams"
+                                    [sessionPoints]="sessionPoints">
+    </app-grandprix-race-result-form>
+</app-section-flex>
+
+<app-section-flex *ngIf="isDataLoaded && gpItem.race.length" 
+                [width]="'fit-content'" 
+                [title]="'Race results'">
+    <app-table-race-result [session]="gpItem.race" 
+                        [drivers]="gpItem.drivers"
+                        [teams]="gpItem.teams">
+    </app-table-race-result>
+</app-section-flex>
+
+<app-section-flex *ngIf="isDataLoaded && gpItem.qualifying.length"
+                [width]="'fit-content'" 
+                [title]="'Qualifying results'">
+    <app-table-qualifying-result [session]="gpItem.qualifying"
+                                [drivers]="gpItem.drivers">
+    </app-table-qualifying-result>
+</app-section-flex>
+
+    <app-section-flex *ngIf="gpItem.sprint.length" [title]="'Sprint results'">
+        sprint rez
+    </app-section-flex>
+
+        <app-section-flex *ngIf="isDataLoaded && gpItem.fastestDriverId" 
+                        [title]="'Fastest lap of the race'" 
+                        [direction]="'row'" 
+                        [justify]="'flex-start'">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Team</th>
+                        <th colspan="2">Driver</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img src="../../../../assets/images/teams/{{fastestLap.teamId}}.png" alt="" />
+                        </td>
+                        <td>
+                            <div class="flag">
+                                <img src="https://hatscripts.github.io/circle-flags/flags/{{fastestLap.countryIso | lowercase}}.svg" alt="flag" />
+                            </div>
+                        </td>
+                        <td class="driver-name">{{ fastestLap.driverName }}</td>
+                        <td>{{ fastestLap.lapTimeInMs / 1000 | raceTime }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </app-section-flex>
+

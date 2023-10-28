@@ -1,6 +1,6 @@
-:host {    
+:host {
     position: sticky;
-    top: 64px;
+    top: 84px;
 
     width: 100%;
     height: fit-content;
@@ -9,7 +9,11 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    gap: 32px; 
-    
-    padding: 20px;
+    gap: 32px;
+
+    padding: 0 20px 20px;
+}
+
+[ng-reflect-router-link] {
+    cursor: pointer;
 }

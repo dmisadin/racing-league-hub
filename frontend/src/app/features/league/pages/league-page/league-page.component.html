@@ -1,0 +1,20 @@
+
+<router-outlet (activate)="onOutletLoaded($event)"> </router-outlet>
+
+<app-section-flex [title]="'All seasons'" [direction]="'row'" class="wrapping" [gap]="'20px 10px'">
+    <!--     <app-season-card
+        [logoPath]="'../../../assets/images/league/league-logo.png'" 
+        [gameName]="'F1 2021'" 
+        [text]="'Sezona 1'" 
+        [subtext]="'Jun 2023 - Oct 2023'">
+    </app-season-card>
+ -->
+    <ng-container *ngFor="let season of leagueItem.seasonsInLeague">
+        <app-season-card 
+            [routerLink]="['season', season.id]"
+            [text]="season.name"
+            [subtext]="(season.startTime | date:'MMM y') + ' - ' + (season.endTime | date: 'MMM y')" 
+            [gameName]="season.game.name">
+        </app-season-card>
+    </ng-container>
+</app-section-flex>

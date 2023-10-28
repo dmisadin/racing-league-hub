@@ -1,4 +1,4 @@
-@use "../../../../styles.scss" as v;
+@use "../../../../app/shared/style/variables" as v;
 
 :host {
     width: 320px;
@@ -10,6 +10,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 20px;
+    flex-grow: 1;
 
     background: v.$gradient;
     border-radius: 16px;

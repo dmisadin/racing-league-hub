@@ -38,5 +38,17 @@ namespace F1StatsServer.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("SessionPoints/{id}")]
+        [ProducesResponseType(200, Type = typeof(SeasonSessionPointsDto))]
+        public async Task<IActionResult> GetSeasonSessionPoints(int id)
+        {
+            var result = await _seasonService.GetSeasonSessionPointsAsync(id);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+        }
     }
 }

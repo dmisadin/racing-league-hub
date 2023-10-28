@@ -1,5 +1,5 @@
 # f1-league-stats
-Application for F1 League Statistics using SQL Server, .NET backend and Angular frontend.
+Application for F1 League Statistics using SQL Server, .NET Core 6 Web API for backend and Angular 16 frontend.
 
 ## Useful documentation:
 - [F1 22 UDP Data Output](https://answers.ea.com/t5/General-Discussion/F1-22-UDP-Specification/td-p/11551274)

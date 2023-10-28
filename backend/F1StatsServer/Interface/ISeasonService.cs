@@ -6,5 +6,6 @@ namespace F1StatsServer.Interface
     {
         Task<int> InsertSeasonAsync(SeasonInsertDto data);
         Task<SeasonDisplayDto> GetSeasonDataAsync(int id);
+        Task<SeasonSessionPointsDto> GetSeasonSessionPointsAsync(int id);
     }
 }

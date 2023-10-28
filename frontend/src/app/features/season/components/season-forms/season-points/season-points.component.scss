@@ -1,0 +1,52 @@
+@use "../../../../../../app/shared/style/variables" as v;
+@import "../../../../../shared/style/form.scss";
+@import "../../../../../shared/style/flex.scss";
+
+@include input-fields;
+@include form-setup;
+
+:host {
+    align-self: center;
+}
+
+.input-fields {
+    /* max-height: 60vh; */
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    /* flex-wrap: wrap; */
+}
+
+.labels {
+    width: fit-content;
+
+    display: flex;
+    justify-content: center;
+    gap: 16px
+
+}
+
+label {
+    width: 80px;
+}
+fa-icon {
+    font-size: v.$text-size-s;
+    color: white;
+}
+.buttons {
+    @include flex-row;
+    width: 100%;
+    justify-content: space-evenly;
+}
+button {
+    width: fit-content;
+    margin-bottom: 16px;
+    display: inline;
+}
+
+.flex-row {
+    justify-content: space-between;
+}

@@ -1,4 +1,4 @@
-@use "../../../../styles.scss" as v;
+@use "../../../../app/shared/style/variables" as v;
 
 :host {
     width: 100%;
@@ -11,6 +11,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 8px;
 
     font-family: v.$text-family;
 }
@@ -48,7 +49,7 @@
 }
 
 .time-remaining {
-    width: fit-content;
+    width: 20%;
     height: 100%;
     font-size: v.$text-size-s;
     color: v.$neutral-500;

@@ -1,4 +1,4 @@
-@use "../../../styles.scss" as v;
+@use "../../../app/shared/style/variables" as v;
 @import "./font.scss";
 
 @mixin form-setup {
@@ -341,5 +341,172 @@
         &:checked+.switch__box .switch__check {
             background: v.$neutral-300;
         }
+    }
+}
+
+
+// SMALLER VERSION
+@mixin input-fields-small {
+   
+
+    input[type=text],
+    textarea,
+    input[type=email],
+    input[type=password],
+    input[type=number],
+    input[type=datetime-local] {
+        height: 32px;
+        max-width: 100px;
+        padding: 4px 8px;
+
+        font-family: v.$text-family;
+        font-size: v.$text-size-xs;
+        color: v.$neutral-900;
+        background-color: v.$neutral-200;
+
+        border-radius: 4px;
+        border: 1px solid v.$neutral-300;
+
+
+    }
+    input.ng-dirty.ng-invalid {
+        background-color: v.$error-light;
+        border-color: v.$error-red;
+        color: v.$error-dark;
+        :focus{
+            border-color: v.$error-red;
+        }   
+    }
+
+    textarea {
+        height: 90px;
+        padding: 16px 20px;
+    }
+
+    input[type=text]:focus,
+    input[type=number]:focus,
+    textarea:focus {
+        border: 1px solid v.$neutral-800;
+    }
+
+    /*     input[type=text]::placeholder {
+        text-transform: capitalize;
+    } */
+    label::first-letter {
+        text-transform: uppercase;
+    }
+
+    label {
+        align-self: baseline;
+
+        display: block;
+        margin-bottom: -8px;
+
+        color: v.$neutral-800;
+        font-size: v.$text-size-xs;
+    }
+
+    .label-flex {
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: -8px;
+
+        font-size: v.$text-size-xs;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    button {
+        border-radius: 8px;
+        padding: 8px 24px;
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+
+        /* Description/M */
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: v.$text-size-xs;
+        line-height: 150%;
+
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+        color: v.$neutral-100;
+        background-color: v.$secondary;
+        cursor: pointer;
+    }
+
+    button:disabled {
+        cursor: default;
+        color: v.$neutral-500;
+        background-color: v.$neutral-200;
+    }
+
+
+    .label-input-row {
+        width: 400px;
+        height: 32px;
+
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+    }
+
+    .unit {
+        margin-left: -32px;
+    }
+
+    /* HIDE ARROWS IN NUMBER INPUT*/
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        width: 40px;
+        appearance: textfield;
+        -moz-appearance: textfield;
+    }
+
+    .placeholder {
+        margin: -53px 0 14px 21px;
+    }
+}
+
+@mixin select-small {
+    select {
+        height: 32px;
+        width: fit-content;
+        padding: 4px 8px;
+
+        font-family: v.$text-family;
+        font-size: v.$text-size-xs;
+
+        cursor: pointer;
+        color: v.$neutral-900;
+        background-color: v.$neutral-200;
+        border-radius: 4px;
+        border: 1px solid v.$neutral-300;
+
+    }
+
+    option {
+        height: 48px;
+    }
+
+    select::after {
+        margin-top: -10px;
     }
 }

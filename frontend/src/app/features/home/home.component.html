@@ -1,8 +1,9 @@
+<!-- 
 <app-alert></app-alert>
 
 <app-announcement-carousel></app-announcement-carousel>
-
-<app-section-flex [direction]="'row'" [title]="''" [justify]="'space-between'">
+ -->
+<app-section-flex [direction]="'row'" [title]="'Explore racing community'" [justify]="'space-between'">
 
     <a routerLink="/leagues/add">
         <app-btn-large [label]="'Create your own league'" [iconName]="faPlus">
@@ -16,22 +17,33 @@
 
 <div *ngIf="isDataLoaded">
     <app-section-flex [direction]="'column'" [title]="'Recent results'">
-        <a *ngFor="let item of grandPrixData" [routerLink]="['grandprix', item.id]">
-            <app-race-row 
-                [first]="item.name" 
-                [second]="item.seasonName" 
-                [third]="item.leagueName">
-            </app-race-row>
-        </a>
+        <app-race-row 
+            *ngFor="let item of grandPrixData" 
+            [first]="item.name" 
+            [firstDescription]="item.track.location"
+            [second]="item.league.name" 
+            [secondDescription]="item.season.name"
+            [third]="(item.startTime | dateDiffFromNow) + ' ago'"
+            [routerLink]="['leagues', item.league.id, 'season', item.season.id ,'grandprix', item.id]"
+            >
+            <app-btn-custom
+                [label]="'Race video'"
+                [faIcon]="faPlayCircle"
+                (click)="goToExternal(item.youtubeUrl, $event)"
+                >
+            </app-btn-custom>
+        </app-race-row>
     </app-section-flex>
 </div>
 <div>
-    <app-section-flex [direction]="'column'" [title]="'Popular leagues'">
+    <app-section-flex [direction]="'column'" [title]="'Active seasons'">
         <app-race-row 
-            *ngFor="let item of popularLeagues;" 
-            [first]="item.name"
-            [second]="item.seasonName" 
-            [third]="item.leagueName">
+            *ngFor="let league of popularLeagues;" 
+            [first]="league.name"
+            [routerLink]="['leagues', league.id]"
+            >
+            <img src="../../../assets/images/game/black/{{league.game.name | noSpace}}.svg" *ngIf="league.game" alt="Game" class="racerow-icon">
+            <img src="../../../assets/images/icons/platform/{{league.platform.name | lowercase}}.svg" *ngIf="league.platform" alt="Platform" class="racerow-icon">
         </app-race-row>
     </app-section-flex>
 </div>

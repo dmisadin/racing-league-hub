@@ -79,5 +79,24 @@ namespace F1StatsServer.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("startingsoon")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetGrandPrixStartingSoon()
+        {
+            var grandPrix = await _grandPrixRepository.GetGrandPrixStartingSoon();
+
+            return Ok(grandPrix);
+
+        }
+        [HttpGet("live")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetGrandPrixLive()
+        {
+            var grandPrix = await _grandPrixRepository.GetGrandPrixLive();
+
+            return Ok(grandPrix);
+
+        }
     }
 }

@@ -8,6 +8,7 @@ import { ControlContainer, FormControl, FormGroup } from '@angular/forms';
 })
 export class SwitchComponent {
   @Input() controlName: string = "";
+  @Input() onOff: boolean = true;
 
   constructor(private parentControl: ControlContainer) {  }
 

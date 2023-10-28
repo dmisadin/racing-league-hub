@@ -68,7 +68,7 @@ public partial class AdventureContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.UseCollation("Croatian_100_CI_AS");
+        modelBuilder.UseCollation("Croatian_CI_AS");
 
         modelBuilder.Entity<Country>(entity =>
         {

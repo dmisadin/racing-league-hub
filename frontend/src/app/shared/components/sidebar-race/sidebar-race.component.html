@@ -3,12 +3,12 @@
   <div class="grandPrixName">{{ grandPrixName }}</div>
 </div>
 <div class="time-remaining">
-  {{ timeRemainingM <= 0 ? "LIVE" : minutesToHours(timeRemainingM) + "h" }}
+  {{ timeRemaining <= 0 ? "LIVE" : (startTime | dateDiffFromNow) }}
 </div>
 <app-btn-custom
   [label]="''"
-  [colorClass]="timeRemainingM <= 0 ? 'red' : 'light'"
-  [faIcon]="timeRemainingM <= 0 ? faCircle : faPlay"
-  (OnClick)="sidebarButton()"
+  [colorClass]="timeRemaining <= 0 ? 'red' : 'light'"
+  [faIcon]="timeRemaining <= 0 ? faCircle : faPlay"
+  (click)="goToExternal(streamUrl, $event)"
 >
 </app-btn-custom>
