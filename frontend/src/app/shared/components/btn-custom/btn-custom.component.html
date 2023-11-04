@@ -2,10 +2,9 @@
     class="btn"
     type="button"
     [ngClass]="colorClass"
-    [ngStyle]="{'padding': label ? '' : '8px'}"
-    (click)="emitEvent()"
-    >
-    <!-- <mat-icon *ngIf="icon">{{icon}}</mat-icon> -->
+    [ngStyle]="{'padding': label ? '' : '8px', 
+                'width': size, 'height': size }"
+    (click)="emitEvent()">
     <fa-icon *ngIf="faIcon" [icon]="faIcon"></fa-icon>
     {{label}}
 </button>

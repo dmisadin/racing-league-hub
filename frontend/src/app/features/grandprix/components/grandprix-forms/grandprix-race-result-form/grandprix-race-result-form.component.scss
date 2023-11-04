@@ -57,6 +57,11 @@ option {
         width: 40px;
         padding: 6px;
     }
+
+    button {
+        width: 32px;
+        height: 32px;
+    }
 }
 div[cdkDragDisabled] {
     cursor: default;
