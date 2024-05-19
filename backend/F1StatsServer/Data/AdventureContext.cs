@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using F1StatsServer.Model;
+using F1StatsServer.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Data;

@@ -1,10 +1,7 @@
 ﻿using F1StatsServer.Data;
-using F1StatsServer.Interface;
-using F1StatsServer.Util;
+using F1StatsServer.Utility;
 using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace F1StatsServer.Infrastructure
 {

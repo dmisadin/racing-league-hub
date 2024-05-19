@@ -1,4 +1,4 @@
-﻿using F1StatsServer.Model.Enums;
+﻿using F1StatsServer.Entities.Enums;
 
 namespace F1StatsServer.Dto.ResultsDtos
 {

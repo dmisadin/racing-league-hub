@@ -1,9 +1,9 @@
-﻿using F1StatsServer.Model;
+﻿using F1StatsServer.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using F1StatsServer.Dto.GrandPrixDtos;
 using F1StatsServer.Dto.DriverDtos;
-using F1StatsServer.Model.Enums;
+using F1StatsServer.Entities.Enums;
 
 namespace F1StatsServer.Dto.SeasonDtos
 {

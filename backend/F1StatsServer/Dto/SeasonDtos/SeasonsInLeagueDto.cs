@@ -1,4 +1,4 @@
-﻿using F1StatsServer.Model.Enums;
+﻿using F1StatsServer.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;

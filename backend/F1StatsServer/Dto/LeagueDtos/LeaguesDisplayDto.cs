@@ -1,4 +1,4 @@
-﻿using F1StatsServer.Model.Enums;
+﻿using F1StatsServer.Entities.Enums;
 using System.ComponentModel;
 
 namespace F1StatsServer.Dto.LeagueDtos

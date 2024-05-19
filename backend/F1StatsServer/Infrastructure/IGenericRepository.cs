@@ -1,4 +1,4 @@
-﻿using F1StatsServer.Util;
+﻿using F1StatsServer.Utility;
 using Microsoft.AspNetCore.JsonPatch;
 
 namespace F1StatsServer.Infrastructure

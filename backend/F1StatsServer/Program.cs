@@ -1,14 +1,10 @@
 using F1StatsServer.Data;
 using F1StatsServer.Infrastructure;
-using F1StatsServer.Interface;
-using F1StatsServer.Model;
-using F1StatsServer.Repository;
-using F1StatsServer.Service;
+using F1StatsServer.Interfaces;
+using F1StatsServer.Repositories;
+using F1StatsServer.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration.UserSecrets;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;

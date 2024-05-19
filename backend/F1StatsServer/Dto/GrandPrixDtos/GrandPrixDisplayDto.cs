@@ -1,7 +1,7 @@
 ﻿using F1StatsServer.Dto.DriverDtos;
 using F1StatsServer.Dto.ResultsDtos;
 using F1StatsServer.Dto.TrackDtos;
-using F1StatsServer.Model;
+using F1StatsServer.Entities;
 
 namespace F1StatsServer.Dto.GrandPrixDtos
 {
