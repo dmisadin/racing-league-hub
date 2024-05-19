@@ -5,7 +5,6 @@ using F1StatsServer.Dto.SeasonDtos;
 using F1StatsServer.Infrastructure;
 using F1StatsServer.Interface;
 using F1StatsServer.Model;
-using F1StatsServer.Util;
 using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Repository
@@ -29,24 +28,17 @@ namespace F1StatsServer.Repository
                                     ColorHex = league.ColorHex,
                                     ImagePath = league.ImagePath,
                                     Platform = league.Seasons.OrderByDescending(season => season.GrandPrixes.OrderByDescending(grandPrix => grandPrix.StartTime)
-                                                                                             .Take(1).Select(grandPrix => grandPrix.StartTime)
-                                                                                             .FirstOrDefault())
-                                                        .Take(1)
-                                                        .Select(season => new PlatformDto
-                                                        {
-                                                            Id = season.PlatformId,
-                                                            Name = season.Platform.Name
-                                                        }).FirstOrDefault(),
+                                                                                                            .Take(1).Select(grandPrix => grandPrix.StartTime)
+                                                                                                            .FirstOrDefault())
+                                                                                                            .Take(1)
+                                                                                                            .Select(season => season.Platform).FirstOrDefault(),
                                     Game = league.Seasons.OrderByDescending(season => season.GrandPrixes.OrderByDescending(grandPrix => grandPrix.StartTime)
-                                                                                         .Take(1).Select(grandPrix => grandPrix.StartTime)
-                                                                                         .FirstOrDefault())
-                                                    .Take(1)
-                                                    .Select(season => new GameDto
-                                                    {
-                                                        Id = season.GameId,
-                                                        Name = season.Game.Name
-                                                    }).FirstOrDefault(),
+                                                                                                        .Take(1).Select(grandPrix => grandPrix.StartTime)
+                                                                                                        .FirstOrDefault())
+                                                                                                        .Take(1)
+                                                                                                        .Select(season => season.Game).FirstOrDefault(),
                                 }).ToListAsync();
+
             return await query;
         }
 
@@ -71,27 +63,15 @@ namespace F1StatsServer.Repository
                                         Instagram = league.SocialMedia.Instagram,
                                         Facebook = league.SocialMedia.Facebook
                                     },
-                                    Region = new RegionDto
-                                    {
-                                        Id = league.RegionId,
-                                        Name = league.Region.Name
-                                    },
+                                    Region = league.Region,
                                     SeasonsInLeague = league.Seasons
                                                       .Select(season => new SeasonsInLeagueDto
                                                       {
                                                           Id = season.Id,
                                                           Name = season.Name,
                                                           ImagePath = season.ImagePath,
-                                                          Game = new GameDto
-                                                          {
-                                                              Id = season.GameId,
-                                                              Name = season.Game.Name
-                                                          },
-                                                          Platform = new PlatformDto
-                                                          {
-                                                              Id = season.PlatformId,
-                                                              Name = season.Platform.Name
-                                                          },
+                                                          Game = season.Game,
+                                                          Platform = season.Platform,
                                                           StartTime = season.GrandPrixes.OrderBy(grandPrix => grandPrix.StartTime)
                                                                                    .Select(grandPrix => grandPrix.StartTime).FirstOrDefault(),
                                                           EndTime = season.GrandPrixes.OrderByDescending(grandPrix => grandPrix.StartTime)

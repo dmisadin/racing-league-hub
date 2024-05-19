@@ -25,7 +25,7 @@ import { GrandprixRaceResultFormComponent } from './components/grandprix-forms/g
         TableRaceResultComponent,
 
         RaceTimePipe,
-          GrandprixRaceResultFormComponent,
+        GrandprixRaceResultFormComponent,
     ],
     imports: [
         CommonModule,

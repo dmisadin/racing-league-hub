@@ -20,21 +20,15 @@ public partial class AdventureContext : DbContext
 
     public virtual DbSet<Driver> Drivers { get; set; }
 
-    public virtual DbSet<Game> Games { get; set; }
-
     public virtual DbSet<GrandPrix> GrandPrixes { get; set; }
 
     public virtual DbSet<League> Leagues { get; set; }
 
     public virtual DbSet<LeagueUser> LeagueUsers { get; set; }
 
-    public virtual DbSet<Platform> Platforms { get; set; }
-
     public virtual DbSet<Qualifying> Qualifyings { get; set; }
 
     public virtual DbSet<Race> Races { get; set; }
-
-    public virtual DbSet<Region> Regions { get; set; }
 
     public virtual DbSet<Season> Seasons { get; set; }
 
@@ -79,10 +73,6 @@ public partial class AdventureContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK_DriverId");
 
-            entity.HasOne(d => d.Platform).WithMany(p => p.Drivers)
-                .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("FK_Driver_PlatformId");
-
             entity.HasOne(d => d.SocialMedia).WithMany(p => p.Drivers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_Driver_SocialMediaId");
@@ -90,11 +80,6 @@ public partial class AdventureContext : DbContext
             entity.HasOne(d => d.Country).WithMany(p => p.Drivers)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_Driver_CountryId");
-        });
-
-        modelBuilder.Entity<Game>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK_GameId");
         });
 
         modelBuilder.Entity<GrandPrix>(entity =>
@@ -113,8 +98,6 @@ public partial class AdventureContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK_LeagueId");
 
-            entity.HasOne(d => d.Region).WithMany(p => p.Leagues).HasConstraintName("FK_League_RegionId");
-
             entity.HasOne(d => d.SocialMedia).WithMany(p => p.Leagues)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_League_SocialMediaId");
@@ -127,11 +110,6 @@ public partial class AdventureContext : DbContext
             entity.HasOne(d => d.League).WithMany(p => p.LeagueUsers).HasConstraintName("FK_LeagueUser_LeagueId");
 
             entity.HasOne(d => d.User).WithMany(p => p.LeagueUsers).HasConstraintName("FK_LeagueUser_UserId");
-        });
-
-        modelBuilder.Entity<Platform>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK_PlatformId");
         });
 
         modelBuilder.Entity<Qualifying>(entity =>
@@ -156,24 +134,13 @@ public partial class AdventureContext : DbContext
             entity.HasOne(d => d.Team).WithMany(p => p.Races).HasConstraintName("FK_Race_TeamId");
         });
 
-        modelBuilder.Entity<Region>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK_RegionId");
-        });
-
         modelBuilder.Entity<Season>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_SeasonId");
 
             entity.Property(e => e.LapsRequiredPercentage).HasDefaultValueSql("('90')");
 
-            entity.HasOne(d => d.Game).WithMany(p => p.Seasons).HasConstraintName("FK_Season_GameId");
-
             entity.HasOne(d => d.League).WithMany(p => p.Seasons).HasConstraintName("FK_Season_LeagueId");
-
-            entity.HasOne(d => d.Platform).WithMany(p => p.Seasons)
-                .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("FK_Season_PlatformId");
         });
 
         modelBuilder.Entity<SeasonAssists>(entity =>

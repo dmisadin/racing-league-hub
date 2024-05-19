@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using F1StatsServer.Model.Enums;
 using F1StatsServer.Util;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +22,7 @@ public partial class Qualifying : EntityBase
     [Column("FastestLapInMS")]
     public int FastestLapInMs { get; set; }
 
-    public byte ResultStatus { get; set; }
+    public ResultStatus ResultStatus { get; set; }
 
     [StringLength(2)]
     [Unicode(false)]

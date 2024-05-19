@@ -71,6 +71,10 @@ div[cdkDragDisabled] {
     }
 }
 
+.drag-icon {
+    max-width: 12px;
+}
+
 .cdk-drop-list-dragging {
     cursor: grabbing;
 }

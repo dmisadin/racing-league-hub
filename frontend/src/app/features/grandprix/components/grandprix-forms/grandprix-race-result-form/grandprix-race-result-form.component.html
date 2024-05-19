@@ -2,7 +2,7 @@
 <div cdkDropList class="result-table" (cdkDropListDropped)="drop($event)" [formGroup]="raceResultFrom">
     <ng-container formArrayName="results">
         <div class="result-row" cdkDragDisabled>
-            <div style="width: 12px;"></div>
+            <div style="width: 20px;"></div>
             <div style="width: 40px;">Position</div>
             <div style="width: 126px;">Driver</div>
             <div style="width: 132px;">Team</div>
@@ -21,7 +21,7 @@
             class="result-row" 
             *ngFor="let race of results.controls; let i = index" 
             cdkDrag>
-            <img src="../../../../../../assets/images/icons/six-dots.svg">
+            <img src="../../../../../../assets/images/icons/common/six-dots.svg" class="drag-icon">
 
             <input formControlName="position" type="number" placeholder=1 (mousedown)="$event.stopPropagation()">
     
@@ -34,10 +34,9 @@
             </select>
     
             <input formControlName="raceTime" type="number" placeholder=1234.567 (mousedown)="$event.stopPropagation()" style="width: 80px;">
-
             
             <select formControlName="resultStatus" (mousedown)="$event.stopPropagation()">
-                <option *ngFor="let status of resultStatus; let i = index" value={{status.code}}>{{status.value}}</option>
+                <option *ngFor="let status of ResultStatus; let i = index" value={{status.Value}}>{{status.ValueName}}</option>
             </select>
 
             <input formControlName="timePenalty" type="number" placeholder=3 (mousedown)="$event.stopPropagation()">
@@ -54,7 +53,14 @@
 
             <input formControlName="usedTyres" type="text" placeholder=smhiw (mousedown)="$event.stopPropagation()" style="width: 90px;">
 
-            <app-btn-custom [faIcon]="faTrashCan" [size]="'32px'" (OnClick)="removeResultRow(i)"></app-btn-custom>
+            <app-btn-custom [faIcon]="faTrashCan" [size]="'32px'" (OnClick)="removeResultRowClick(i)"></app-btn-custom>
+        </div>
+        <div class="result-row" cdkDragDisabled>
+            <app-btn-custom [label]="'Add result'" 
+            (OnClick)="addResultRowClick()"
+            [isDisabled]="results.controls.length >= maxAmount">
+        </app-btn-custom>   
+            {{results.controls.length >= maxAmount ? ('Maximum is ' + maxAmount + ' drivers') : ''}} 
         </div>
     </ng-container>
 </div>

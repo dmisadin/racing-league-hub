@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using F1StatsServer.Model.Enums;
 using F1StatsServer.Util;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace F1StatsServer.Model;
 
@@ -28,13 +27,11 @@ public partial class League : EntityBase
     [StringLength(10)]
     [Unicode(false)]
     public string ColorHex { get; set; } = null!;
+    public virtual Region Region { get; set; }
 
     [InverseProperty("League")]
     public virtual ICollection<LeagueUser> LeagueUsers { get; set; } = new List<LeagueUser>();
 
-    [ForeignKey("RegionId")]
-    [InverseProperty("Leagues")]
-    public virtual Region Region { get; set; } = null!;
 
     [InverseProperty("League")]
     public virtual ICollection<Season> Seasons { get; set; } = new List<Season>();

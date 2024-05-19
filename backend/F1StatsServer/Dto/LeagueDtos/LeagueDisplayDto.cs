@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using F1StatsServer.Dto.SeasonDtos;
+using F1StatsServer.Model.Enums;
 
 namespace F1StatsServer.Dto.LeagueDtos
 {
@@ -22,7 +23,7 @@ namespace F1StatsServer.Dto.LeagueDtos
 
         public SocialMediaDto? SocialMedia { get; set; }
 
-        public RegionDto? Region { get; set; }
+        public Region? Region { get; set; }
 
         public List<SeasonsInLeagueDto>? SeasonsInLeague { get; set; }
     }

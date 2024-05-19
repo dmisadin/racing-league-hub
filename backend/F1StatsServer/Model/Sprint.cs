@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using F1StatsServer.Model.Enums;
 using F1StatsServer.Util;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace F1StatsServer.Model;
 
@@ -21,7 +20,7 @@ public partial class Sprint : EntityBase
     [Column(TypeName = "decimal(8, 3)")]
     public decimal RaceTime { get; set; }
 
-    public byte ResultStatus { get; set; }
+    public ResultStatus ResultStatus { get; set; }
 
     public byte TimePenalty { get; set; }
 

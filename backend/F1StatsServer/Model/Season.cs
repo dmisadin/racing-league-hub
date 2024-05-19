@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using F1StatsServer.Model.Enums;
 using F1StatsServer.Util;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,9 +26,7 @@ public partial class Season : EntityBase
 
     public byte LapsRequiredPercentage { get; set; }
 
-    [ForeignKey("GameId")]
-    [InverseProperty("Seasons")]
-    public virtual Game Game { get; set; } = null!;
+    public virtual Game Game { get; set; }
 
     [InverseProperty("Season")]
     public virtual ICollection<GrandPrix> GrandPrixes { get; set; } = new List<GrandPrix>();
@@ -36,8 +35,6 @@ public partial class Season : EntityBase
     [InverseProperty("Seasons")]
     public virtual League League { get; set; } = null!;
 
-    [ForeignKey("PlatformId")]
-    [InverseProperty("Seasons")]
     public virtual Platform? Platform { get; set; }
 
     [InverseProperty("Season")]

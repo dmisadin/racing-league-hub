@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { SessionResult } from 'app/shared/models/grandprix/GrandPrix';
 import { Driver, Team } from 'app/shared/models/season/Season';
-import { resultStatus } from 'app/shared/models/resultStatus';
+import { ResultStatus } from 'app/shared/models/enums/resultStatus';
 import { QualifyingResult } from 'app/shared/models/grandprix/Results';
 
 
@@ -13,8 +13,7 @@ import { QualifyingResult } from 'app/shared/models/grandprix/Results';
 export class TableQualifyingResultComponent {
     @Input() session: QualifyingResult[] = [];
     @Input() drivers: Driver[] = [];
-    resultStatus = resultStatus;
-
+    ResultStatus = ResultStatus;
     qualifying: any[] = [];
  
     ngOnChanges() {

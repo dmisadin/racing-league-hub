@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using F1StatsServer.Model.Enums;
 using F1StatsServer.Util;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace F1StatsServer.Model;
 
@@ -31,8 +30,6 @@ public partial class Driver : EntityBase
     [Unicode(false)]
     public string? Controller { get; set; }
 
-    [ForeignKey("PlatformId")]
-    [InverseProperty("Drivers")]
     public virtual Platform? Platform { get; set; }
 
     [InverseProperty("Driver")]
