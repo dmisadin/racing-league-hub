@@ -7,10 +7,12 @@ namespace F1StatsServer.Entities.Enums
         [Description("Steam")]
         Steam = 1,
         [Description("PlayStation")]
-        PlayStation = 3,
+        PlayStation = 2,
         [Description("Xbox")]
-        Xbox = 4,
+        Xbox = 3,
         [Description("EA")]
-        Origin = 6,
+        Origin = 4,
+        [Description("Crossplay")]
+        Crossplay = 5,
     }
 }

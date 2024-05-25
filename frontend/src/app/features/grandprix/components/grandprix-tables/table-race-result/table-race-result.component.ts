@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { RaceResult } from 'app/shared/models/grandprix/Results';
-import { ResultStatus } from 'app/shared/models/enums/resultStatus';
+import { ResultStatus } from 'app/shared/models/enums/Enumerations';
 import { Driver, Team } from 'app/shared/models/season/Season';
 
 @Component({

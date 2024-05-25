@@ -12,21 +12,14 @@ namespace F1StatsServer.Entities;
 public partial class Season : EntityBase
 {
     public int LeagueId { get; set; }
-
-    public int GameId { get; set; }
-
-    public int? PlatformId { get; set; }
-
     [StringLength(255)]
     public string Name { get; set; } = null!;
-
+    public virtual Game Game { get; set; }
+    public virtual Platform? Platform { get; set; }
     [StringLength(255)]
     [Unicode(false)]
     public string? ImagePath { get; set; }
-
     public byte LapsRequiredPercentage { get; set; }
-
-    public virtual Game Game { get; set; }
 
     [InverseProperty("Season")]
     public virtual ICollection<GrandPrix> GrandPrixes { get; set; } = new List<GrandPrix>();
@@ -35,7 +28,6 @@ public partial class Season : EntityBase
     [InverseProperty("Seasons")]
     public virtual League League { get; set; } = null!;
 
-    public virtual Platform? Platform { get; set; }
 
     [InverseProperty("Season")]
     public virtual SeasonAssists SeasonAssist { get; set; }
@@ -44,17 +36,8 @@ public partial class Season : EntityBase
     public virtual ICollection<SeasonDrivers> SeasonDrivers { get; set; } = new List<SeasonDrivers>();
 
     [InverseProperty("Season")]
-    public virtual SeasonFastestLapPoints SeasonFastestLapPoint { get; set; }
-
-    [InverseProperty("Season")]
     public virtual SeasonLobbySettings SeasonLobbySetting { get; set; }
 
     [InverseProperty("Season")]
-    public virtual ICollection<SeasonQualPoints> SeasonQualPoints { get; set; } = new List<SeasonQualPoints>();
-
-    [InverseProperty("Season")]
-    public virtual ICollection<SeasonRacePoints> SeasonRacePoints { get; set; } = new List<SeasonRacePoints>();
-
-    [InverseProperty("Season")]
-    public virtual ICollection<SeasonSprintPoints> SeasonSprintPoints { get; set; } = new List<SeasonSprintPoints>();
+    public virtual ICollection<SeasonPoints> SeasonPoints { get; set; } = new List<SeasonPoints>();
 }

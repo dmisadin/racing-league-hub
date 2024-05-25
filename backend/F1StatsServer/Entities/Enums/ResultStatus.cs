@@ -2,7 +2,7 @@
 
 namespace F1StatsServer.Entities.Enums
 {
-    public enum ResultStatus
+    public enum ResultStatus : byte
     {
         [Description("Invalid")]
         Invalid = 0,

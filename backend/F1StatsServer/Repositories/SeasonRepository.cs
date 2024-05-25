@@ -5,9 +5,10 @@ using F1StatsServer.Dto.GrandPrixDtos;
 using F1StatsServer.Dto.ResultsDtos;
 using F1StatsServer.Dto.SeasonDtos;
 using F1StatsServer.Dto.TrackDtos;
+using F1StatsServer.Entities;
+using F1StatsServer.Entities.Enums;
 using F1StatsServer.Infrastructure;
 using F1StatsServer.Interfaces;
-using F1StatsServer.Entities;
 using F1StatsServer.Utility;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,12 +37,12 @@ namespace F1StatsServer.Repositories
                                     Game = season.Game,
                                     //Platform = MyMapper<PlatformDto, Platform>.Map(_context.Set<Platform>().Where(platform => platform.Id == season.PlatformId).FirstOrDefault()),
                                     Platform = season.Platform,
-                                    QualPoints = MyMapper<SeasonPointsDto, SeasonQualPoints>.MapList(season.SeasonQualPoints.ToList()),
-                                    RacePoints = MyMapper<SeasonPointsDto, SeasonRacePoints>.MapList(season.SeasonRacePoints.ToList()),
-                                    SprintPoints = MyMapper<SeasonPointsDto, SeasonSprintPoints>.MapList(season.SeasonSprintPoints.ToList()),
+                                    QualPoints = MyMapper<SeasonPointsDto, SeasonPoints>.MapList(season.SeasonPoints.Where(p => p.PointsType == PointsType.Qualifying).ToList()),
+                                    RacePoints = MyMapper<SeasonPointsDto, SeasonPoints>.MapList(season.SeasonPoints.Where(p => p.PointsType == PointsType.Race).ToList()),
+                                    SprintPoints = MyMapper<SeasonPointsDto, SeasonPoints>.MapList(season.SeasonPoints.Where(p => p.PointsType == PointsType.Sprint).ToList()),
+                                    FastestLapPoints = MyMapper<SeasonPointsDto, SeasonPoints>.Map(season.SeasonPoints.FirstOrDefault(p => p.PointsType == PointsType.FastestLap)),
                                     LobbySettings = MyMapper<SeasonLobbySettingsDto, SeasonLobbySettings>.Map(season.SeasonLobbySetting),
                                     Assists = MyMapper<SeasonAssistsDto, SeasonAssists>.Map(season.SeasonAssist),
-                                    FastestLapPoints = MyMapper<SeasonPointsDto, SeasonFastestLapPoints>.Map(season.SeasonFastestLapPoint),
                                     GrandPrixes = _context.Set<GrandPrix>()
                                                           .Where(grandPrix => grandPrix.SeasonId == id)
                                                           .Select(grandPrix => new GrandPrixSeasonDto
@@ -117,11 +118,10 @@ namespace F1StatsServer.Repositories
                                 .Where(season => season.Id == id)
                                 .Select(season => new SeasonSessionPointsDto
                                 {
-                                    QualPoints = MyMapper<SeasonPointsDto, SeasonQualPoints>.MapList(season.SeasonQualPoints.ToList()),
-                                    RacePoints = MyMapper<SeasonPointsDto, SeasonRacePoints>.MapList(season.SeasonRacePoints.ToList()),
-                                    SprintPoints = MyMapper<SeasonPointsDto, SeasonSprintPoints>.MapList(season.SeasonSprintPoints.ToList()),
-                                    FastestLapPoints = MyMapper<SeasonPointsDto, SeasonFastestLapPoints>.Map(season.SeasonFastestLapPoint),
-
+                                    QualPoints = MyMapper<SeasonPointsDto, SeasonPoints>.MapList(season.SeasonPoints.Where(p => p.PointsType == PointsType.Qualifying).ToList()),
+                                    RacePoints = MyMapper<SeasonPointsDto, SeasonPoints>.MapList(season.SeasonPoints.Where(p => p.PointsType == PointsType.Race).ToList()),
+                                    SprintPoints = MyMapper<SeasonPointsDto, SeasonPoints>.MapList(season.SeasonPoints.Where(p => p.PointsType == PointsType.Sprint).ToList()),
+                                    FastestLapPoints = MyMapper<SeasonPointsDto, SeasonPoints>.Map(season.SeasonPoints.FirstOrDefault(p => p.PointsType == PointsType.FastestLap)),
                                 }).FirstOrDefaultAsync();
 
             return await query;

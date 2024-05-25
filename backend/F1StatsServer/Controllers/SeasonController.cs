@@ -50,5 +50,27 @@ namespace F1StatsServer.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("GetAssists/{id}")]
+        public async Task<IActionResult> GetSeasonAssists (int id)
+        {
+            var result = await _seasonService.GetAssistsAsync(id);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+        }
+
+        [HttpGet("GetLobbySettings/{id}")]
+        public async Task<IActionResult> GetSeasonLobbySettings(int id)
+        {
+            var result = await _seasonService.GetLobbySettingsAsync(id);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+        }
     }
 }

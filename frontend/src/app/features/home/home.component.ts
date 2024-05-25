@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {
-    faPlus,
-    faSearch,
-    faStopwatch, faPlayCircle, faCalendarDays,
-} from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faSearch, faStopwatch, faPlayCircle, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { HomeDataService } from 'app/core/services/home-data.service';
 import { RaceRow } from 'app/shared/models/homepage/RaceRow';
-
 import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { LeaguesListService } from '../league/services/leagues-list.service';
 import { League } from 'app/shared/models/league/League';
+import { Game, Platform } from 'app/shared/models/enums/Enumerations';
 
 @Component({
     selector: 'app-home',
@@ -22,6 +18,8 @@ export class HomeComponent implements OnInit {
     faStopwatch = faStopwatch;
     faPlayCircle = faPlayCircle;
     faCalendarDays = faCalendarDays;
+    gameEnum = Game;
+    platformEnum = Platform;
 
     isDataLoaded: boolean = true;
     grandPrixData: Array<RaceRow> = new Array();

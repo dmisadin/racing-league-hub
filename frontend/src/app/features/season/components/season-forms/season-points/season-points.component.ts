@@ -2,8 +2,10 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { AbstractControl, ControlContainer, FormArray, FormGroup } from '@angular/forms';
 import { PointsItemComponent } from '../points-item/points-item.component';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { PointsType } from 'app/shared/models/enums/Enumerations';
+import { IEnumItem } from 'app/shared/models/interfaces';
 
-type SessionName = "Qualifying" | "Sprint" | "Race" | "Fastest Lap";
+type SessionName = "Qualifying" | "Sprint" | "Race" | "FastestLap";
 
 @Component({
 	selector: 'app-season-points',
@@ -12,7 +14,8 @@ type SessionName = "Qualifying" | "Sprint" | "Race" | "Fastest Lap";
 })
 export class SeasonPointsComponent {
 	faPlus = faPlus;
-	@Input() sessionName: SessionName = "Qualifying";
+    PointsType = PointsType;
+	@Input() pointsType: IEnumItem = PointsType.Race;
 	@Input() pointsArray!: FormArray;
 	@Input() maxAmount: number = 22;
 	@Output() pointsArrayChange = new EventEmitter();
@@ -21,7 +24,7 @@ export class SeasonPointsComponent {
 		Qualifying: "qualPoints",
 		Sprint: "sprintPoints",
 		Race: "racePoints",
-		"Fastest Lap": "fastestLapPoints"
+		FastestLap: "fastestLapPoints"
 	};
 	constructor(private parentControl: ControlContainer) { }
 
@@ -29,12 +32,12 @@ export class SeasonPointsComponent {
 
 
 	ngOnInit(): void {
-		this.parentFormGroup.addControl(this.sessionType[this.sessionName], this.pointsArray);
+		this.parentFormGroup.addControl("points" + this.pointsType.ValueName, this.pointsArray);
 	}
 
 	public addPointsItem(): void {
 		if (this.pointsArray.controls.length < this.maxAmount) {
-			this.pointsArray.push(PointsItemComponent.addPointsItem(this.pointsArray.controls.length + 1, 1));
+			this.pointsArray.push(PointsItemComponent.addPointsItem(this.pointsArray.controls.length + 1, 1, this.pointsType.Value));
 			console.log("child controls", this.pointsArray.controls)
 		}
 		else

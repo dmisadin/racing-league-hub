@@ -42,8 +42,8 @@
             [first]="league.name"
             [routerLink]="['leagues', league.id]"
             >
-            <img src="../../../assets/images/game/black/{{league.game.name | noSpace}}.svg" *ngIf="league.game" alt="Game" class="racerow-icon">
-            <img src="../../../assets/images/icons/platform/{{league.platform.name | lowercase}}.svg" *ngIf="league.platform" alt="Platform" class="racerow-icon">
+            <img src="../../../assets/images/game/black/{{league.game | enumValueName:gameEnum | noSpace}}.svg" *ngIf="league.game" alt="Game" class="racerow-icon">
+            <img src="../../../assets/images/icons/platform/{{league.platform | enumValueName:platformEnum | lowercase}}.svg" *ngIf="league.platform" alt="Platform" class="racerow-icon">
         </app-race-row>
     </app-section-flex>
 </div>

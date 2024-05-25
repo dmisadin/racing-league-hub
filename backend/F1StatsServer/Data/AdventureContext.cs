@@ -36,15 +36,9 @@ public partial class AdventureContext : DbContext
 
     public virtual DbSet<SeasonDrivers> SeasonDrivers { get; set; }
 
-    public virtual DbSet<SeasonFastestLapPoints> SeasonFastestLapPoints { get; set; }
-
     public virtual DbSet<SeasonLobbySettings> SeasonLobbySettings { get; set; }
 
-    public virtual DbSet<SeasonQualPoints> SeasonQualPoints { get; set; }
-
-    public virtual DbSet<SeasonRacePoints> SeasonRacePoints { get; set; }
-
-    public virtual DbSet<SeasonSprintPoints> SeasonSprintPoints { get; set; }
+    public virtual DbSet<SeasonPoints> SeasonPoints { get; set; }
 
     public virtual DbSet<SocialMedia> SocialMedia { get; set; }
 
@@ -138,7 +132,7 @@ public partial class AdventureContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK_SeasonId");
 
-            entity.Property(e => e.LapsRequiredPercentage).HasDefaultValueSql("('90')");
+            entity.Property(e => e.LapsRequiredPercentage);
 
             entity.HasOne(d => d.League).WithMany(p => p.Seasons).HasConstraintName("FK_Season_LeagueId");
         });
@@ -161,16 +155,6 @@ public partial class AdventureContext : DbContext
             entity.HasOne(d => d.Team).WithMany(p => p.SeasonDrivers).HasConstraintName("FK_SeasonDriver_TeamId");
         });
 
-        modelBuilder.Entity<SeasonFastestLapPoints>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK_SeasonFastestLapPoints_SeasonId");
-
-            entity.Property(e => e.Position).HasDefaultValueSql("('10')");
-            entity.Property(e => e.Points).HasDefaultValueSql("('1')");
-
-            entity.HasOne(d => d.Season).WithOne(p => p.SeasonFastestLapPoint).HasConstraintName("FK_SeasonFastestLapPoints_SeasonId");
-        });
-
         modelBuilder.Entity<SeasonLobbySettings>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_SeasonLobbySettings_SeasonId");
@@ -178,25 +162,11 @@ public partial class AdventureContext : DbContext
             entity.HasOne(d => d.Season).WithOne(p => p.SeasonLobbySetting).HasConstraintName("FK_SeasonLobbySettings_SeasonId");
         });
 
-        modelBuilder.Entity<SeasonQualPoints>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK_SeasonQualPointsId");
-
-            entity.HasOne(d => d.Season).WithMany(p => p.SeasonQualPoints).HasConstraintName("FK_SeasonQualPoints_SeasonId");
-        });
-
-        modelBuilder.Entity<SeasonRacePoints>(entity =>
+        modelBuilder.Entity<SeasonPoints>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_SeasonRacePointsId");
 
-            entity.HasOne(d => d.Season).WithMany(p => p.SeasonRacePoints).HasConstraintName("FK_SeasonRacePoints_SeasonId");
-        });
-
-        modelBuilder.Entity<SeasonSprintPoints>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK_SeasonSprintPointsId");
-
-            entity.HasOne(d => d.Season).WithMany(p => p.SeasonSprintPoints).HasConstraintName("FK_SeasonSprintPoints_SeasonId");
+            entity.HasOne(d => d.Season).WithMany(p => p.SeasonPoints).HasConstraintName("FK_SeasonRacePoints_SeasonId");
         });
 
         modelBuilder.Entity<SocialMedia>(entity =>
@@ -219,14 +189,14 @@ public partial class AdventureContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK_TeamId");
 
-            entity.Property(e => e.ColorHex).HasDefaultValueSql("('#000')");
+            entity.Property(e => e.ColorHex);
         });
 
         modelBuilder.Entity<Track>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_TrackId");
 
-            entity.Property(e => e.Laps).HasDefaultValueSql("('52')");
+            entity.Property(e => e.Laps);
 
             entity.HasOne(e => e.Country).WithMany(p => p.Tracks)
                 .OnDelete(DeleteBehavior.SetNull)

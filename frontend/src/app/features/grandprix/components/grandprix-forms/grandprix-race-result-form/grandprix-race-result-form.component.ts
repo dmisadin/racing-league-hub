@@ -5,7 +5,7 @@ import { Driver, Team } from 'app/shared/models/season/Season';
 import { AbstractControl, ControlContainer, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faUpDown, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { ResultStatus } from 'app/shared/models/enums/resultStatus';
+import { ResultStatus } from 'app/shared/models/enums/Enumerations';
 import { SessionPoints } from 'app/shared/models/season/SessionPoints';
 import { IEnumArray } from 'app/shared/models/interfaces';
 

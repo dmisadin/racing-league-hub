@@ -10,6 +10,7 @@ export class BtnCustomComponent {
   @Input() colorClass: string = 'light';
   @Input() size: string = '';
   @Input() faIcon: IconDefinition | IconLookup | null = null;
+  @Input() isDisabled: boolean = false;
   @Output() OnClick = new EventEmitter<string>();
 
   constructor() {}

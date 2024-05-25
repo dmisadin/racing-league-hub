@@ -4,8 +4,10 @@ namespace F1StatsServer.Entities.Enums
 {
     public enum Region
     {
+        [Description("Adria")]
+        Adria = 1,
         [Description("Europe")]
-        Europe = 1,
+        Europe,
         [Description("North America")]
         NorthAmerica,
         [Description("South America")]

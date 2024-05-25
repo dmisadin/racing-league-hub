@@ -1,6 +1,6 @@
 <ng-container [formGroup]="parentFormGroup">
     <h1>Setup basic information</h1>
-    <form formGroupName="info">
+    <form formGroupName="seasonInfo">
         <div class="description">
             Fill out the basic information about your league.
         </div>
@@ -13,13 +13,13 @@
         <input type="text" placeholder="Season 3" formControlName="name">
 
         <label>Game</label>
-        <select formControlName="gameId">
-            <option *ngFor="let g of gameList" value={{g.id}}>{{g.name}}</option>
+        <select formControlName="game">
+            <option *ngFor="let game of gameEnum | keyvalue" [ngValue]="game.value.Value" [selected]="game.value.Value === gameEnum.F124.Value">{{game.value.Title}}</option>
         </select>
 
         <label>Platform</label>
-        <select formControlName="platformId">
-            <option *ngFor="let p of platformList"  value={{p.id}}>{{p.name}}</option>
+        <select formControlName="platform">
+            <option *ngFor="let platform of platformEnum | keyvalue:sortOrder" [ngValue]="platform.value.Value" [selected]="platform.value.Value === platformEnum.Steam.Value">{{platform.value.Title}}</option>
         </select>
 
         <label>

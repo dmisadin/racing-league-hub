@@ -3,6 +3,7 @@ using F1StatsServer.Infrastructure;
 using F1StatsServer.Interfaces;
 using F1StatsServer.Entities;
 using F1StatsServer.Utility;
+using F1StatsServer.Entities.Enums;
 
 namespace F1StatsServer.Services
 {
@@ -40,22 +41,19 @@ namespace F1StatsServer.Services
         }
 
 
-        public async Task<int> InsertSeasonAsync(SeasonInsertDto data)
+        public async Task<int> InsertSeasonAsync(SeasonInsertDto season)
         {
             var item = new Season
             {
-                LeagueId = data.LeagueId,
-                GameId = data.GameId,
-                PlatformId = data.PlatformId,
-                Name = data.Name,
-                ImagePath = data.ImagePath,
-                LapsRequiredPercentage = data.LapsRequiredPercentage,
-                SeasonRacePoints = MyMapper<SeasonRacePoints, SeasonPointsDto>.MapList(data.RacePointsDto),
-                SeasonLobbySetting = MyMapper<SeasonLobbySettings, SeasonLobbySettingsDto>.Map(data.LobbySettingsDto),
-                SeasonAssist = MyMapper<SeasonAssists, SeasonAssistsDto>.Map(data.AssistsDto),
-                SeasonQualPoints = MyMapper<SeasonQualPoints, SeasonPointsDto>.MapList(data.QualPointsDto),
-                SeasonSprintPoints = MyMapper<SeasonSprintPoints, SeasonPointsDto>.MapList(data.SprintPointsDto),
-                SeasonFastestLapPoint = MyMapper<SeasonFastestLapPoints, SeasonPointsDto>.Map(data.FastestLapPointDto)
+                LeagueId = season.LeagueId,
+                Game = season.Game,
+                Platform = season.Platform,
+                Name = season.Name,
+                ImagePath = season.ImagePath,
+                LapsRequiredPercentage = season.LapsRequiredPercentage,
+                SeasonPoints = MyMapper<SeasonPoints, SeasonPointsDto>.MapList(season.SeasonPoints),
+                SeasonLobbySetting = MyMapper<SeasonLobbySettings, SeasonLobbySettingsDto>.Map(season.LobbySettings),
+                SeasonAssist = MyMapper<SeasonAssists, SeasonAssistsDto>.Map(season.Assists),
             };
 
             if (item == null)

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { SessionResult } from 'app/shared/models/grandprix/GrandPrix';
 import { Driver, Team } from 'app/shared/models/season/Season';
-import { ResultStatus } from 'app/shared/models/enums/resultStatus';
+import { ResultStatus } from 'app/shared/models/enums/Enumerations';
 import { QualifyingResult } from 'app/shared/models/grandprix/Results';
 
 

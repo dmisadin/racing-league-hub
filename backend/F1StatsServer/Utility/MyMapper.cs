@@ -17,9 +17,9 @@ namespace F1StatsServer.Utility
             return _myMapper.Map<TSource, TDestination>(source);
         }
 
-        public static List<TDestination> MapList(List<TSource> source)
+        public static List<TDestination> MapList(IEnumerable<TSource> source)
         {
-            return _myMapper.Map<List<TSource>, List<TDestination>>(source);
+            return _myMapper.Map<IEnumerable<TSource>, List<TDestination>>(source);
         }
     }
 }
