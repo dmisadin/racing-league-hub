@@ -26,9 +26,7 @@ public partial class AdventureContext : DbContext
 
     public virtual DbSet<LeagueUser> LeagueUsers { get; set; }
 
-    public virtual DbSet<Qualifying> Qualifyings { get; set; }
-
-    public virtual DbSet<Race> Races { get; set; }
+    public virtual DbSet<SessionResult> SessionResults { get; set; }
 
     public virtual DbSet<Season> Seasons { get; set; }
 
@@ -41,8 +39,6 @@ public partial class AdventureContext : DbContext
     public virtual DbSet<SeasonPoints> SeasonPoints { get; set; }
 
     public virtual DbSet<SocialMedia> SocialMedia { get; set; }
-
-    public virtual DbSet<Sprint> Sprints { get; set; }
 
     public virtual DbSet<Team> Teams { get; set; }
 
@@ -106,26 +102,17 @@ public partial class AdventureContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.LeagueUsers).HasConstraintName("FK_LeagueUser_UserId");
         });
 
-        modelBuilder.Entity<Qualifying>(entity =>
+        modelBuilder.Entity<SessionResult>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK_QualifyingId");
+            entity.HasKey(e => e.Id).HasName("PK_SessionResultId");
 
-            entity.HasOne(d => d.Driver).WithMany(p => p.Qualifyings).HasConstraintName("FK_Qualifying_DriverId");
+            entity.HasOne(d => d.Driver).WithMany(p => p.SessionResults).HasConstraintName("FK_SessionResult_DriverId");
 
-            entity.HasOne(d => d.GrandPrix).WithMany(p => p.Qualifyings).HasConstraintName("FK_Qualifying_GrandPrixId");
+            entity.HasOne(d => d.GrandPrix).WithMany(p => p.SessionResults).HasConstraintName("FK_SessionResult_GrandPrixId");
 
-            entity.HasOne(d => d.Team).WithMany(p => p.Qualifyings).HasConstraintName("FK_Qualifying_TeamId");
-        });
+            entity.HasOne(d => d.Team).WithMany(p => p.SessionResults).HasConstraintName("FK_SessionResult_TeamId");
 
-        modelBuilder.Entity<Race>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK_RaceId");
-
-            entity.HasOne(d => d.Driver).WithMany(p => p.Races).HasConstraintName("FK_Race_DriverId");
-
-            entity.HasOne(d => d.GrandPrix).WithMany(p => p.Races).HasConstraintName("FK_Race_GrandPrixId");
-
-            entity.HasOne(d => d.Team).WithMany(p => p.Races).HasConstraintName("FK_Race_TeamId");
+            entity.Ignore(d => d.SelectedForDeletion);
         });
 
         modelBuilder.Entity<Season>(entity =>
@@ -172,17 +159,6 @@ public partial class AdventureContext : DbContext
         modelBuilder.Entity<SocialMedia>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_SocialMediaId");
-        });
-
-        modelBuilder.Entity<Sprint>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK_SprintId");
-
-            entity.HasOne(d => d.Driver).WithMany(p => p.Sprints).HasConstraintName("FK_SprintDriver_DriverId");
-
-            entity.HasOne(d => d.GrandPrix).WithMany(p => p.Sprints).HasConstraintName("FK_SprintDriver_GrandPrixId");
-
-            entity.HasOne(d => d.Team).WithMany(p => p.Sprints).HasConstraintName("FK_Sprint_TeamId");
         });
 
         modelBuilder.Entity<Team>(entity =>

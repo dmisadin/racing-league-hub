@@ -26,13 +26,14 @@ builder.Services.AddScoped<IGrandPrixRepository, GrandPrixRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILeagueRepository, LeagueRepository>();
 builder.Services.AddScoped<ISeasonRepository, SeasonRepository>();
+builder.Services.AddScoped<SessionResultRepository>();
 
 //Add services to application scope:
 builder.Services.AddScoped<ILeagueService, LeagueService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISeasonService, SeasonService>();
 builder.Services.AddScoped<IGrandPrixService, GrandPrixService>();
-builder.Services.AddScoped<IResultService, ResultService>();
+builder.Services.AddScoped<ISessionResultService, SessionResultService>();
 builder.Services.AddScoped<IDriverService, DriverService>();
 
 

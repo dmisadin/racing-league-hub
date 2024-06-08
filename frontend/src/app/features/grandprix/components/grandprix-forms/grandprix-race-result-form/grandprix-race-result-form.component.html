@@ -57,10 +57,18 @@
         </div>
         <div class="result-row" cdkDragDisabled>
             <app-btn-custom [label]="'Add result'" 
-            (OnClick)="addResultRowClick()"
-            [isDisabled]="results.controls.length >= maxAmount">
-        </app-btn-custom>   
-            {{results.controls.length >= maxAmount ? ('Maximum is ' + maxAmount + ' drivers') : ''}} 
+                (OnClick)="addResultRowClick()"
+                [isDisabled]="results.controls.length >= maxAmount">
+            </app-btn-custom>   
+
+            <app-btn-custom [label]="'Submit'" 
+                (OnClick)="submitResults()"
+                [isDisabled]="results.controls.length >= maxAmount">
+            </app-btn-custom>   
+
+            <span *ngIf="results.controls.length >= maxAmount">
+                {{'Maximum is ' + maxAmount + ' drivers'}} 
+            </span>
         </div>
     </ng-container>
 </div>

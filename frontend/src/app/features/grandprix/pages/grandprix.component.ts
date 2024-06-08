@@ -22,7 +22,7 @@ export class GrandPrixComponent {
     isDataLoaded: boolean = false;
     fastestLap = { driverName: '', teamId: 0, countryIso: 'hr', lapTimeInMs: 0 }
 
-    constructor(private gpDataService: GrandprixDataService,
+    constructor(private grandPrixDataService: GrandprixDataService,
         private sessionPointsService: SessionPointsService,
         private route: ActivatedRoute) { }
 
@@ -32,7 +32,7 @@ export class GrandPrixComponent {
             this.seasonId = params['seasonId'];
         })
         if (this.gpId) {
-            this.gpDataService.getOne(this.gpId).subscribe((data) => {
+            this.grandPrixDataService.getOne(this.gpId).subscribe((data) => {
                 console.log(data)
                 this.gpItem = data;
                 this.isDataLoaded = true;

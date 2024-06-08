@@ -6,14 +6,16 @@ export interface SessionResult {
     pointsGained: number;
     resultStatus: number;
     isReserve: boolean;
+    fastestLapInMs: number | null;
 
     driverName: string;
     countryIso: string;
+
+    selectedForDeletion: boolean;
 }
 
 export interface QualifyingResult extends SessionResult {
     bestTimeTyre: string;
-    fastestLapInMs: number | null;
 }
 
 export interface SprintResult extends SessionResult {
@@ -32,6 +34,5 @@ export interface RaceResult extends SessionResult {
     usedTyres: string;
     timePenalty: number;
     postRaceTimePenalty: number;
-    fastestLapInMs: number | null;
     tyres: string[];
 }

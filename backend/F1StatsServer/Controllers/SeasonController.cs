@@ -72,5 +72,24 @@ namespace F1StatsServer.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet(nameof(GetSeasonDrivers))]
+        public async Task<IActionResult> GetSeasonDrivers(int seasonId)
+        {
+            var result = await _seasonService.GetSeasonDrivers(seasonId);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+        }
+
+        /* to be implemented with new Entity GameTeams, move it to TeamService
+        [HttpGet(nameof(GetSeasonTeams))]
+        public async Task<IActionResult> GetSeasonTeams(int seasonId)
+        {
+            return
+        }
+        */
     }
 }

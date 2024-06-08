@@ -1,13 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { RaceResult } from 'app/shared/models/grandprix/Results';
+import { RaceResult, SessionResult } from 'app/shared/models/grandprix/Results';
 import { Driver, Team } from 'app/shared/models/season/Season';
-import { AbstractControl, ControlContainer, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faUpDown, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { ResultStatus } from 'app/shared/models/enums/Enumerations';
+import { ResultStatus, SessionType } from 'app/shared/models/enums/Enumerations';
 import { SessionPoints } from 'app/shared/models/season/SessionPoints';
-import { IEnumArray } from 'app/shared/models/interfaces';
+import { IEnum, IEnumArray } from 'app/shared/models/interfaces';
+import { GrandPrixService } from 'app/core/services/grand-prix.service';
 
 @Component({
     selector: 'app-grandprix-race-result-form',
@@ -19,22 +20,25 @@ export class GrandprixRaceResultFormComponent {
     @Input() drivers: Driver[] = [];
     @Input() teams: Team[] = [];
     @Input() sessionPoints?: SessionPoints;
+    resultsSelectedForDeletion: RaceResult[] = [];
     faUpDown = faUpDown;
     faTrashCan = faTrashCan;
     ResultStatus: IEnumArray = Object.values(ResultStatus).slice(3, 8);
-    grandprixId = 0;
+    SessionType: IEnum = SessionType;
+    grandPrixId = 0;
     maxAmount = 22;
-    
+
     constructor(private fb: FormBuilder,
         private router: Router,
-        private route: ActivatedRoute,) { }
+        private route: ActivatedRoute,
+        private grandPrixService: GrandPrixService) { }
 
     raceResultFrom = this.fb.group({
         results: this.fb.array([]),
     })
 
     ngOnInit() {
-        this.grandprixId = this.route.snapshot.params['grandprixId'];
+        this.grandPrixId = this.route.snapshot.params['grandPrixId'];
         this.session.forEach((el) => {
             this.addResult(el)
         });
@@ -49,6 +53,7 @@ export class GrandprixRaceResultFormComponent {
     }
 
     removeResultRowClick(index: number) {
+        this.resultsSelectedForDeletion.push({ ...this.results.at(index).value, selectedForDeletion: true });
         this.results.removeAt(index);
         this.updatePositionsAndPoints(undefined, index);
     }
@@ -60,24 +65,26 @@ export class GrandprixRaceResultFormComponent {
     }
 
     addResult(result?: RaceResult) {
-        const resultRow= this.fb.group({
-                id: [result?.id ?? 0],
-                grandprixId: [this.grandprixId],
-                teamId: [result?.teamId ?? ''],
-                driverId: [result?.driverId ?? ''],
-                position: [{ value: result?.position ?? '', disabled: true }],
-                raceTime: [result?.raceTime ?? ''],
-                resultStatus: [result?.resultStatus ?? ''],
-                timePenalty: [result?.timePenalty],
-                postRaceTimePenalty: [result?.postRaceTimePenalty ?? ''],
-                lapsCompleted: [result?.lapsCompleted ?? 0],
-                gridPosition: [result?.gridPosition ?? 0],
-                fastestLapInMs: [result?.fastestLapInMs ?? null],
-                pointsGained: [{ value: result?.pointsGained ?? '', disabled: true }],
-                isReserve: [result?.isReserve ?? false],
-                usedTyres: [result?.usedTyres ?? ''],
-            });
-        
+        const resultRow = this.fb.group({
+            id: [result?.id ?? 0],
+            grandPrixId: [this.grandPrixId],
+            teamId: [result?.teamId ?? ''],
+            sessionType: [this.SessionType.Race.Value],
+            driverId: [result?.driverId ?? ''],
+            position: [{ value: result?.position ?? '', disabled: true }],
+            raceTime: [result?.raceTime ?? ''],
+            resultStatus: [result?.resultStatus ?? ''],
+            timePenalty: [result?.timePenalty],
+            postRaceTimePenalty: [result?.postRaceTimePenalty ?? ''],
+            lapsCompleted: [result?.lapsCompleted ?? 0],
+            gridPosition: [result?.gridPosition ?? 0],
+            fastestLapInMs: [result?.fastestLapInMs ?? null],
+            pointsGained: [{ value: result?.pointsGained ?? '', disabled: true }],
+            isReserve: [result?.isReserve ?? false],
+            usedTyres: [result?.usedTyres ?? ''],
+            selectedForDeletion: [false]
+        });
+
         this.results.push(resultRow);
     }
 
@@ -134,5 +141,13 @@ export class GrandprixRaceResultFormComponent {
             pointsSum += this.sessionPoints.fastestLapPoints.points;
         }
         return pointsSum;
+    }
+
+    submitResults() {
+        var results = this.raceResultFrom.getRawValue().results as RaceResult[];
+        console.log("submit results", results);
+        results.push(...this.resultsSelectedForDeletion);
+        console.log("submit results after concat", results);
+        this.grandPrixService.InsertGrandPrixResults(results);
     }
 }

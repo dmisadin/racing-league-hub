@@ -5,9 +5,9 @@ using F1StatsServer.Entities;
 
 namespace F1StatsServer.Controllers
 {
-    public class RaceController : GenericController<Race, RaceDto>
+    public class RaceController : GenericController<SessionResult, RaceResultDto>
     {
-        public RaceController(IGenericRepository<Race> genericRepository) : base(genericRepository)
+        public RaceController(IGenericRepository<SessionResult> genericRepository) : base(genericRepository)
         {
         }
     }

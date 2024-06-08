@@ -33,10 +33,7 @@ public partial class Driver : EntityBase
     public virtual Platform? Platform { get; set; }
 
     [InverseProperty("Driver")]
-    public virtual ICollection<Qualifying> Qualifyings { get; set; } = new List<Qualifying>();
-
-    [InverseProperty("Driver")]
-    public virtual ICollection<Race> Races { get; set; } = new List<Race>();
+    public virtual ICollection<SessionResult> SessionResults { get; set; } = new List<SessionResult>();
 
     [InverseProperty("Driver")]
     public virtual ICollection<SeasonDrivers> SeasonDrivers { get; set; } = new List<SeasonDrivers>();
@@ -44,9 +41,6 @@ public partial class Driver : EntityBase
     [ForeignKey("SocialMediaId")]
     [InverseProperty("Drivers")]
     public virtual SocialMedia? SocialMedia { get; set; }
-
-    [InverseProperty("Driver")]
-    public virtual ICollection<Sprint> Sprints { get; set; } = new List<Sprint>();
 
     [ForeignKey("CountryId")]
     [InverseProperty("Drivers")]

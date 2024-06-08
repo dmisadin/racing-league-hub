@@ -211,6 +211,30 @@ export const PointsType: IEnum = {
 }
 
 
+export const SessionType: IEnum = {
+    Practice: {
+        Value: 1,
+        ValueName: "Practice",
+        Title: "Practice"
+    },
+    Qualifying: {
+        Value: 2,
+        ValueName: "Qualifying",
+        Title: "Qualifying"
+    },
+    Sprint: {
+        Value: 3,
+        ValueName: "Sprint",
+        Title: "Sprint"
+    },
+    Race: {
+        Value: 4,
+        ValueName: "Race",
+        Title: "Race"
+    },
+}
+
+
 /** Enumeration template
 export const Name: IEnum = {
     Property: {

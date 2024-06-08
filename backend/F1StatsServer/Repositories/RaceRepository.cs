@@ -4,7 +4,7 @@ using F1StatsServer.Entities;
 
 namespace F1StatsServer.Repositories
 {
-    public class RaceRepository : GenericRepository<Race>, IGenericRepository<Race>
+    public class RaceRepository : GenericRepository<SessionResult>, IGenericRepository<SessionResult>
     {
         public RaceRepository(AdventureContext context) : base(context)
         {

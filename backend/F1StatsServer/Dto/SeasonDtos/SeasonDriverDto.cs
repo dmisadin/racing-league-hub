@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace F1StatsServer.Dto.DriverDtos
+namespace F1StatsServer.Dto.SeasonDtos
 {
-    public class DriverSeasonDto
+    public class SeasonDriverDto
     {
         public int? Id { get; set; }
 

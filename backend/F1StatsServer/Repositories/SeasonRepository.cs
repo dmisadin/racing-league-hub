@@ -61,17 +61,17 @@ namespace F1StatsServer.Repositories
                                                                   CountryIso = grandPrix.Track.Country.Iso,
                                                                   CountryName = grandPrix.Track.Country.NameEnglish
                                                               },
-                                                              FastestDriverId = grandPrix.Races.Where(race => race.FastestLapInMs != null)
+                                                              FastestDriverId = grandPrix.SessionResults.Where(r => r.SessionType == SessionType.Race).Where(race => race.FastestLapInMs != null)
                                                                                        .OrderBy(race => race.FastestLapInMs)
                                                                                        .Select(race => race.DriverId).FirstOrDefault(),
-                                                              Race = grandPrix.Races.Select(race => new ResultSeasonDto
+                                                              Race = grandPrix.SessionResults.Where(r => r.SessionType == SessionType.Race).Select(race => new SessionResultBaseDto
                                                               {
                                                                   DriverId = race.DriverId,
                                                                   TeamId = race.TeamId,
                                                                   PointsGained = race.PointsGained,
                                                                   ResultStatus = race.ResultStatus
                                                               }).ToList(),
-                                                              Qualifying = grandPrix.Qualifyings.Select(qualifying => new ResultSeasonDto
+                                                              Qualifying = grandPrix.SessionResults.Where(r => r.SessionType == SessionType.Qualifying).Select(qualifying => new SessionResultBaseDto
                                                               {
                                                                   DriverId = qualifying.DriverId,
                                                                   TeamId = qualifying.TeamId,
@@ -79,7 +79,7 @@ namespace F1StatsServer.Repositories
                                                                   ResultStatus = qualifying.ResultStatus
                                                               }).ToList(),
 
-                                                              Sprint = grandPrix.Sprints.Select(sprint => new ResultSeasonDto
+                                                              Sprint = grandPrix.SessionResults.Where(r => r.SessionType == SessionType.Sprint).Select(sprint => new SessionResultBaseDto
                                                               {
                                                                   DriverId = sprint.DriverId,
                                                                   TeamId = sprint.TeamId,
@@ -88,7 +88,7 @@ namespace F1StatsServer.Repositories
                                                               }).ToList(),
                                                           }).ToList(),
 
-                                    Drivers = season.SeasonDrivers.Select(seasonDriver => new DriverSeasonDto
+                                    Drivers = season.SeasonDrivers.Select(seasonDriver => new SeasonDriverDto
                                     {
                                         Id = seasonDriver.DriverId,
                                         Name = seasonDriver.Driver.Name,
@@ -166,6 +166,20 @@ namespace F1StatsServer.Repositories
                                      Start = season.SeasonLobbySetting.Start
                                  })
                                  .FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<SeasonDriverDto>> GetSeasonDrivers(int seasonId)
+        {
+            return await _context.Set<SeasonDrivers>()
+                                 .Where(sd => sd.SeasonId == seasonId)
+                                 .Select(sd => new SeasonDriverDto
+                                 {
+                                    Id = sd.Id,
+                                    Name = sd.Driver.Name,
+                                    TeamId = sd.TeamId,
+                                    CountryIso = sd.Driver.Country.Iso,
+                                    PenaltyPoints = sd.PenaltyPoints
+                                 }).ToListAsync();
         }
     }
 

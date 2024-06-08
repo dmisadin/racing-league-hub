@@ -9,16 +9,13 @@ using F1StatsServer.Interfaces;
 using F1StatsServer.Entities;
 using F1StatsServer.Utility;
 using Microsoft.EntityFrameworkCore;
+using F1StatsServer.Entities.Enums;
 
 namespace F1StatsServer.Repositories
 {
     public class GrandPrixRepository : GenericRepository<GrandPrix>, IGenericRepository<GrandPrix>, IGrandPrixRepository
     {
-        private readonly AdventureContext _context;
-        public GrandPrixRepository(AdventureContext context) : base(context)
-        {
-            _context = context;
-        }
+        public GrandPrixRepository(AdventureContext context) : base(context) { }
 
         public async Task<List<GrandPrixHomeDto>> GetDataAsync()
         {
@@ -58,20 +55,20 @@ namespace F1StatsServer.Repositories
             return result;
         }
 
-        public async Task<GrandPrixDisplayDto?> GetGrandPrixDataAsync(int id)
+        public async Task<GrandPrixDto?> GetGrandPrixDataAsync(int id)
         {
             var query = _context.Set<GrandPrix>()
                                 .AsSplitQuery()
                                 .AsNoTracking()
                                 .Where(grandPrix => grandPrix.Id == id)
-                                .Select(grandPrix => new GrandPrixDisplayDto
+                                .Select(grandPrix => new GrandPrixDto
                                 {
                                     Name = grandPrix.Name,
                                     StartTime = grandPrix.StartTime,
                                     YoutubeUrl = grandPrix.YoutubeUrl,
-                                    FastestDriverId = grandPrix.Races.Where(race => race.FastestLapInMs != null)
-                                                                    .OrderBy(race => race.FastestLapInMs)
-                                                                    .Select(race => race.DriverId).FirstOrDefault(),
+                                    FastestDriverId = grandPrix.SessionResults.Where(race => race.SessionType == SessionType.Race && race.FastestLapInMs != null)
+                                                                            .OrderBy(race => race.FastestLapInMs)
+                                                                            .Select(race => race.DriverId).FirstOrDefault(),
                                     Track = new TrackDto
                                     {
                                         Id = grandPrix.Track.Id,
@@ -96,25 +93,26 @@ namespace F1StatsServer.Repositories
 
                                     },
 
-                                    Race = grandPrix.Races.Select(race => new RaceDto
+                                    Race = grandPrix.SessionResults.Where(r => r.SessionType == SessionType.Race)
+                                                                .Select(race => new RaceResultDto
                                     {
                                         DriverId = race.DriverId,
                                         TeamId = race.TeamId,
-                                        PointsGained = race.PointsGained,
+                                        PointsGained = race.PointsGained ?? 0,
                                         Id = race.Id,
                                         Position = race.Position,
                                         IsReserve = race.IsReserve,
                                         RaceTime = race.RaceTime,
                                         TimePenalty = race.TimePenalty,
                                         LapsCompleted = race.LapsCompleted,
-                                        GridPosition = race.GridPosition,
+                                        GridPosition = race.GridPosition ?? 0,
                                         UsedTyres = race.UsedTyres,
                                         FastestLapInMs = race.FastestLapInMs,
                                         ResultStatus = race.ResultStatus,
                                         PostRaceTimePenalty = race.PostRaceTimePenalty
                                     }).ToList(),
 
-                                    Qualifying = grandPrix.Qualifyings.Select(qualifying => new QualDto
+                                    Qualifying = grandPrix.SessionResults.Where(r => r.SessionType == SessionType.Qualifying).Select(qualifying => new QualifyingResultDto
                                     {
                                         DriverId = qualifying.DriverId,
                                         TeamId = qualifying.TeamId,
@@ -127,7 +125,7 @@ namespace F1StatsServer.Repositories
                                         BestTimeTyre = qualifying.BestTimeTyre
                                     }).ToList(),
 
-                                    Sprint = grandPrix.Sprints.Select(sprint => new RaceSprintDto
+                                    Sprint = grandPrix.SessionResults.Where(r => r.SessionType == SessionType.Sprint).Select(sprint => new SprintResultDto
                                     {
                                         DriverId = sprint.DriverId,
                                         TeamId = sprint.TeamId,
@@ -142,7 +140,7 @@ namespace F1StatsServer.Repositories
                                         UsedTyres = sprint.UsedTyres
 
                                     }).ToList(),
-                                    Teams = grandPrix.Races.Select(race => new TeamDto
+                                    Teams = grandPrix.SessionResults.Where(r => r.SessionType == SessionType.Race).Select(race => new TeamDto
                                     {
                                         Id = race.TeamId,
                                         Name = race.Team.Name,
@@ -150,7 +148,7 @@ namespace F1StatsServer.Repositories
                                         ColorHex = race.Team.ColorHex
                                     }).Distinct().ToList(),
 
-                                    Drivers = grandPrix.Races.Select(race => new DriverGrandPrixDto
+                                    Drivers = grandPrix.SessionResults.Where(r => r.SessionType == SessionType.Race).Select(race => new DriverGrandPrixDto
                                     {
                                         Id = race.DriverId,
                                         Name = race.Driver.Name,
@@ -162,58 +160,6 @@ namespace F1StatsServer.Repositories
                                 }).FirstOrDefaultAsync();
 
             return await query;
-        }
-
-        public async Task<int> InsertResultsNoSprintAsync(ResultInsertDto data, int id)
-        {
-            var races = MyMapper<Race, RaceInsertDto>.MapList(data.Races);
-            var quals = MyMapper<Qualifying, QualInsertDto>.MapList(data.Quals);
-
-            foreach (Race race in races)
-                race.GrandPrixId = id;
-            foreach (Qualifying qualifying in quals)
-                qualifying.GrandPrixId = id;
-
-            try
-            {
-                await _context.Set<Race>().AddRangeAsync(races);
-                await _context.Set<Qualifying>().AddRangeAsync(quals);
-                var result = await _context.SaveChangesAsync();
-                return result;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
-        }
-
-        public async Task<int> InsertResultsAsync(ResultInsertDto data, int id)
-        {
-            var races = MyMapper<Race, RaceInsertDto>.MapList(data.Races);
-            var quals = MyMapper<Qualifying, QualInsertDto>.MapList(data.Quals);
-            var sprints = MyMapper<Sprint, SprintInsertDto>.MapList(data.Sprints);
-
-            foreach (Race race in races)
-                race.GrandPrixId = id;
-            foreach (Qualifying qualifying in quals)
-                qualifying.GrandPrixId = id;
-            foreach (Sprint sprint in sprints)
-                sprint.GrandPrixId = id;
-
-            try
-            {
-                await _context.Set<Race>().AddRangeAsync(races);
-                await _context.Set<Qualifying>().AddRangeAsync(quals);
-                await _context.Set<Sprint>().AddRangeAsync(sprints);
-                var result = await _context.SaveChangesAsync();
-                return result;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
         }
 
         public bool HasSprint(int id)

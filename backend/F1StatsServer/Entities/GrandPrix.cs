@@ -27,10 +27,7 @@ public partial class GrandPrix : EntityBase
     public string? YoutubeUrl { get; set; }
 
     [InverseProperty("GrandPrix")]
-    public virtual ICollection<Qualifying> Qualifyings { get; set; } = new List<Qualifying>();
-
-    [InverseProperty("GrandPrix")]
-    public virtual ICollection<Race> Races { get; set; } = new List<Race>();
+    public virtual ICollection<SessionResult> SessionResults { get; set; } = new List<SessionResult>();
 
     [ForeignKey("SeasonId")]
     [InverseProperty("GrandPrixes")]
@@ -39,8 +36,5 @@ public partial class GrandPrix : EntityBase
     [ForeignKey("TrackId")]
     [InverseProperty("GrandPrixes")]
     public virtual Track? Track { get; set; }
-
-    [InverseProperty("GrandPrix")]
-    public virtual ICollection<Sprint> Sprints { get; set; } = new List<Sprint>();
 
 }

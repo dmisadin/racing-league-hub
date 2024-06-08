@@ -1,4 +1,6 @@
 ﻿using F1StatsServer.Dto.SeasonDtos;
+using F1StatsServer.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace F1StatsServer.Interfaces
 {
@@ -9,5 +11,7 @@ namespace F1StatsServer.Interfaces
         public Task<SeasonSessionPointsDto> GetSeasonSessionPointsAsync(int id);
         public Task<SeasonAssistsDto?> GetAssistsAsync(int id);
         public Task<SeasonLobbySettingsDto?> GetLobbySettingsAsync(int id);
+        public Task<IEnumerable<SeasonDriverDto>> GetSeasonDrivers(int seasonId);
+        //public Task<SeasonTeams> GetSeasonTeams(int seasonId);
     }
 }

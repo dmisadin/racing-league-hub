@@ -76,5 +76,13 @@ namespace F1StatsServer.Services
 
             return await _seasonRepository.GetSeasonLobbySettings(id);
         }
+
+        public async Task<IEnumerable<SeasonDriverDto>> GetSeasonDrivers(int seasonId)
+        {
+            if (!_genericRepository.Has(seasonId))
+                return null;
+
+            return await _seasonRepository.GetSeasonDrivers(seasonId);
+        }
     }
 }

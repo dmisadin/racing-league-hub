@@ -23,14 +23,8 @@ public partial class Team : EntityBase
     public string ColorHex { get; set; } = null!;
 
     [InverseProperty("Team")]
-    public virtual ICollection<Qualifying> Qualifyings { get; set; } = new List<Qualifying>();
-
-    [InverseProperty("Team")]
-    public virtual ICollection<Race> Races { get; set; } = new List<Race>();
+    public virtual ICollection<SessionResult> SessionResults { get; set; } = new List<SessionResult>();
 
     [InverseProperty("Team")]
     public virtual ICollection<SeasonDrivers> SeasonDrivers { get; set; } = new List<SeasonDrivers>();
-
-    [InverseProperty("Team")]
-    public virtual ICollection<Sprint> Sprints { get; set; } = new List<Sprint>();
 }
