@@ -78,10 +78,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "browserTarget": "f1-league-stats:build:production"
+                          "buildTarget": "f1-league-stats:build:production"
                         },
                         "development": {
-                            "browserTarget": "f1-league-stats:build:development"
+                          "buildTarget": "f1-league-stats:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -89,7 +89,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "f1-league-stats:build"
+                      "buildTarget": "f1-league-stats:build"
                     }
                 },
                 "test": {
