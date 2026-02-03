@@ -9,44 +9,41 @@
             </button>
         </div>
         
-
         <div class="form-column" *ngIf="currentStep === 1">
-            <app-season-info-form  [(infoValue)]="infoValue">
+            <app-season-info-form>
             </app-season-info-form> 
         </div>
-
 
         <div class="form-column" *ngIf="currentStep === 2">
             <app-season-points 
                 *ngIf="qualPointsArray" 
-                [sessionName]="'Qualifying'"
-                [(pointsArray)]="qualPointsArray"
-                ></app-season-points>
+                [pointsType]="PointsType.Qualifying"
+                [pointsArray]="qualPointsArray">
+            </app-season-points>
         </div>
 
         <div class="form-column" *ngIf="currentStep === 3">
             <app-season-points 
                 *ngIf="sprintPointsArray" 
-                [sessionName]="'Sprint'"
-                [(pointsArray)]="sprintPointsArray"
-                ></app-season-points>
+                [pointsType]="PointsType.Sprint"
+                [pointsArray]="sprintPointsArray">
+            </app-season-points>
         </div>
-
         
         <div class="form-column" *ngIf="currentStep === 4">
             <app-season-points 
                 *ngIf="racePointsArray" 
-                [sessionName]="'Race'"
-                [(pointsArray)]="racePointsArray"
-                ></app-season-points>
+                [pointsType]="PointsType.Race"
+                [pointsArray]="racePointsArray">
+            </app-season-points>
         </div>
 
         <div class="form-column" *ngIf="currentStep === 5" >
             <app-season-points 
                 *ngIf="fastestLapPointsArray" 
                 [maxAmount]=1
-                [sessionName]="'Fastest Lap'"
-                [(pointsArray)]="fastestLapPointsArray">
+                [pointsType]="PointsType.FastestLap"
+                [pointsArray]="fastestLapPointsArray">
                 Position marks the lowest finishing position in a Race.
             </app-season-points>
         </div>

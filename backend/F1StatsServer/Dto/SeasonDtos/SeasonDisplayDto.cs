@@ -1,8 +1,8 @@
-﻿using F1StatsServer.Model;
+﻿using F1StatsServer.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using F1StatsServer.Dto.GrandPrixDtos;
-using F1StatsServer.Dto.DriverDtos;
+using F1StatsServer.Entities.Enums;
 
 namespace F1StatsServer.Dto.SeasonDtos
 {
@@ -17,9 +17,9 @@ namespace F1StatsServer.Dto.SeasonDtos
 
         public byte LapsRequiredPercentage { get; set; }
 
-        public GameDto? Game { get; set; }
+        public Game Game { get; set; }
 
-        public PlatformDto? Platform { get; set; }
+        public Platform? Platform { get; set; }
 
         public List<SeasonPointsDto>? RacePoints { get; set; }
 
@@ -35,7 +35,7 @@ namespace F1StatsServer.Dto.SeasonDtos
 
         public List<GrandPrixSeasonDto>? GrandPrixes { get; set; }
 
-        public List<DriverSeasonDto>? Drivers { get; set; } 
+        public List<SeasonDriverDto>? Drivers { get; set; } 
 
         public List<TeamDto>? Teams { get; set; }
 

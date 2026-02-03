@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using F1StatsServer.Entities.Enums;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
@@ -7,9 +8,9 @@ namespace F1StatsServer.Dto.SeasonDtos
     public class SeasonsInLeagueDto
     {
         public int Id { get; set; }
-        public GameDto? Game { get; set; }
+        public Game? Game { get; set; }
 
-        public PlatformDto? Platform { get; set; }
+        public Platform? Platform { get; set; }
 
         [StringLength(255)]
         public string Name { get; set; } = null!;
@@ -21,7 +22,5 @@ namespace F1StatsServer.Dto.SeasonDtos
         public DateTimeOffset? StartTime { get; set; }
 
         public DateTimeOffset? EndTime { get; set; }
-
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using F1StatsServer.Entities.Enums;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace F1StatsServer.Dto.SeasonDtos
@@ -7,9 +8,9 @@ namespace F1StatsServer.Dto.SeasonDtos
     {
         public int LeagueId { get; set; }
 
-        public int GameId { get; set; }
+        public Game Game { get; set; }
 
-        public int? PlatformId { get; set; }
+        public Platform Platform { get; set; }
 
         [StringLength(255)]
         public string Name { get; set; } = null!;
@@ -20,12 +21,9 @@ namespace F1StatsServer.Dto.SeasonDtos
 
         public byte LapsRequiredPercentage { get; set; }
 
-        public List<SeasonPointsDto> RacePointsDto { get; set; } = null!;
-        public SeasonLobbySettingsDto LobbySettingsDto { get; set; } = null!;
-        public SeasonAssistsDto AssistsDto { get; set; } = null!;
-        public List<SeasonPointsDto>? QualPointsDto { get; set; }
-        public List<SeasonPointsDto>? SprintPointsDto { get; set; }
-        public SeasonPointsDto FastestLapPointDto { get; set; } = null!;
+        public IEnumerable<SeasonPointsDto> SeasonPoints { get; set; } = null!;
+        public SeasonLobbySettingsDto LobbySettings { get; set; } = null!;
+        public SeasonAssistsDto Assists { get; set; } = null!;
 
     }
 }

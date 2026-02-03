@@ -14,7 +14,7 @@
             [routerLink]="['season', season.id]"
             [text]="season.name"
             [subtext]="(season.startTime | date:'MMM y') + ' - ' + (season.endTime | date: 'MMM y')" 
-            [gameName]="season.game.name">
+            [gameName]="season.game | enumValueName:gameEnum">
         </app-season-card>
     </ng-container>
 </app-section-flex>

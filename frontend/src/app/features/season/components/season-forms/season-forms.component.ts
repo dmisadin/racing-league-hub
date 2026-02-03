@@ -8,8 +8,8 @@ import { Info } from 'app/shared/models/season/Info';
 import { LobbySettings } from 'app/shared/models/season/LobbySettings';
 import { SeasonInsert } from 'app/shared/models/season/SeasonInsert';
 import { Subscription, firstValueFrom } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { PointsType } from 'app/shared/models/enums/Enumerations';
 
 @Component({
     selector: 'app-season-forms',
@@ -19,6 +19,7 @@ import { ActivatedRoute } from '@angular/router';
 export class SeasonFormsComponent {
     faArrowLeft = faArrowLeft;
     faArrowRight = faArrowRight;
+    PointsType = PointsType;
 
     currentStep = 1;
     totalSteps = 8;
@@ -26,7 +27,7 @@ export class SeasonFormsComponent {
     isSubmitted: boolean = false;
     season$!: Subscription;
     leagueId: number = 0;
-    stepFormNames = ["info", "qualPoints", "sprintPoints", "racePoints", "fastestLapPoints", "lobbySettings", "assists"]
+    stepFormNames = ["seasonInfo", "seasonPoints", "seasonPoints", "seasonPoints", "seasonPoints", "lobbySettings", "assists"]
     infoValue = { name: "", gameId: 5, platformId: 1, lapsRequiredPercentage: 90 };
 
     qualPointsArray = this.fb.array([]);
@@ -35,10 +36,15 @@ export class SeasonFormsComponent {
     fastestLapPointsArray = this.fb.array([]);
 
     seasonForm = this.fb.group({
+        seasonPoints: this.fb.array([])
         // The rest of form group is added inside child components with parent.addControl()
     });
 
-    constructor(private fb: FormBuilder, private addSeasonService: AddSeasonService, private route: ActivatedRoute) { }
+    constructor(private fb: FormBuilder, 
+        private addSeasonService: AddSeasonService, 
+        private route: ActivatedRoute,
+        private router: Router
+    ) { }
 
     ngOnInit() {
         this.season$ = this.route.params.subscribe(params => {
@@ -49,28 +55,30 @@ export class SeasonFormsComponent {
     onSubmit(): void {
         this.isSubmitted = true;
         console.log("Submitted form: ", this.seasonForm.value, this.seasonForm.valid, this.seasonForm);
-        var info: Info = this.seasonForm.get('info')!.value;
-        var fastestLapPoints: Point[] = this.seasonForm.get('fastestLapPoints')!.value;
-
+        //var fastestLapPoints: Point[] = this.seasonForm.get('fastestLapPoints')!.value;
+        const seasonInfo: Info  = this.seasonForm.get('seasonInfo')!.value;
+        const qualifyingPoints: Point[] = this.seasonForm.get('points' + this.PointsType.Qualifying.ValueName)?.value;
+        const sprintPoints: Point[] = this.seasonForm.get('points' + this.PointsType.Sprint.ValueName)?.value;
+        const racePoints: Point[] = this.seasonForm.get('points' + this.PointsType.Race.ValueName)?.value;
+        const fastestLapPoints: Point[] = this.seasonForm.get('points' + this.PointsType.FastestLap.ValueName)?.value;
 
         var seasonInsert: SeasonInsert;
         seasonInsert = {
             leagueId: this.leagueId,
-            gameId: this.infoValue.gameId,
-            platformId: this.infoValue.platformId,
+            game: seasonInfo.game,
+            platform: seasonInfo.platform,
             imagePath: '',
-            name: info.name,
-            lapsRequiredPercentage: info.lapsRequiredPercentage,
-            racePointsDto: this.seasonForm.get('racePoints')!.value,
-            qualPointsDto: this.seasonForm.get('qualPoints')!.value,
-            sprintPointsDto: this.seasonForm.get('sprintPoints')!.value,
-            fastestLapPointDto: fastestLapPoints[0] || { position: 10, points: 1 },
-            lobbySettingsDto: this.seasonForm.get('lobbySettings')!.value,
-            assistsDto: this.seasonForm.get('assists')!.value
+            name: seasonInfo.name,
+            lapsRequiredPercentage: seasonInfo.lapsRequiredPercentage,
+            seasonPoints: [...qualifyingPoints, ...sprintPoints, ...racePoints, ...fastestLapPoints],
+            lobbySettings: this.seasonForm.get('lobbySettings')?.value,
+            assists: this.seasonForm.get('assists')!.value
         }
         //Add redirect from form to created Season page.
         console.log(seasonInsert);
-        this.addSeason(seasonInsert);
+        this.addSeason(seasonInsert).then(() => {
+            this.router.navigate([`/leagues/${this.leagueId}`]);
+        });
     }
 
     getPropArray(value: string): Point[] {
@@ -96,6 +104,10 @@ export class SeasonFormsComponent {
         return this.seasonForm?.get(this.stepFormNames[this.currentStep - 1])?.valid;
         // This can be improved by checking if all the steps before it are valid as well.
         // But right now, you can't skip the steps, so it doesn't mater until something like nonlinear "Material Stepper" is implemented
+    }
+
+    get pointsFormArray() {
+        return this.seasonForm.get("seasonPoints") as FormArray;
     }
 
     getControl(name: string): FormControl {

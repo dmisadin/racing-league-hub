@@ -4,8 +4,8 @@
     <app-section-flex [direction]="'row'">
         <div class="flex-text-column">
             <h1>{{seasonItem.name}}</h1>
-            <div class="racing-day">
-                Racing on {{seasonItem.grandPrixes[0].startTime | date:'EEEE'}}s at {{seasonItem.grandPrixes[0].startTime | date:'HH:mm O'}}.
+            <div class="racing-day" *ngIf="seasonItem.grandPrixes?.length">
+                Racing on {{seasonItem.grandPrixes[0].startTime ?? '' | date:'EEEE'}}s at {{seasonItem.grandPrixes[0].startTime | date:'HH:mm O'}}.
             </div><!-- 
             <div class="description">
                 Basic infromacije o ligi što već organizator želi.
@@ -33,6 +33,7 @@
     
     
     <app-standings-tables 
+        *ngIf="seasonItem.drivers.length && seasonItem.grandPrixes.length"
         [grandPrixes]="seasonItem.grandPrixes"
         [drivers]="seasonItem.drivers"
         [teams]="seasonItem.teams">
@@ -86,11 +87,11 @@
     </app-section-flex>
     
     
-    <app-section-flex [direction]="'row'" class="wrapping" [title]="'Race calendar'" [justify]="'space-between'" [gap]="'16px'">
+    <app-section-flex *ngIf="seasonItem.grandPrixes.length" [direction]="'row'" class="wrapping" [title]="'Race calendar'" [justify]="'space-between'" [gap]="'16px'">
         <app-race-card *ngFor="let gp of seasonItem.grandPrixes" 
                         [routerLink]="['grandprix', gp.id]"
                         [gpName]="gp.track.countryName"
-                        [startTime]="gp.startTime"
+                        [startTime]="gp.startTime ?? ''"
                         [trackId]="gp.track.id"
                         [trackName]="gp.track.name"
                         [countryIso]="gp.track.countryIso">

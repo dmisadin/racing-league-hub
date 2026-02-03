@@ -8,7 +8,9 @@ import { IconDefinition, IconLookup } from '@fortawesome/free-solid-svg-icons';
 export class BtnCustomComponent {
   @Input() label: string = '';
   @Input() colorClass: string = 'light';
+  @Input() size: string = '';
   @Input() faIcon: IconDefinition | IconLookup | null = null;
+  @Input() isDisabled: boolean = false;
   @Output() OnClick = new EventEmitter<string>();
 
   constructor() {}

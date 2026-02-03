@@ -15,7 +15,7 @@ export class League {
     socialMedia?: SocialMedia;
     region?: Region;
     seasonsInLeague?: SeasonInLeague[] = [];
-    platform?: Platform;
-    game?: Game;
+    platform: number = 1;
+    game: number = 1;
     //leagueUsers?: LeagueUser[] = [];
 }

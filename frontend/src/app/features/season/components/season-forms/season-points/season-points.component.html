@@ -1,9 +1,9 @@
-<h1>Create points system for {{sessionName}}</h1>
+<h1>Create points system for {{pointsType.Title}}</h1>
 <ng-container [formGroup]="parentFormGroup">
-    <form formGroupName={{sessionType[sessionName]}}>
+    <form formGroupName="{{'points' + pointsType.ValueName}}">
         <div class="description">
-            Decide the points distribution for the {{sessionName}}. 
-            If you don't want to give out points for the {{sessionName}}, leave this empty and go to the next step.
+            Decide the points distribution for the {{pointsType.Title}}. 
+            If you don't want to give out points for the {{pointsType.Title}}, leave this empty and go to the next step.
             <ng-content></ng-content>
         </div>
         <div class="buttons">

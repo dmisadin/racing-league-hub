@@ -1,8 +1,8 @@
 ﻿using F1StatsServer.Dto.GrandPrixDtos;
 using F1StatsServer.Dto.ResultsDtos;
 using F1StatsServer.Infrastructure;
-using F1StatsServer.Interface;
-using F1StatsServer.Model;
+using F1StatsServer.Interfaces;
+using F1StatsServer.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F1StatsServer.Controllers
@@ -14,18 +14,18 @@ namespace F1StatsServer.Controllers
         public IGenericRepository<GrandPrix> _genericRepository;
         public IGrandPrixRepository _grandPrixRepository;
         private readonly IGrandPrixService _grandPrixService;
-        private readonly IResultService _resultService;
+        private readonly ISessionResultService _sessionResultService;
 
         public GrandPrixController(
             IGenericRepository<GrandPrix> genericRepository,
             IGrandPrixRepository grandPrixRepository,
             IGrandPrixService grandPrixService,
-            IResultService resultService) : base(genericRepository)
+            ISessionResultService sessionResultService) : base(genericRepository)
         {
             _genericRepository = genericRepository;
             _grandPrixRepository = grandPrixRepository;
             _grandPrixService = grandPrixService;
-            _resultService = resultService;
+            _sessionResultService = sessionResultService;
         }
 
         [HttpGet("homepage")]
@@ -65,16 +65,16 @@ namespace F1StatsServer.Controllers
             return Ok(result);
         }
 
-        [HttpPost("create/{id}/results")]
+        [HttpPost(nameof(InsertResults))]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> InsertResults(ResultInsertDto data,int id)
+        public async Task<IActionResult> InsertResults(List<SessionResultDto> data)
         {
             if(data == null)
                 return BadRequest(ModelState);
 
-            var result = await _resultService.InsertResultsAsync(data, id);
+            var result = await _sessionResultService.InsertResultsAsync(data);
 
-            if (ModelState.IsValid || result == -1)
+            if (!ModelState.IsValid || !result)
                 return BadRequest(ModelState);
 
             return Ok(result);

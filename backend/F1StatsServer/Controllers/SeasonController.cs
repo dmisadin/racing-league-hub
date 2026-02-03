@@ -1,7 +1,7 @@
 ﻿using F1StatsServer.Dto.SeasonDtos;
 using F1StatsServer.Infrastructure;
-using F1StatsServer.Interface;
-using F1StatsServer.Model;
+using F1StatsServer.Interfaces;
+using F1StatsServer.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F1StatsServer.Controllers
@@ -50,5 +50,46 @@ namespace F1StatsServer.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("GetAssists/{id}")]
+        public async Task<IActionResult> GetSeasonAssists (int id)
+        {
+            var result = await _seasonService.GetAssistsAsync(id);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+        }
+
+        [HttpGet("GetLobbySettings/{id}")]
+        public async Task<IActionResult> GetSeasonLobbySettings(int id)
+        {
+            var result = await _seasonService.GetLobbySettingsAsync(id);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+        }
+
+        [HttpGet(nameof(GetSeasonDrivers))]
+        public async Task<IActionResult> GetSeasonDrivers(int seasonId)
+        {
+            var result = await _seasonService.GetSeasonDrivers(seasonId);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+        }
+
+        /* to be implemented with new Entity GameTeams, move it to TeamService
+        [HttpGet(nameof(GetSeasonTeams))]
+        public async Task<IActionResult> GetSeasonTeams(int seasonId)
+        {
+            return
+        }
+        */
     }
 }

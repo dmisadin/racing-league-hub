@@ -1,0 +1,63 @@
+﻿using F1StatsServer.Dto.LeagueDtos;
+using F1StatsServer.Infrastructure;
+using F1StatsServer.Interfaces;
+using F1StatsServer.Entities;
+
+namespace F1StatsServer.Services
+{
+    public class LeagueService : ILeagueService
+    {
+        private readonly IGenericRepository<League> _genericRepository;
+        private readonly ILeagueRepository _leagueRepository;
+
+        public LeagueService(IGenericRepository<League> genericRepository, ILeagueRepository leagueRepository)
+        {
+            _genericRepository = genericRepository;
+            _leagueRepository = leagueRepository;
+        }
+
+        //TODO: Swap SocialMedium initializer to use MyMapper<TDto,T>.MapList(data)
+        public async Task<int> InsertLeagueAsync(LeagueInsertDto data)
+        {
+            var item = new League
+            {
+                Name = data.Name,
+                Description = data.Description,
+                ImagePath = data.ImagePath,
+                RegionId = data.RegionId,
+                ColorHex = data.ColorHex,
+                SocialMedia = new SocialMedia
+                {
+                    Website = data.Website,
+                    Discord = data.Discord,
+                    Youtube = data.Youtube,
+                    Twitch = data.Twitch,
+                    Facebook = data.Facebook,
+                    Instagram = data.Instagram,
+                }
+            };
+            if (item == null)
+                return -1;
+
+            return await _genericRepository.CreateItemAsync(item);
+        }
+
+        public async Task<LeagueDisplayDto> GetLeagueDataAsync(int id)
+        {
+            if (!_genericRepository.Has(id))
+                return null;
+
+            var item = await _leagueRepository.GetLeagueDataAsync(id);
+
+            return item;
+        }
+
+        public async Task<List<LeaguesDisplayDto>> GetLeaguesAsync()
+        {
+            var item = await _leagueRepository.GetLeaguesAsync();
+
+            return item;
+        }
+
+    }
+}

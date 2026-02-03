@@ -42,7 +42,7 @@ export class SeasonGrandPrix {
     id?: number = 0;
     seasonId: number = 0;
     name: string = '';
-    startTime: string = '';
+    startTime?: string = '';
     hasSprint: boolean = false;
     youtubeUrl: string = 'youtube.com';
     track!: Track;

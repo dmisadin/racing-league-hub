@@ -1,6 +1,6 @@
 ﻿using F1StatsServer.Dto;
 using F1StatsServer.Infrastructure;
-using F1StatsServer.Model;
+using F1StatsServer.Entities;
 
 namespace F1StatsServer.Controllers
 {

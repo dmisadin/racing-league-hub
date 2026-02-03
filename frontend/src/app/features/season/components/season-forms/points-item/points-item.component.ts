@@ -16,10 +16,11 @@ export class PointsItemComponent {
 	constructor() { }
 
 
-	static addPointsItem(position: number, points: number): FormGroup {
+	static addPointsItem(position: number, points: number, pointsType: number): FormGroup {
 		return new FormGroup({
 			position: new FormControl(position, [Validators.required, Validators.min(1), Validators.max(22)]),
-			points: new FormControl(points, [Validators.required, Validators.min(1)])
+			points: new FormControl(points, [Validators.required, Validators.min(1)]),
+			pointsType: new FormControl(pointsType, [Validators.required, Validators.min(1)])
 		});
 
 	}

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GrandPrixLiveService, GrandPrixStartingSoonService } from 'app/core/services/grand-prix-starting-soon.service';
+import { GrandPrixLiveService, GrandPrixService } from 'app/core/services/grand-prix.service';
 import { RaceRow } from 'app/shared/models/homepage/RaceRow';
 
 @Component({
@@ -12,10 +12,10 @@ export class SidebarComponent {
     grandPrixLive: RaceRow[] = new Array();
     grandPrixStartingSoon: RaceRow[] = new Array();
 
-    constructor( private gpStartingSoonService: GrandPrixStartingSoonService, private gpLiveService: GrandPrixLiveService ) { }
+    constructor( private grandPrixService: GrandPrixService, private gpLiveService: GrandPrixLiveService ) { }
 
     ngOnInit(): void {
-        this.gpStartingSoonService.getAll().subscribe(data => {
+        this.grandPrixService.getAll().subscribe(data => {
             this.grandPrixStartingSoon = data;
             console.log(data)
         })

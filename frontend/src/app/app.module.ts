@@ -15,7 +15,7 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
 import { SidebarRaceComponent } from './shared/components/sidebar-race/sidebar-race.component';
 import { LoginComponent } from './features/login/login.component';
 import { RegistrationComponent } from './features/registration/registration.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { UtilityBarComponent } from './shared/components/utility-bar/utility-bar.component';
 
@@ -56,15 +56,15 @@ import { SharedModule } from './shared/shared.module';
         FooterComponent,
         UtilityBarComponent,
     ],
+    bootstrap: [AppComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        HttpClientModule,
         FontAwesomeModule,
         ReactiveFormsModule,
         ColorPickerModule,
-        SharedModule,
+        SharedModule
     ],
     providers: [
         {
@@ -72,8 +72,8 @@ import { SharedModule } from './shared/shared.module';
             useClass: AuthInterceptor,
             multi: true
         },
-    ],
-    bootstrap: [AppComponent],
+        provideHttpClient(withInterceptorsFromDi()),
+    ]
 })
 export class AppModule {
     constructor(library: FaIconLibrary) {

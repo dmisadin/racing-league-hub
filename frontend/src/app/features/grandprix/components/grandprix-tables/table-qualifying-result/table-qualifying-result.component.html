@@ -23,16 +23,16 @@
             </td>
             <td class="driver-name">{{q.driverName}}</td>
             <td>
-                <ng-container *ngIf="q.resultStatus === 3 || q.fastestLapInMs > 0; else notime">
+                <ng-container *ngIf="q.resultStatus.Value === 3 || q.fastestLapInMs > 0; else notime">
                     {{q.fastestLapInMs/1000 | raceTime}}
                 </ng-container>
 
                 <ng-template #notime>
-                    {{ resultStatus[q.resultStatus].value }}
+                    {{ q.resultStatus | enumTitle:ResultStatus }}
                 </ng-template>
             </td>
             <td>
-                <ng-container *ngIf="q.resultStatus === 3 && q.position !==1 && q.fastestLapInMs">
+                <ng-container *ngIf="q.resultStatus === ResultStatus.Finished.Value && q.position !== 1 && q.fastestLapInMs">
                     {{ '+' + ((q.fastestLapInMs - qualifying[0].fastestLapInMs ) / 1000 | number:'0.3-3') }}
                 </ng-container>
                 <ng-container *ngIf="q.position === 1">

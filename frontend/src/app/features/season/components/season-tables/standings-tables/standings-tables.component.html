@@ -39,7 +39,7 @@
             </tr>
         </tbody>
     </table>
-    <app-btn-custom *ngIf="showDriverCount <=20" (click)="showDriverCount=drivers.length" [label]="'Show more drivers'"></app-btn-custom>
+    <app-btn-custom *ngIf="showDriverCount <= 20 && drivers.length > 20" (click)="showDriverCount=drivers.length" [label]="'Show more drivers'"></app-btn-custom>
 </app-section-flex>
 
 <app-section-flex [title]="'Constructors championship standings'">

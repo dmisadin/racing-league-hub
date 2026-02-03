@@ -15,6 +15,9 @@ import { UrlHttpPipe } from './pipes/url-http.pipe';
 import { DateDiffFromNowPipe } from './pipes/date-diff-from-now.pipe';
 import { NoSpacePipe } from './pipes/no-space.pipe';
 import { UserInfoComponent } from './components/user-info/user-info.component';
+import { EnumValuePipe } from './pipes/enum-value.pipe';
+import { EnumTitlePipe } from './pipes/enum-title.pipe';
+import { EnumValueNamePipe } from './pipes/enum-value-name.pipe';
 
 @NgModule({
     declarations: [
@@ -30,6 +33,9 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
         UrlHttpPipe,
         DateDiffFromNowPipe,
         NoSpacePipe,
+        EnumValuePipe,
+        EnumTitlePipe,
+        EnumValueNamePipe,
     ],
     imports: [
         CommonModule,
@@ -50,6 +56,9 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
         UrlHttpPipe,
         DateDiffFromNowPipe,
         NoSpacePipe,
+        EnumValuePipe,
+        EnumTitlePipe,
+        EnumValueNamePipe,
 
         DragDropModule,
         FontAwesomeModule,
