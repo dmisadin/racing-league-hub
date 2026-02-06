@@ -1,29 +1,27 @@
 ﻿using F1StatsServer.Data;
-using F1StatsServer.Interface;
-using F1StatsServer.Util;
+using F1StatsServer.Utility;
 using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
+using System.Linq.Expressions;
 
 namespace F1StatsServer.Infrastructure
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : EntityBase
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : EntityBase
     {
-        private readonly AdventureContext _context;
-        private readonly DbSet<T> table;
+        protected readonly AdventureContext _context;
+        private readonly DbSet<TEntity> table;
 
         public GenericRepository(AdventureContext context)
         {
             _context = context;
-            table = _context.Set<T>();
+            table = _context.Set<TEntity>();
         }
 
-        public async Task<int> CreateItemAsync(T item)
+        public async Task<int> CreateItemAsync(TEntity item)
         {
             await table.AddRangeAsync(item);
 
-            var save = await SaveAsync();
+            var save = await Commit();
 
             if (save == false)
                 return -1;
@@ -31,11 +29,11 @@ namespace F1StatsServer.Infrastructure
             return item.Id; 
         }
 
-        public async Task<int> CreateItemListAsync(List<T> items)
+        public async Task<int> CreateItemListAsync(List<TEntity> items)
         {
             await table.AddRangeAsync(items);
 
-            var save = await SaveAsync();
+            var save = await Commit();
 
             if (save == false) 
                 return -1;
@@ -43,31 +41,31 @@ namespace F1StatsServer.Infrastructure
             return 0;
         }
 
-        public async Task<T> DeleteItemAsync(int id)
+        public async Task<TEntity> DeleteItemAsync(int id)
         {
-            T? existing = await table.FindAsync(id);
+            TEntity? existing = await table.FindAsync(id);
 
             if (existing == null)
                 return null;
 
             table.Remove(existing);
-            var result = await SaveAsync();
+            var result = await Commit();
             if (result == false)
                 return null;
 
             return existing;
         }
 
-        public async Task<List<T>> GetAsync()
+        public async Task<List<TEntity>> GetAsync()
         {
             return await table.AsNoTracking().ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<TEntity> GetByIdAsync(int id)
         {
             var result = await table.FindAsync(id);
 
-            return result ?? null;
+            return result;
         }
 
         public bool Has(int id)
@@ -75,14 +73,14 @@ namespace F1StatsServer.Infrastructure
             return table.Any((c) => c.Id == id);
         }
 
-        public async Task<int> UpdateItemAsync(JsonPatchDocument<T> item, int id)
+        public async Task<int> UpdateItemAsync(JsonPatchDocument<TEntity> item, int id)
         {
-            var fromDb = await _context.IncludeAll(_context.Set<T>()).Where(p => p.Id == id).FirstOrDefaultAsync();
+            var fromDb = await _context.IncludeAll(table).Where(p => p.Id == id).FirstOrDefaultAsync();
 
             item.ApplyTo(fromDb);
 
             table.Update(fromDb);
-            var save = await SaveAsync();
+            var save = await Commit();
 
             if (save == false)
                 return -1;
@@ -90,7 +88,7 @@ namespace F1StatsServer.Infrastructure
             return 0;
         }
 
-        public async Task<bool> SaveAsync()
+        public async Task<bool> Commit()
         {
             try
             {
@@ -106,6 +104,42 @@ namespace F1StatsServer.Infrastructure
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        /** REFACTORING BELOW */
+
+        public virtual IQueryable<TEntity> Query()
+        {
+            return table;
+        }
+
+        public async Task Insert(params TEntity[] entities)
+        {
+            await table.AddRangeAsync(entities);
+        }
+
+        public void Remove(params TEntity[] entities)
+        {
+            table.RemoveRange(entities);
+        }
+
+        public void Update(params TEntity[] entities)
+        {
+            table.UpdateRange(entities);
+        }
+
+        //yet to be tested Upsert
+        public async Task UpsertAsync<TEntity>(TEntity entity) where TEntity : EntityBase
+        {
+            var exists = entity.Id != 0 && await _context.Set<TEntity>().AnyAsync(e => e.Id == entity.Id);
+            if (exists)
+            {
+                _context.Set<TEntity>().Update(entity);
+            }
+            else
+            {
+                await _context.Set<TEntity>().AddAsync(entity);
             }
         }
     }

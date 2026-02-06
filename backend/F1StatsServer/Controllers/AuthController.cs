@@ -1,8 +1,8 @@
-﻿using F1StatsServer.Interface;
-using F1StatsServer.Model;
-using Microsoft.AspNetCore.Mvc;
+﻿using F1StatsServer.Dto.UserDto;
+using F1StatsServer.Interfaces;
+using F1StatsServer.Entities;
 using Microsoft.AspNetCore.Authorization;
-using F1StatsServer.Dto.UserDto;
+using Microsoft.AspNetCore.Mvc;
 
 namespace F1StatsServer.Controllers
 {

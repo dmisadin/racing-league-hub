@@ -1,21 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
+﻿using F1StatsServer.Dto.DriverDtos;
+using F1StatsServer.Dto.ResultsDtos;
+using F1StatsServer.Dto.TrackDtos;
+using F1StatsServer.Entities;
 
 namespace F1StatsServer.Dto.GrandPrixDtos
 {
     public class GrandPrixDto
     {
-        [Required, NotNull]
-        public int SeasonId { get; set; }
-        [Required, NotNull]
+        public int Id { get; set; }
         public string? Name { get; set; }
-        //public DateTimeOffset Date { get; set; } //Will be added in the future
-        [DefaultValue(false)]
-        public bool HasSprint { get; set; }
-        [DefaultValue("https://www.youtube.com")]
+        public DateTimeOffset? StartTime { get; set; }
         public string? YoutubeUrl { get; set; }
+        public int? FastestDriverId { get; set; }
+
+        public TrackDto? Track { get; set; }
+        public IEnumerable<RaceResultDto>? Race { get; set; }
+        public IEnumerable<QualifyingResultDto>? Qualifying { get; set; }
+        public IEnumerable<SprintResultDto>? Sprint { get; set; }
+        public IEnumerable<TeamDto>? Teams { get; set; }
+        public IEnumerable<DriverGrandPrixDto>? Drivers { get; set; }
     }
 }

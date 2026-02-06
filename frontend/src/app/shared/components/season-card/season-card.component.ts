@@ -7,14 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class SeasonCardComponent {
     @Input() logoPath: string = '../../../assets/images/league/league-logo.png';
-    @Input() gameName: string = 'F1 22';
+    @Input() gameName: string = 'F124';
     @Input() text: string = 'Sezona X';
     @Input() subtext: string = 'Start date - End date';
-
-    ngOnInit() {
-        this.gameName = this.gameName.replace(' ', '');
-    }
-    ngOnChange() {
-        this.gameName = this.gameName.replace(' ', '');
-    }
 }

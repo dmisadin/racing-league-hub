@@ -8,6 +8,7 @@ import { League } from 'app/shared/models/league/League';
 import { ButtonClickService } from 'app/core/services/button-click.service';
 import { LeagueInfoComponent } from '../../components/league-info/league-info.component';
 import { LeagueAddEditComponent } from '../../components/league-add-edit/league-add-edit.component';
+import { Game } from 'app/shared/models/enums/Enumerations';
 
 @Component({
     selector: 'app-league-page',
@@ -26,6 +27,7 @@ export class LeaguePageComponent {
     }
     faPen = faPen;
     faCircleXmark = faCircleXmark;
+    gameEnum = Game;
 
     leagueItem$!: Subscription;
     leagueItem = new League();

@@ -9,48 +9,48 @@
         <th>Points</th>
         <th>Tyres</th>
     </tr>
-    <tr *ngFor="let r of race; let i = index"> <!-- [style]="'--team-hover:'+ findTeam(r.teamId)?.colorHex" -->
-        <td>{{ r.position }}</td>
+    <tr *ngFor="let race of races; let i = index"> <!-- [style]="'--team-hover:'+ findTeam(race.teamId)?.colorHex" -->
+        <td>{{ race.position }}</td>
         <td>
-            <img src="../../../../assets/images/teams/{{ r.teamId }}.png" alt="team" />
+            <img src="../../../../assets/images/teams/{{ race.teamId }}.png" alt="team" />
         </td>
         <td>
             <div class="flag">
-                <img src="../../../../../assets/images/country/flags/{{r.countryIso | lowercase}}.svg"
+                <img src="../../../../../assets/images/country/flags/{{race.countryIso | lowercase}}.svg"
                     alt="flag" />
             </div>
         </td>
-        <td class="driver-name">{{r.driverName}}</td>
+        <td class="driver-name">{{race.driverName}}</td>
         <td style="text-align: end;">
-            <ng-container *ngIf="r.resultStatus === 3 && r.raceTime; else notime">
-                <ng-container *ngIf="r.position===1; else gap">
-                    {{r.raceTime | raceTime}}
+            <ng-container *ngIf="race.resultStatus === ResultStatus.Finished.Value && race.raceTime; else notime">
+                <ng-container *ngIf="race.position===1; else gap">
+                    {{race.raceTime | raceTime}}
                 </ng-container>
                 <ng-template #gap>
                     {{ '+' + ( !lapDiff[i] ?
-                    ( r.raceTime - race[0].raceTime | raceTime) :
+                    ( race.raceTime - races[0].raceTime | raceTime) :
                     ( lapDiff[i] + " lap" + (lapDiff[i]>1 ? 's' : '')))
                     }}
                 </ng-template>
             </ng-container>
             <ng-template #notime>
-                {{ resultStatus[r.resultStatus].value }}
+                {{ race.resultStatus | enumValueName:ResultStatus }}
             </ng-template>
         </td>
         <td>
-            <ng-container *ngIf="r.timePenalty">
-                {{'+' + r.timePenalty + "sec"}}
+            <ng-container *ngIf="race.timePenalty">
+                {{'+' + race.timePenalty + " sec"}}
             </ng-container>
         </td>
         <td>
-            <ng-container *ngIf="r.postRaceTimePenalty">
-                {{'+' + r.postRaceTimePenalty + "sec"}}
+            <ng-container *ngIf="race.postRaceTimePenalty">
+                {{'+' + race.postRaceTimePenalty + " sec"}}
             </ng-container>
         </td>
-        <td>{{r.pointsGained}}</td>
+        <td>{{race.pointsGained}}</td>
         <td>
             <div class="tyres">
-                <img *ngFor="let tyre of r.tyres" src="../../../../assets/images/icons/tyre/{{ tyre | lowercase}}.svg"
+                <img *ngFor="let tyre of race.tyres" src="../../../../assets/images/icons/tyre/{{ tyre | lowercase}}.svg"
                     alt="tyre" />
             </div>
         </td>

@@ -1,7 +1,7 @@
 ﻿using F1StatsServer.Dto.DriverDtos;
 using F1StatsServer.Dto.ResultsDtos;
 using F1StatsServer.Dto.TrackDtos;
-using F1StatsServer.Model;
+using F1StatsServer.Entities;
 
 namespace F1StatsServer.Dto.GrandPrixDtos
 {
@@ -19,11 +19,11 @@ namespace F1StatsServer.Dto.GrandPrixDtos
 
         public TrackDto? Track { get; set; }
 
-        public IEnumerable<RaceDto>? Race { get; set; }
+        public IEnumerable<RaceResultDto>? Race { get; set; }
 
-        public IEnumerable<QualDto>? Qualifying { get; set; }
+        public IEnumerable<QualifyingResultDto>? Qualifying { get; set; }
 
-        public IEnumerable<RaceSprintDto>? Sprint { get; set; }
+        public IEnumerable<SprintResultDto>? Sprint { get; set; }
 
         public IEnumerable<TeamDto>? Teams { get; set; }
         

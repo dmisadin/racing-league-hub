@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using F1StatsServer.Entities.Enums;
+using System.ComponentModel;
 
 namespace F1StatsServer.Dto.LeagueDtos
 {
@@ -12,8 +13,8 @@ namespace F1StatsServer.Dto.LeagueDtos
 
         public string? ImagePath { get; set; }
 
-        public PlatformDto? Platform { get; set; }
+        public Platform? Platform { get; set; }
 
-        public GameDto? Game { get; set; }
+        public Game Game { get; set; }
     }
 }

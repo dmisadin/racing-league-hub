@@ -1,7 +1,7 @@
 ﻿using F1StatsServer.Dto.DriverDtos;
 using F1StatsServer.Infrastructure;
-using F1StatsServer.Interface;
-using F1StatsServer.Model;
+using F1StatsServer.Interfaces;
+using F1StatsServer.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F1StatsServer.Controllers

@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using F1StatsServer.Utility;
+using Microsoft.EntityFrameworkCore;
+
+namespace F1StatsServer.Entities;
+
+[Table("Track")]
+public partial class Track : EntityBase
+{
+    public int? CountryId { get; set; }
+
+    [StringLength(255)]
+    [Unicode(false)]
+    public string Name { get; set; } = null!;
+
+    public byte? CornersTotal { get; set; }
+
+    public byte? CornersLeft { get; set; }
+
+    [Column(TypeName = "decimal(5, 1)")]
+    public decimal? Elevation { get; set; }
+
+    public short? Length { get; set; }
+
+    public byte? PitStop { get; set; }
+
+    [StringLength(255)]
+    [Unicode(false)]
+    public string? ImagePath { get; set; }
+
+    public byte Laps { get; set; }
+
+    [StringLength(64)]
+    [Unicode(false)]
+    public string? Location { get; set; }
+
+    public virtual ICollection<GrandPrix> GrandPrixes { get; set; } = new List<GrandPrix>();
+
+    public virtual Country? Country { get; set; }
+
+}

@@ -1,10 +1,5 @@
-﻿using AutoMapper;
-using F1StatsServer.Interface;
-using F1StatsServer.Model;
-using F1StatsServer.Util;
-using Microsoft.AspNetCore.Authorization;
+﻿using F1StatsServer.Utility;
 using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F1StatsServer.Infrastructure
