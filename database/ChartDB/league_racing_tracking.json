@@ -1,0 +1,2608 @@
+{
+  "id": "0",
+  "name": "league_racing_tracking",
+  "createdAt": "2026-02-06T09:50:08.283Z",
+  "updatedAt": "2026-02-06T21:32:09.640Z",
+  "databaseType": "postgresql",
+  "tables": [
+    {
+      "id": "1",
+      "name": "verdict",
+      "schema": "public",
+      "x": 1305.0414477530653,
+      "y": -606.5690895324714,
+      "fields": [
+        {
+          "id": "2",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1770317756463
+        },
+        {
+          "id": "3",
+          "name": "incident_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770317764783
+        },
+        {
+          "id": "4",
+          "name": "summary",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770317781007,
+          "characterMaximumLength": "256"
+        },
+        {
+          "id": "5",
+          "name": "explanation",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770317826821
+        },
+        {
+          "id": "6",
+          "name": "created_at",
+          "type": {
+            "id": "timestamptz",
+            "name": "timestamptz"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770330891196
+        },
+        {
+          "id": "7",
+          "name": "steward_penalty_type",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1770400764978
+        },
+        {
+          "id": "8",
+          "name": "penalty_amount",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "unique": false,
+          "nullable": true,
+          "primaryKey": false,
+          "createdAt": 1770400795855,
+          "comments": "3 race bans, 5 seconds, 2 penalty points"
+        }
+      ],
+      "indexes": [
+        {
+          "id": "9",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "2"
+          ],
+          "createdAt": 1770317756463,
+          "isPrimaryKey": true
+        },
+        {
+          "id": "10",
+          "name": "idx_verdict_incident_id",
+          "fieldIds": [
+            "3"
+          ],
+          "unique": false,
+          "createdAt": 1770402888127
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770317756463,
+      "order": 15,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "11",
+      "name": "grand_prix_result",
+      "schema": "public",
+      "x": 1387.652593889827,
+      "y": -68.37916940025454,
+      "fields": [
+        {
+          "id": "12",
+          "name": "id",
+          "type": {
+            "id": "bigserial",
+            "name": "bigserial"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "increment": true,
+          "createdAt": 1770248553785
+        },
+        {
+          "id": "13",
+          "name": "grand_prix_driver_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553785
+        },
+        {
+          "id": "14",
+          "name": "session_type",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553785
+        },
+        {
+          "id": "15",
+          "name": "position",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553785
+        },
+        {
+          "id": "16",
+          "name": "grid_position",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770248553785
+        },
+        {
+          "id": "17",
+          "name": "result_status",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553785
+        },
+        {
+          "id": "18",
+          "name": "race_time_in_ms",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770248553785
+        },
+        {
+          "id": "19",
+          "name": "time_penalty",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553785
+        },
+        {
+          "id": "20",
+          "name": "steward_time_penalty",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770310322615
+        },
+        {
+          "id": "21",
+          "name": "laps_completed",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553785
+        },
+        {
+          "id": "22",
+          "name": "points_gained",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770248553785,
+          "comments": "NULL if session is not giving out points"
+        },
+        {
+          "id": "23",
+          "name": "used_tyres",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770309753761,
+          "characterMaximumLength": "8"
+        },
+        {
+          "id": "24",
+          "name": "fastest_lap_in_ms",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770310057052
+        },
+        {
+          "id": "25",
+          "name": "best_time_tyre",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770310182890,
+          "characterMaximumLength": "2"
+        }
+      ],
+      "indexes": [
+        {
+          "id": "26",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "12"
+          ],
+          "createdAt": 1770248553785,
+          "isPrimaryKey": true
+        },
+        {
+          "id": "27",
+          "name": "idx_grand_prix_result_grand_prix_driver_id",
+          "fieldIds": [
+            "13"
+          ],
+          "unique": false,
+          "createdAt": 1770401644845
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770248553785,
+      "order": 5,
+      "expanded": true,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "28",
+      "name": "league_user",
+      "schema": "public",
+      "x": -735.7564103761845,
+      "y": 58.942481196860015,
+      "fields": [
+        {
+          "id": "29",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1770315377393
+        },
+        {
+          "id": "30",
+          "name": "league_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770315387632
+        },
+        {
+          "id": "31",
+          "name": "user_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770315388185
+        },
+        {
+          "id": "32",
+          "name": "role",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770315404146,
+          "comments": "owner, editor, steward"
+        }
+      ],
+      "indexes": [
+        {
+          "id": "33",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "29"
+          ],
+          "createdAt": 1770315377393,
+          "isPrimaryKey": true
+        },
+        {
+          "id": "34",
+          "name": "uq_league_user_league_id_user_id",
+          "fieldIds": [
+            "30",
+            "31"
+          ],
+          "unique": true,
+          "createdAt": 1770401733297
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770315377393,
+      "order": 8,
+      "diagramId": "fkp2zct8bnfs",
+      "checkConstraints": []
+    },
+    {
+      "id": "35",
+      "name": "driver",
+      "schema": "public",
+      "x": 2989.398318960418,
+      "y": -1083.1226940343581,
+      "fields": [
+        {
+          "id": "36",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1770310475935
+        },
+        {
+          "id": "37",
+          "name": "nickname",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770310491472,
+          "characterMaximumLength": "64"
+        },
+        {
+          "id": "38",
+          "name": "first_name",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770310535262,
+          "characterMaximumLength": "64"
+        },
+        {
+          "id": "39",
+          "name": "last_name",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770310545701,
+          "characterMaximumLength": "64"
+        },
+        {
+          "id": "40",
+          "name": "country",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770332713878,
+          "characterMaximumLength": "3"
+        },
+        {
+          "id": "41",
+          "name": "slug",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1770409423260,
+          "characterMaximumLength": "64"
+        }
+      ],
+      "indexes": [
+        {
+          "id": "42",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "36"
+          ],
+          "createdAt": 1770310475935,
+          "isPrimaryKey": true
+        },
+        {
+          "id": "43",
+          "name": "uq_driver_nickname",
+          "fieldIds": [
+            "37"
+          ],
+          "unique": true,
+          "createdAt": 1770409521540
+        },
+        {
+          "id": "44",
+          "name": "uq_driver_slug",
+          "fieldIds": [
+            "41"
+          ],
+          "unique": true,
+          "createdAt": 1770409535485
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770310475935,
+      "order": 6,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "45",
+      "name": "season_points",
+      "schema": "public",
+      "x": 5.723050755553999,
+      "y": -276.18197749499484,
+      "fields": [
+        {
+          "id": "46",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "increment": true,
+          "createdAt": 1770248553784
+        },
+        {
+          "id": "47",
+          "name": "season_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553784
+        },
+        {
+          "id": "48",
+          "name": "session_type",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553784
+        },
+        {
+          "id": "49",
+          "name": "position",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553784
+        },
+        {
+          "id": "50",
+          "name": "points",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553784
+        }
+      ],
+      "indexes": [
+        {
+          "id": "51",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "46"
+          ],
+          "createdAt": 1770248553784,
+          "isPrimaryKey": true
+        },
+        {
+          "id": "52",
+          "name": "idx_season_points_season_id",
+          "fieldIds": [
+            "47"
+          ],
+          "unique": false,
+          "createdAt": 1770401521345
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770248553784,
+      "order": 1,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "53",
+      "name": "track",
+      "schema": "public",
+      "x": 389.2184871313457,
+      "y": -904.3883341729158,
+      "fields": [
+        {
+          "id": "54",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1770316589146
+        },
+        {
+          "id": "55",
+          "name": "name",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770316852905,
+          "characterMaximumLength": "128"
+        },
+        {
+          "id": "56",
+          "name": "country",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770316595875
+        },
+        {
+          "id": "57",
+          "name": "city",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770316612604,
+          "characterMaximumLength": "64"
+        },
+        {
+          "id": "58",
+          "name": "elevation",
+          "type": {
+            "id": "numeric",
+            "name": "numeric"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770316719652,
+          "precision": 5,
+          "scale": 1
+        },
+        {
+          "id": "59",
+          "name": "short_name",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770335021597,
+          "characterMaximumLength": "64"
+        }
+      ],
+      "indexes": [
+        {
+          "id": "60",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "54"
+          ],
+          "createdAt": 1770316589146,
+          "isPrimaryKey": true
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770316589146,
+      "order": 12,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "61",
+      "name": "game_team",
+      "schema": "public",
+      "x": 1001.3039873945047,
+      "y": 427.900565064073,
+      "fields": [
+        {
+          "id": "62",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1770315805706
+        },
+        {
+          "id": "63",
+          "name": "game",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770315816362
+        },
+        {
+          "id": "64",
+          "name": "team_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770315812458
+        },
+        {
+          "id": "65",
+          "name": "display_name",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770333744793,
+          "characterMaximumLength": "128"
+        },
+        {
+          "id": "66",
+          "name": "color",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770332921911,
+          "characterMaximumLength": "32"
+        },
+        {
+          "id": "67",
+          "name": "logo_resource_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770332833400
+        },
+        {
+          "id": "68",
+          "name": "telemetry_id",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770333806073,
+          "comments": "ID reference to data that game sends through telemetry"
+        }
+      ],
+      "indexes": [
+        {
+          "id": "69",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "62"
+          ],
+          "createdAt": 1770315805706,
+          "isPrimaryKey": true
+        },
+        {
+          "id": "70",
+          "name": "uq_game_team_game",
+          "unique": true,
+          "fieldIds": [
+            "63",
+            "64"
+          ],
+          "createdAt": 1770333441445
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770315805706,
+      "width": 224,
+      "order": 10,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "71",
+      "name": "incident_driver",
+      "schema": "public",
+      "x": 874.5306069752794,
+      "y": -758.7171096262543,
+      "fields": [
+        {
+          "id": "72",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1770317841411
+        },
+        {
+          "id": "73",
+          "name": "incident_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770317866277
+        },
+        {
+          "id": "74",
+          "name": "driver_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770317874773
+        }
+      ],
+      "indexes": [
+        {
+          "id": "75",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "72"
+          ],
+          "createdAt": 1770317841412,
+          "isPrimaryKey": true
+        },
+        {
+          "id": "76",
+          "name": "uq_incident_driver_incident_id_driver_id",
+          "fieldIds": [
+            "73",
+            "74"
+          ],
+          "unique": true,
+          "createdAt": 1770402925527
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770317841412,
+      "order": 16,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "77",
+      "name": "incident",
+      "schema": "public",
+      "x": 874.237595837142,
+      "y": -574.0713918653615,
+      "fields": [
+        {
+          "id": "78",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1770317514703
+        },
+        {
+          "id": "79",
+          "name": "user_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770317904588,
+          "comments": "submitted by"
+        },
+        {
+          "id": "80",
+          "name": "grand_prix_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770317615722
+        },
+        {
+          "id": "81",
+          "name": "session:_type",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770317623225
+        },
+        {
+          "id": "82",
+          "name": "title",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770317636282,
+          "characterMaximumLength": "128"
+        },
+        {
+          "id": "83",
+          "name": "description",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770317673286
+        },
+        {
+          "id": "84",
+          "name": "evidence",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770317693807
+        },
+        {
+          "id": "85",
+          "name": "created_at",
+          "type": {
+            "id": "timestamptz",
+            "name": "timestamptz"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770330861221
+        }
+      ],
+      "indexes": [
+        {
+          "id": "86",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "78"
+          ],
+          "createdAt": 1770317514703,
+          "isPrimaryKey": true
+        },
+        {
+          "id": "87",
+          "name": "idx_incident_user_id",
+          "fieldIds": [
+            "79"
+          ],
+          "unique": false,
+          "createdAt": 1770402844974
+        },
+        {
+          "id": "88",
+          "name": "idx_incident_grand_prix_id",
+          "fieldIds": [
+            "80"
+          ],
+          "unique": false,
+          "createdAt": 1770402860380
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770317514703,
+      "order": 14,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "89",
+      "name": "grand_prix",
+      "schema": "public",
+      "x": 432.0742401648072,
+      "y": -5.851541821762522,
+      "fields": [
+        {
+          "id": "90",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "increment": true,
+          "createdAt": 1770248553784
+        },
+        {
+          "id": "91",
+          "name": "track_layout_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770317279488
+        },
+        {
+          "id": "92",
+          "name": "season_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553784
+        },
+        {
+          "id": "93",
+          "name": "name",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553784,
+          "characterMaximumLength": "100"
+        },
+        {
+          "id": "94",
+          "name": "starting_at",
+          "type": {
+            "id": "timestamptz",
+            "name": "timestamptz"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553784
+        },
+        {
+          "id": "95",
+          "name": "vod_url",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770332603887
+        },
+        {
+          "id": "96",
+          "name": "slug",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1770409221413,
+          "characterMaximumLength": "64"
+        }
+      ],
+      "indexes": [
+        {
+          "id": "97",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "90"
+          ],
+          "createdAt": 1770248553785,
+          "isPrimaryKey": true
+        },
+        {
+          "id": "98",
+          "name": "idx_grand_prix_track_layout_id",
+          "fieldIds": [
+            "91"
+          ],
+          "unique": false,
+          "createdAt": 1770401549182
+        },
+        {
+          "id": "99",
+          "name": "idx_grand_prix_season_id",
+          "fieldIds": [
+            "92"
+          ],
+          "unique": false,
+          "createdAt": 1770401567432
+        },
+        {
+          "id": "100",
+          "name": "uq_grand_prix_season_id_slug",
+          "fieldIds": [
+            "92",
+            "96"
+          ],
+          "unique": true,
+          "createdAt": 1770409236363
+        }
+      ],
+      "checkConstraints": [],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770248553785,
+      "order": 2,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "101",
+      "name": "user",
+      "schema": "public",
+      "x": -790.6016810395821,
+      "y": -1243.1226940343581,
+      "fields": [
+        {
+          "id": "102",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1770315279759
+        },
+        {
+          "id": "103",
+          "name": "username",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770315284775,
+          "characterMaximumLength": "32"
+        },
+        {
+          "id": "104",
+          "name": "email",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770315304056,
+          "characterMaximumLength": "64"
+        },
+        {
+          "id": "105",
+          "name": "password",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770315305449
+        },
+        {
+          "id": "106",
+          "name": "is_admin",
+          "type": {
+            "id": "boolean",
+            "name": "boolean"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770315305768
+        },
+        {
+          "id": "107",
+          "name": "driver_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770330666818
+        }
+      ],
+      "indexes": [
+        {
+          "id": "108",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "102"
+          ],
+          "createdAt": 1770315279759,
+          "isPrimaryKey": true
+        },
+        {
+          "id": "109",
+          "name": "idx_user_driver_id",
+          "fieldIds": [
+            "107"
+          ],
+          "unique": false,
+          "createdAt": 1770401699636
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770315279759,
+      "order": 7,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "110",
+      "name": "track_layout_game",
+      "schema": "public",
+      "x": 386.45706186179973,
+      "y": -266.333153718426,
+      "fields": [
+        {
+          "id": "111",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1770333904662
+        },
+        {
+          "id": "112",
+          "name": "track_layout_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770333923859
+        },
+        {
+          "id": "113",
+          "name": "game",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770333935268
+        }
+      ],
+      "indexes": [
+        {
+          "id": "114",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "111"
+          ],
+          "createdAt": 1770333904662,
+          "isPrimaryKey": true
+        },
+        {
+          "id": "115",
+          "name": "uq_track_layout_game_track_layout_id_game",
+          "fieldIds": [
+            "112",
+            "113"
+          ],
+          "unique": true,
+          "createdAt": 1770402968526
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770333904662,
+      "order": 18,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "116",
+      "name": "team",
+      "schema": "public",
+      "x": 643.9851468366842,
+      "y": 492.11588673990104,
+      "fields": [
+        {
+          "id": "117",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1770315550248
+        },
+        {
+          "id": "118",
+          "name": "name",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770315590538,
+          "characterMaximumLength": "100"
+        },
+        {
+          "id": "119",
+          "name": "color",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770315613219,
+          "characterMaximumLength": "16"
+        }
+      ],
+      "indexes": [
+        {
+          "id": "120",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "117"
+          ],
+          "createdAt": 1770315550248,
+          "isPrimaryKey": true
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770315550248,
+      "order": 9,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "121",
+      "name": "season",
+      "schema": "public",
+      "x": 2.6738551083130915,
+      "y": 58.469157132724234,
+      "fields": [
+        {
+          "id": "122",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "increment": true,
+          "createdAt": 1770248553785
+        },
+        {
+          "id": "123",
+          "name": "league_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553785
+        },
+        {
+          "id": "124",
+          "name": "name",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553785,
+          "characterMaximumLength": "100"
+        },
+        {
+          "id": "125",
+          "name": "platform",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553785
+        },
+        {
+          "id": "126",
+          "name": "game",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553785
+        },
+        {
+          "id": "127",
+          "name": "lap_percentage_required",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770315211526,
+          "default": "90"
+        },
+        {
+          "id": "128",
+          "name": "slug",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1770409171771
+        },
+        {
+          "id": "129",
+          "name": "logo_resource_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770332496154
+        }
+      ],
+      "indexes": [
+        {
+          "id": "130",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "122"
+          ],
+          "createdAt": 1770248553785,
+          "isPrimaryKey": true
+        },
+        {
+          "id": "131",
+          "name": "idx_grand_prix_league_id",
+          "fieldIds": [
+            "123"
+          ],
+          "unique": false,
+          "createdAt": 1770401586221
+        },
+        {
+          "id": "132",
+          "name": "uq_season_league_id_slug",
+          "fieldIds": [
+            "123",
+            "128"
+          ],
+          "unique": true,
+          "createdAt": 1770409184622
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770248553785,
+      "order": 3,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "133",
+      "name": "league",
+      "schema": "public",
+      "x": -380.5457002354323,
+      "y": 90.34116264386859,
+      "fields": [
+        {
+          "id": "134",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "increment": true,
+          "createdAt": 1770248553785
+        },
+        {
+          "id": "135",
+          "name": "region",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553785
+        },
+        {
+          "id": "136",
+          "name": "name",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553785,
+          "characterMaximumLength": "500"
+        },
+        {
+          "id": "137",
+          "name": "description",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770248553785
+        },
+        {
+          "id": "138",
+          "name": "timezone",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770330924348,
+          "comments": "IANA https://www.iana.org/time-zones"
+        },
+        {
+          "id": "139",
+          "name": "slug",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1770409085026,
+          "characterMaximumLength": "64"
+        },
+        {
+          "id": "140",
+          "name": "logo_resource_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770332338911
+        }
+      ],
+      "indexes": [
+        {
+          "id": "141",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "134"
+          ],
+          "createdAt": 1770248553785,
+          "isPrimaryKey": true
+        },
+        {
+          "id": "142",
+          "name": "uq_league_slug",
+          "fieldIds": [
+            "139"
+          ],
+          "unique": true,
+          "createdAt": 1770409134785
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770248553785,
+      "order": 4,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "143",
+      "name": "grand_prix_driver",
+      "schema": "public",
+      "x": 970.4982359142253,
+      "y": -36.84878958592504,
+      "fields": [
+        {
+          "id": "144",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "increment": true,
+          "createdAt": 1770248553784
+        },
+        {
+          "id": "145",
+          "name": "grand_prix_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553784
+        },
+        {
+          "id": "146",
+          "name": "driver_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553784
+        },
+        {
+          "id": "147",
+          "name": "team_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770248553784
+        },
+        {
+          "id": "148",
+          "name": "is_reserve",
+          "type": {
+            "id": "boolean",
+            "name": "boolean"
+          },
+          "unique": false,
+          "nullable": false,
+          "primaryKey": false,
+          "createdAt": 1770401452186
+        }
+      ],
+      "indexes": [
+        {
+          "id": "149",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "144"
+          ],
+          "createdAt": 1770248553784,
+          "isPrimaryKey": true
+        },
+        {
+          "id": "150",
+          "name": "idx_grand_prix_driver_grand_prix_id",
+          "fieldIds": [
+            "145"
+          ],
+          "unique": false,
+          "createdAt": 1770401301268
+        },
+        {
+          "id": "151",
+          "name": "idx_grand_prix_driver_driver_id",
+          "fieldIds": [
+            "146"
+          ],
+          "unique": false,
+          "createdAt": 1770401308488
+        },
+        {
+          "id": "152",
+          "name": "idx_grand_prix_driver_team_id",
+          "fieldIds": [
+            "147"
+          ],
+          "unique": false,
+          "createdAt": 1770401315352
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770248553784,
+      "order": 0,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "153",
+      "name": "season_driver",
+      "schema": "public",
+      "x": 305.8387448351742,
+      "y": 688.0360071598733,
+      "fields": [
+        {
+          "id": "154",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1770316102063
+        },
+        {
+          "id": "155",
+          "name": "season_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770316117784
+        },
+        {
+          "id": "156",
+          "name": "team_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770316132592
+        },
+        {
+          "id": "157",
+          "name": "driver_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770316125552
+        },
+        {
+          "id": "158",
+          "name": "racing_number",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770316148144
+        },
+        {
+          "id": "159",
+          "name": "penalty_points",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770316160319
+        }
+      ],
+      "indexes": [
+        {
+          "id": "160",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "154"
+          ],
+          "createdAt": 1770316102063,
+          "isPrimaryKey": true
+        },
+        {
+          "id": "161",
+          "name": "uq_season_driver_season_id_driver_id_team_id",
+          "fieldIds": [
+            "155",
+            "157",
+            "156"
+          ],
+          "unique": true,
+          "createdAt": 1770402273650
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770316102063,
+      "order": 11,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "162",
+      "name": "resource",
+      "schema": "public",
+      "x": -394.06616382586833,
+      "y": 586.522419141804,
+      "fields": [
+        {
+          "id": "163",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1770331750242
+        },
+        {
+          "id": "164",
+          "name": "url",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770331949142
+        },
+        {
+          "id": "165",
+          "name": "file_name",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770331949813
+        },
+        {
+          "id": "166",
+          "name": "extension",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770331950444,
+          "characterMaximumLength": "10"
+        },
+        {
+          "id": "167",
+          "name": "mime_type",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770332214662,
+          "characterMaximumLength": "100"
+        },
+        {
+          "id": "168",
+          "name": "size_in_bytes",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770332216246
+        },
+        {
+          "id": "169",
+          "name": "created_at",
+          "type": {
+            "id": "timestamptz",
+            "name": "timestamptz"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770332216941
+        },
+        {
+          "id": "170",
+          "name": "is_thumbnail",
+          "type": {
+            "id": "boolean",
+            "name": "boolean"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770332217501
+        }
+      ],
+      "indexes": [
+        {
+          "id": "171",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "163"
+          ],
+          "createdAt": 1770331750242,
+          "isPrimaryKey": true
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770331750242,
+      "order": 17,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "172",
+      "name": "track_layout",
+      "schema": "public",
+      "x": 379.508993058847,
+      "y": -624.8780946399418,
+      "fields": [
+        {
+          "id": "173",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1770316910632
+        },
+        {
+          "id": "174",
+          "name": "track_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770316975760
+        },
+        {
+          "id": "175",
+          "name": "name",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770316977193,
+          "characterMaximumLength": "128"
+        },
+        {
+          "id": "176",
+          "name": "pit_stop_duration",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770316977825
+        },
+        {
+          "id": "177",
+          "name": "corner_total",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770317179931
+        },
+        {
+          "id": "178",
+          "name": "corners_left",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770317170132
+        },
+        {
+          "id": "179",
+          "name": "laps_grand_prix",
+          "type": {
+            "id": "smallint",
+            "name": "smallint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": false,
+          "createdAt": 1770317192293
+        },
+        {
+          "id": "180",
+          "name": "map_image_resource_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770334098550
+        },
+        {
+          "id": "181",
+          "name": "cover_image_resource_id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1770334202244
+        }
+      ],
+      "indexes": [
+        {
+          "id": "182",
+          "name": "",
+          "unique": true,
+          "fieldIds": [
+            "173"
+          ],
+          "createdAt": 1770316910632,
+          "isPrimaryKey": true
+        },
+        {
+          "id": "183",
+          "name": "idx_track_layout_track_id",
+          "fieldIds": [
+            "174"
+          ],
+          "unique": false,
+          "createdAt": 1770402521948
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1770316910632,
+      "order": 13,
+      "diagramId": "fkp2zct8bnfs"
+    }
+  ],
+  "relationships": [
+    {
+      "id": "184",
+      "name": "driver_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "35",
+      "targetSchema": "public",
+      "targetTableId": "143",
+      "sourceFieldId": "36",
+      "targetFieldId": "146",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1770310742905,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "185",
+      "name": "driver_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "35",
+      "targetSchema": "public",
+      "targetTableId": "101",
+      "sourceFieldId": "36",
+      "targetFieldId": "107",
+      "sourceCardinality": "one",
+      "targetCardinality": "one",
+      "createdAt": 1770330749395,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "186",
+      "name": "driver_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "35",
+      "targetSchema": "public",
+      "targetTableId": "153",
+      "sourceFieldId": "36",
+      "targetFieldId": "157",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1770316248063,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "187",
+      "name": "game_team_logo_resource_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "61",
+      "targetSchema": "public",
+      "targetTableId": "162",
+      "sourceFieldId": "67",
+      "targetFieldId": "163",
+      "sourceCardinality": "one",
+      "targetCardinality": "one",
+      "createdAt": 1770334241589,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "188",
+      "name": "grand_prix_driver_id_grand_prix_result_grand_prix_driver_id",
+      "sourceSchema": "public",
+      "sourceTableId": "143",
+      "targetSchema": "public",
+      "targetTableId": "11",
+      "sourceFieldId": "144",
+      "targetFieldId": "13",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1770248553785,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "189",
+      "name": "grand_prix_id_grand_prix_driver_grand_prix_id",
+      "sourceSchema": "public",
+      "sourceTableId": "89",
+      "targetSchema": "public",
+      "targetTableId": "143",
+      "sourceFieldId": "90",
+      "targetFieldId": "145",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1770248553785,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "190",
+      "name": "incident_driver_incident_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "77",
+      "targetSchema": "public",
+      "targetTableId": "71",
+      "sourceFieldId": "78",
+      "targetFieldId": "73",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1770318047493,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "191",
+      "name": "incident_grand_prix_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "89",
+      "targetSchema": "public",
+      "targetTableId": "77",
+      "sourceFieldId": "90",
+      "targetFieldId": "80",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1770317723919,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "192",
+      "name": "incident_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "35",
+      "targetSchema": "public",
+      "targetTableId": "77",
+      "sourceFieldId": "36",
+      "targetFieldId": "78",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1770317938620,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "193",
+      "name": "league_id_season_league_id",
+      "sourceSchema": "public",
+      "sourceTableId": "133",
+      "targetSchema": "public",
+      "targetTableId": "121",
+      "sourceFieldId": "134",
+      "targetFieldId": "123",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1770248553785,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "194",
+      "name": "league_user_league_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "133",
+      "targetSchema": "public",
+      "targetTableId": "28",
+      "sourceFieldId": "134",
+      "targetFieldId": "30",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1770315450375,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "195",
+      "name": "resource_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "162",
+      "targetSchema": "public",
+      "targetTableId": "133",
+      "sourceFieldId": "163",
+      "targetFieldId": "140",
+      "sourceCardinality": "one",
+      "targetCardinality": "one",
+      "createdAt": 1770332439259,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "196",
+      "name": "resource_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "162",
+      "targetSchema": "public",
+      "targetTableId": "172",
+      "sourceFieldId": "163",
+      "targetFieldId": "180",
+      "sourceCardinality": "one",
+      "targetCardinality": "one",
+      "createdAt": 1770334327450,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "197",
+      "name": "resource_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "162",
+      "targetSchema": "public",
+      "targetTableId": "172",
+      "sourceFieldId": "163",
+      "targetFieldId": "181",
+      "sourceCardinality": "one",
+      "targetCardinality": "one",
+      "createdAt": 1770334333826,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "198",
+      "name": "season_driver_season_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "121",
+      "targetSchema": "public",
+      "targetTableId": "153",
+      "sourceFieldId": "122",
+      "targetFieldId": "155",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1770316221223,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "199",
+      "name": "season_id_grand_prix_season_id",
+      "sourceSchema": "public",
+      "sourceTableId": "121",
+      "targetSchema": "public",
+      "targetTableId": "89",
+      "sourceFieldId": "122",
+      "targetFieldId": "92",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1770248553785,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "200",
+      "name": "season_id_season_points_season_id",
+      "sourceSchema": "public",
+      "sourceTableId": "121",
+      "targetSchema": "public",
+      "targetTableId": "45",
+      "sourceFieldId": "122",
+      "targetFieldId": "47",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1770248553785,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "201",
+      "name": "season_logo_resource_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "121",
+      "targetSchema": "public",
+      "targetTableId": "162",
+      "sourceFieldId": "129",
+      "targetFieldId": "163",
+      "sourceCardinality": "one",
+      "targetCardinality": "one",
+      "createdAt": 1770332513236,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "202",
+      "name": "team_game_team_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "116",
+      "targetSchema": "public",
+      "targetTableId": "61",
+      "sourceFieldId": "117",
+      "targetFieldId": "64",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1770315848938,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "203",
+      "name": "team_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "116",
+      "targetSchema": "public",
+      "targetTableId": "143",
+      "sourceFieldId": "117",
+      "targetFieldId": "147",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1770315906853,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "204",
+      "name": "team_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "116",
+      "targetSchema": "public",
+      "targetTableId": "153",
+      "sourceFieldId": "117",
+      "targetFieldId": "156",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1770316270327,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "205",
+      "name": "track_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "53",
+      "targetSchema": "public",
+      "targetTableId": "172",
+      "sourceFieldId": "54",
+      "targetFieldId": "174",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1770317246904,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "206",
+      "name": "track_layout_game_track_layout_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "172",
+      "targetSchema": "public",
+      "targetTableId": "110",
+      "sourceFieldId": "173",
+      "targetFieldId": "112",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1770333997133,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "207",
+      "name": "track_layout_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "172",
+      "targetSchema": "public",
+      "targetTableId": "89",
+      "sourceFieldId": "173",
+      "targetFieldId": "91",
+      "sourceCardinality": "one",
+      "targetCardinality": "one",
+      "createdAt": 1770331511425,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "208",
+      "name": "user_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "101",
+      "targetSchema": "public",
+      "targetTableId": "28",
+      "sourceFieldId": "102",
+      "targetFieldId": "31",
+      "sourceCardinality": "one",
+      "targetCardinality": "many",
+      "createdAt": 1770315468047,
+      "diagramId": "fkp2zct8bnfs"
+    },
+    {
+      "id": "209",
+      "name": "verdict_incident_id_fk",
+      "sourceSchema": "public",
+      "sourceTableId": "1",
+      "targetSchema": "public",
+      "targetTableId": "77",
+      "sourceFieldId": "3",
+      "targetFieldId": "78",
+      "sourceCardinality": "one",
+      "targetCardinality": "one",
+      "createdAt": 1770318009557,
+      "diagramId": "fkp2zct8bnfs"
+    }
+  ],
+  "dependencies": [],
+  "areas": [],
+  "customTypes": [],
+  "notes": [
+    {
+      "id": "210",
+      "content": "TO DO:\nCountry table should be static dictionary in-memory",
+      "x": 2444.3066311274997,
+      "y": -620.0964619836078,
+      "width": 200,
+      "height": 175,
+      "color": "#ffe374",
+      "diagramId": "fkp2zct8bnfs"
+    }
+  ]
+}

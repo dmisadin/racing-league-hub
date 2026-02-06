@@ -1,0 +1,249 @@
+Table "public"."verdict" {
+  "id" bigint [pk, not null]
+  "incident_id" bigint [not null]
+  "summary" varchar(256) [not null]
+  "explanation" bigint [not null]
+  "created_at" timestamptz [not null]
+  "steward_penalty_type" smallint [not null]
+  "penalty_amount" smallint [note: '3 race bans, 5 seconds, 2 penalty points']
+
+  Indexes {
+    incident_id [name: "idx_verdict_incident_id"]
+  }
+}
+
+Table "public"."grand_prix_result" {
+  "id" bigserial [pk, not null, increment]
+  "grand_prix_driver_id" bigint [not null, ref: > "public"."grand_prix_driver"."id"]
+  "session_type" smallint [not null]
+  "position" bigint [not null]
+  "grid_position" bigint
+  "result_status" smallint [not null]
+  "race_time_in_ms" bigint
+  "time_penalty" smallint [not null]
+  "steward_time_penalty" bigint
+  "laps_completed" smallint [not null]
+  "points_gained" smallint [note: 'NULL if session is not giving out points']
+  "used_tyres" varchar(8)
+  "fastest_lap_in_ms" bigint
+  "best_time_tyre" varchar(2)
+
+  Indexes {
+    grand_prix_driver_id [name: "idx_grand_prix_result_grand_prix_driver_id"]
+  }
+}
+
+Table "public"."league_user" {
+  "id" bigint [pk, not null]
+  "league_id" bigint [not null, ref: > "public"."league"."id"]
+  "user_id" bigint [not null, ref: > "public"."user"."id"]
+  "role" bigint [not null, note: 'owner, editor, steward']
+
+  Indexes {
+    (league_id, user_id) [unique, name: "uq_league_user_league_id_user_id"]
+  }
+}
+
+Table "public"."driver" {
+  "id" bigint [pk, not null]
+  "nickname" varchar(64) [not null]
+  "first_name" varchar(64)
+  "last_name" varchar(64)
+  "country" varchar(3)
+  "slug" varchar(64) [not null]
+
+  Indexes {
+    nickname [unique, name: "uq_driver_nickname"]
+    slug [unique, name: "uq_driver_slug"]
+  }
+}
+
+Table "public"."season_points" {
+  "id" bigint [pk, not null, increment]
+  "season_id" bigint [not null, ref: > "public"."season"."id"]
+  "session_type" bigint [not null]
+  "position" smallint [not null]
+  "points" smallint [not null]
+
+  Indexes {
+    season_id [name: "idx_season_points_season_id"]
+  }
+}
+
+Table "public"."track" {
+  "id" bigint [pk, not null]
+  "name" varchar(128) [not null]
+  "country" bigint [not null]
+  "city" varchar(64) [not null]
+  "elevation" numeric(5,1)
+  "short_name" varchar(64)
+}
+
+Table "public"."game_team" {
+  "id" bigint [pk, not null]
+  "game" smallint [not null]
+  "team_id" bigint [not null, ref: > "public"."team"."id"]
+  "display_name" varchar(128)
+  "color" varchar(32)
+  "logo_resource_id" bigint
+  "telemetry_id" smallint [not null, note: 'ID reference to data that game sends through telemetry']
+
+  Indexes {
+    (game, team_id) [unique, name: "uq_game_team_game"]
+  }
+}
+
+Table "public"."incident_driver" {
+  "id" bigint [pk, not null]
+  "incident_id" bigint [not null, ref: > "public"."incident"."id"]
+  "driver_id" bigint [not null]
+
+  Indexes {
+    (incident_id, driver_id) [unique, name: "uq_incident_driver_incident_id_driver_id"]
+  }
+}
+
+Table "public"."incident" {
+  "id" bigint [pk, not null, ref: > "public"."driver"."id", ref: - "public"."verdict"."incident_id"]
+  "user_id" bigint [not null, note: 'submitted by']
+  "grand_prix_id" bigint [not null, ref: > "public"."grand_prix"."id"]
+  "session:_type" smallint [not null]
+  "title" varchar(128) [not null]
+  "description" text [not null]
+  "evidence" text [not null]
+  "created_at" timestamptz [not null]
+
+  Indexes {
+    grand_prix_id [name: "idx_incident_grand_prix_id"]
+    user_id [name: "idx_incident_user_id"]
+  }
+}
+
+Table "public"."grand_prix" {
+  "id" bigint [pk, not null, increment]
+  "track_layout_id" bigint [not null, ref: - "public"."track_layout"."id"]
+  "season_id" bigint [not null, ref: > "public"."season"."id"]
+  "name" varchar(100) [not null]
+  "starting_at" timestamptz [not null]
+  "vod_url" text
+  "slug" varchar(64) [not null]
+
+  Indexes {
+    season_id [name: "idx_grand_prix_season_id"]
+    track_layout_id [name: "idx_grand_prix_track_layout_id"]
+    (season_id, slug) [unique, name: "uq_grand_prix_season_id_slug"]
+  }
+}
+
+Table "public"."user" {
+  "id" bigint [pk, not null]
+  "username" varchar(32) [not null]
+  "email" varchar(64) [not null]
+  "password" text [not null]
+  "is_admin" boolean [not null]
+  "driver_id" bigint [ref: - "public"."driver"."id"]
+
+  Indexes {
+    driver_id [name: "idx_user_driver_id"]
+  }
+}
+
+Table "public"."track_layout_game" {
+  "id" bigint [pk, not null]
+  "track_layout_id" bigint [not null, ref: > "public"."track_layout"."id"]
+  "game" smallint [not null]
+
+  Indexes {
+    (track_layout_id, game) [unique, name: "uq_track_layout_game_track_layout_id_game"]
+  }
+}
+
+Table "public"."team" {
+  "id" bigint [pk, not null]
+  "name" varchar(100) [not null]
+  "color" varchar(16)
+}
+
+Table "public"."season" {
+  "id" bigint [pk, not null, increment]
+  "league_id" bigint [not null, ref: > "public"."league"."id"]
+  "name" varchar(100) [not null]
+  "platform" smallint [not null]
+  "game" smallint [not null]
+  "lap_percentage_required" smallint [not null, default: 90]
+  "slug" bigint [not null]
+  "logo_resource_id" bigint
+
+  Indexes {
+    league_id [name: "idx_grand_prix_league_id"]
+    (league_id, slug) [unique, name: "uq_season_league_id_slug"]
+  }
+}
+
+Table "public"."league" {
+  "id" bigint [pk, not null, increment]
+  "region" smallint [not null]
+  "name" varchar(500) [not null]
+  "description" text
+  "timezone" text [not null, note: 'IANA https://www.iana.org/time-zones']
+  "slug" varchar(64) [not null]
+  "logo_resource_id" bigint [ref: - "public"."resource"."id"]
+
+  Indexes {
+    slug [unique, name: "uq_league_slug"]
+  }
+}
+
+Table "public"."grand_prix_driver" {
+  "id" bigint [pk, not null, increment]
+  "grand_prix_id" bigint [not null, ref: > "public"."grand_prix"."id"]
+  "driver_id" bigint [not null, ref: > "public"."driver"."id"]
+  "team_id" bigint [not null, ref: > "public"."team"."id"]
+  "is_reserve" boolean [not null]
+
+  Indexes {
+    driver_id [name: "idx_grand_prix_driver_driver_id"]
+    grand_prix_id [name: "idx_grand_prix_driver_grand_prix_id"]
+    team_id [name: "idx_grand_prix_driver_team_id"]
+  }
+}
+
+Table "public"."season_driver" {
+  "id" bigint [pk, not null]
+  "season_id" bigint [not null, ref: > "public"."season"."id"]
+  "team_id" bigint [not null, ref: > "public"."team"."id"]
+  "driver_id" bigint [not null, ref: > "public"."driver"."id"]
+  "racing_number" smallint
+  "penalty_points" bigint [not null]
+
+  Indexes {
+    (season_id, driver_id, team_id) [unique, name: "uq_season_driver_season_id_driver_id_team_id"]
+  }
+}
+
+Table "public"."resource" {
+  "id" bigint [pk, not null, ref: - "public"."game_team"."logo_resource_id", ref: - "public"."season"."logo_resource_id"]
+  "url" text [not null]
+  "file_name" text [not null]
+  "extension" varchar(10) [not null]
+  "mime_type" varchar(100) [not null]
+  "size_in_bytes" bigint [not null]
+  "created_at" timestamptz [not null]
+  "is_thumbnail" boolean
+}
+
+Table "public"."track_layout" {
+  "id" bigint [pk, not null]
+  "track_id" bigint [not null, ref: > "public"."track"."id"]
+  "name" varchar(128) [not null]
+  "pit_stop_duration" smallint
+  "corner_total" smallint [not null]
+  "corners_left" smallint [not null]
+  "laps_grand_prix" smallint [not null]
+  "map_image_resource_id" bigint [ref: - "public"."resource"."id"]
+  "cover_image_resource_id" bigint [ref: - "public"."resource"."id"]
+
+  Indexes {
+    track_id [name: "idx_track_layout_track_id"]
+  }
+}
