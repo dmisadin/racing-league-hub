@@ -112,7 +112,7 @@ CREATE TABLE "public"."incident" (
     -- submitted by
     "user_id" bigint NOT NULL,
     "grand_prix_id" bigint NOT NULL,
-    "session:_type" smallint NOT NULL,
+    "session_type" smallint NOT NULL,
     "title" varchar(128) NOT NULL,
     "description" text NOT NULL,
     "evidence" text NOT NULL,

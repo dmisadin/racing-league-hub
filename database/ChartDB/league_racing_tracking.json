@@ -982,7 +982,7 @@
         },
         {
           "id": "81",
-          "name": "session:_type",
+          "name": "session_type",
           "type": {
             "id": "smallint",
             "name": "smallint"
