@@ -37,7 +37,10 @@ Table "public"."league_user" {
   "id" bigint [pk, not null]
   "league_id" bigint [not null, ref: > "public"."league"."id"]
   "user_id" bigint [not null, ref: > "public"."user"."id"]
-  "role" bigint [not null, note: 'owner, editor, steward']
+  "is_owner" boolean [not null]
+  "is_admin" boolean [not null]
+  "is_editor" boolean [not null]
+  "is_steward" boolean [not null]
 
   Indexes {
     (league_id, user_id) [unique, name: "uq_league_user_league_id_user_id"]

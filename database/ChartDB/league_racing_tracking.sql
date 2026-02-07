@@ -41,8 +41,11 @@ CREATE TABLE "public"."league_user" (
     "id" bigint NOT NULL,
     "league_id" bigint NOT NULL,
     "user_id" bigint NOT NULL,
-    -- owner, editor, steward
-    "role" bigint NOT NULL,
+    -- owner, editor, steward    
+    "is_owner" boolean NOT NULL,
+    "is_admin" boolean NOT NULL,
+    "is_editor" boolean NOT NULL,
+    "is_steward" boolean NOT NULL,
     PRIMARY KEY ("id")
 );
 COMMENT ON COLUMN "public"."league_user"."role" IS 'owner, editor, steward';
