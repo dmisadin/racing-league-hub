@@ -48,7 +48,6 @@ CREATE TABLE "public"."league_user" (
     "is_steward" boolean NOT NULL,
     PRIMARY KEY ("id")
 );
-COMMENT ON COLUMN "public"."league_user"."role" IS 'owner, editor, steward';
 -- Indexes
 CREATE UNIQUE INDEX "uq_league_user_league_id_user_id" ON "public"."league_user" ("league_id", "user_id");
 
@@ -99,7 +98,7 @@ CREATE TABLE "public"."game_team" (
 );
 COMMENT ON COLUMN "public"."game_team"."telemetry_id" IS 'ID reference to data that game sends through telemetry';
 -- Indexes
-CREATE UNIQUE INDEX "uq_game_team_game" ON "public"."game_team" ("game", "team_id");
+CREATE UNIQUE INDEX "uq_game_team_game_team_id" ON "public"."game_team" ("game", "team_id");
 
 CREATE TABLE "public"."incident_driver" (
     "id" bigint NOT NULL,
@@ -254,29 +253,29 @@ CREATE INDEX "idx_track_layout_track_id" ON "public"."track_layout" ("track_id")
 
 -- Foreign key constraints
 -- Schema: public
-ALTER TABLE "public"."grand_prix_driver" ADD CONSTRAINT "fk_grand_prix_driver_driver_id_driver_id" FOREIGN KEY("driver_id") REFERENCES "public"."driver"("id");
-ALTER TABLE "public"."user" ADD CONSTRAINT "fk_user_driver_id_driver_id" FOREIGN KEY("driver_id") REFERENCES "public"."driver"("id");
-ALTER TABLE "public"."season_driver" ADD CONSTRAINT "fk_season_driver_driver_id_driver_id" FOREIGN KEY("driver_id") REFERENCES "public"."driver"("id");
-ALTER TABLE "public"."resource" ADD CONSTRAINT "fk_resource_id_game_team_logo_resource_id" FOREIGN KEY("id") REFERENCES "public"."game_team"("logo_resource_id");
-ALTER TABLE "public"."grand_prix_result" ADD CONSTRAINT "fk_grand_prix_result_grand_prix_driver_id_grand_prix_driver_" FOREIGN KEY("grand_prix_driver_id") REFERENCES "public"."grand_prix_driver"("id");
-ALTER TABLE "public"."grand_prix_driver" ADD CONSTRAINT "fk_grand_prix_driver_grand_prix_id_grand_prix_id" FOREIGN KEY("grand_prix_id") REFERENCES "public"."grand_prix"("id");
-ALTER TABLE "public"."incident_driver" ADD CONSTRAINT "fk_incident_driver_incident_id_incident_id" FOREIGN KEY("incident_id") REFERENCES "public"."incident"("id");
-ALTER TABLE "public"."incident" ADD CONSTRAINT "fk_incident_grand_prix_id_grand_prix_id" FOREIGN KEY("grand_prix_id") REFERENCES "public"."grand_prix"("id");
-ALTER TABLE "public"."incident" ADD CONSTRAINT "fk_incident_id_driver_id" FOREIGN KEY("id") REFERENCES "public"."driver"("id");
-ALTER TABLE "public"."season" ADD CONSTRAINT "fk_season_league_id_league_id" FOREIGN KEY("league_id") REFERENCES "public"."league"("id");
-ALTER TABLE "public"."league_user" ADD CONSTRAINT "fk_league_user_league_id_league_id" FOREIGN KEY("league_id") REFERENCES "public"."league"("id");
-ALTER TABLE "public"."league" ADD CONSTRAINT "fk_league_logo_resource_id_resource_id" FOREIGN KEY("logo_resource_id") REFERENCES "public"."resource"("id");
-ALTER TABLE "public"."track_layout" ADD CONSTRAINT "fk_track_layout_map_image_resource_id_resource_id" FOREIGN KEY("map_image_resource_id") REFERENCES "public"."resource"("id");
-ALTER TABLE "public"."track_layout" ADD CONSTRAINT "fk_track_layout_cover_image_resource_id_resource_id" FOREIGN KEY("cover_image_resource_id") REFERENCES "public"."resource"("id");
-ALTER TABLE "public"."season_driver" ADD CONSTRAINT "fk_season_driver_season_id_season_id" FOREIGN KEY("season_id") REFERENCES "public"."season"("id");
-ALTER TABLE "public"."grand_prix" ADD CONSTRAINT "fk_grand_prix_season_id_season_id" FOREIGN KEY("season_id") REFERENCES "public"."season"("id");
-ALTER TABLE "public"."season_points" ADD CONSTRAINT "fk_season_points_season_id_season_id" FOREIGN KEY("season_id") REFERENCES "public"."season"("id");
-ALTER TABLE "public"."resource" ADD CONSTRAINT "fk_resource_id_season_logo_resource_id" FOREIGN KEY("id") REFERENCES "public"."season"("logo_resource_id");
-ALTER TABLE "public"."game_team" ADD CONSTRAINT "fk_game_team_team_id_team_id" FOREIGN KEY("team_id") REFERENCES "public"."team"("id");
-ALTER TABLE "public"."grand_prix_driver" ADD CONSTRAINT "fk_grand_prix_driver_team_id_team_id" FOREIGN KEY("team_id") REFERENCES "public"."team"("id");
-ALTER TABLE "public"."season_driver" ADD CONSTRAINT "fk_season_driver_team_id_team_id" FOREIGN KEY("team_id") REFERENCES "public"."team"("id");
-ALTER TABLE "public"."track_layout" ADD CONSTRAINT "fk_track_layout_track_id_track_id" FOREIGN KEY("track_id") REFERENCES "public"."track"("id");
-ALTER TABLE "public"."track_layout_game" ADD CONSTRAINT "fk_track_layout_game_track_layout_id_track_layout_id" FOREIGN KEY("track_layout_id") REFERENCES "public"."track_layout"("id");
-ALTER TABLE "public"."grand_prix" ADD CONSTRAINT "fk_grand_prix_track_layout_id_track_layout_id" FOREIGN KEY("track_layout_id") REFERENCES "public"."track_layout"("id");
-ALTER TABLE "public"."league_user" ADD CONSTRAINT "fk_league_user_user_id_user_id" FOREIGN KEY("user_id") REFERENCES "public"."user"("id");
-ALTER TABLE "public"."incident" ADD CONSTRAINT "fk_incident_id_verdict_incident_id" FOREIGN KEY("id") REFERENCES "public"."verdict"("incident_id");
+ALTER TABLE "public"."grand_prix_driver" ADD CONSTRAINT "fk_grand_prix_driver_driver_id" FOREIGN KEY("driver_id") REFERENCES "public"."driver"("id");
+ALTER TABLE "public"."user" ADD CONSTRAINT "fk_user_driver_id" FOREIGN KEY("driver_id") REFERENCES "public"."driver"("id");
+ALTER TABLE "public"."season_driver" ADD CONSTRAINT "fk_season_driver_driver_id" FOREIGN KEY("driver_id") REFERENCES "public"."driver"("id");
+ALTER TABLE "public"."game_team" ADD CONSTRAINT "fk_game_team_logo_resource_id" FOREIGN KEY("logo_resource_id") REFERENCES "public"."resource"("id");
+ALTER TABLE "public"."grand_prix_result" ADD CONSTRAINT "fk_grand_prix_result_grand_prix_driver_id" FOREIGN KEY("grand_prix_driver_id") REFERENCES "public"."grand_prix_driver"("id");
+ALTER TABLE "public"."grand_prix_driver" ADD CONSTRAINT "fk_grand_prix_driver_grand_prix_id" FOREIGN KEY("grand_prix_id") REFERENCES "public"."grand_prix"("id");
+ALTER TABLE "public"."incident_driver" ADD CONSTRAINT "fk_incident_driver_incident_id" FOREIGN KEY("incident_id") REFERENCES "public"."incident"("id");
+ALTER TABLE "public"."incident" ADD CONSTRAINT "fk_incident_grand_prix_id" FOREIGN KEY("grand_prix_id") REFERENCES "public"."grand_prix"("id");
+ALTER TABLE "public"."incident" ADD CONSTRAINT "fk_incident_id" FOREIGN KEY("id") REFERENCES "public"."driver"("id");
+ALTER TABLE "public"."season" ADD CONSTRAINT "fk_season_league_id" FOREIGN KEY("league_id") REFERENCES "public"."league"("id");
+ALTER TABLE "public"."league_user" ADD CONSTRAINT "fk_league_user_league_id" FOREIGN KEY("league_id") REFERENCES "public"."league"("id");
+ALTER TABLE "public"."league" ADD CONSTRAINT "fk_league_logo_resource_id" FOREIGN KEY("logo_resource_id") REFERENCES "public"."resource"("id");
+ALTER TABLE "public"."track_layout" ADD CONSTRAINT "fk_track_layout_map_image_resource_id" FOREIGN KEY("map_image_resource_id") REFERENCES "public"."resource"("id");
+ALTER TABLE "public"."track_layout" ADD CONSTRAINT "fk_track_layout_cover_image_resource_id" FOREIGN KEY("cover_image_resource_id") REFERENCES "public"."resource"("id");
+ALTER TABLE "public"."season_driver" ADD CONSTRAINT "fk_season_driver_season_id" FOREIGN KEY("season_id") REFERENCES "public"."season"("id");
+ALTER TABLE "public"."grand_prix" ADD CONSTRAINT "fk_grand_prix_season_id" FOREIGN KEY("season_id") REFERENCES "public"."season"("id");
+ALTER TABLE "public"."season_points" ADD CONSTRAINT "fk_season_points_season_id" FOREIGN KEY("season_id") REFERENCES "public"."season"("id");
+ALTER TABLE "public"."season" ADD CONSTRAINT "fk_season_logo_resource_id" FOREIGN KEY("logo_resource_id") REFERENCES "public"."resource"("id");
+ALTER TABLE "public"."game_team" ADD CONSTRAINT "fk_game_team_team_id" FOREIGN KEY("team_id") REFERENCES "public"."team"("id");
+ALTER TABLE "public"."grand_prix_driver" ADD CONSTRAINT "fk_grand_prix_driver_team_id" FOREIGN KEY("team_id") REFERENCES "public"."team"("id");
+ALTER TABLE "public"."season_driver" ADD CONSTRAINT "fk_season_driver_team_id" FOREIGN KEY("team_id") REFERENCES "public"."team"("id");
+ALTER TABLE "public"."track_layout" ADD CONSTRAINT "fk_track_layout_track_id" FOREIGN KEY("track_id") REFERENCES "public"."track"("id");
+ALTER TABLE "public"."track_layout_game" ADD CONSTRAINT "fk_track_layout_game_track_layout_id" FOREIGN KEY("track_layout_id") REFERENCES "public"."track_layout"("id");
+ALTER TABLE "public"."grand_prix" ADD CONSTRAINT "fk_grand_prix_track_layout_id" FOREIGN KEY("track_layout_id") REFERENCES "public"."track_layout"("id");
+ALTER TABLE "public"."league_user" ADD CONSTRAINT "fk_league_user_user_id" FOREIGN KEY("user_id") REFERENCES "public"."user"("id");
+ALTER TABLE "public"."verdict" ADD CONSTRAINT "fk_verdict_incident_id" FOREIGN KEY("incident_id") REFERENCES "public"."incident"("id");

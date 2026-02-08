@@ -1,6 +1,6 @@
 Table "public"."verdict" {
   "id" bigint [pk, not null]
-  "incident_id" bigint [not null]
+  "incident_id" bigint [not null, ref: - "public"."incident"."id"]
   "summary" varchar(256) [not null]
   "explanation" bigint [not null]
   "created_at" timestamptz [not null]
@@ -88,11 +88,11 @@ Table "public"."game_team" {
   "team_id" bigint [not null, ref: > "public"."team"."id"]
   "display_name" varchar(128)
   "color" varchar(32)
-  "logo_resource_id" bigint
+  "logo_resource_id" bigint [ref: - "public"."resource"."id"]
   "telemetry_id" smallint [not null, note: 'ID reference to data that game sends through telemetry']
 
   Indexes {
-    (game, team_id) [unique, name: "uq_game_team_game"]
+    (game, team_id) [unique, name: "uq_game_team_game_team_id"]
   }
 }
 
@@ -107,7 +107,7 @@ Table "public"."incident_driver" {
 }
 
 Table "public"."incident" {
-  "id" bigint [pk, not null, ref: > "public"."driver"."id", ref: - "public"."verdict"."incident_id"]
+  "id" bigint [pk, not null, ref: > "public"."driver"."id"]
   "user_id" bigint [not null, note: 'submitted by']
   "grand_prix_id" bigint [not null, ref: > "public"."grand_prix"."id"]
   "session_type" smallint [not null]
@@ -175,7 +175,7 @@ Table "public"."season" {
   "game" smallint [not null]
   "lap_percentage_required" smallint [not null, default: 90]
   "slug" bigint [not null]
-  "logo_resource_id" bigint
+  "logo_resource_id" bigint [ref: - "public"."resource"."id"]
 
   Indexes {
     league_id [name: "idx_grand_prix_league_id"]
@@ -225,7 +225,7 @@ Table "public"."season_driver" {
 }
 
 Table "public"."resource" {
-  "id" bigint [pk, not null, ref: - "public"."game_team"."logo_resource_id", ref: - "public"."season"."logo_resource_id"]
+  "id" bigint [pk, not null]
   "url" text [not null]
   "file_name" text [not null]
   "extension" varchar(10) [not null]
