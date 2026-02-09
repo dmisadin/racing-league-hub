@@ -97,18 +97,17 @@ Table "public"."game_team" {
 }
 
 Table "public"."incident_driver" {
-  "id" bigint [pk, not null]
   "incident_id" bigint [not null, ref: > "public"."incident"."id"]
-  "driver_id" bigint [not null]
+  "driver_id" bigint [not null, ref: > "public"."driver"."id"]
 
   Indexes {
-    (incident_id, driver_id) [unique, name: "uq_incident_driver_incident_id_driver_id"]
+    (incident_id, driver_id) [pk]
   }
 }
 
 Table "public"."incident" {
-  "id" bigint [pk, not null, ref: > "public"."driver"."id"]
-  "user_id" bigint [not null, note: 'submitted by']
+  "id" bigint [pk, not null]
+  "user_id" bigint [not null, note: 'submitted by', ref: > "public"."user"."id"]
   "grand_prix_id" bigint [not null, ref: > "public"."grand_prix"."id"]
   "session_type" smallint [not null]
   "title" varchar(128) [not null]
@@ -174,7 +173,7 @@ Table "public"."season" {
   "platform" smallint [not null]
   "game" smallint [not null]
   "lap_percentage_required" smallint [not null, default: 90]
-  "slug" bigint [not null]
+  "slug" varchar(64) [not null]
   "logo_resource_id" bigint [ref: - "public"."resource"."id"]
 
   Indexes {
@@ -217,7 +216,7 @@ Table "public"."season_driver" {
   "team_id" bigint [not null, ref: > "public"."team"."id"]
   "driver_id" bigint [not null, ref: > "public"."driver"."id"]
   "racing_number" smallint
-  "penalty_points" bigint [not null]
+  "penalty_points" smallint [not null]
 
   Indexes {
     (season_id, driver_id, team_id) [unique, name: "uq_season_driver_season_id_driver_id_team_id"]
