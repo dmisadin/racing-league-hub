@@ -66,7 +66,7 @@ CREATE UNIQUE INDEX "uq_driver_slug" ON "public"."driver" ("slug");
 CREATE TABLE "public"."season_points" (
     "id" bigserial NOT NULL,
     "season_id" bigint NOT NULL,
-    "session_type" bigint NOT NULL,
+    "session_type" smallint NOT NULL,
     "position" smallint NOT NULL,
     "points" smallint NOT NULL,
     PRIMARY KEY ("id")
@@ -150,13 +150,10 @@ CREATE TABLE "public"."user" (
 CREATE INDEX "idx_user_driver_id" ON "public"."user" ("driver_id");
 
 CREATE TABLE "public"."track_layout_game" (
-    "id" bigint NOT NULL,
     "track_layout_id" bigint NOT NULL,
     "game" smallint NOT NULL,
-    PRIMARY KEY ("id")
+    PRIMARY KEY ("track_layout_id", "game")
 );
--- Indexes
-CREATE UNIQUE INDEX "uq_track_layout_game_track_layout_id_game" ON "public"."track_layout_game" ("track_layout_id", "game");
 
 CREATE TABLE "public"."team" (
     "id" bigint NOT NULL,
@@ -237,7 +234,7 @@ CREATE TABLE "public"."track_layout" (
     "track_id" bigint NOT NULL,
     "name" varchar(128) NOT NULL,
     "pit_stop_duration" smallint,
-    "corner_total" smallint NOT NULL,
+    "corners_total" smallint NOT NULL,
     "corners_left" smallint NOT NULL,
     "laps_grand_prix" smallint NOT NULL,
     "map_image_resource_id" bigint,
@@ -246,6 +243,39 @@ CREATE TABLE "public"."track_layout" (
 );
 -- Indexes
 CREATE INDEX "idx_track_layout_track_id" ON "public"."track_layout" ("track_id");
+
+CREATE TABLE "public"."season_assists" (
+    "id" bigint NOT NULL,
+    "season_id" bigint NOT NULL,
+    "racing_line" smallint NOT NULL,
+    "gearbox" smallint NOT NULL,
+    "traction_control" smallint NOT NULL,
+    "abs" boolean NOT NULL,
+    PRIMARY KEY ("id")
+);
+-- Indexes
+CREATE INDEX "idx_season_assists_season_id" ON "public"."season_assists" ("season_id");
+
+CREATE TABLE "public"."season_lobby_settings" (
+    "id" bigint NOT NULL,
+    "season_id" bigint NOT NULL,
+    "qualifying_type" smallint NOT NULL,
+    "race_distance_percentage" smallint NOT NULL,
+    "formation_lap" boolean NOT NULL,
+    "weather" smallint NOT NULL,
+    "corner_cutting" smallint NOT NULL,
+    "car_damage" smallint NOT NULL,
+    "car_damage_rate" smallint NOT NULL,
+    "parc_ferme" boolean NOT NULL,
+    "equal_car_performance" boolean NOT NULL,
+    "safety_car" smallint NOT NULL,
+    "collisions" boolean NOT NULL,
+    "ghosting" boolean NOT NULL,
+    "race_start" smallint NOT NULL,
+    PRIMARY KEY ("id")
+);
+-- Indexes
+CREATE INDEX "idx_season_lobby_settings_season_id" ON "public"."season_lobby_settings" ("season_id");
 
 -- Foreign key constraints
 -- Schema: public
@@ -276,3 +306,5 @@ ALTER TABLE "public"."league_user" ADD CONSTRAINT "fk_league_user_user_id" FOREI
 ALTER TABLE "public"."verdict" ADD CONSTRAINT "fk_verdict_incident_id" FOREIGN KEY("incident_id") REFERENCES "public"."incident"("id");
 ALTER TABLE "public"."incident_driver" ADD CONSTRAINT "fk_incident_driver_driver_id" FOREIGN KEY("driver_id") REFERENCES "public"."driver"("id");
 ALTER TABLE "public"."incident" ADD CONSTRAINT "fk_incident_user_id" FOREIGN KEY("user_id") REFERENCES "public"."user"("id");
+ALTER TABLE "public"."season_assists" ADD CONSTRAINT "fk_season_assists_season_id_season_id" FOREIGN KEY("season_id") REFERENCES "public"."season"("id");
+ALTER TABLE "public"."season_lobby_settings" ADD CONSTRAINT "fk_season_lobby_settings_season_id" FOREIGN KEY("season_id") REFERENCES "public"."season"("id");
