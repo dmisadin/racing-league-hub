@@ -2,7 +2,7 @@
 
 namespace F1StatsServer.Entities.Enums
 {
-    public enum Region
+    public enum Region : short
     {
         [Description("Adria")]
         Adria = 1,
