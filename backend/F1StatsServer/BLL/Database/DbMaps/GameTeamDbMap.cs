@@ -1,0 +1,22 @@
+﻿using F1StatsServer.Entities;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace F1StatsServer.BLL.Database.DbMaps;
+
+public class GameTeamDbMap : BaseDbMap<GameTeam>
+{
+    protected override string Table => "game_team";
+
+    protected override void Map(EntityTypeBuilder<GameTeam> builder)
+    {
+        base.Map(builder);
+
+        builder.HasOne(x => x.Team)
+            .WithMany(t => t.GameTeams)
+            .HasForeignKey(x => x.TeamId);
+
+        builder.HasOne(x => x.LogoResource)
+            .WithMany()
+            .HasForeignKey(x => x.LogoResourceId);
+    }
+}
