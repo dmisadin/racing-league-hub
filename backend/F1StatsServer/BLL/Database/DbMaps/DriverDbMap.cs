@@ -2,7 +2,7 @@
 
 namespace F1StatsServer.BLL.Database.DbMaps;
 
-public class DriverDbMap : BaseDbMap<Driver>
+public class DriverDbMap : DbMapBase<Driver>
 {
     protected override string Table => "driver";
 }

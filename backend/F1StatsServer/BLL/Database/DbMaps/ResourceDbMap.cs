@@ -2,7 +2,7 @@
 
 namespace F1StatsServer.BLL.Database.DbMaps;
 
-public class ResourceDbMap : BaseDbMap<Resource>
+public class ResourceDbMap : DbMapBase<Resource>
 {
     protected override string Table => "resource";
 }

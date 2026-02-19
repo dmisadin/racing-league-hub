@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace F1StatsServer.BLL.Database.DbMaps;
 
-public class SeasonDbMap : BaseDbMap<Season>
+public class SeasonDbMap : DbMapBase<Season>
 {
     protected override string Table => "season";
 

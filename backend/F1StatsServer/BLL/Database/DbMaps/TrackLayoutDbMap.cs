@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace F1StatsServer.BLL.Database.DbMaps;
 
-public class TrackLayoutDbMap : BaseDbMap<TrackLayout>
+public class TrackLayoutDbMap : DbMapBase<TrackLayout>
 {
     protected override string Table => "track_layout";
 

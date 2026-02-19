@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace F1StatsServer.BLL.Database.DbMaps;
 
-public abstract class BaseDbMap<TEntity> where TEntity : class, IEntity
+public abstract class DbMapBase<TEntity> where TEntity : class, IEntity
 {
     public virtual void Initialize(ModelBuilder modelBuilder)
     {

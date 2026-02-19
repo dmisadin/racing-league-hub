@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace F1StatsServer.BLL.Database.DbMaps
 {
-    public class LeagueDbMap : BaseDbMap<League>
+    public class LeagueDbMap : DbMapBase<League>
     {
         protected override string Table => "league";
 

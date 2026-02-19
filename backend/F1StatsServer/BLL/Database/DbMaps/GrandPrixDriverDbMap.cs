@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace F1StatsServer.BLL.Database.DbMaps;
 
-public class GrandPrixDriverDbMap : BaseDbMap<GrandPrixDriver>
+public class GrandPrixDriverDbMap : DbMapBase<GrandPrixDriver>
 {
     protected override string Table => "grand_prix_driver";
 

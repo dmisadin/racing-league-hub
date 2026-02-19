@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace F1StatsServer.BLL.Database.DbMaps;
 
-public class SeasonDriverDbMap : BaseDbMap<SeasonDriver>
+public class SeasonDriverDbMap : DbMapBase<SeasonDriver>
 {
     protected override string Table => "season_driver";
 

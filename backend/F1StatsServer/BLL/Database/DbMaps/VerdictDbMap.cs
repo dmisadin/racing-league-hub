@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace F1StatsServer.BLL.Database.DbMaps;
 
-public class VerdictDbMap : BaseDbMap<Verdict>
+public class VerdictDbMap : DbMapBase<Verdict>
 {
     protected override string Table => "verdict";
 

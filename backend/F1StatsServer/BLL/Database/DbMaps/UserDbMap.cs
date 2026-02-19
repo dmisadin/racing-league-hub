@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace F1StatsServer.BLL.Database.DbMaps
 {
-    public class UserDbMap : BaseDbMap<User>
+    public class UserDbMap : DbMapBase<User>
     {
         protected override string Table => "user";
 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace F1StatsServer.BLL.Database.DbMaps;
 
-public class IncidentDbMap : BaseDbMap<Incident>
+public class IncidentDbMap : DbMapBase<Incident>
 {
     protected override string Table => "incident";
 
