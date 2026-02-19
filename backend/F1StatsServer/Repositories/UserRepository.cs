@@ -1,12 +1,11 @@
 ﻿using F1StatsServer.Data;
 using F1StatsServer.Dto.UserDto;
-using F1StatsServer.Infrastructure;
-using F1StatsServer.Interfaces;
 using F1StatsServer.Entities;
+using F1StatsServer.Infrastructure;
 
 namespace F1StatsServer.Repositories
 {
-    public class UserRepository : GenericRepository<User>, IGenericRepository<User>, IUserRepository
+    public class UserRepository : GenericRepository<User>
     {
         private readonly AdventureContext _context;
 
