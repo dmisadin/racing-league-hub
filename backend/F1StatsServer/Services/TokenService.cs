@@ -1,7 +1,4 @@
 ﻿using F1StatsServer.Dto.UserDto;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace F1StatsServer.Services
@@ -10,6 +7,7 @@ namespace F1StatsServer.Services
     //Possible change would be to make method CreateToken() private and invoked through an instance of this class
     public class TokenService
     {
+        /*
         public static string CreateToken(UserDto request, IConfiguration configuration, bool isAdmin)
         {
             List<Claim> claims = new()
@@ -33,5 +31,6 @@ namespace F1StatsServer.Services
 
             return jwt;
         }
+        */
     }
 }
