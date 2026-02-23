@@ -1,30 +1,15 @@
-﻿using F1StatsServer.Dto.DriverDtos;
-using F1StatsServer.Infrastructure;
-using F1StatsServer.Interfaces;
+﻿using F1StatsServer.BLL.Mapping.DtoFactories;
+using F1StatsServer.Dto.DriverDtos;
 using F1StatsServer.Entities;
-using Microsoft.AspNetCore.Mvc;
+using F1StatsServer.Infrastructure;
 
-namespace F1StatsServer.Controllers
+namespace F1StatsServer.Controllers;
+
+public class DriverController : GenericController<Driver, DriverDto>
 {
-    public class DriverController : GenericController<Driver, DriverDto>
+    public DriverController(IRepository<Driver> driverRepository) : base(driverRepository)
     {
-        private readonly IDriverService _driverService;
-
-        public DriverController(IGenericRepository<Driver> genericRepository, IDriverService driverService) : base(genericRepository)
-        {
-            _driverService = driverService;
-        }
-
-        [HttpPost("create")]
-        [ProducesResponseType(200)]
-        public async Task<IActionResult> InsertData([FromBody] DriverInsertDto data)
-        {
-            if (data == null || !ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _driverService.InsertDataAsync(data);
-
-            return Ok(result);
-        }
     }
+
+    protected override IDtoFactory<Driver, DriverDto> DtoFactory => throw new NotImplementedException();
 }

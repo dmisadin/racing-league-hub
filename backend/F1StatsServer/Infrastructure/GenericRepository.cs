@@ -1,146 +1,58 @@
 ﻿using F1StatsServer.Data;
-using F1StatsServer.Utility;
-using Microsoft.AspNetCore.JsonPatch;
+using F1StatsServer.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
-namespace F1StatsServer.Infrastructure
+namespace F1StatsServer.Infrastructure;
+
+public class GenericRepository<TEntity> : IRepository<TEntity> 
+    where TEntity : EntityBase
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : EntityBase
+    protected readonly AdventureContext dbContext;
+
+    public GenericRepository(AdventureContext dbContext)
     {
-        protected readonly AdventureContext _context;
-        private readonly DbSet<TEntity> table;
+        this.dbContext = dbContext;
+    }
 
-        public GenericRepository(AdventureContext context)
-        {
-            _context = context;
-            table = _context.Set<TEntity>();
-        }
+    public virtual IQueryable<TEntity> Query()
+    {
+        return this.dbContext.Set<TEntity>() as IQueryable<TEntity>;
+    }
 
-        public async Task<int> CreateItemAsync(TEntity item)
-        {
-            await table.AddRangeAsync(item);
+    public virtual TEntity Create()
+    {
+        return Activator.CreateInstance<TEntity>();
+    }
 
-            var save = await Commit();
+    public virtual Task InsertAsync(params TEntity[] entities)
+    {
+        this.dbContext.Set<TEntity>().AddRange(entities);
+        return Task.CompletedTask;
+    }
 
-            if (save == false)
-                return -1;
+    public virtual ValueTask<TEntity?> FindAsync(params object[] values)
+    {
+        return this.dbContext.Set<TEntity>().FindAsync(values);
+    }
 
-            return item.Id; 
-        }
+    public virtual Task<List<TEntity>> GetAllAsync()
+    {
+        return Query().ToListAsync();
+    }
 
-        public async Task<int> CreateItemListAsync(List<TEntity> items)
-        {
-            await table.AddRangeAsync(items);
+    public virtual Task<int> CommitAsync()
+    {
+        return this.dbContext.SaveChangesAsync();
+    }
+    public virtual Task DeleteAsync(params TEntity[] entities)
+    {
+        this.dbContext.Set<TEntity>().RemoveRange(entities);
+        return Task.CompletedTask;
+    }
 
-            var save = await Commit();
-
-            if (save == false) 
-                return -1;
-
-            return 0;
-        }
-
-        public async Task<TEntity> DeleteItemAsync(int id)
-        {
-            TEntity? existing = await table.FindAsync(id);
-
-            if (existing == null)
-                return null;
-
-            table.Remove(existing);
-            var result = await Commit();
-            if (result == false)
-                return null;
-
-            return existing;
-        }
-
-        public async Task<List<TEntity>> GetAsync()
-        {
-            return await table.AsNoTracking().ToListAsync();
-        }
-
-        public async Task<TEntity> GetByIdAsync(int id)
-        {
-            var result = await table.FindAsync(id);
-
-            return result;
-        }
-
-        public bool Has(int id)
-        {
-            return table.Any((c) => c.Id == id);
-        }
-
-        public async Task<int> UpdateItemAsync(JsonPatchDocument<TEntity> item, int id)
-        {
-            var fromDb = await _context.IncludeAll(table).Where(p => p.Id == id).FirstOrDefaultAsync();
-
-            item.ApplyTo(fromDb);
-
-            table.Update(fromDb);
-            var save = await Commit();
-
-            if (save == false)
-                return -1;
-
-            return 0;
-        }
-
-        public async Task<bool> Commit()
-        {
-            try
-            {
-                var saved = await _context.SaveChangesAsync();
-                return saved > 0;
-            }
-            catch (DbUpdateException ex)
-            {
-                if (ex.InnerException != null && ex.InnerException.Message.Contains("UC"))
-                    throw new Exception("Duplicate value inserted");
-                throw ex;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        /** REFACTORING BELOW */
-
-        public virtual IQueryable<TEntity> Query()
-        {
-            return table;
-        }
-
-        public async Task Insert(params TEntity[] entities)
-        {
-            await table.AddRangeAsync(entities);
-        }
-
-        public void Remove(params TEntity[] entities)
-        {
-            table.RemoveRange(entities);
-        }
-
-        public void Update(params TEntity[] entities)
-        {
-            table.UpdateRange(entities);
-        }
-
-        //yet to be tested Upsert
-        public async Task UpsertAsync<TEntity>(TEntity entity) where TEntity : EntityBase
-        {
-            var exists = entity.Id != 0 && await _context.Set<TEntity>().AnyAsync(e => e.Id == entity.Id);
-            if (exists)
-            {
-                _context.Set<TEntity>().Update(entity);
-            }
-            else
-            {
-                await _context.Set<TEntity>().AddAsync(entity);
-            }
-        }
+    public virtual Task DeleteAsync(IQueryable<TEntity> query)
+    {
+        this.dbContext.Set<TEntity>().RemoveRange(query);
+        return Task.CompletedTask;
     }
 }

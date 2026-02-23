@@ -1,90 +1,68 @@
-﻿using F1StatsServer.Utility;
-using Microsoft.AspNetCore.JsonPatch;
+﻿using F1StatsServer.BLL.Mapping.DtoFactories;
+using F1StatsServer.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace F1StatsServer.Infrastructure
+namespace F1StatsServer.Infrastructure;
+
+[Route("api/[controller]")]
+[ApiController]
+public abstract class GenericController<TEntity, TDto> : Controller where TEntity : EntityBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class GenericController<T, TDto> : Controller where T : EntityBase
+    private readonly IRepository<TEntity> genericRepository;
+
+    public GenericController(IRepository<TEntity> genericRepository)
     {
-        private readonly IGenericRepository<T> _genericRepository;
+        this.genericRepository = genericRepository;
+    }
 
-        public GenericController(IGenericRepository<T> genericRepository)
-        {
-            _genericRepository = genericRepository;
-        }
+    protected abstract IDtoFactory<TEntity, TDto> DtoFactory { get; }
 
-        [HttpGet]
-        [ProducesResponseType(200)]
-        public async Task<IActionResult> Get()
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+    [HttpGet("get-by-id")]
+    public virtual async Task<ActionResult<TDto>> GetOne([FromQuery] long id)
+    {
+        var entity = await genericRepository.FindAsync(id);
 
-            var generic = MyMapper<TDto, T>.MapList(await _genericRepository.GetAsync());
+        if (entity == null)
+            return NotFound();
 
+        var dto = DtoFactory.ToDto(entity);
 
-            return Ok(generic);
-        }
+        return Ok(dto);
+    }
 
-        [HttpGet("{id}")]
-        [ProducesResponseType(200)]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var generic = await _genericRepository.GetByIdAsync(id);
+    [HttpPost("add")]
+    public virtual async Task<ActionResult<long>> Add(TDto dto)
+    {
+        var entity = genericRepository.Create();
+        DtoFactory.FromDto(entity, dto);
 
-            if (generic == null)
-                return NotFound();
+        await this.genericRepository.InsertAsync(entity);
+        await this.genericRepository.CommitAsync();
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+        return Ok(entity.Id);
+    }
 
-            return Ok(generic);
-        }
+    [HttpPost("update")]
+    public virtual async Task<ActionResult<long>> Update([FromBody] TDto dto, [FromQuery] long id)
+    {
+        var entity = this.genericRepository.FindAsync(id).Result;
 
-        [HttpDelete]
-        [ProducesResponseType(200)]
-        public async Task<IActionResult> DeleteItem(int id)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+        if (entity == null)
+            return NotFound();
 
-            var generic = await _genericRepository.DeleteItemAsync(id);
+        DtoFactory.FromDto(entity, dto);
 
-            if (generic == null)
-                return NotFound();
+        return Ok(entity.Id);
+    }
 
-            return Ok(generic);
-        }
+    [HttpDelete("delete")]
+    public virtual async Task<IActionResult> Delete(long id)
+    {
+        var rows = await genericRepository.Query()
+            .Where(x => x.Id == id)
+            .ExecuteDeleteAsync();
 
-        [HttpPost]
-        [ProducesResponseType(200)]
-        public async Task<IActionResult> CreateItem(TDto item)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var itemFull = MyMapper<T, TDto>.Map(item);
-            var generic = await _genericRepository.CreateItemAsync(itemFull);
-
-            return Ok(generic);
-        }
-
-        [HttpPatch("{id}")]
-        [ProducesResponseType(200)]
-        public async Task<IActionResult> UpdateItem([FromBody]JsonPatchDocument<T> item, int id)
-        {
-            foreach (var operation in item.Operations)
-                if (operation.OperationType != Microsoft.AspNetCore.JsonPatch.Operations.OperationType.Replace)
-                    return BadRequest("Patch request must contain only replace operations");
-
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _genericRepository.UpdateItemAsync(item, id);
-
-            return Ok(result);
-        }
+        return rows == 0 ? NotFound() : NoContent();
     }
 }
