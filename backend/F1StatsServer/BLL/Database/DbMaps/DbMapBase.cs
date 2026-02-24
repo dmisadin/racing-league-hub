@@ -4,14 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace F1StatsServer.BLL.Database.DbMaps;
 
-public abstract class DbMapBase<TEntity> where TEntity : class, IEntity
+public abstract class DbMapBase<TEntity> : IDbMap
+    where TEntity : class, IEntity
 {
     public virtual void Initialize(ModelBuilder modelBuilder)
     {
         var entityTypeBuilder = modelBuilder.Entity<TEntity>();
 
-        var builder = entityTypeBuilder.ToTable(this.Table.ToLower(), this.Schema.ToLower())
-                                       .HasKey(x => x.Id);
+        entityTypeBuilder.ToTable(this.Table.ToLower(), this.Schema.ToLower());
+        entityTypeBuilder.HasKey(x => x.Id);
 
         Map(entityTypeBuilder);
     }
