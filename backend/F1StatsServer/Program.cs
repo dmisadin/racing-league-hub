@@ -1,5 +1,6 @@
-using F1StatsServer.Data;
+using F1StatsServer.BLL.Database;
 using F1StatsServer.Infrastructure;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,15 @@ builder.Services.AddDbContext<AdventureContext>(options =>
                             .GetConnectionString("DefaultConnection"))
                             .UseSnakeCaseNamingConvention());
 
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 
