@@ -5,7 +5,7 @@ namespace F1StatsServer.BLL.Database.DbMaps;
 
 public class GrandPrixResultDbMap : DbMapBase<GrandPrixResult>
 {
-    protected override string Table => "grand_prix";
+    protected override string Table => "grand_prix_result";
 
     protected override void Map(EntityTypeBuilder<GrandPrixResult> builder)
     {

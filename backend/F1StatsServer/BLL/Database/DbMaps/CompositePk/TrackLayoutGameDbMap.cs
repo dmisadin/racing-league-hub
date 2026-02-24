@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace F1StatsServer.BLL.Database.DbMaps.CompositePk;
 
-public class TrackLayoutGameDbMap
+public class TrackLayoutGameDbMap : IDbMap
 {
     private string Schema => "public";
     private string Table => "track_layout_game";

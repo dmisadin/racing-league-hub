@@ -21,10 +21,6 @@ public class IncidentDbMap : DbMapBase<Incident>
             .WithMany(u => u.Incidents)
             .HasForeignKey(x => x.UserId);
 
-        builder.HasMany(x => x.Verdicts)
-            .WithOne()
-            .HasForeignKey(v => v.Incident);
-
         builder.HasMany(i => i.Drivers)
             .WithMany()
             .UsingEntity<Dictionary<string, object>>(
