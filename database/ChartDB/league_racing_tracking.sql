@@ -1,7 +1,7 @@
 CREATE SCHEMA IF NOT EXISTS "public";
 
 CREATE TABLE "public"."verdict" (
-    "id" bigint NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     "incident_id" bigint NOT NULL,
     "summary" varchar(256) NOT NULL,
     "explanation" bigint NOT NULL,
@@ -16,7 +16,7 @@ COMMENT ON COLUMN "public"."verdict"."penalty_amount" IS '3 race bans, 5 seconds
 CREATE INDEX "verdict_incident_id_idx" ON "public"."verdict" ("incident_id");
 
 CREATE TABLE "public"."grand_prix_result" (
-    "id" bigserial NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     "grand_prix_driver_id" bigint NOT NULL,
     "session_type" smallint NOT NULL,
     "position" bigint NOT NULL,
@@ -38,7 +38,7 @@ COMMENT ON COLUMN "public"."grand_prix_result"."points_gained" IS 'NULL if sessi
 CREATE INDEX "grand_prix_result_grand_prix_driver_id_idx" ON "public"."grand_prix_result" ("grand_prix_driver_id");
 
 CREATE TABLE "public"."league_user" (
-    "id" bigint NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     "league_id" bigint NOT NULL,
     "user_id" bigint NOT NULL,
     "is_owner" boolean NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE "public"."league_user" (
 CREATE UNIQUE INDEX "league_user_league_id_user_id_key" ON "public"."league_user" ("league_id", "user_id");
 
 CREATE TABLE "public"."driver" (
-    "id" bigint NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     "nickname" varchar(64) NOT NULL,
     "first_name" varchar(64),
     "last_name" varchar(64),
@@ -64,7 +64,7 @@ CREATE UNIQUE INDEX "driver_nickname_key" ON "public"."driver" ("nickname");
 CREATE UNIQUE INDEX "driver_slug_key" ON "public"."driver" ("slug");
 
 CREATE TABLE "public"."season_points" (
-    "id" bigserial NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     "season_id" bigint NOT NULL,
     "session_type" smallint NOT NULL,
     "position" smallint NOT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE "public"."season_points" (
 CREATE INDEX "season_points_season_id_idx" ON "public"."season_points" ("season_id");
 
 CREATE TABLE "public"."track" (
-    "id" bigint NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     "name" varchar(128) NOT NULL,
     "country" bigint NOT NULL,
     "city" varchar(64) NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE "public"."track" (
 );
 
 CREATE TABLE "public"."game_team" (
-    "id" bigint NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     "game" smallint NOT NULL,
     "team_id" bigint NOT NULL,
     "display_name" varchar(128),
@@ -106,7 +106,7 @@ CREATE TABLE "public"."incident_driver" (
 );
 
 CREATE TABLE "public"."incident" (
-    "id" bigint NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     -- submitted by
     "user_id" bigint NOT NULL,
     "grand_prix_id" bigint NOT NULL,
@@ -123,7 +123,7 @@ CREATE INDEX "incident_grand_prix_id_idx" ON "public"."incident" ("grand_prix_id
 CREATE INDEX "incident_user_id_idx" ON "public"."incident" ("user_id");
 
 CREATE TABLE "public"."grand_prix" (
-    "id" bigserial NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     "track_layout_id" bigint NOT NULL,
     "season_id" bigint NOT NULL,
     "name" varchar(100) NOT NULL,
@@ -138,7 +138,7 @@ CREATE INDEX "grand_prix_track_layout_id_idx" ON "public"."grand_prix" ("track_l
 CREATE UNIQUE INDEX "grand_prix_season_id_slug_key" ON "public"."grand_prix" ("season_id", "slug");
 
 CREATE TABLE "public"."user" (
-    "id" bigint NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     "username" varchar(32) NOT NULL,
     "email" varchar(64) NOT NULL,
     "password" text NOT NULL,
@@ -156,14 +156,14 @@ CREATE TABLE "public"."track_layout_game" (
 );
 
 CREATE TABLE "public"."team" (
-    "id" bigint NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     "name" varchar(100) NOT NULL,
     "color" varchar(16),
     PRIMARY KEY ("id")
 );
 
 CREATE TABLE "public"."season" (
-    "id" bigserial NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     "league_id" bigint NOT NULL,
     "name" varchar(100) NOT NULL,
     "platform" smallint NOT NULL,
@@ -178,7 +178,7 @@ CREATE INDEX "grand_prix_league_id_idx" ON "public"."season" ("league_id");
 CREATE UNIQUE INDEX "season_league_id_slug_key" ON "public"."season" ("league_id", "slug");
 
 CREATE TABLE "public"."league" (
-    "id" bigserial NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     "region" smallint NOT NULL,
     "name" varchar(500) NOT NULL,
     "description" text,
@@ -193,7 +193,7 @@ COMMENT ON COLUMN "public"."league"."timezone" IS 'IANA https://www.iana.org/tim
 CREATE UNIQUE INDEX "league_slug_key" ON "public"."league" ("slug");
 
 CREATE TABLE "public"."grand_prix_driver" (
-    "id" bigserial NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     "grand_prix_id" bigint NOT NULL,
     "driver_id" bigint NOT NULL,
     "team_id" bigint NOT NULL,
@@ -206,7 +206,7 @@ CREATE INDEX "grand_prix_driver_grand_prix_id_idx" ON "public"."grand_prix_drive
 CREATE INDEX "grand_prix_driver_team_id_idx" ON "public"."grand_prix_driver" ("team_id");
 
 CREATE TABLE "public"."season_driver" (
-    "id" bigint NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     "season_id" bigint NOT NULL,
     "team_id" bigint NOT NULL,
     "driver_id" bigint NOT NULL,
@@ -218,7 +218,7 @@ CREATE TABLE "public"."season_driver" (
 CREATE UNIQUE INDEX "season_driver_season_id_driver_id_team_id_key" ON "public"."season_driver" ("season_id", "driver_id", "team_id");
 
 CREATE TABLE "public"."resource" (
-    "id" bigint NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     "url" text NOT NULL,
     "file_name" text NOT NULL,
     "extension" varchar(10) NOT NULL,
@@ -230,7 +230,7 @@ CREATE TABLE "public"."resource" (
 );
 
 CREATE TABLE "public"."track_layout" (
-    "id" bigint NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     "track_id" bigint NOT NULL,
     "name" varchar(128) NOT NULL,
     "pit_stop_duration" smallint,
@@ -245,7 +245,7 @@ CREATE TABLE "public"."track_layout" (
 CREATE INDEX "track_layout_track_id_idx" ON "public"."track_layout" ("track_id");
 
 CREATE TABLE "public"."season_assists" (
-    "id" bigint NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     "season_id" bigint NOT NULL,
     "racing_line" smallint NOT NULL,
     "gearbox" smallint NOT NULL,
@@ -257,7 +257,7 @@ CREATE TABLE "public"."season_assists" (
 CREATE INDEX "season_assists_season_id_idx" ON "public"."season_assists" ("season_id");
 
 CREATE TABLE "public"."season_lobby_settings" (
-    "id" bigint NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY,
     "season_id" bigint NOT NULL,
     "qualifying_type" smallint NOT NULL,
     "race_distance_percentage" smallint NOT NULL,
