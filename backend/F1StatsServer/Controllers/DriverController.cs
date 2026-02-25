@@ -1,5 +1,5 @@
 ﻿using F1StatsServer.BLL.Mapping.DtoFactories;
-using F1StatsServer.Dto.DriverDtos;
+using F1StatsServer.BLL.Models.Dtos;
 using F1StatsServer.Entities;
 using F1StatsServer.Infrastructure;
 
@@ -11,5 +11,5 @@ public class DriverController : GenericController<Driver, DriverDto>
     {
     }
 
-    protected override IDtoFactory<Driver, DriverDto> DtoFactory => throw new NotImplementedException();
+    protected override IDtoFactory<Driver, DriverDto> DtoFactory => new DriverDtoFactory();
 }

@@ -1,4 +1,4 @@
-﻿using F1StatsServer.Data;
+﻿using F1StatsServer.BLL.Database;
 using F1StatsServer.Entities;
 using Microsoft.EntityFrameworkCore;
 
