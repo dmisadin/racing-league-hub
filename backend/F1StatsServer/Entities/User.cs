@@ -1,29 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using F1StatsServer.Utility;
-using Microsoft.EntityFrameworkCore;
+﻿using F1StatsServer.Entities.Stewarding;
 
 namespace F1StatsServer.Entities;
 
-[Table("User")]
-public partial class User : EntityBase
+public class User : EntityBase
 {
-    [StringLength(255)]
-    [Unicode(false)]
-    public string Username { get; set; } = null!;
-
-    [StringLength(255)]
-    [Unicode(false)]
-    public string Password { get; set; } = null!;
-
-    [StringLength(255)]
-    [Unicode(false)]
-    public string Email { get; set; } = null!;
-
+    public string Username { get; set; }
+    public string Email { get; set; }
+    public string Password { get; set; }
     public bool IsAdmin { get; set; }
+    public long? DriverId { get; set; }
 
-    [InverseProperty("User")]
-    public virtual ICollection<LeagueUser> LeagueUsers { get; set; } = new List<LeagueUser>();
+    public virtual Driver? Driver { get; set; }
+
+    public virtual ICollection<LeagueUser> LeagueUsers { get; set; }
+    public virtual ICollection<Incident> Incidents { get; set; }
 }
+

@@ -1,42 +1,19 @@
 ﻿using F1StatsServer.Entities.Enums;
-using F1StatsServer.Utility;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using F1StatsServer.Entities.Seasons;
 
 namespace F1StatsServer.Entities;
 
-[Table("League")]
-public partial class League : EntityBase
+public class League : EntityBase
 {
-    public int RegionId { get; set; }
-
-    public int? SocialMediaId { get; set; }
-
-    [StringLength(255)]
-    public string Name { get; set; } = null!;
-
-    [StringLength(255)]
-    [Unicode(false)]
-    public string? ImagePath { get; set; }
-
-    [StringLength(255)]
-    [Unicode(false)]
+    public Region Region { get; set; }
+    public string Name { get; set; }
     public string? Description { get; set; }
+    public string Timezone { get; set; }
+    public string Slug { get; set; }
+    public long? LogoResourceId { get; set; }
 
-    [StringLength(10)]
-    [Unicode(false)]
-    public string ColorHex { get; set; } = null!;
-    public virtual Region Region { get; set; }
+    public virtual Resource? LogoResource { get; set; }
 
-    [InverseProperty("League")]
-    public virtual ICollection<LeagueUser> LeagueUsers { get; set; } = new List<LeagueUser>();
-
-
-    [InverseProperty("League")]
-    public virtual ICollection<Season> Seasons { get; set; } = new List<Season>();
-
-    [ForeignKey("SocialMediaId")]
-    [InverseProperty("Leagues")]
-    public virtual SocialMedia? SocialMedia { get; set; }
+    public virtual ICollection<LeagueUser> LeagueUsers { get; set; }
+    public virtual ICollection<Season> Seasons { get; set; }
 }

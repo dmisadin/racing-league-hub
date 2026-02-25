@@ -2,10 +2,10 @@
 
 namespace F1StatsServer.Entities.Enums
 {
-    public enum Game
+    public enum Game : short
     {
         [Description("F1 2010")]
-        F12010,
+        F12010 = 10,
         [Description("F1 2011")]
         F12011,
         [Description("F1 2012")]
@@ -33,6 +33,8 @@ namespace F1StatsServer.Entities.Enums
         [Description("F1 23")]
         F123,
         [Description("F1 24")]
-        F124
+        F124,
+        [Description("F1 25")]
+        F125
     }
 }

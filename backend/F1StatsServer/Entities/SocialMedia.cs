@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using F1StatsServer.Utility;
 using Microsoft.EntityFrameworkCore;
 
 namespace F1StatsServer.Entities;

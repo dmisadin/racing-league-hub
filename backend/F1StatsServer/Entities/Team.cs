@@ -1,30 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using F1StatsServer.Utility;
-using Microsoft.EntityFrameworkCore;
+﻿using F1StatsServer.Entities.Seasons;
 
 namespace F1StatsServer.Entities;
 
-[Table("Team")]
-public partial class Team : EntityBase
+public class Team : EntityBase
 {
-    [StringLength(255)]
-    [Unicode(false)]
-    public string Name { get; set; } = null!;
+    public string Name { get; set; }
+    public string? Color { get; set; }
 
-    [StringLength(255)]
-    [Unicode(false)]
-    public string? ImagePath { get; set; }
-
-    [StringLength(10)]
-    [Unicode(false)]
-    public string ColorHex { get; set; } = null!;
-
-    [InverseProperty("Team")]
-    public virtual ICollection<SessionResult> SessionResults { get; set; } = new List<SessionResult>();
-
-    [InverseProperty("Team")]
-    public virtual ICollection<SeasonDrivers> SeasonDrivers { get; set; } = new List<SeasonDrivers>();
+    public virtual ICollection<GameTeam> GameTeams { get; set; } = new List<GameTeam>();
+    public virtual ICollection<GrandPrixDriver> GrandPrixDrivers { get; set; } = new List<GrandPrixDriver>();
+    public virtual ICollection<SeasonDriver> SeasonDrivers { get; set; } = new List<SeasonDriver>();
 }
