@@ -1,6 +1,6 @@
-﻿using F1StatsServer.Entities.Enums.Assists;
+﻿using RacingLeagueHub.Entities.Enums.Assists;
 
-namespace F1StatsServer.Entities.Seasons;
+namespace RacingLeagueHub.Entities.Seasons;
 
 public class SeasonAssists : EntityBase
 {

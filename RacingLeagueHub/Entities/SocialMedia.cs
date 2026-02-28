@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace F1StatsServer.Entities;
+namespace RacingLeagueHub.Entities;
 
 public partial class SocialMedia : EntityBase
 {

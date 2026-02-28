@@ -1,10 +1,10 @@
-﻿using F1StatsServer.Entities;
+﻿using RacingLeagueHub.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using F1StatsServer.Dto.GrandPrixDtos;
-using F1StatsServer.Entities.Enums;
+using RacingLeagueHub.Dto.GrandPrixDtos;
+using RacingLeagueHub.Entities.Enums;
 
-namespace F1StatsServer.Dto.SeasonDtos
+namespace RacingLeagueHub.Dto.SeasonDtos
 {
     public class SeasonDisplayDto
     {

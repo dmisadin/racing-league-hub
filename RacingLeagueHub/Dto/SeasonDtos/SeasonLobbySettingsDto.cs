@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace F1StatsServer.Dto.SeasonDtos
+namespace RacingLeagueHub.Dto.SeasonDtos
 {
     public class SeasonLobbySettingsDto
     {

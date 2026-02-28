@@ -1,7 +1,7 @@
-﻿using F1StatsServer.Entities.Stewarding;
+﻿using RacingLeagueHub.Entities.Stewarding;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace F1StatsServer.BLL.Database.DbMaps;
+namespace RacingLeagueHub.BLL.Database.DbMaps;
 
 public class VerdictDbMap : DbMapBase<Verdict>
 {

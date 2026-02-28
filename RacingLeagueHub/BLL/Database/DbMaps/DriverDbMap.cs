@@ -1,6 +1,6 @@
-﻿using F1StatsServer.Entities;
+﻿using RacingLeagueHub.Entities;
 
-namespace F1StatsServer.BLL.Database.DbMaps;
+namespace RacingLeagueHub.BLL.Database.DbMaps;
 
 public class DriverDbMap : DbMapBase<Driver>
 {

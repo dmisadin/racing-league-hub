@@ -1,8 +1,8 @@
-﻿using F1StatsServer.BLL.Models.Dtos.User;
-using F1StatsServer.Entities;
+﻿using RacingLeagueHub.BLL.Models.Dtos.User;
+using RacingLeagueHub.Entities;
 using System.Linq.Expressions;
 
-namespace F1StatsServer.BLL.Mapping.DtoFactories;
+namespace RacingLeagueHub.BLL.Mapping.DtoFactories;
 
 public class UserDtoFactory : DtoFactoryBase<User, UserDto>
 {

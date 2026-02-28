@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace F1StatsServer.BLL.Database;
+namespace RacingLeagueHub.BLL.Database;
 
 public partial class AdventureContext : DbContext
 {

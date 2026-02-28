@@ -1,9 +1,9 @@
-﻿using F1StatsServer.BLL.Mapping.DtoFactories;
-using F1StatsServer.Entities;
+﻿using RacingLeagueHub.BLL.Mapping.DtoFactories;
+using RacingLeagueHub.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace F1StatsServer.Infrastructure;
+namespace RacingLeagueHub.Infrastructure;
 
 [Route("api/[controller]")]
 [ApiController]

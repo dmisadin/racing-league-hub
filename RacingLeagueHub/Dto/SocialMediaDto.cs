@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace F1StatsServer.Dto
+namespace RacingLeagueHub.Dto
 {
     public class SocialMediaDto
     {

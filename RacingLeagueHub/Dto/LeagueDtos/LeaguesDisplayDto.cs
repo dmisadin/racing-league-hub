@@ -1,7 +1,7 @@
-﻿using F1StatsServer.Entities.Enums;
+﻿using RacingLeagueHub.Entities.Enums;
 using System.ComponentModel;
 
-namespace F1StatsServer.Dto.LeagueDtos
+namespace RacingLeagueHub.Dto.LeagueDtos
 {
     public class LeaguesDisplayDto
     {

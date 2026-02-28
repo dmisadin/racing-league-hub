@@ -1,6 +1,6 @@
-﻿using F1StatsServer.Entities.Enums.Lobby;
+﻿using RacingLeagueHub.Entities.Enums.Lobby;
 
-namespace F1StatsServer.Entities.Seasons;
+namespace RacingLeagueHub.Entities.Seasons;
 
 public class SeasonLobbySettings : EntityBase
 {

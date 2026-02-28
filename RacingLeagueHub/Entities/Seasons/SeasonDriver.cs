@@ -1,4 +1,4 @@
-﻿namespace F1StatsServer.Entities.Seasons;
+﻿namespace RacingLeagueHub.Entities.Seasons;
 
 public class SeasonDriver : EntityBase
 {

@@ -1,4 +1,4 @@
-﻿namespace F1StatsServer.Dto.UserDto
+﻿namespace RacingLeagueHub.Dto.UserDto
 {
     public class RegisterDto
     {

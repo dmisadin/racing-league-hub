@@ -1,8 +1,8 @@
-﻿using F1StatsServer.BLL.Models.Dtos;
-using F1StatsServer.Entities;
+﻿using RacingLeagueHub.BLL.Models.Dtos;
+using RacingLeagueHub.Entities;
 using System.Linq.Expressions;
 
-namespace F1StatsServer.BLL.Mapping.DtoFactories;
+namespace RacingLeagueHub.BLL.Mapping.DtoFactories;
 
 public class DriverDtoFactory : DtoFactoryBase<Driver, DriverDto>
 {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace F1StatsServer.Entities.Enums
+namespace RacingLeagueHub.Entities.Enums
 {
     public enum ResultStatus : byte
     {

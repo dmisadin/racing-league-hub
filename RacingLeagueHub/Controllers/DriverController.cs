@@ -1,9 +1,9 @@
-﻿using F1StatsServer.BLL.Mapping.DtoFactories;
-using F1StatsServer.BLL.Models.Dtos;
-using F1StatsServer.Entities;
-using F1StatsServer.Infrastructure;
+﻿using RacingLeagueHub.BLL.Mapping.DtoFactories;
+using RacingLeagueHub.BLL.Models.Dtos;
+using RacingLeagueHub.Entities;
+using RacingLeagueHub.Infrastructure;
 
-namespace F1StatsServer.Controllers;
+namespace RacingLeagueHub.Controllers;
 
 public class DriverController : GenericController<Driver, DriverDto>
 {

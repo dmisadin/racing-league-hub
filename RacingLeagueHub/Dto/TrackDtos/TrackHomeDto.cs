@@ -1,4 +1,4 @@
-﻿namespace F1StatsServer.Dto.TrackDtos
+﻿namespace RacingLeagueHub.Dto.TrackDtos
 {
     public class TrackHomeDto
     {

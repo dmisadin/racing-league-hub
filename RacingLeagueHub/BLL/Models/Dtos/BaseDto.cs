@@ -1,4 +1,4 @@
-﻿namespace F1StatsServer.BLL.Models.Dtos;
+﻿namespace RacingLeagueHub.BLL.Models.Dtos;
 
 public class BaseDto
 {

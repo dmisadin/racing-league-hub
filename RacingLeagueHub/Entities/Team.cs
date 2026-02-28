@@ -1,6 +1,6 @@
-﻿using F1StatsServer.Entities.Seasons;
+﻿using RacingLeagueHub.Entities.Seasons;
 
-namespace F1StatsServer.Entities;
+namespace RacingLeagueHub.Entities;
 
 public class Team : EntityBase
 {

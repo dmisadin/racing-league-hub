@@ -1,4 +1,4 @@
-﻿namespace F1StatsServer.Entities.Stewarding;
+﻿namespace RacingLeagueHub.Entities.Stewarding;
 
 public class Verdict : EntityBase
 {

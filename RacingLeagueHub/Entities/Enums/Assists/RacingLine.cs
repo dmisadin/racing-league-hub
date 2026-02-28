@@ -1,4 +1,4 @@
-﻿namespace F1StatsServer.Entities.Enums.Assists;
+﻿namespace RacingLeagueHub.Entities.Enums.Assists;
 
 public enum RacingLine : short
 {

@@ -1,9 +1,9 @@
-﻿using F1StatsServer.Dto.DriverDtos;
-using F1StatsServer.Dto.ResultsDtos;
-using F1StatsServer.Dto.TrackDtos;
-using F1StatsServer.Entities;
+﻿using RacingLeagueHub.Dto.DriverDtos;
+using RacingLeagueHub.Dto.ResultsDtos;
+using RacingLeagueHub.Dto.TrackDtos;
+using RacingLeagueHub.Entities;
 
-namespace F1StatsServer.Dto.GrandPrixDtos
+namespace RacingLeagueHub.Dto.GrandPrixDtos
 {
     public class GrandPrixDto
     {

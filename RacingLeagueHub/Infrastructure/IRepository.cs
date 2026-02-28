@@ -1,6 +1,6 @@
-﻿using F1StatsServer.Entities;
+﻿using RacingLeagueHub.Entities;
 
-namespace F1StatsServer.Infrastructure
+namespace RacingLeagueHub.Infrastructure
 {
     public interface IRepository<TEntity> where TEntity : IEntity
     {

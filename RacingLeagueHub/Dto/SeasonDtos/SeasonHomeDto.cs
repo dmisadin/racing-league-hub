@@ -1,4 +1,4 @@
-﻿namespace F1StatsServer.Dto.SeasonDtos
+﻿namespace RacingLeagueHub.Dto.SeasonDtos
 {
     public class SeasonHomeDto
     {

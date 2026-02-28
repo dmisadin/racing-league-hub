@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
-namespace F1StatsServer.Dto
+namespace RacingLeagueHub.Dto
 {
     public class CountryDto
     {

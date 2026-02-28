@@ -1,6 +1,6 @@
-﻿using F1StatsServer.Entities.Stewarding;
+﻿using RacingLeagueHub.Entities.Stewarding;
 
-namespace F1StatsServer.Entities;
+namespace RacingLeagueHub.Entities;
 
 public class User : EntityBase
 {

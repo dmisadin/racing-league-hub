@@ -1,8 +1,8 @@
-﻿using F1StatsServer.BLL.Database;
-using F1StatsServer.Entities;
+﻿using RacingLeagueHub.BLL.Database;
+using RacingLeagueHub.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace F1StatsServer.Infrastructure;
+namespace RacingLeagueHub.Infrastructure;
 
 public class GenericRepository<TEntity> : IRepository<TEntity> 
     where TEntity : EntityBase

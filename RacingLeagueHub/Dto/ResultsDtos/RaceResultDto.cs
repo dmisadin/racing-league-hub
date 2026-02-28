@@ -1,4 +1,4 @@
-﻿namespace F1StatsServer.Dto.ResultsDtos
+﻿namespace RacingLeagueHub.Dto.ResultsDtos
 {
     public class RaceResultDto : SprintResultDto
     {

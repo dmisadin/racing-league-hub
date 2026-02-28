@@ -1,6 +1,6 @@
-﻿using F1StatsServer.Entities.Enums;
+﻿using RacingLeagueHub.Entities.Enums;
 
-namespace F1StatsServer.Entities.Seasons;
+namespace RacingLeagueHub.Entities.Seasons;
 
 public class SeasonPoints : EntityBase
 {

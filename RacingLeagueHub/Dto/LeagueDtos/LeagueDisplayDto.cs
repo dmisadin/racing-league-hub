@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using F1StatsServer.Dto.SeasonDtos;
-using F1StatsServer.Entities.Enums;
+using RacingLeagueHub.Dto.SeasonDtos;
+using RacingLeagueHub.Entities.Enums;
 
-namespace F1StatsServer.Dto.LeagueDtos
+namespace RacingLeagueHub.Dto.LeagueDtos
 {
     public class LeagueDisplayDto
     {

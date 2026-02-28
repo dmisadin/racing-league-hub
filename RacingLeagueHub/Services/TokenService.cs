@@ -1,7 +1,7 @@
-﻿using F1StatsServer.Dto.UserDto;
+﻿using RacingLeagueHub.Dto.UserDto;
 using System.Security.Claims;
 
-namespace F1StatsServer.Services
+namespace RacingLeagueHub.Services
 {
 
     //Possible change would be to make method CreateToken() private and invoked through an instance of this class

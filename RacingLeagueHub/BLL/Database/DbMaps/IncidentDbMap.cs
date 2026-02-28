@@ -1,9 +1,9 @@
-﻿using F1StatsServer.Entities;
-using F1StatsServer.Entities.Stewarding;
+﻿using RacingLeagueHub.Entities;
+using RacingLeagueHub.Entities.Stewarding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace F1StatsServer.BLL.Database.DbMaps;
+namespace RacingLeagueHub.BLL.Database.DbMaps;
 
 public class IncidentDbMap : DbMapBase<Incident>
 {

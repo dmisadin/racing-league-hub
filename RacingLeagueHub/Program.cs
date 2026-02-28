@@ -1,7 +1,6 @@
-using F1StatsServer.BLL.Database;
-using F1StatsServer.Infrastructure;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using RacingLeagueHub.BLL.Database;
+using RacingLeagueHub.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 

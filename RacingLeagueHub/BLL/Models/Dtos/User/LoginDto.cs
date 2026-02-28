@@ -1,4 +1,4 @@
-﻿namespace F1StatsServer.BLL.Models.Dtos.User;
+﻿namespace RacingLeagueHub.BLL.Models.Dtos.User;
 
 public class LoginDto
 {

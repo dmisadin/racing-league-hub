@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace F1StatsServer.Dto.TrackDtos
+namespace RacingLeagueHub.Dto.TrackDtos
 {
     public class TrackSeasonDto
     {

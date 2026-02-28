@@ -2,10 +2,10 @@
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
-using F1StatsServer.Dto.ResultsDtos;
-using F1StatsServer.Dto.TrackDtos;
+using RacingLeagueHub.Dto.ResultsDtos;
+using RacingLeagueHub.Dto.TrackDtos;
 
-namespace F1StatsServer.Dto.GrandPrixDtos
+namespace RacingLeagueHub.Dto.GrandPrixDtos
 {
     public class GrandPrixSeasonDto
     {

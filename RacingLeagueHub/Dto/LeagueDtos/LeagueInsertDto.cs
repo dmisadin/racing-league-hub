@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
-namespace F1StatsServer.Dto.LeagueDtos
+namespace RacingLeagueHub.Dto.LeagueDtos
 {
     public class LeagueInsertDto
     {

@@ -1,4 +1,4 @@
-﻿namespace F1StatsServer.Entities.Enums.Lobby;
+﻿namespace RacingLeagueHub.Entities.Enums.Lobby;
 
 // Added in F1 24
 public enum CarDamageRate : short

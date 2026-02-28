@@ -1,8 +1,8 @@
-﻿using F1StatsServer.Dto.LeagueDtos;
-using F1StatsServer.Dto.SeasonDtos;
-using F1StatsServer.Dto.TrackDtos;
+﻿using RacingLeagueHub.Dto.LeagueDtos;
+using RacingLeagueHub.Dto.SeasonDtos;
+using RacingLeagueHub.Dto.TrackDtos;
 
-namespace F1StatsServer.Dto.GrandPrixDtos
+namespace RacingLeagueHub.Dto.GrandPrixDtos
 {
     public class GrandPrixHomeDto
     {

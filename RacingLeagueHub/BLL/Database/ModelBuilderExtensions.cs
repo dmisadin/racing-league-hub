@@ -1,8 +1,8 @@
-﻿using F1StatsServer.BLL.Database.DbMaps;
+﻿using RacingLeagueHub.BLL.Database.DbMaps;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace F1StatsServer.BLL.Database;
+namespace RacingLeagueHub.BLL.Database;
 
 public static class ModelBuilderExtensions
 {

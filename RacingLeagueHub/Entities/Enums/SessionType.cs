@@ -1,4 +1,4 @@
-﻿namespace F1StatsServer.Entities.Enums
+﻿namespace RacingLeagueHub.Entities.Enums
 {
     public enum SessionType : short
     {

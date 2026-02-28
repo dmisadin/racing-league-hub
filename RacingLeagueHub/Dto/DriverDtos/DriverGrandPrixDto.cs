@@ -1,4 +1,4 @@
-﻿namespace F1StatsServer.Dto.DriverDtos
+﻿namespace RacingLeagueHub.Dto.DriverDtos
 {
     public class DriverGrandPrixDto
     {

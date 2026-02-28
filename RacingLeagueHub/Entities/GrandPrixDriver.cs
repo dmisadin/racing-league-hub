@@ -1,4 +1,4 @@
-﻿namespace F1StatsServer.Entities;
+﻿namespace RacingLeagueHub.Entities;
 
 public class GrandPrixDriver : EntityBase
 {

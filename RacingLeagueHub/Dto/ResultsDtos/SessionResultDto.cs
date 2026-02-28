@@ -1,6 +1,6 @@
-﻿using F1StatsServer.Entities.Enums;
+﻿using RacingLeagueHub.Entities.Enums;
 
-namespace F1StatsServer.Dto.ResultsDtos
+namespace RacingLeagueHub.Dto.ResultsDtos
 {
     public class SessionResultDto : SessionResultBaseDto
     {

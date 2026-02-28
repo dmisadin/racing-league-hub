@@ -1,8 +1,8 @@
-﻿using F1StatsServer.Entities;
+﻿using RacingLeagueHub.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace F1StatsServer.BLL.Database.DbMaps;
+namespace RacingLeagueHub.BLL.Database.DbMaps;
 
 public abstract class DbMapBase<TEntity> : IDbMap
     where TEntity : class, IEntity

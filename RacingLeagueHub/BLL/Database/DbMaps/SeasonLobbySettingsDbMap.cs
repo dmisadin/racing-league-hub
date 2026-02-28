@@ -1,7 +1,7 @@
-﻿using F1StatsServer.Entities.Seasons;
+﻿using RacingLeagueHub.Entities.Seasons;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace F1StatsServer.BLL.Database.DbMaps
+namespace RacingLeagueHub.BLL.Database.DbMaps
 {
     public class SeasonLobbySettingsDbMap : DbMapBase<SeasonLobbySettings>
     {
