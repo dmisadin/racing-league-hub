@@ -19,6 +19,7 @@ public class DriverDtoFactory : DtoFactoryBase<Driver, DriverDto>
     {
         return driver => new DriverDto
         {
+            Id = driver.Id,
             Nickname = driver.Nickname,
             FirstName = driver.FirstName,
             LastName = driver.LastName,

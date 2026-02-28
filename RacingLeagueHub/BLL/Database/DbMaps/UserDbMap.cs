@@ -12,7 +12,7 @@ namespace RacingLeagueHub.BLL.Database.DbMaps
             base.Map(builder);
 
             builder.HasOne(x => x.Driver)
-                .WithOne()
+                .WithOne(d => d.User)
                 .HasForeignKey<User>(x => x.DriverId);
         }
     }
