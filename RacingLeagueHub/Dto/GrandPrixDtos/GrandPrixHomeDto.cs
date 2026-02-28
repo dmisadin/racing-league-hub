@@ -1,7 +1,6 @@
 ﻿using F1StatsServer.Dto.LeagueDtos;
 using F1StatsServer.Dto.SeasonDtos;
 using F1StatsServer.Dto.TrackDtos;
-using Microsoft.OpenApi.Any;
 
 namespace F1StatsServer.Dto.GrandPrixDtos
 {
