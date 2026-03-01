@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\GrandPrix\" />
-    <Folder Include="Entities\League\" />
+    <Folder Include="BLL\Entities\GrandPrix\" />
+    <Folder Include="BLL\Entities\League\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
