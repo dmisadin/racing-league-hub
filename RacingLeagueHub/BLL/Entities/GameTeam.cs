@@ -1,8 +1,10 @@
-﻿namespace RacingLeagueHub.Entities;
+﻿using RacingLeagueHub.Entities.Enums;
+
+namespace RacingLeagueHub.Entities;
 
 public class GameTeam : EntityBase
 {
-    public short Game { get; set; }
+    public Game Game { get; set; }
     public long TeamId { get; set; }
     public string? DisplayName { get; set; }
     public string? Color { get; set; }
