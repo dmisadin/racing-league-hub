@@ -55,7 +55,7 @@ CREATE TABLE "public"."driver" (
     "nickname" varchar(64) NOT NULL,
     "first_name" varchar(64),
     "last_name" varchar(64),
-    "country" varchar(3),
+    "country" varchar(2),
     "slug" varchar(64) NOT NULL,
     PRIMARY KEY ("id")
 );
@@ -77,7 +77,7 @@ CREATE INDEX "season_points_season_id_idx" ON "public"."season_points" ("season_
 CREATE TABLE "public"."track" (
     "id" bigint GENERATED ALWAYS AS IDENTITY,
     "name" varchar(128) NOT NULL,
-    "country" bigint NOT NULL,
+    "country" varchar(2) NOT NULL,
     "city" varchar(64) NOT NULL,
     "elevation" numeric(5, 1),
     "short_name" varchar(64),
