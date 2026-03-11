@@ -1,0 +1,15 @@
+@layer base {
+
+    :where(.input, .select, .textarea, .btn):focus,
+    :where(.input, .select, .textarea, .btn):focus-visible,
+    :where(.input, .select, .textarea, .btn):focus-within {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
