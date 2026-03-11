@@ -1,0 +1,10 @@
+<ng-select
+    [items]="filteredCountries()"
+    bindLabel="name"
+    bindValue="alpha2"
+    [searchable]="true"
+    placeholder="Select country"
+    (change)="select($event)"
+    (search)="search($event.term)"
+    (clear)="clear()">
+</ng-select>
