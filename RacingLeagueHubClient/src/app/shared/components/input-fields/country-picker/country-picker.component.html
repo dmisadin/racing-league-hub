@@ -8,3 +8,12 @@
     (search)="search($event.term)"
     (clear)="clear()">
 </ng-select>
+
+@if (control?.touched && control?.invalid) 
+{
+<div class="text-error mt-1">
+    @if (control?.errors?.['required']) {
+    <small class="block">This field is required</small>
+    }
+</div>
+}
