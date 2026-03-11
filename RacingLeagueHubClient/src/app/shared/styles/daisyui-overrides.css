@@ -1,5 +1,9 @@
 @layer base {
 
+    label.input>input {
+        box-shadow: none !important;
+    }
+
     :where(.input, .select, .textarea, .btn):focus,
     :where(.input, .select, .textarea, .btn):focus-visible,
     :where(.input, .select, .textarea, .btn):focus-within {

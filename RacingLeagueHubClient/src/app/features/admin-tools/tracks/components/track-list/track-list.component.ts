@@ -1,8 +1,10 @@
 import { Component } from "@angular/core";
+import { RouterLink, RouterOutlet } from "@angular/router";
 
 @Component({
     selector: 'track-list',
-    template: `Track List component`,
+    templateUrl: './track-list.component.html',
+    imports: [RouterLink, RouterOutlet],
 })
 export class TrackListComponent {
 
