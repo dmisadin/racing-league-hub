@@ -1,0 +1,62 @@
+<label class="block text-sm font-medium mb-1">
+    @if (label()) {
+        <p class="mb-1">{{ label() }}</p>
+    }
+
+    @if (prefix() || suffix()) {
+    <label class="input w-full">
+
+        @if (prefix()) {
+        <span class="label">{{ prefix() }}</span>
+        }
+
+    <input type="number" 
+        [value]="value ?? ''" 
+        [disabled]="disabled" 
+        (blur)="onTouched()" 
+        (input)="onInput($event)"
+        placeholder="{{placeholder()}}"
+        [min]="min()"
+        [max]="max()"
+        class="input w-full"
+        [class.border-error]="control?.touched && control?.invalid"
+        [class.text-error]="control?.touched && control?.invalid"/>
+
+        @if (suffix()) {
+        <span class="label">{{ suffix() }}</span>
+        }
+
+    </label>
+    } 
+    @else 
+    {
+    <input type="number" 
+        [value]="value ?? ''" 
+        [disabled]="disabled" 
+        (blur)="onTouched()" 
+        (input)="onInput($event)"
+        placeholder="{{placeholder()}}"
+        [min]="min()"
+        [max]="max()"
+        class="input w-full"
+        [class.border-error]="control?.touched && control?.invalid"
+        [class.text-error]="control?.touched && control?.invalid"/>
+    }
+
+    @if (control?.touched && control?.invalid) 
+    {
+    <div class="text-error mt-1">
+        @if (errors?.['required']) {
+        <small class="block">{{ label() || 'This field' }} is required</small>
+        }
+
+        @if (errors?.['min']) {
+        <small class="block">Minimum value is {{ errors?.['min'].min }}</small>
+        }
+
+        @if (errors?.['max']) {
+        <small class="block">Maximum value is {{ errors?.['max'].max }}</small>
+        }
+    </div>
+    }
+</label>
