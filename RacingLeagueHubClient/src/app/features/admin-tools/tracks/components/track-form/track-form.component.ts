@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angula
 import { ModalComponent } from "../../../../../shared/components/modal/modal.component";
 import { ActivatedRoute, Router } from "@angular/router";
 import { CountryPickerComponent } from "../../../../../shared/components/input-fields/country-picker/country-picker.component";
-import { CountryLean } from "../../../../../shared/models/country";
 import { TrackDto } from "../../models/track.model";
 import { InputNumberComponent } from "../../../../../shared/components/input-fields/input-number/input-number.component";
 import { InputTextComponent } from "../../../../../shared/components/input-fields/input-text/input-text.component";
+import { RestService } from "../../../../../core/services/rest.service";
 
 @Component({
     selector: 'track-form',
@@ -16,6 +16,7 @@ import { InputTextComponent } from "../../../../../shared/components/input-field
 export class TrackFormComponent {
     router = inject(Router);
     route = inject(ActivatedRoute);
+    restService = inject(RestService);
     form: FormGroup;
 
     constructor(private fb: FormBuilder) {
@@ -24,8 +25,7 @@ export class TrackFormComponent {
             shortName: ["", Validators.required],
             country: [null, Validators.required],
             city: ["", Validators.required],
-            elevation: [0],
-            test: [0, [Validators.required, Validators.min(2)]]
+            elevation: [0]
         });
     }
 
@@ -38,16 +38,12 @@ export class TrackFormComponent {
     }
 
     saveAllChanges() {
-        console.log("errors", this.form.controls['test'])
         if (this.form.invalid)
             return;
 
         const form = this.form.value;
-        const cleanForm: TrackDto = { ...form, country: form['country'].alpha2 }
-        console.log("form value", this.form.valid, this.form.value, cleanForm)
-    }
+        const cleanForm: TrackDto = { ...form, countryAlpha2: form['country'].alpha2 }
 
-    onCountrySelected(event: CountryLean) {
-        console.log("forma", event);
+        this.restService.post('/track/add', cleanForm).subscribe();
     }
 }

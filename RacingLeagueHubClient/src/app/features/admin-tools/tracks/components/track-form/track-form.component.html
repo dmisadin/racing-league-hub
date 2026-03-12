@@ -1,7 +1,7 @@
 <modal [openByDefault]="true" (onClose)="onModalClosed()" (onDiscard)="onModalDiscarded()" title="Add new track">
     <div class="space-y-8">
         <form [formGroup]="form" (ngSubmit)="saveAllChanges()" class="grid grid-cols-1 lg:grid-cols-2 gap-x-4 gap-y-8">
-            <input-text label="Name" formControlName="name" placeholder="Alber Park Circuit"></input-text>
+            <input-text label="Name" formControlName="name" placeholder="Albert Park Circuit"></input-text>
 
             <input-text label="Short name" formControlName="shortName" placeholder="Albert Park"></input-text>
 

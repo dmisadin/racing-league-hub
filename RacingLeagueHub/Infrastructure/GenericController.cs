@@ -1,27 +1,30 @@
 ﻿using RacingLeagueHub.BLL.Mapping.DtoFactories;
-using RacingLeagueHub.Entities;
+using RacingLeagueHub.BLL.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RacingLeagueHub.BLL.Models.Dtos;
 
 namespace RacingLeagueHub.Infrastructure;
 
 [Route("api/[controller]")]
 [ApiController]
-public abstract class GenericController<TEntity, TDto> : Controller where TEntity : EntityBase
+public abstract class GenericController<TEntity, TDto> : Controller
+    where TEntity : IEntity
+    where TDto : BaseDto
 {
-    private readonly IRepository<TEntity> genericRepository;
+    protected readonly IRepository<TEntity> repository;
 
     public GenericController(IRepository<TEntity> genericRepository)
     {
-        this.genericRepository = genericRepository;
+        this.repository = genericRepository;
     }
 
     protected abstract IDtoFactory<TEntity, TDto> DtoFactory { get; }
 
-    [HttpGet("get-by-id")]
-    public virtual async Task<ActionResult<TDto>> GetOne([FromQuery] long id)
+    [HttpGet("get-by-id/{id}")]
+    public virtual async Task<ActionResult<TDto>> GetOne([FromRoute] long id)
     {
-        var entity = await genericRepository.FindAsync(id);
+        var entity = await repository.FindAsync(id);
 
         if (entity == null)
             return NotFound();
@@ -34,11 +37,11 @@ public abstract class GenericController<TEntity, TDto> : Controller where TEntit
     [HttpPost("add")]
     public virtual async Task<ActionResult<long>> Add(TDto dto)
     {
-        var entity = genericRepository.Create();
+        var entity = repository.Create();
         DtoFactory.FromDto(entity, dto);
 
-        await this.genericRepository.InsertAsync(entity);
-        await this.genericRepository.CommitAsync();
+        await this.repository.InsertAsync(entity);
+        await this.repository.CommitAsync();
 
         return Ok(entity.Id);
     }
@@ -46,7 +49,7 @@ public abstract class GenericController<TEntity, TDto> : Controller where TEntit
     [HttpPost("update")]
     public virtual async Task<ActionResult<long>> Update([FromBody] TDto dto, [FromQuery] long id)
     {
-        var entity = this.genericRepository.FindAsync(id).Result;
+        var entity = this.repository.FindAsync(id).Result;
 
         if (entity == null)
             return NotFound();
@@ -59,7 +62,7 @@ public abstract class GenericController<TEntity, TDto> : Controller where TEntit
     [HttpDelete("delete")]
     public virtual async Task<IActionResult> Delete(long id)
     {
-        var rows = await genericRepository.Query()
+        var rows = await repository.Query()
             .Where(x => x.Id == id)
             .ExecuteDeleteAsync();
 

@@ -7,13 +7,16 @@
         </span>
     </li>
 
-    <li class="list-row">
-        <div><img class="size-10 rounded-box" src="https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Australia_%28converted%29.svg" /></div>
+    @for (track of tracks(); track track.id)
+    {
+    <li class="list-row cursor-pointer hover:bg-base-200" routerLink="{{track.id}}">
+        <div><img class="size-10 rounded-box" [src]="track.countryAlpha2 | flagUrl" /></div>
         <div>
-            <div>Australia - Melbourne</div>
-            <div class="text-xs uppercase font-semibold opacity-60">Albert Park Circuit</div>
+            <div>{{ track.country?.name }} - {{track.city}}</div>
+            <div class="text-xs uppercase font-semibold opacity-60">{{ track.name }}</div>
         </div>
     </li>
+    }
 </ul>
 
 <router-outlet></router-outlet>

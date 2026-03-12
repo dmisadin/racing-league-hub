@@ -7,7 +7,7 @@ public class TrackLayout : EntityBase
     public long TrackId { get; set; }
     public string Name { get; set; }
     public short? PitStopDuration { get; set; }
-    public short CornerTotal { get; set; }
+    public short CornersTotal { get; set; }
     public short CornersLeft { get; set; }
     public short LapsGrandPrix { get; set; }
     public long? MapImageResourceId { get; set; }
