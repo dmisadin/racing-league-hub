@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.BLL.Models.Enums.Lobby;
 
-namespace RacingLeagueHub.Entities.Seasons;
+namespace RacingLeagueHub.BLL.Entities.Seasons;
 
 public class SeasonLobbySettings : EntityBase
 {

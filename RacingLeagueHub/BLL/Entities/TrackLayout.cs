@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.BLL.Models.Enums;
 
-namespace RacingLeagueHub.Entities;
+namespace RacingLeagueHub.BLL.Entities;
 
 public class TrackLayout : EntityBase
 {

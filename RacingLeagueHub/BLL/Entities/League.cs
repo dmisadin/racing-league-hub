@@ -1,7 +1,7 @@
 ﻿using RacingLeagueHub.BLL.Models.Enums;
-using RacingLeagueHub.Entities.Seasons;
+using RacingLeagueHub.BLL.Entities.Seasons;
 
-namespace RacingLeagueHub.Entities;
+namespace RacingLeagueHub.BLL.Entities;
 
 public class League : EntityBase
 {

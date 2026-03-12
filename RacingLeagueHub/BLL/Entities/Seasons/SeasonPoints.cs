@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.BLL.Models.Enums;
 
-namespace RacingLeagueHub.Entities.Seasons;
+namespace RacingLeagueHub.BLL.Entities.Seasons;
 
 public class SeasonPoints : EntityBase
 {

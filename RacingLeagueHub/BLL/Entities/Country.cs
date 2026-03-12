@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace RacingLeagueHub.Entities;
+namespace RacingLeagueHub.BLL.Entities;
 
 [Table("Country")]
 public partial class Country : EntityBase

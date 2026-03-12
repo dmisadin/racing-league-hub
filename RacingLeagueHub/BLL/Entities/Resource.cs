@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.Entities;
+﻿namespace RacingLeagueHub.BLL.Entities;
 
 public class Resource : EntityBase
 {

@@ -1,5 +1,5 @@
-﻿using RacingLeagueHub.Entities;
-using RacingLeagueHub.Entities.Stewarding;
+﻿using RacingLeagueHub.BLL.Entities;
+using RacingLeagueHub.BLL.Entities.Stewarding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -1,6 +1,6 @@
-﻿using RacingLeagueHub.Entities.Stewarding;
+﻿using RacingLeagueHub.BLL.Entities.Stewarding;
 
-namespace RacingLeagueHub.Entities;
+namespace RacingLeagueHub.BLL.Entities;
 
 public class User : EntityBase
 {
