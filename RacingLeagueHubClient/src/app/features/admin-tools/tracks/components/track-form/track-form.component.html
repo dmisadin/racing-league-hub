@@ -1,28 +1,26 @@
-<modal [openByDefault]="true" (onClose)="onModalClosed()" (onDiscard)="onModalDiscarded()" title="Add new track">
-    <div class="space-y-8">
-        <form [formGroup]="form" (ngSubmit)="saveAllChanges()" class="grid grid-cols-1 lg:grid-cols-2 gap-x-4 gap-y-8">
-            <input-text label="Name" formControlName="name" placeholder="Albert Park Circuit"></input-text>
+<div class="space-y-8">
+    <form [formGroup]="form" (ngSubmit)="saveAllChanges()" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <input-text label="Name" formControlName="name" placeholder="Albert Park Circuit"></input-text>
 
-            <input-text label="Short name" formControlName="shortName" placeholder="Albert Park"></input-text>
+        <input-text label="Short name" formControlName="shortName" placeholder="Albert Park"></input-text>
 
-            <label class="block text-sm font-medium">
-                <p class="mb-1">Country</p>
-                <country-picker formControlName="country"></country-picker>
-            </label>
+        <label class="block text-sm font-medium">
+            <p class="mb-1">Country</p>
+            <country-picker formControlName="country"></country-picker>
+        </label>
+    
+        <input-text label="City" formControlName="city" placeholder="Melbourne"></input-text>
+
+        <input-number label="Elevation" suffix="m" formControlName="elevation" placeholder="24.5" [min]="0"></input-number>
         
-            <input-text label="City" formControlName="city" placeholder="Melbourne"></input-text>
+        <div class="md:col-span-2 flex justify-end gap-2">
+            <button type="button" (click)="onCancel()" class="btn btn-soft btn-error">
+                Cancel
+            </button>
 
-            <input-number label="Elevation" suffix="m" formControlName="elevation" placeholder="24.5" [min]="0"></input-number>
-            
-            <div class="md:col-span-2 flex justify-end gap-2">
-                <button type="button" (click)="onModalDiscarded()" class="btn btn-soft btn-error">
-                    Cancel
-                </button>
-
-                <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
-                    Save All Changes
-                </button>
-            </div>
-        </form>
-    </div>
-</modal>
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+                Save All Changes
+            </button>
+        </div>
+    </form>
+</div>
