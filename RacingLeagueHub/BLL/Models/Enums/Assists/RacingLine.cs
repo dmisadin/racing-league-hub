@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.Entities.Enums.Assists;
+﻿namespace RacingLeagueHub.BLL.Models.Enums.Assists;
 
 public enum RacingLine : short
 {

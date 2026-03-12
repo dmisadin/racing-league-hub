@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace RacingLeagueHub.Entities.Enums
+namespace RacingLeagueHub.BLL.Models.Enums
 {
     public enum Platform
     {

@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.Entities.Enums.Lobby;
+﻿namespace RacingLeagueHub.BLL.Models.Enums.Lobby;
 
 // Added in F1 24
 public enum CornerCuttingStringency

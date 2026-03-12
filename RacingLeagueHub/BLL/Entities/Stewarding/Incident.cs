@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.Entities.Enums;
+﻿using RacingLeagueHub.BLL.Models.Enums;
 
 namespace RacingLeagueHub.Entities.Stewarding;
 

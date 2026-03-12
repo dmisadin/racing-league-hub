@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.Entities.Enums.Assists;
+﻿using RacingLeagueHub.BLL.Models.Enums.Assists;
 
 namespace RacingLeagueHub.Entities.Seasons;
 
