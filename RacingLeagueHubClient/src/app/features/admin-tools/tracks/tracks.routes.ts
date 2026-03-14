@@ -9,7 +9,7 @@ export const ADMIN_TOOL_TRACK_ROUTES: Routes = [
         ]
     },
     { 
-        path: ':id', 
+        path: ':trackId', 
         loadComponent: () => import('./components/track-details/track-details.component').then(c => c.TrackDetailsComponent) 
     }
 ];

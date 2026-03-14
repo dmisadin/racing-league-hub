@@ -1,1 +1,30 @@
-<p>track-layout-form</p>
+<div class="space-y-8">
+    <form [formGroup]="form" (ngSubmit)="saveAllChanges()" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <input-text label="Name" formControlName="name" placeholder="Grand Prix Circuit"></input-text>
+
+        <input-number label="Pit stop duration" suffix="s" formControlName="pitStopDuration" placeholder="24.5" [min]="0"></input-number>
+        <input-number label="Corners in total" formControlName="cornersTotal" placeholder="16" [min]="0"></input-number>
+        <input-number label="Left corners" formControlName="cornersLeft" placeholder="9" [min]="0" [max]="form.value['cornersTotal'] ?? 255"></input-number>
+        <input-number label="Laps in a Grand Prix" formControlName="lapsGrandPrix" placeholder="58" [min]="0"></input-number>
+        
+        <label class="block text-sm font-medium mb-1">
+            <p class="mb-1">Available in games</p>
+            <ng-select [items]="gameChoices" 
+                multiple="true"
+                bindLabel="name"
+                bindValue="id"
+                formControlName="trackLayoutGames">
+            </ng-select>
+        </label>
+
+        <div class="md:col-span-2 flex justify-end gap-2">
+            <button type="button" (click)="onCancel()" class="btn btn-soft btn-error">
+                Cancel
+            </button>
+
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+                Save All Changes
+            </button>
+        </div>
+    </form>
+</div>

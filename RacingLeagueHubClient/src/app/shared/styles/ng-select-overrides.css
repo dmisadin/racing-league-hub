@@ -50,3 +50,12 @@
 .ng-select .ng-placeholder {
     @apply text-base-content/50;
 }
+
+/* Multiselect */
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+    @apply bg-base-300 text-base-content;
+}
+
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon.left  {
+    @apply border-base-100;
+}
