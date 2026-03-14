@@ -1,3 +1,17 @@
 <track-form class="mb-4"></track-form>
+<div class="divider my-8">Track Layouts <span class="link-hover cursor-pointer" (click)="addLayout()">[+ Add new layout]</span></div>
 
-<track-layout-form></track-layout-form>
+@for (layout of track()?.trackLayouts; track layout.id) 
+{
+<details #trackLayoutAccordion class="border border-base-300 rounded-lg bg-base-100" name="track-layouts-accordion-2">
+    <summary class="cursor-pointer font-semibold p-4 hover:bg-base-200">
+        [{{layout.id}}] {{ layout.name }}
+    </summary>
+    <article class="p-4 pt-0 text-base-content">
+        @defer (on interaction(trackLayoutAccordion)) 
+        {
+        <track-layout-form [trackId]="trackId()" [trackLayoutId]="layout.id"></track-layout-form>
+        }
+    </article>
+</details>
+}
