@@ -21,13 +21,24 @@ export class TrackLayoutFormComponent implements OnInit {
 
     trackLayoutId = input<number>();
     trackId = input.required<string>();
-    trackLayout = input<TrackLayoutDto | null>();
+    trackLayout = input<TrackLayoutDto | null>(null);
 
     form!: FormGroup;
     gameChoices: DropdownOption[] = enumToOptions(Game);
 
     ngOnInit(): void {
         const layout = this.trackLayout();
+
+        if (layout) {
+            this.buildForm(layout);
+            return;
+        }
+
+        this.restService.get<TrackLayoutDto>('/track-layout/get-by-id/' + this.trackLayoutId())
+            .subscribe(res => this.buildForm(res))
+    }
+
+    private buildForm(layout: TrackLayoutDto | null) {
         this.form = this.fb.group({
             id: [layout?.id],
             trackId: [layout?.trackId ?? this.trackId(), Validators.required],
