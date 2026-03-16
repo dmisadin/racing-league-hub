@@ -1,39 +1,60 @@
-import { Component, inject, output } from "@angular/core";
+import { Component, inject, input, OnInit, output } from "@angular/core";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { CountryPickerComponent } from "../../../../../shared/components/input-fields/country-picker/country-picker.component";
 import { TrackDto } from "../../models/track.model";
 import { InputNumberComponent } from "../../../../../shared/components/input-fields/input-number/input-number.component";
 import { InputTextComponent } from "../../../../../shared/components/input-fields/input-text/input-text.component";
 import { RestService } from "../../../../../core/services/rest.service";
+import { RouteService } from "../../../../../core/services/route.service";
 
 @Component({
     selector: 'track-form',
     imports: [ReactiveFormsModule, CountryPickerComponent, InputNumberComponent, InputTextComponent],
     templateUrl: './track-form.component.html',
 })
-export class TrackFormComponent {
-    restService = inject(RestService);
+export class TrackFormComponent implements OnInit{
+    private readonly restService = inject(RestService);
+    private readonly routeService = inject(RouteService);
+    track = input<TrackDto | null>(null);
     cancel = output();
     form: FormGroup;
 
     constructor(private fb: FormBuilder) {
         this.form = this.fb.group({
+            id: [null],
             name: ["", Validators.required],
             shortName: ["", Validators.required],
-            country: [null, Validators.required],
+            countryAlpha2: [null, Validators.required],
             city: ["", Validators.required],
             elevation: [0]
+        });
+    }
+
+    ngOnInit(): void {
+        const track = this.track();
+        if (track) {
+            this.form.patchValue(track);
+            return;
+        }
+
+        const trackId = this.routeService.getRouteParam("trackId");
+        if (!trackId)
+            return;
+
+        this.restService.get<TrackDto>('/track/get-by-id/' + trackId).subscribe(res => {
+            this.form.patchValue(res);
         });
     }
 
     saveAllChanges() {
         if (this.form.invalid)
             return;
-
+        
         const form = this.form.value;
-        const cleanForm: TrackDto = { ...form, countryAlpha2: form['country'].alpha2 }
-
-        this.restService.post('/track/add', cleanForm).subscribe();
+        if (form['id'])
+            this.restService.post('/track/update', this.form.value).subscribe();
+        else
+            this.restService.post('/track/add', this.form.value).subscribe();
     }
 
     onCancel() {

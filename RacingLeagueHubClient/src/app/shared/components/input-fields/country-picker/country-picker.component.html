@@ -4,6 +4,7 @@
     bindValue="alpha2"
     [searchable]="true"
     placeholder="Select country"
+    [ngModel]="selectedCountry()?.alpha2"
     (change)="select($event)"
     (search)="search($event.term)"
     (clear)="clear()">

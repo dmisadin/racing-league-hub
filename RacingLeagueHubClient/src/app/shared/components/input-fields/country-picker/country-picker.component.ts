@@ -18,7 +18,7 @@ import countriesLean from '../../../datasets/countries-lean.json'
 })
 export class CountryPickerComponent implements ControlValueAccessor, OnInit {
     protected readonly injector = inject(Injector);
-    control: NgControl | null = null;
+    protected control: NgControl | null = null;
     countries: CountryLean[] = countriesLean;
 
     isOpen = signal(false);
@@ -43,6 +43,7 @@ export class CountryPickerComponent implements ControlValueAccessor, OnInit {
 
     writeValue(value: string): void {
         const country = this.countries.find(c => c.alpha2 === value) || null;
+        console.log(country)
         this.selectedCountry.set(country);
     }
 
@@ -53,15 +54,23 @@ export class CountryPickerComponent implements ControlValueAccessor, OnInit {
     registerOnTouched(fn: any): void {
         this.onTouched = fn;
     }
+
     setDisabledState?(isDisabled: boolean): void {
         // optional: handle disabled state
     }
 
-    select(country: CountryLean) {
-        this.selectedCountry.set(country);
+    select(country?: CountryLean) {
         this.resetSearch();
-        this.onChange(country);   // propagate value to parent form
         this.onTouched();
+
+        if (!country) {
+            this.selectedCountry.set(null);
+            this.onChange(null); 
+            return;
+        }
+
+        this.selectedCountry.set(country);
+        this.onChange(country.alpha2); 
     }
 
     search(term: string) {

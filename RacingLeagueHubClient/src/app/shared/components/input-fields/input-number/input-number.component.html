@@ -5,7 +5,7 @@
 
     @if (prefix() || suffix()) 
     {
-    <label class="input w-full">
+    <label class="input w-full" [class.pl-0]="suffix()" [class.pr-0]="prefix()">
 
         @if (prefix()) {
         <span class="label">{{ prefix() }}</span>
