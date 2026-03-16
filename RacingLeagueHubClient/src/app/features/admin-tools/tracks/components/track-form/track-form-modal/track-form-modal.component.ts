@@ -1,7 +1,7 @@
 import { Component, inject } from "@angular/core";
-import { ModalComponent } from "../../../../../shared/components/modal/modal.component";
-import { TrackFormComponent } from "../track-form/track-form.component";
-import { RouteService } from "../../../../../core/services/route.service";
+import { ModalComponent } from "../../../../../../shared/components/modal/modal.component";
+import { TrackFormComponent } from "../track-form.component";
+import { RouteService } from "../../../../../../core/services/route.service";
 
 @Component({
     selector: 'track-add-modal',

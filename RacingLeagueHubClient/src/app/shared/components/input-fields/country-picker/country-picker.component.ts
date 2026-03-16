@@ -43,7 +43,6 @@ export class CountryPickerComponent implements ControlValueAccessor, OnInit {
 
     writeValue(value: string): void {
         const country = this.countries.find(c => c.alpha2 === value) || null;
-        console.log(country)
         this.selectedCountry.set(country);
     }
 

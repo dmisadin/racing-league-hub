@@ -21,7 +21,6 @@ export class TrackDetailsComponent implements OnInit {
 
     ngOnInit(): void {
         const trackId = this.routeService.getRouteParam('trackId');
-        console.log("ngOnInit", trackId)
         this.trackId.set(trackId);
 
         this.restService.get<TrackDto>('/track/get-by-id/' + this.trackId()).subscribe(res => {
