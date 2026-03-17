@@ -5,7 +5,7 @@ export const ADMIN_TOOL_TRACK_ROUTES: Routes = [
         path: '',
         loadComponent: () => import('./components/track-list/track-list.component').then(c => c.TrackListComponent),
         children: [
-            { path: 'add', loadComponent: () => import('./components/track-form/track-form-modal/track-form-modal.component').then(c => c.TrackAddModalComponent) }
+            { path: 'add', loadComponent: () => import('./components/track-form/track-form-modal/track-form-modal.component').then(c => c.TrackFormModalComponent) }
         ]
     },
     {
@@ -14,7 +14,7 @@ export const ADMIN_TOOL_TRACK_ROUTES: Routes = [
         children: [
             {
                 path: 'add-layout',
-                loadComponent: () => import('./components/track-layout-form/modal/track-layout-modal.component').then(c => c.TrackAddModalComponent)
+                loadComponent: () => import('./components/track-layout-form/modal/track-layout-form-modal.component').then(c => c.TrackLayoutFormModalComponent)
             }
         ]
     }

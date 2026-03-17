@@ -30,7 +30,7 @@ export class TrackLayoutFormComponent implements OnInit {
 
     ngOnInit(): void {
         const trackId = Number(this.routeService.getRouteParam("trackId"));
-        
+        console.log(trackId)
         this.form = this.fb.group({
             id: [null],
             trackId: [trackId, Validators.required],

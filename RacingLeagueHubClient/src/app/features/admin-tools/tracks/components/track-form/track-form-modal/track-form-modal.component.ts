@@ -4,7 +4,7 @@ import { TrackFormComponent } from "../track-form.component";
 import { RouteService } from "../../../../../../core/services/route.service";
 
 @Component({
-    selector: 'track-add-modal',
+    selector: 'track-form-modal',
     imports: [ModalComponent, TrackFormComponent],
     providers: [RouteService],
     template: `
@@ -13,7 +13,7 @@ import { RouteService } from "../../../../../../core/services/route.service";
         </modal>
     `,
 })
-export class TrackAddModalComponent {
+export class TrackFormModalComponent {
     private readonly routeService = inject(RouteService);
     
     onModalClosed() {

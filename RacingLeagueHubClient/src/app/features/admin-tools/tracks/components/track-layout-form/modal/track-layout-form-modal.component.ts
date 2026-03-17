@@ -6,18 +6,18 @@ import { RouteService } from "../../../../../../core/services/route.service";
 @Component({
     selector: 'track-add-modal',
     imports: [ModalComponent, TrackLayoutFormComponent],
+    providers: [RouteService],
     template: `
-        <modal [openByDefault]="true" (onClose)="onModalClosed()" (onDiscard)="onModalDiscarded()" title="Add new track">
+        <modal [openByDefault]="true" (onClose)="onModalClosed()" (onDiscard)="onModalDiscarded()" title="Add new track layout">
             <track-layout-form (cancel)="onModalDiscarded()"></track-layout-form>
         </modal>
     `,
 })
-export class TrackAddModalComponent {
+export class TrackLayoutFormModalComponent {
     private readonly routeService = inject(RouteService);
-    
+
     onModalClosed() {
-        const trackId = this.routeService.getRouteParam("trackId") ?? "";
-        this.routeService.navigateToRelative("../", trackId);
+        this.routeService.navigateToParent();
     }
 
     onModalDiscarded() {
