@@ -88,8 +88,10 @@ CREATE TABLE "public"."game_team" (
     "id" bigint GENERATED ALWAYS AS IDENTITY,
     "game" smallint NOT NULL,
     "team_id" bigint NOT NULL,
-    "display_name" varchar(128),
-    "color" varchar(32),
+    "name" varchar(128) NOT NULL,
+    "short_name" varchar(64) NOT NULL,
+    "abbreviation" varchar(3) NOT NULL,
+    "color" varchar(32) NOT NULL,
     "logo_resource_id" bigint,
     -- ID reference to data that game sends through telemetry
     "telemetry_id" smallint NOT NULL,

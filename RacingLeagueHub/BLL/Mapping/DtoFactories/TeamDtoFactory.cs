@@ -23,8 +23,11 @@ public class TeamDtoFactory : DtoFactoryBase<Team, TeamDto>
                 .Select(gt => new GameTeamDto
                 {
                     Id = gt.Id,
+                    Game = gt.Game,
                     TeamId = gt.TeamId,
-                    DisplayName = gt.DisplayName,
+                    Name = gt.Name,
+                    ShortName = gt.ShortName,
+                    Abbreviation = gt.Abbreviation,
                     Color = gt.Color,
                     TelemetryId = gt.TelemetryId
                 }).ToList()
