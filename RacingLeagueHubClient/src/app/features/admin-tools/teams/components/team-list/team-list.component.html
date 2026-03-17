@@ -1,0 +1,23 @@
+<ul class="list bg-base-100 rounded-box shadow-md pb-4">
+
+    <li class="flex justify-between p-4 pb-2 tracking-wide text-xs">
+        <span class="opacity-60">List of all available teams</span>
+        <span>
+            <a routerLink="add" class="hover:underline">+ Add new team</a>
+        </span>
+    </li>
+
+    @for (team of list(); track team.id)
+    {
+    <li class="list-row cursor-pointer hover:bg-base-200" routerLink="{{team.id}}">
+        <!-- <div><img class="size-10 rounded-box" [src]="team.countryAlpha2 | flagUrl" /></div> -->
+        <div class="h-full w-1" [style.background-color]="team.color"></div>
+        <div>
+            <div>{{ team.name }}</div>
+            <div class="text-xs uppercase font-semibold opacity-60">{{ team.name }}</div>
+        </div>
+    </li>
+    }
+</ul>
+
+<router-outlet></router-outlet>

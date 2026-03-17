@@ -49,4 +49,9 @@ export class RouteService {
     public getRouteParam(dataProperty: string): string | null {
         return this.activatedRoute.snapshot.params[dataProperty] || null;
     }
+
+    public getParentRouteParam(dataProperty: string): string | null {
+        return this.activatedRoute.parent?.snapshot.params[dataProperty] || null;
+    }
+
 }
