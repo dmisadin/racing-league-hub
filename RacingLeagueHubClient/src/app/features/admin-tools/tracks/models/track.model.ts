@@ -21,6 +21,7 @@ export interface TrackLayoutDto extends BaseDto {
     lapsGrandPrix: number;
     length: number;
     elevationChange: number;
+    telemetryId: number;
 
     trackLayoutGames: Game[];
 }

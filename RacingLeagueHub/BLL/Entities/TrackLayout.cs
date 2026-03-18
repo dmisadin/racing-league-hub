@@ -12,6 +12,7 @@ public class TrackLayout : EntityBase
     public short LapsGrandPrix { get; set; }
     public decimal? ElevationChange { get; set; }
     public short Length { get; set; }
+    public short TelemetryId { get; set; }
     public long? MapImageResourceId { get; set; }
     public long? CoverImageResourceId { get; set; }
 

@@ -240,6 +240,7 @@ CREATE TABLE "public"."track_layout" (
     "laps_grand_prix" smallint NOT NULL,
     "length" smallint NOT NULL,
     "elevation_change" numeric(5, 1),
+    "telemetry_id" smallint NOT NULL,
     "map_image_resource_id" bigint,
     "cover_image_resource_id" bigint,
     PRIMARY KEY ("id")

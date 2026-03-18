@@ -44,6 +44,7 @@ export class TrackLayoutFormComponent implements OnInit {
             lapsGrandPrix: [null, Validators.required],
             length: [null, Validators.required],
             elevationChange: [null, Validators.required],
+            telemetryId: [null, Validators.required],
             trackLayoutGames: [[]]
         });
 

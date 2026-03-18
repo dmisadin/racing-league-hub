@@ -33,6 +33,7 @@ public class TrackDtoFactory : DtoFactoryBase<Track, TrackDto>
                 CornersLeft = tl.CornersLeft,
                 LapsGrandPrix = tl.LapsGrandPrix,
                 Length = tl.Length,
+                TelemetryId = tl.TelemetryId,
                 ElevationChange = tl.ElevationChange,
                 TrackLayoutGames = tl.TrackLayoutGames.Select(game => game.Game).ToList()
             }).ToList()

@@ -12,6 +12,7 @@ public class TrackLayoutDto : BaseDto
     public short LapsGrandPrix { get; set; }
     public decimal? ElevationChange { get; set; }
     public short Length { get; set; }
+    public short TelemetryId { get; set; }
 
     public virtual List<Game> TrackLayoutGames { get; set; } = new List<Game>();
 }
