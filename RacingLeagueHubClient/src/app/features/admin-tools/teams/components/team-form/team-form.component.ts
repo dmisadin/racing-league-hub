@@ -43,7 +43,6 @@ export class TeamFormComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.form.valid, this.form.value);
         if (this.form.invalid)
             return;
 

@@ -10,6 +10,8 @@ public class TrackLayoutDto : BaseDto
     public short CornersTotal { get; set; }
     public short CornersLeft { get; set; }
     public short LapsGrandPrix { get; set; }
+    public decimal Elevation { get; set; }
+    public short Length { get; set; }
 
     public virtual List<Game> TrackLayoutGames { get; set; } = new List<Game>();
 }

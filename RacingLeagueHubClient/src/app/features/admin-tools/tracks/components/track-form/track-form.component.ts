@@ -2,7 +2,6 @@ import { Component, inject, input, OnInit, output } from "@angular/core";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { CountryPickerComponent } from "../../../../../shared/components/input-fields/country-picker/country-picker.component";
 import { TrackDto } from "../../models/track.model";
-import { InputNumberComponent } from "../../../../../shared/components/input-fields/input-number/input-number.component";
 import { InputTextComponent } from "../../../../../shared/components/input-fields/input-text/input-text.component";
 import { RestService } from "../../../../../core/services/rest.service";
 import { RouteService } from "../../../../../core/services/route.service";
@@ -10,7 +9,7 @@ import { ListService } from "../../../../../shared/services/list.service";
 
 @Component({
     selector: 'track-form',
-    imports: [ReactiveFormsModule, CountryPickerComponent, InputNumberComponent, InputTextComponent],
+    imports: [ReactiveFormsModule, CountryPickerComponent, InputTextComponent],
     providers: [RouteService],
     templateUrl: './track-form.component.html',
 })
@@ -28,8 +27,7 @@ export class TrackFormComponent implements OnInit {
             name: ["", Validators.required],
             shortName: ["", Validators.required],
             countryAlpha2: [null, Validators.required],
-            city: ["", Validators.required],
-            elevation: [0]
+            city: ["", Validators.required]
         });
     }
 
@@ -41,7 +39,6 @@ export class TrackFormComponent implements OnInit {
         }
 
         const trackId = this.routeService.getRouteParam("trackId");
-        console.log(trackId)
         if (!trackId)
             return;
 

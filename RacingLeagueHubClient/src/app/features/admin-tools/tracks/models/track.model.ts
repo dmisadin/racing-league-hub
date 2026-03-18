@@ -7,7 +7,6 @@ export interface TrackDto extends BaseDto {
     country?: CountryLean;
     countryAlpha2: string;
     city: string;
-    elevation?: number;
     shortName: string;
 
     trackLayouts?: TrackLayoutDto[];
@@ -20,6 +19,8 @@ export interface TrackLayoutDto extends BaseDto {
     cornersTotal: number;
     cornersLeft: number;
     lapsGrandPrix: number;
+    length: number;
+    elevation: number;
 
     trackLayoutGames: Game[];
 }

@@ -14,6 +14,8 @@ public class TrackLayoutDtoFactory : DtoFactoryBase<TrackLayout, TrackLayoutDto>
         entity.CornersTotal = dto.CornersTotal;
         entity.CornersLeft = dto.CornersLeft;
         entity.LapsGrandPrix = dto.LapsGrandPrix;
+        entity.Length = dto.Length;
+        entity.Elevation = dto.Elevation;
 
         entity.TrackLayoutGames.Where(tlg => !dto.TrackLayoutGames.Contains(tlg.Game))
                                 .ToList()
@@ -38,6 +40,8 @@ public class TrackLayoutDtoFactory : DtoFactoryBase<TrackLayout, TrackLayoutDto>
             CornersTotal = tl.CornersTotal,
             CornersLeft = tl.CornersLeft,
             LapsGrandPrix = tl.LapsGrandPrix,
+            Length = tl.Length,
+            Elevation = tl.Elevation,
             TrackLayoutGames = tl.TrackLayoutGames.Select(game => game.Game).ToList()
         };
     }

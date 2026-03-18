@@ -46,12 +46,18 @@ export class RouteService {
         this.location.back();
     }
 
-    public getRouteParam(dataProperty: string): string | null {
-        return this.activatedRoute.snapshot.params[dataProperty] || null;
+    public getRouteParam(paramName: string): string | null {
+        return this.activatedRoute.snapshot.pathFromRoot
+                    .map(r => r.params[paramName])
+                    .find(Boolean);
     }
 
-    public getParentRouteParam(dataProperty: string): string | null {
-        return this.activatedRoute.parent?.snapshot.params[dataProperty] || null;
+    public getCurrentRouteParam(paramName: string): string | null {
+        return this.activatedRoute.snapshot.params[paramName] || null;
+    }
+
+    public getParentRouteParam(paramName: string): string | null {
+        return this.activatedRoute.parent?.snapshot.params[paramName] || null;
     }
 
 }

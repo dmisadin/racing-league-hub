@@ -11,7 +11,6 @@ public class TrackDtoFactory : DtoFactoryBase<Track, TrackDto>
         entity.Name = dto.Name;
         entity.Country = dto.CountryAlpha2;
         entity.City = dto.City;
-        entity.Elevation = dto.Elevation;
         entity.ShortName = dto.ShortName;
     }
 
@@ -23,7 +22,6 @@ public class TrackDtoFactory : DtoFactoryBase<Track, TrackDto>
             Name = track.Name,
             CountryAlpha2 = track.Country,
             City = track.City,
-            Elevation = track.Elevation,
             ShortName = track.ShortName,
             TrackLayouts = track.TrackLayouts.Select(tl => new TrackLayoutDto
             {
@@ -34,6 +32,8 @@ public class TrackDtoFactory : DtoFactoryBase<Track, TrackDto>
                 CornersTotal = tl.CornersTotal,
                 CornersLeft = tl.CornersLeft,
                 LapsGrandPrix = tl.LapsGrandPrix,
+                Length = tl.Length,
+                Elevation = tl.Elevation,
                 TrackLayoutGames = tl.TrackLayoutGames.Select(game => game.Game).ToList()
             }).ToList()
         };

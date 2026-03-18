@@ -79,7 +79,6 @@ CREATE TABLE "public"."track" (
     "name" varchar(128) NOT NULL,
     "country" varchar(2) NOT NULL,
     "city" varchar(64) NOT NULL,
-    "elevation" numeric(5, 1),
     "short_name" varchar(64),
     PRIMARY KEY ("id")
 );
@@ -239,6 +238,8 @@ CREATE TABLE "public"."track_layout" (
     "corners_total" smallint NOT NULL,
     "corners_left" smallint NOT NULL,
     "laps_grand_prix" smallint NOT NULL,
+    "length" smallint NOT NULL,
+    "elevation" numeric(5, 1),
     "map_image_resource_id" bigint,
     "cover_image_resource_id" bigint,
     PRIMARY KEY ("id")

@@ -63,8 +63,6 @@ export class GameTeamFormComponent {
     }
 
     saveAllChanges() {
-        console.log(this.form.value)
-        
         if (this.form.invalid)
             return;
         
