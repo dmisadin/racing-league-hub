@@ -20,7 +20,7 @@ export interface TrackLayoutDto extends BaseDto {
     cornersLeft: number;
     lapsGrandPrix: number;
     length: number;
-    elevation: number;
+    elevationChange: number;
 
     trackLayoutGames: Game[];
 }

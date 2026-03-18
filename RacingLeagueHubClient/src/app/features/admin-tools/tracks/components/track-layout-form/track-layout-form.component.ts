@@ -33,7 +33,7 @@ export class TrackLayoutFormComponent implements OnInit {
 
     ngOnInit(): void {
         const trackId = Number(this.routeService.getRouteParam("trackId"));
-        
+
         this.form = this.fb.group({
             id: [null],
             trackId: [trackId, Validators.required],
@@ -43,7 +43,7 @@ export class TrackLayoutFormComponent implements OnInit {
             cornersLeft: [null, [Validators.min(0), maxFromControl('cornersTotal')]],
             lapsGrandPrix: [null, Validators.required],
             length: [null, Validators.required],
-            elevation: [null, Validators.required],
+            elevationChange: [null, Validators.required],
             trackLayoutGames: [[]]
         });
 

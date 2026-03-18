@@ -239,7 +239,7 @@ CREATE TABLE "public"."track_layout" (
     "corners_left" smallint NOT NULL,
     "laps_grand_prix" smallint NOT NULL,
     "length" smallint NOT NULL,
-    "elevation" numeric(5, 1),
+    "elevation_change" numeric(5, 1),
     "map_image_resource_id" bigint,
     "cover_image_resource_id" bigint,
     PRIMARY KEY ("id")
