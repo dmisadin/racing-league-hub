@@ -47,9 +47,13 @@ public abstract class GenericController<TEntity, TDto> : Controller
         return Ok(entity.Id);
     }
 
-    [HttpPost("update/{id}")]
-    public virtual async Task<ActionResult<long>> Update([FromBody] TDto dto, [FromRoute] long id)
+    [HttpPost("update")]
+    public virtual async Task<ActionResult<long>> Update([FromBody] TDto dto)
     {
+        var id = dto.Id;
+        if (id == null || id == 0)
+            return BadRequest("Invalid ID.");
+
         var entity = await this.repository.FindAsync(id);
 
         if (entity == null)

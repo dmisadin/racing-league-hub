@@ -18,8 +18,12 @@ public class TrackLayoutController : GenericController<TrackLayout, TrackLayoutD
 
     protected override IDtoFactory<TrackLayout, TrackLayoutDto> DtoFactory => new TrackLayoutDtoFactory();
 
-    public async override Task<ActionResult<long>> Update([FromBody] TrackLayoutDto dto, [FromRoute] long id)
+    public async override Task<ActionResult<long>> Update([FromBody] TrackLayoutDto dto)
     {
+        var id = dto.Id;
+        if (id == null || id == 0)
+            return BadRequest("Invalid ID.");
+
         var entity = await this.repository.Query()
                                     .Where(e => e.Id == id)
                                     .Include(e => e.TrackLayoutGames)
