@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.Entities;
+﻿using RacingLeagueHub.BLL.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace RacingLeagueHub.BLL.Database.DbMaps

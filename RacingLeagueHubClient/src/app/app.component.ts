@@ -1,12 +1,18 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, model } from '@angular/core';
+import { RouterOutlet, RouterLinkWithHref } from '@angular/router';
+import { ThemeService } from './core/services/theme.service';
+import { FormsModule } from "@angular/forms";
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet],
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.css'
+    imports: [RouterOutlet, FormsModule, RouterLinkWithHref],
+    templateUrl: './app.component.html'
 })
 export class App {
-    protected readonly title = signal('RacingLeagueHubClient');
+    private readonly themeService = inject(ThemeService);
+    isLightMode = model(false);
+
+    toggleTheme() {
+        this.themeService.toggleTheme();
+    }
 }

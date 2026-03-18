@@ -1,0 +1,22 @@
+<ul class="list bg-base-100 rounded-box shadow-md pb-4">
+
+    <li class="flex justify-between p-4 pb-2 tracking-wide text-xs">
+        <span class="opacity-60">List of all available tracks</span>
+        <span>
+            <a routerLink="add" class="hover:underline">+ Add new track</a>
+        </span>
+    </li>
+
+    @for (track of list(); track track.id)
+    {
+    <li class="list-row cursor-pointer hover:bg-base-200" routerLink="{{track.id}}">
+        <div><img class="size-10 rounded-box" [src]="track.countryAlpha2 | flagUrl" /></div>
+        <div>
+            <div>{{ track.country?.name }} - {{track.city}}</div>
+            <div class="text-xs uppercase font-semibold opacity-60">{{ track.name }}</div>
+        </div>
+    </li>
+    }
+</ul>
+
+<router-outlet></router-outlet>

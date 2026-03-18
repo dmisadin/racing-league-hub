@@ -1,0 +1,36 @@
+﻿using RacingLeagueHub.BLL.Models.Dtos.Team;
+using RacingLeagueHub.BLL.Entities;
+using System.Linq.Expressions;
+
+namespace RacingLeagueHub.BLL.Mapping.DtoFactories;
+
+public class TeamDtoFactory : DtoFactoryBase<Team, TeamDto>
+{    
+    public override void FromDto(Team entity, TeamDto dto)
+    {
+        entity.Name = dto.Name;
+        entity.Color = dto.Color;
+    }
+
+    public override Expression<Func<Team, TeamDto>> ToDtoExpression()
+    {
+        return team => new TeamDto
+        {
+            Id = team.Id,
+            Name = team.Name,
+            Color = team.Color,
+            GameSpecificTeams = team.GameTeams
+                .Select(gt => new GameTeamDto
+                {
+                    Id = gt.Id,
+                    Game = gt.Game,
+                    TeamId = gt.TeamId,
+                    Name = gt.Name,
+                    ShortName = gt.ShortName,
+                    Abbreviation = gt.Abbreviation,
+                    Color = gt.Color,
+                    TelemetryId = gt.TelemetryId
+                }).ToList()
+        };
+    }
+}

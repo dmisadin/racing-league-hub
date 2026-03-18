@@ -1,0 +1,24 @@
+<div class="space-y-8">
+    <form [formGroup]="form" (ngSubmit)="saveAllChanges()" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <input-text label="Name" formControlName="name" placeholder="Albert Park Circuit"></input-text>
+
+        <input-text label="Short name" formControlName="shortName" placeholder="Albert Park"></input-text>
+
+        <label class="block text-sm font-medium">
+            <p class="mb-1">Country</p>
+            <country-picker formControlName="countryAlpha2"></country-picker>
+        </label>
+    
+        <input-text label="City" formControlName="city" placeholder="Melbourne"></input-text>
+        
+        <div class="md:col-span-2 flex justify-end gap-2">
+            <button type="button" (click)="onCancel()" class="btn btn-soft btn-error">
+                Cancel
+            </button>
+
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+                Save All Changes
+            </button>
+        </div>
+    </form>
+</div>

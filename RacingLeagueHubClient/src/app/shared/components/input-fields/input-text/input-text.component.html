@@ -1,0 +1,66 @@
+<label class="block text-sm font-medium mb-1">
+    @if (label()) {
+        <p class="mb-1">{{ label() }}</p>
+    }
+
+    @if (prefix() || suffix()) {
+    <label class="input w-full">
+
+        @if (prefix()) {
+        <span class="label">{{ prefix() }}</span>
+        }
+
+        <input [type]="type()"
+            [value]="value ?? ''"
+            [disabled]="disabled"
+            (input)="onInput($event)"
+            (blur)="onTouched()"
+            placeholder="{{placeholder()}}"
+            class="input w-full"
+            [class.border-error]="control?.touched && control?.invalid"
+            [class.text-error]="control?.touched && control?.invalid"/>
+
+        @if (suffix()) {
+        <span class="label">{{ suffix() }}</span>
+        }
+
+    </label>
+    } 
+    @else 
+    {
+    <input [type]="type()"
+        [value]="value ?? ''"
+        [disabled]="disabled"
+        (input)="onInput($event)"
+        (blur)="onTouched()"
+        placeholder="{{placeholder()}}"
+        class="input w-full"
+        [class.border-error]="control?.touched && control?.invalid"
+        [class.text-error]="control?.touched && control?.invalid"/>
+    }
+
+        @if (control?.touched && control?.invalid) 
+    {
+    <div class="text-error mt-1">
+        @if (errors?.['required']) {
+        <small class="block">{{ label() || 'This field' }} is required</small>
+        }
+
+        @if (errors?.['minlength']) {
+        <small>Minimum length is {{ errors?.['minlength'].requiredLength }}</small>
+        }
+
+        @if (errors?.['maxlength']) {
+        <small>Maximum length is {{ errors?.['maxlength'].requiredLength }}</small>
+        }
+
+        @if (errors?.['pattern']) {
+        <small>Invalid format</small>
+        }
+
+        @if (errors?.['email']) {
+        <small>Please enter a valid email address</small>
+        }
+    </div>
+    }
+</label>

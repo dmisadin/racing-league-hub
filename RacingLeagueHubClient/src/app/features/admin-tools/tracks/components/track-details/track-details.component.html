@@ -1,0 +1,29 @@
+@defer (when dto()) {
+    <track-form class="mb-4" [track]="dto()"></track-form>
+    <div class="divider my-8">Track Layouts <a class="link-hover font-semibold" routerLink="add-layout">[+ Add new layout]</a></div>
+    
+    @for (layout of dto()?.trackLayouts; track layout.id) 
+    {
+    <details #trackLayoutAccordion class="mb-2 border border-base-300 rounded-lg bg-base-100" name="track-layouts-accordion-2">
+        <summary class="cursor-pointer font-semibold p-4 hover:bg-base-200">
+            [{{layout.id}}] {{ layout.name }}
+        </summary>
+        <article class="p-4 pt-0 text-base-content">
+            @defer (on interaction(trackLayoutAccordion)) 
+            {
+            <track-layout-form [trackLayoutId]="layout.id" [trackLayout]="layout"></track-layout-form>
+            }
+            @placeholder 
+            {
+            <span class="loading loading-spinner loading-lg"></span>
+            }
+        </article>
+    </details>
+    }
+} @placeholder { 
+    <div class="w-full p-16 flex justify-center">
+        <span class="loading loading-spinner loading-lg"></span>
+    </div>
+}
+
+<router-outlet></router-outlet>

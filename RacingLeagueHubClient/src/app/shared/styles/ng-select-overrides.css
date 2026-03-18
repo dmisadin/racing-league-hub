@@ -1,0 +1,61 @@
+/* ng-select dark/light theme override for DaisyUI */
+.ng-select {
+    @apply h-10;
+}
+
+.ng-select.ng-select-single .ng-select-container {
+    @apply h-full bg-base-100 text-base-content border-base-content/20;
+}
+
+.ng-select .ng-select-container,
+.ng-select.ng-select-opened>.ng-select-container {
+    @apply bg-base-100 text-base-content border border-base-300 h-full;
+}
+
+.ng-dropdown-panel,
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+    @apply bg-base-100 text-base-content;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked,
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected,
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected.ng-option-marked {
+    @apply bg-base-200 text-base-content;
+}
+
+.ng-select.ng-select-focused .ng-select-container {
+    @apply border-primary;
+}
+
+.ng-dropdown-panel {
+    @apply bg-base-100 text-base-content border border-base-300 shadow-lg;
+}
+
+.ng-dropdown-panel .ng-option {
+    @apply px-3 py-2;
+}
+
+.ng-dropdown-panel .ng-option.ng-option-marked {
+    @apply bg-base-200;
+}
+
+.ng-dropdown-panel .ng-option.ng-option-selected {
+    @apply bg-primary text-primary-content;
+}
+
+.ng-select .ng-value {
+    @apply text-base-content;
+}
+
+.ng-select .ng-placeholder {
+    @apply text-base-content/50;
+}
+
+/* Multiselect */
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+    @apply bg-base-300 text-base-content;
+}
+
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon.left  {
+    @apply border-base-100;
+}

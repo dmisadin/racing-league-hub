@@ -55,7 +55,7 @@ CREATE TABLE "public"."driver" (
     "nickname" varchar(64) NOT NULL,
     "first_name" varchar(64),
     "last_name" varchar(64),
-    "country" varchar(3),
+    "country" varchar(2),
     "slug" varchar(64) NOT NULL,
     PRIMARY KEY ("id")
 );
@@ -77,9 +77,8 @@ CREATE INDEX "season_points_season_id_idx" ON "public"."season_points" ("season_
 CREATE TABLE "public"."track" (
     "id" bigint GENERATED ALWAYS AS IDENTITY,
     "name" varchar(128) NOT NULL,
-    "country" bigint NOT NULL,
+    "country" varchar(2) NOT NULL,
     "city" varchar(64) NOT NULL,
-    "elevation" numeric(5, 1),
     "short_name" varchar(64),
     PRIMARY KEY ("id")
 );
@@ -88,8 +87,10 @@ CREATE TABLE "public"."game_team" (
     "id" bigint GENERATED ALWAYS AS IDENTITY,
     "game" smallint NOT NULL,
     "team_id" bigint NOT NULL,
-    "display_name" varchar(128),
-    "color" varchar(32),
+    "name" varchar(128) NOT NULL,
+    "short_name" varchar(64) NOT NULL,
+    "abbreviation" varchar(3) NOT NULL,
+    "color" varchar(32) NOT NULL,
     "logo_resource_id" bigint,
     -- ID reference to data that game sends through telemetry
     "telemetry_id" smallint NOT NULL,
@@ -237,6 +238,9 @@ CREATE TABLE "public"."track_layout" (
     "corners_total" smallint NOT NULL,
     "corners_left" smallint NOT NULL,
     "laps_grand_prix" smallint NOT NULL,
+    "length" smallint NOT NULL,
+    "elevation_change" numeric(5, 1),
+    "telemetry_id" smallint NOT NULL,
     "map_image_resource_id" bigint,
     "cover_image_resource_id" bigint,
     PRIMARY KEY ("id")

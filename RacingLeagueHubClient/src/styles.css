@@ -1,2 +1,7 @@
+@import "@ng-select/ng-select/themes/default.theme.css";
+
+@import "./app/shared/styles/ng-select-overrides.css";
+@import "./app/shared/styles/daisyui-overrides.css";
+
 @import "tailwindcss";
 @plugin "daisyui";

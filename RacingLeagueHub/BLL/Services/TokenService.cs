@@ -1,7 +1,4 @@
-﻿using RacingLeagueHub.Dto.UserDto;
-using System.Security.Claims;
-
-namespace RacingLeagueHub.BLL.Services
+﻿namespace RacingLeagueHub.BLL.Services
 {
 
     //Possible change would be to make method CreateToken() private and invoked through an instance of this class
