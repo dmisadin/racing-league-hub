@@ -10,16 +10,19 @@ import { enumToOptions } from "../../../../../shared/utilities/enum.utility";
 import { Game } from "../../../../../shared/models/enums";
 import { RestService } from "../../../../../core/services/rest.service";
 import { RouteService } from "../../../../../core/services/route.service";
+import { ListService } from "../../../../../shared/services/list.service";
 
 @Component({
     selector: 'track-layout-form',
     imports: [ReactiveFormsModule, InputNumberComponent, InputTextComponent, NgSelectComponent],
+    providers: [RouteService],
     templateUrl: './track-layout-form.component.html',
 })
 export class TrackLayoutFormComponent implements OnInit {
     private readonly fb = inject(FormBuilder);
     private readonly routeService = inject(RouteService);
     private readonly restService = inject(RestService);
+    private readonly listService = inject(ListService);
 
     trackLayoutId = input<number>();
     trackLayout = input<TrackLayoutDto | null>(null);
@@ -62,16 +65,21 @@ export class TrackLayoutFormComponent implements OnInit {
     saveAllChanges() {
         if (this.form.invalid)
             return;
-        
+
         const form = this.form.value;
         if (form['id'])
-            this.restService.post('/track-layout/update/' + form['id'], this.form.value).subscribe();
+            this.restService.post('/track-layout/update', this.form.value).subscribe();
         else
-            this.restService.post('/track-layout/add', this.form.value).subscribe();
+            this.restService.post('/track-layout/add', this.form.value).subscribe(() => this.onAddSuccess());
     }
 
     onCancel() {
         this.cancel.emit();
         //reset form
+    }
+
+    onAddSuccess() {
+        this.listService.triggerReload();
+        this.routeService.navigateToParent();
     }
 }

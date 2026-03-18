@@ -14,6 +14,7 @@ import { ListService } from '../../../../../shared/services/list.service';
 @Component({
     selector: 'game-team-form',
     imports: [ReactiveFormsModule, NgSelectComponent, InputNumberComponent, InputTextComponent],
+    providers: [RouteService],
     templateUrl: './game-team-form.component.html',
 })
 export class GameTeamFormComponent {
@@ -30,7 +31,7 @@ export class GameTeamFormComponent {
     gameChoices: DropdownOption[] = enumToOptions(Game);
 
     constructor() {
-        const teamId = Number(this.routeService.getParentRouteParam("teamId"));
+        const teamId = Number(this.routeService.getRouteParam("teamId"));
         
         this.form = this.fb.group({
             id: [null],
@@ -69,7 +70,7 @@ export class GameTeamFormComponent {
         
         const form = this.form.value;
         if (form['id'])
-            this.restService.post('/game-team/update/' + form['id'], this.form.value).subscribe();
+            this.restService.post('/game-team/update', this.form.value).subscribe();
         else
             this.restService.post('/game-team/add', this.form.value).subscribe(() => this.onAddSuccess());
     }

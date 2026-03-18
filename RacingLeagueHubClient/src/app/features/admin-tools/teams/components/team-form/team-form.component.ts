@@ -9,6 +9,7 @@ import { ListService } from "../../../../../shared/services/list.service";
 @Component({
     selector: 'team-form',
     imports: [ReactiveFormsModule, InputTextComponent],
+    providers: [RouteService],
     templateUrl: './team-form.component.html',
 })
 export class TeamFormComponent implements OnInit {
@@ -48,7 +49,7 @@ export class TeamFormComponent implements OnInit {
 
         const form = this.form.value;
         if (form['id'])
-            this.restService.post(`/team/update/${form['id']}`, this.form.value).subscribe();
+            this.restService.post('/team/update', this.form.value).subscribe();
         else
             this.restService.post('/team/add', this.form.value).subscribe(() => this.onAddSuccess());
 
@@ -62,30 +63,5 @@ export class TeamFormComponent implements OnInit {
         this.listService.triggerReload();
         this.routeService.navigateToParent();
     }
-    /*
-    createGameTeam(team?: Partial<GameTeamFormModel>): FormGroup {
-        return this.fb.group({
-            id: [team?.id ?? 0, Validators.required],
-            game: [team?.game ?? Game.F125, Validators.required],
-            color: [team?.color ?? '#000'],
-            removable: [team?.removable ?? true]
-        });
-    }
 
-    addGameTeam() {
-        this.gameTeamsForm.push(this.createGameTeam());
-    }
-
-    removeGameTeam(index: number) {
-        this.gameTeamsForm.removeAt(index);
-    }
-
-    loadGameTeams(dtos: GameTeamDto[]) {
-        this.gameTeamsForm.clear();
-
-        dtos.forEach(dto => {
-            this.gameTeamsForm.push(this.createGameTeam({...dto, removable: false}));
-        });
-    }
-    */
 }

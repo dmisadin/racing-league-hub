@@ -1,23 +1,30 @@
-<team-form class="mb-4"></team-form>
-<div class="divider my-8"> Game specific teams <a class="link-hover font-semibold" routerLink="add-game-team">[+ Add new team]</a></div>
-
-@for (gameTeam of team()?.gameSpecificTeams; track gameTeam.id) 
+@defer (when dto()) 
 {
-<details #trackLayoutAccordion class="mb-2 border border-base-300 rounded-lg bg-base-100" name="game-teams-accordion">
-    <summary class="cursor-pointer font-semibold p-4 hover:bg-base-200">
-        [{{ Game[gameTeam.game] }}] {{ gameTeam.name }}
-    </summary>
-    <article class="p-4 pt-0 text-base-content">
-        @defer (on interaction(trackLayoutAccordion)) 
-        {
-        <game-team-form [gameTeamId]="gameTeam.id" [gameTeam]="gameTeam"></game-team-form>
-        }
-        @placeholder 
-        {
+    <team-form class="mb-4" [team]="dto()"></team-form>
+    <div class="divider my-8"> Game specific teams <a class="link-hover font-semibold" routerLink="add-game-team">[+ Add new team]</a></div>
+    
+    @for (gameTeam of dto()?.gameSpecificTeams; track gameTeam.id) 
+    {
+    <details #trackLayoutAccordion class="mb-2 border border-base-300 rounded-lg bg-base-100" name="game-teams-accordion">
+        <summary class="cursor-pointer font-semibold p-4 hover:bg-base-200">
+            [{{ Game[gameTeam.game] }}] {{ gameTeam.name }}
+        </summary>
+        <article class="p-4 pt-0 text-base-content">
+            @defer (on interaction(trackLayoutAccordion)) 
+            {
+            <game-team-form [gameTeamId]="gameTeam.id" [gameTeam]="gameTeam"></game-team-form>
+            }
+            @placeholder 
+            {
+            <span class="loading loading-spinner loading-lg"></span>
+            }
+        </article>
+    </details>
+    }
+} @placeholder {
+    <div class="w-full p-16 flex justify-center">
         <span class="loading loading-spinner loading-lg"></span>
-        }
-    </article>
-</details>
+    </div>
 }
 
 <router-outlet></router-outlet>

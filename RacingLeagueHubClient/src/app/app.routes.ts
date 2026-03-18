@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { RouteService } from './core/services/route.service';
 
 export const routes: Routes = [
     {
@@ -7,7 +8,8 @@ export const routes: Routes = [
     },
     {
         path: 'admin-tools', 
-        loadChildren: () => import('./features/admin-tools/admin-tools.routes').then(r => r.ADMIN_TOOLS_ROUTES)
+        loadChildren: () => import('./features/admin-tools/admin-tools.routes').then(r => r.ADMIN_TOOLS_ROUTES),
+        providers: [RouteService]
     },
     {
         path: '**',

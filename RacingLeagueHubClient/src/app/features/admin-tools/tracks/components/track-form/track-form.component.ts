@@ -6,15 +6,18 @@ import { InputNumberComponent } from "../../../../../shared/components/input-fie
 import { InputTextComponent } from "../../../../../shared/components/input-fields/input-text/input-text.component";
 import { RestService } from "../../../../../core/services/rest.service";
 import { RouteService } from "../../../../../core/services/route.service";
+import { ListService } from "../../../../../shared/services/list.service";
 
 @Component({
     selector: 'track-form',
     imports: [ReactiveFormsModule, CountryPickerComponent, InputNumberComponent, InputTextComponent],
+    providers: [RouteService],
     templateUrl: './track-form.component.html',
 })
-export class TrackFormComponent implements OnInit{
+export class TrackFormComponent implements OnInit {
     private readonly restService = inject(RestService);
     private readonly routeService = inject(RouteService);
+    private readonly listService = inject(ListService);
     track = input<TrackDto | null>(null);
     cancel = output();
     form: FormGroup;
@@ -38,6 +41,7 @@ export class TrackFormComponent implements OnInit{
         }
 
         const trackId = this.routeService.getRouteParam("trackId");
+        console.log(trackId)
         if (!trackId)
             return;
 
@@ -49,15 +53,20 @@ export class TrackFormComponent implements OnInit{
     saveAllChanges() {
         if (this.form.invalid)
             return;
-        
+
         const form = this.form.value;
         if (form['id'])
             this.restService.post('/track/update', this.form.value).subscribe();
         else
-            this.restService.post('/track/add', this.form.value).subscribe();
+            this.restService.post('/track/add', this.form.value).subscribe(() => this.onAddSuccess());
     }
 
     onCancel() {
         this.cancel.emit();
+    }
+
+    onAddSuccess() {
+        this.listService.triggerReload();
+        this.routeService.navigateToParent();
     }
 }

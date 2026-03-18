@@ -7,7 +7,7 @@
         </span>
     </li>
 
-    @for (track of tracks(); track track.id)
+    @for (track of list(); track track.id)
     {
     <li class="list-row cursor-pointer hover:bg-base-200" routerLink="{{track.id}}">
         <div><img class="size-10 rounded-box" [src]="track.countryAlpha2 | flagUrl" /></div>
