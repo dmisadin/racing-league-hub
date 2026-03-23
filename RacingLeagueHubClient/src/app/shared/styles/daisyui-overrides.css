@@ -4,9 +4,9 @@
         box-shadow: none !important;
     }
 
-    :where(.input, .select, .textarea, .btn):focus,
-    :where(.input, .select, .textarea, .btn):focus-visible,
-    :where(.input, .select, .textarea, .btn):focus-within {
+    :where(.input, .select, .textarea, .btn, .file-input):focus,
+    :where(.input, .select, .textarea, .btn, .file-input):focus-visible,
+    :where(.input, .select, .textarea, .btn, .file-input):focus-within {
         outline: none !important;
         box-shadow: none !important;
     }

@@ -1,0 +1,66 @@
+<div class="block text-sm font-medium">
+    @if (label()) {
+        <p class="mb-1">{{ label() }}</p>
+    }
+    
+    @let uploadedResource = this.uploadedResource();
+    @if (uploadedResource) {
+        <!-- Preview after successful upload — outside label so clicks don't trigger file input -->
+        <div class="flex items-center gap-3 p-2 border border-base-300 rounded-lg bg-base-200">
+            @if (uploadedResource.mimeType | isImage) {
+                <img
+                    [src]="uploadedResource.fileUrl"
+                    [alt]="uploadedResource.fileName"
+                    class="h-12 w-12 object-cover rounded" />
+            } @else {
+                <div class="flex items-center justify-center h-12 w-12 rounded bg-base-300 text-xs font-bold uppercase">
+                    {{ uploadedResource.extension }}
+                </div>
+            }
+            <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium truncate">{{ uploadedResource.fileName }}</p>
+                <p class="text-xs text-base-content/60">{{ uploadedResource.sizeInBytes | fileSize }}</p>
+            </div>
+            <button
+                type="button"
+                class="btn btn-ghost btn-sm text-error"
+                (click)="onClear()"
+                [disabled]="disabled">
+                ✕
+            </button>
+        </div>
+    } @else {
+        <!-- File input wrapped in label so clicking it opens file picker -->
+        <label class="cursor-pointer">
+            <input
+                type="file"
+                class="file-input w-full"
+                [accept]="accept()"
+                [disabled]="disabled || uploading()"
+                [class.border-error]="control?.touched && control?.invalid"
+                (change)="onFileSelected($event)"
+                (blur)="onTouched()" />
+        </label>
+    }
+
+    <!-- Upload progress -->
+    @if (uploading()) {
+        <p class="text-sm text-base-content/60 mt-1">Uploading...</p>
+    }
+
+    <!-- Upload error -->
+    @if (uploadError()) {
+        <div class="text-error mt-1">
+            <small class="block">{{ uploadError() }}</small>
+        </div>
+    }
+
+    <!-- Validation errors -->
+    @if (control?.touched && control?.invalid && !uploadError()) {
+        <div class="text-error mt-1">
+            @if (errors?.['required']) {
+                <small class="block">{{ label() || 'This field' }} is required</small>
+            }
+        </div>
+    }
+</div>
