@@ -60,7 +60,7 @@ public class ResourceService(
 
     private async Task<Resource> GetOrThrowAsync(Guid uid, CancellationToken ct)
     {
-        var resource = await resourceRepository.GetByUidAsync(uid, ct);
+        var resource = await resourceRepository.GetOneAsync(uid, ct);
         if (resource is null)
             throw new KeyNotFoundException($"Resource {uid} not found.");
         return resource;

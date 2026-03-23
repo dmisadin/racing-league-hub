@@ -1,4 +1,5 @@
-﻿using RacingLeagueHub.BLL.Models.Enums;
+﻿using RacingLeagueHub.BLL.Entities.Resources;
+using RacingLeagueHub.BLL.Models.Enums;
 
 namespace RacingLeagueHub.BLL.Entities;
 

@@ -1,4 +1,6 @@
-﻿namespace RacingLeagueHub.BLL.Entities.Seasons;
+﻿using RacingLeagueHub.BLL.Entities.Resources;
+
+namespace RacingLeagueHub.BLL.Entities.Seasons;
 
 public class Season : EntityBase
 {
