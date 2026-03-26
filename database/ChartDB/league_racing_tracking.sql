@@ -220,6 +220,7 @@ CREATE UNIQUE INDEX "season_driver_season_id_driver_id_team_id_key" ON "public".
 
 CREATE TABLE "public"."resource" (
     "id" bigint GENERATED ALWAYS AS IDENTITY,
+    "storage_id" uuid NOT NULL DEFAULT gen_random_uuid(),
     "url" text NOT NULL,
     "file_name" text NOT NULL,
     "extension" varchar(10) NOT NULL,
@@ -227,6 +228,7 @@ CREATE TABLE "public"."resource" (
     "size_in_bytes" bigint NOT NULL,
     "created_at" timestamptz NOT NULL,
     "is_thumbnail" boolean,
+    "status" smallint NOT NULL,
     PRIMARY KEY ("id")
 );
 

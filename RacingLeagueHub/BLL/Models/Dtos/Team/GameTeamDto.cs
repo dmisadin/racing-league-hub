@@ -1,4 +1,5 @@
-﻿using RacingLeagueHub.BLL.Models.Enums;
+﻿using RacingLeagueHub.API.Dtos.Resource;
+using RacingLeagueHub.BLL.Models.Enums;
 
 namespace RacingLeagueHub.BLL.Models.Dtos.Team
 {
@@ -11,5 +12,7 @@ namespace RacingLeagueHub.BLL.Models.Dtos.Team
         public string Abbreviation { get; set; }
         public string? Color { get; set; }
         public short TelemetryId { get; set; }
+        public long? LogoResourceId { get; set; }
+        public ResourceBaseDto? Logo { get; set; }
     }
 }

@@ -10,10 +10,11 @@ import { NgSelectComponent } from "@ng-select/ng-select";
 import { InputNumberComponent } from "../../../../../shared/components/input-fields/input-number/input-number.component";
 import { InputTextComponent } from "../../../../../shared/components/input-fields/input-text/input-text.component";
 import { ListService } from '../../../../../shared/services/list.service';
+import { InputFileComponent } from "../../../../../shared/components/input-fields/input-file/input-file.component";
 
 @Component({
     selector: 'game-team-form',
-    imports: [ReactiveFormsModule, NgSelectComponent, InputNumberComponent, InputTextComponent],
+    imports: [ReactiveFormsModule, NgSelectComponent, InputNumberComponent, InputTextComponent, InputFileComponent],
     providers: [RouteService],
     templateUrl: './game-team-form.component.html',
 })
@@ -41,7 +42,8 @@ export class GameTeamFormComponent {
             shortName: ["", Validators.required],
             abbreviation: ["", [Validators.required, Validators.maxLength(3)]],
             color: ["#000000", Validators.required],
-            telemetryId: []
+            telemetryId: [],
+            logoResourceId: ["", Validators.required]
         });
     }
 
@@ -75,7 +77,6 @@ export class GameTeamFormComponent {
 
     onCancel() {
         this.cancel.emit();
-        //reset form
     }
 
     onAddSuccess() {

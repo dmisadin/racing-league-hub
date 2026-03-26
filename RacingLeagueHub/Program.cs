@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.BLL.Database;
 using RacingLeagueHub.Infrastructure;
+using RacingLeagueHub.Startup;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,8 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
+
+builder.Services.RegisterAWSServices(builder.Configuration);
 
 var app = builder.Build();
 
