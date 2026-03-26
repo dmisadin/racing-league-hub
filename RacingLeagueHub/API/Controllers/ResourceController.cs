@@ -8,6 +8,29 @@ namespace RacingLeagueHub.API.Controllers;
 [Route("api/resource")]
 public class ResourcesController(IResourceService resourceService) : ControllerBase
 {
+
+    [HttpGet("get-by-id/{id:long}")]
+    public async Task<ActionResult<ResourceDto>> GetById(long id, CancellationToken ct)
+    {
+        var file = await resourceService.GetByIdAsync(id, ct);
+
+        if (file == null)
+            NotFound();
+
+        return Ok(file);
+    }
+
+    [HttpGet("get-file-url/{id:long}")]
+    public async Task<ActionResult<IReadOnlyList<ResourceDto>>> GetFileUrl(long id, CancellationToken ct)
+    {
+        var fileUrl = await resourceService.GetFileUrl(id, ct);
+
+        if (fileUrl == null)
+            NotFound();
+
+        return Ok(fileUrl);
+    }
+
     [HttpGet("get-all")]
     public async Task<ActionResult<IReadOnlyList<ResourceDto>>> GetAll(CancellationToken ct)
     {
@@ -29,10 +52,10 @@ public class ResourcesController(IResourceService resourceService) : ControllerB
         return Ok(result);
     }
 
-    [HttpDelete("delete/{uid:guid}")]
-    public async Task<IActionResult> Delete(Guid uid, CancellationToken ct)
+    [HttpDelete("delete/{id:long}")]
+    public async Task<IActionResult> Delete(long id, CancellationToken ct)
     {
-        await resourceService.DeleteAsync(uid, ct);
+        await resourceService.DeleteAsync(id, ct);
         return NoContent();
     }
 }

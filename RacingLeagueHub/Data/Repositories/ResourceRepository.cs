@@ -8,6 +8,11 @@ public class ResourceRepository(AdventureContext db) : IResourceRepository
 {
     private DbSet<Resource> Resources = db.Set<Resource>();
 
+    public IQueryable<Resource> Query()
+    {
+        return this.Resources;
+    }
+
     public async Task<Resource?> GetOneAsync(long id, CancellationToken ct = default)
     {
         return await Resources.FirstOrDefaultAsync(r => r.Id == id, ct);
@@ -15,12 +20,12 @@ public class ResourceRepository(AdventureContext db) : IResourceRepository
 
     public async Task<Resource?> GetOneAsync(Guid uid, CancellationToken ct = default)
     {
-        return await Resources.FirstOrDefaultAsync(r => r.Uid == uid, ct);
+        return await Resources.FirstOrDefaultAsync(r => r.StorageId == uid, ct);
     }
 
     public async Task<long?> GetIdFromUidAsync(Guid uid, CancellationToken ct = default)
     {
-        return await Resources.Where(r => r.Uid == uid).Select(r => r.Id).FirstOrDefaultAsync(ct);
+        return await Resources.Where(r => r.StorageId == uid).Select(r => r.Id).FirstOrDefaultAsync(ct);
     }
 
     public async Task<IReadOnlyList<Resource>> GetAllAsync(CancellationToken ct = default)

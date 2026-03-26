@@ -2,7 +2,7 @@
 
 public class Resource : EntityBase
 {
-    public Guid Uid { get; set; }
+    public Guid StorageId { get; set; }
     public string FileName { get; set; }
     public string Extension { get; set; }
     public string MimeType { get; set; }

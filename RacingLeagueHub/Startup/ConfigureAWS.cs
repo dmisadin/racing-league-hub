@@ -10,7 +10,9 @@ public static class ConfigureAWS
 {
     public static IServiceCollection RegisterAWSServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<S3Options>(configuration.GetSection("S3"));
+        var s3ConfigurationSection = configuration.GetSection("S3");
+        S3Settings.Initialize(s3ConfigurationSection);
+        services.Configure<S3Options>(s3ConfigurationSection);
 
         services.AddAWSService<IAmazonS3>();
 

@@ -15,6 +15,7 @@ public class GameTeamDtoFactory : DtoFactoryBase<GameTeam, GameTeamDto>
         entity.Abbreviation = dto.Abbreviation;
         entity.Color = dto.Color;
         entity.TelemetryId = dto.TelemetryId;
+        entity.LogoResourceId = dto.LogoResourceId;
     }
 
     public override Expression<Func<GameTeam, GameTeamDto>> ToDtoExpression()

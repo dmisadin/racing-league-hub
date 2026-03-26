@@ -4,6 +4,7 @@ namespace RacingLeagueHub.Data.Repositories;
 
 public interface IResourceRepository
 {
+    IQueryable<Resource> Query();
     Task<Resource?> GetOneAsync(long id, CancellationToken ct = default);
     Task<Resource?> GetOneAsync(Guid uid, CancellationToken ct = default);
     Task<IReadOnlyList<Resource>> GetAllAsync(CancellationToken ct = default);

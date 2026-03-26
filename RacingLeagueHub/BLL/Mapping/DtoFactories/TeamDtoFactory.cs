@@ -1,6 +1,8 @@
 ﻿using RacingLeagueHub.BLL.Models.Dtos.Team;
 using RacingLeagueHub.BLL.Entities;
 using System.Linq.Expressions;
+using RacingLeagueHub.API.Dtos.Resource;
+using RacingLeagueHub.BLL.Models.Storage;
 
 namespace RacingLeagueHub.BLL.Mapping.DtoFactories;
 
@@ -14,6 +16,8 @@ public class TeamDtoFactory : DtoFactoryBase<Team, TeamDto>
 
     public override Expression<Func<Team, TeamDto>> ToDtoExpression()
     {
+        var baseStorageUrl = S3Settings.Values.PublicBaseUrl;
+
         return team => new TeamDto
         {
             Id = team.Id,
@@ -29,7 +33,14 @@ public class TeamDtoFactory : DtoFactoryBase<Team, TeamDto>
                     ShortName = gt.ShortName,
                     Abbreviation = gt.Abbreviation,
                     Color = gt.Color,
-                    TelemetryId = gt.TelemetryId
+                    TelemetryId = gt.TelemetryId,
+                    LogoResourceId = gt.LogoResourceId,
+                    Logo = gt.LogoResourceId == null ? null : new ResourceBaseDto
+                    {
+                        Id = gt.LogoResource!.Id,
+                        FileUrl = baseStorageUrl + "/uploads/" + gt.LogoResource.StorageId + "." + gt.LogoResource.Extension,
+                        Extension = gt.LogoResource.Extension
+                    }
                 }).ToList()
         };
     }

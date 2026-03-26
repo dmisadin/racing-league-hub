@@ -48,15 +48,15 @@ public class OrphanResourceCleanupJob(
             {
                 try
                 {
-                    var s3Key = $"uploads/{resource.Uid}.{resource.Extension}";
+                    var s3Key = $"uploads/{resource.StorageId}.{resource.Extension}";
                     await storageService.DeleteAsync(s3Key, ct);
                     await resourceRepository.DeleteAsync(resource, ct);
-                    logger.LogInformation("Deleted orphan resource {Uid}.", resource.Uid);
+                    logger.LogInformation("Deleted orphan resource {Uid}.", resource.StorageId);
                 }
                 catch (Exception ex)
                 {
                     // Log and continue — don't let one failure stop the rest
-                    logger.LogError(ex, "Failed to delete orphan resource {Uid}.", resource.Uid);
+                    logger.LogError(ex, "Failed to delete orphan resource {Uid}.", resource.StorageId);
                 }
             }
         }
