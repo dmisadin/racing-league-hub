@@ -30,7 +30,7 @@ export class InputFileComponent extends BaseFormControl<number> {
 
     override writeValue(value: number | null): void {
         super.writeValue(value);
-        console.log(value)
+        
         if (!value) {
             this.uploadedResource.set(null);
             return;
