@@ -1,15 +1,15 @@
 import { Component, forwardRef, inject, input, signal } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ResourceService } from '../../../../core/services/resource.service';
-import { Resource } from '../../../models/resource';
+import { ResourceDto } from '../../../models/resource';
 import { BaseFormControl } from '../base-form-control';
 import { FileSizePipe } from '../../../pipes/file-size.pipe';
-import { IsImagePipe } from "../../../pipes/is-image.pipe";
+import { IsImageExtensionPipe } from '../../../pipes/is-image-extension.pipe';
 
 @Component({
     selector: 'input-file',
     templateUrl: './input-file.component.html',
-    imports: [FileSizePipe, IsImagePipe],
+    imports: [FileSizePipe, IsImageExtensionPipe],
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -18,20 +18,30 @@ import { IsImagePipe } from "../../../pipes/is-image.pipe";
         }
     ]
 })
-export class InputFileComponent extends BaseFormControl<string> {
-    // Inputs
+export class InputFileComponent extends BaseFormControl<number> {
+    private readonly resourceService = inject(ResourceService);
+
     accept = input<string>('*/*');
     isThumbnail = input<boolean | null>(null);
 
-    // Internal state
     uploading = signal(false);
     uploadError = signal<string | null>(null);
-    uploadedResource = signal<Resource | null>(null);
+    uploadedResource = signal<ResourceDto | null>(null);
 
-    private readonly resourceService = inject(ResourceService);
+    override writeValue(value: number | null): void {
+        super.writeValue(value);
+        console.log(value)
+        if (!value) {
+            this.uploadedResource.set(null);
+            return;
+        }
 
-    // ControlValueAccessor writes the resource uid as the form value
-    // So validators like Validators.required work naturally on the uid string
+        this.resourceService.getById(value).subscribe({
+            next: (resource) => this.uploadedResource.set(resource),
+            error: () => this.uploadedResource.set(null)
+        });
+    }
+
     onInput(_event: Event): void {
         // not used for file input — see onFileSelected
     }
@@ -49,7 +59,8 @@ export class InputFileComponent extends BaseFormControl<string> {
             next: (resource) => {
                 this.uploading.set(false);
                 this.uploadedResource.set(resource);
-                this.setValue(resource.uid);  // sets form value to uid string
+                if (resource.id)
+                    this.setValue(resource.id);
             },
             error: () => {
                 this.uploading.set(false);

@@ -7,9 +7,8 @@
     @if (uploadedResource) {
         <!-- Preview after successful upload — outside label so clicks don't trigger file input -->
         <div class="flex items-center gap-3 p-2 border border-base-300 rounded-lg bg-base-200">
-            @if (uploadedResource.mimeType | isImage) {
-                <img
-                    [src]="uploadedResource.fileUrl"
+            @if (uploadedResource.extension | isImageExtension) {
+                <img [src]="uploadedResource.fileUrl"
                     [alt]="uploadedResource.fileName"
                     class="h-12 w-12 object-cover rounded" />
             } @else {
@@ -21,8 +20,7 @@
                 <p class="text-sm font-medium truncate">{{ uploadedResource.fileName }}</p>
                 <p class="text-xs text-base-content/60">{{ uploadedResource.sizeInBytes | fileSize }}</p>
             </div>
-            <button
-                type="button"
+            <button type="button"
                 class="btn btn-ghost btn-sm text-error"
                 (click)="onClear()"
                 [disabled]="disabled">
@@ -30,10 +28,8 @@
             </button>
         </div>
     } @else {
-        <!-- File input wrapped in label so clicking it opens file picker -->
         <label class="cursor-pointer">
-            <input
-                type="file"
+            <input type="file"
                 class="file-input w-full"
                 [accept]="accept()"
                 [disabled]="disabled || uploading()"

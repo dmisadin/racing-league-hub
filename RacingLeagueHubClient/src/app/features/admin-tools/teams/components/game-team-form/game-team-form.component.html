@@ -19,6 +19,8 @@
 
     <input-number label="Ingame telemetry ID" formControlName="telemetryId" placeholder="0" [min]="0"></input-number>
 
+    <input-file label="Team logo" formControlName="logoResourceId" class="md:col-span-2"></input-file>
+
     <div class="md:col-span-2 flex justify-end gap-2">
         <button type="button" (click)="onCancel()" class="btn btn-soft btn-error">
             Cancel

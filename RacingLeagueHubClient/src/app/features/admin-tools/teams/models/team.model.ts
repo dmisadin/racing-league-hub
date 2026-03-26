@@ -1,5 +1,6 @@
 import { BaseDto } from "../../../../shared/models/dtos";
 import { Game } from "../../../../shared/models/enums";
+import { ResourceBaseDto } from "../../../../shared/models/resource";
 
 export interface TeamDto extends BaseDto {
     name: string;
@@ -15,6 +16,7 @@ export interface GameTeamDto extends BaseDto {
     abbreviation: string;
     color: string;
     telemetryId: number;
+    logo: ResourceBaseDto | null;
 }
 
 export interface GameTeamFormModel extends GameTeamDto {

@@ -1,11 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'isImage',
+    name: 'isMimeTypeImage',
     standalone: true,
     pure: true
 })
-export class IsImagePipe implements PipeTransform {
+export class IsMimeTypeImagePipe implements PipeTransform {
     transform(mimeType?: string): boolean {
         if (!mimeType) return false;
         return mimeType.startsWith('image/');

@@ -1,12 +1,17 @@
-export interface Resource {
-    uid: string;
+import { BaseDto } from "./dtos";
+
+export interface ResourceBaseDto extends BaseDto {
+    fileUrl: string;
+}
+
+export interface ResourceDto extends ResourceBaseDto {
+    storageId: string;
     fileName: string;
     extension: string;
     mimeType: string;
     sizeInBytes: number;
     createdAt: string;
     isThumbnail: boolean | null;
-    fileUrl: string;
 }
 
 export interface CreateResourceRequest {
