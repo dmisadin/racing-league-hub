@@ -1,7 +1,7 @@
 ﻿using RacingLeagueHub.BLL.Mapping.DtoFactories;
-using RacingLeagueHub.BLL.Models.Dtos;
 using RacingLeagueHub.BLL.Entities;
 using RacingLeagueHub.Infrastructure;
+using RacingLeagueHub.API.Dtos;
 
 namespace RacingLeagueHub.API.Controllers;
 

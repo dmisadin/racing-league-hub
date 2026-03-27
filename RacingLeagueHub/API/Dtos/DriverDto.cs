@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.BLL.Models.Dtos;
+﻿namespace RacingLeagueHub.API.Dtos;
 
 public class DriverDto : BaseDto
 {

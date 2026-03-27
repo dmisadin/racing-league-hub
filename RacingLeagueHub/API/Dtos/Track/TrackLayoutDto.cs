@@ -1,6 +1,7 @@
-﻿using RacingLeagueHub.BLL.Models.Enums;
+﻿using RacingLeagueHub.API.Dtos;
+using RacingLeagueHub.BLL.Models.Enums;
 
-namespace RacingLeagueHub.BLL.Models.Dtos.Track;
+namespace RacingLeagueHub.API.Dtos.Track;
 
 public class TrackLayoutDto : BaseDto
 {

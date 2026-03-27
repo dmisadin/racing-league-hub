@@ -1,6 +1,6 @@
-﻿using RacingLeagueHub.BLL.Models.Dtos.User;
-using RacingLeagueHub.BLL.Entities;
+﻿using RacingLeagueHub.BLL.Entities;
 using System.Linq.Expressions;
+using RacingLeagueHub.API.Dtos.User;
 
 namespace RacingLeagueHub.BLL.Mapping.DtoFactories;
 

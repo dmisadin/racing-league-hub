@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RacingLeagueHub.API.Dtos;
 using RacingLeagueHub.BLL.Entities;
 using RacingLeagueHub.BLL.Mapping.DtoFactories;
-using RacingLeagueHub.BLL.Models.Dtos;
 
 namespace RacingLeagueHub.Infrastructure;
 

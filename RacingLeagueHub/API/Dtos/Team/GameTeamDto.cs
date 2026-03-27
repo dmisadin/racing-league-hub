@@ -1,7 +1,8 @@
-﻿using RacingLeagueHub.API.Dtos.Resource;
+﻿using RacingLeagueHub.API.Dtos;
+using RacingLeagueHub.API.Dtos.Resource;
 using RacingLeagueHub.BLL.Models.Enums;
 
-namespace RacingLeagueHub.BLL.Models.Dtos.Team
+namespace RacingLeagueHub.API.Dtos.Team
 {
     public class GameTeamDto : BaseDto
     {

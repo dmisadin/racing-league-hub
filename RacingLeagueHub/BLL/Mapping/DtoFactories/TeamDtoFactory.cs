@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.API.Dtos.Resource;
+using RacingLeagueHub.API.Dtos.Team;
 using RacingLeagueHub.BLL.Entities;
-using RacingLeagueHub.BLL.Models.Dtos.Team;
 using RacingLeagueHub.BLL.Models.Storage;
 using System.Linq.Expressions;
 

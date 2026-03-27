@@ -1,4 +1,6 @@
-﻿namespace RacingLeagueHub.BLL.Models.Dtos.User;
+﻿using RacingLeagueHub.API.Dtos;
+
+namespace RacingLeagueHub.API.Dtos.User;
 
 public class UserDto : BaseDto
 {

@@ -1,5 +1,5 @@
-﻿using RacingLeagueHub.BLL.Entities;
-using RacingLeagueHub.BLL.Models.Dtos.Track;
+﻿using RacingLeagueHub.API.Dtos.Track;
+using RacingLeagueHub.BLL.Entities;
 using System.Linq.Expressions;
 
 namespace RacingLeagueHub.BLL.Mapping.DtoFactories.Admin;

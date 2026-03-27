@@ -1,6 +1,7 @@
-﻿using RacingLeagueHub.BLL.Models.Constants;
+﻿using RacingLeagueHub.API.Dtos;
+using RacingLeagueHub.BLL.Models.Constants;
 
-namespace RacingLeagueHub.BLL.Models.Dtos.Track;
+namespace RacingLeagueHub.API.Dtos.Track;
 
 public class TrackDto : BaseDto
 {
