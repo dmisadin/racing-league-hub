@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.BLL.Models.Enums;
 
-namespace RacingLeagueHub.BLL.Entities;
+namespace RacingLeagueHub.BLL.Entities.GrandsPrix;
 
 public class GrandPrixResult : EntityBase
 {

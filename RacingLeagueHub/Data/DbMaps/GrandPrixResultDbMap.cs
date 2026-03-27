@@ -1,5 +1,5 @@
-﻿using RacingLeagueHub.BLL.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using RacingLeagueHub.BLL.Entities.GrandsPrix;
 
 namespace RacingLeagueHub.Data.DbMaps;
 

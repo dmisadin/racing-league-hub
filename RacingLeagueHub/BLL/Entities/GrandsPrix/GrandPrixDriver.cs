@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.BLL.Entities;
+﻿namespace RacingLeagueHub.BLL.Entities.GrandsPrix;
 
 public class GrandPrixDriver : EntityBase
 {
