@@ -6,7 +6,7 @@ using RacingLeagueHub.BLL.Mapping.DtoFactories.Admin;
 using RacingLeagueHub.BLL.Models.Dtos.Track;
 using RacingLeagueHub.Infrastructure;
 
-namespace RacingLeagueHub.Controllers.Admin;
+namespace RacingLeagueHub.API.Controllers.Admin;
 
 [Route("api/track-layout")]
 [ApiController]

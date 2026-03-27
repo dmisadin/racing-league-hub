@@ -5,7 +5,7 @@ using RacingLeagueHub.BLL.Mapping.DtoFactories;
 using RacingLeagueHub.BLL.Models.Dtos.Team;
 using RacingLeagueHub.Infrastructure;
 
-namespace RacingLeagueHub.Controllers.Admin;
+namespace RacingLeagueHub.API.Controllers.Admin;
 
 [Route("api/team")]
 [ApiController]

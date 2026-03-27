@@ -4,7 +4,7 @@ using RacingLeagueHub.BLL.Models.Dtos.Team;
 using RacingLeagueHub.BLL.Entities;
 using RacingLeagueHub.Infrastructure;
 
-namespace RacingLeagueHub.Controllers.Admin;
+namespace RacingLeagueHub.API.Controllers.Admin;
 
 
 [Route("api/game-team")]
