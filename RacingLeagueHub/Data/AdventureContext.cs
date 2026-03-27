@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace RacingLeagueHub.BLL.Database;
+namespace RacingLeagueHub.Data;
 
 public partial class AdventureContext : DbContext
 {

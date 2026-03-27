@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace RacingLeagueHub.BLL.Database.DbMaps;
+namespace RacingLeagueHub.Data.DbMaps;
 
 public interface IDbMap
 {

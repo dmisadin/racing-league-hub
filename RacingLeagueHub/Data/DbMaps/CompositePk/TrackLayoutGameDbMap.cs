@@ -1,8 +1,9 @@
 ﻿using RacingLeagueHub.BLL.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using RacingLeagueHub.Data.DbMaps;
 
-namespace RacingLeagueHub.BLL.Database.DbMaps.CompositePk;
+namespace RacingLeagueHub.Data.DbMaps.CompositePk;
 
 public class TrackLayoutGameDbMap : IDbMap
 {

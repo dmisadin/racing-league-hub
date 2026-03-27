@@ -1,8 +1,8 @@
-﻿using RacingLeagueHub.BLL.Database.DbMaps;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using RacingLeagueHub.Data.DbMaps;
 
-namespace RacingLeagueHub.BLL.Database;
+namespace RacingLeagueHub.Data;
 
 public static class ModelBuilderExtensions
 {

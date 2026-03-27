@@ -1,7 +1,7 @@
 ﻿using RacingLeagueHub.BLL.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace RacingLeagueHub.BLL.Database.DbMaps;
+namespace RacingLeagueHub.Data.DbMaps;
 
 public class GameTeamDbMap : DbMapBase<GameTeam>
 {

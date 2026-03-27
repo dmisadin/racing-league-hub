@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace RacingLeagueHub.BLL.Database.DbMaps;
+namespace RacingLeagueHub.Data.DbMaps;
 
 public abstract class DbMapBase<TEntity> : IDbMap
     where TEntity : class, IEntity

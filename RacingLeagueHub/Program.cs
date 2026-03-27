@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.BLL.Database;
+using RacingLeagueHub.Data;
 using RacingLeagueHub.Infrastructure;
 using RacingLeagueHub.Startup;
 

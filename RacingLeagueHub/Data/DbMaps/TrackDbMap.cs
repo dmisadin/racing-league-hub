@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.BLL.Entities;
 
-namespace RacingLeagueHub.BLL.Database.DbMaps;
+namespace RacingLeagueHub.Data.DbMaps;
 
 public class TrackDbMap : DbMapBase<Track>
 {

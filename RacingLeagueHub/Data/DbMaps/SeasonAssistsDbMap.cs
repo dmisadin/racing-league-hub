@@ -1,7 +1,7 @@
 ﻿using RacingLeagueHub.BLL.Entities.Seasons;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace RacingLeagueHub.BLL.Database.DbMaps;
+namespace RacingLeagueHub.Data.DbMaps;
 
 public class SeasonAssistsDbMap : DbMapBase<SeasonAssists>
 {

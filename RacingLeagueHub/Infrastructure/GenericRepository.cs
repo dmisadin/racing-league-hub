@@ -1,6 +1,6 @@
-﻿using RacingLeagueHub.BLL.Database;
-using RacingLeagueHub.BLL.Entities;
+﻿using RacingLeagueHub.BLL.Entities;
 using Microsoft.EntityFrameworkCore;
+using RacingLeagueHub.Data;
 
 namespace RacingLeagueHub.Infrastructure;
 
