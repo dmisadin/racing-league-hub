@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.API.DtoFactories;
 using RacingLeagueHub.API.Dtos;
 using RacingLeagueHub.BLL.Entities;
+using RacingLeagueHub.BLL.Infrastructure;
 
-namespace RacingLeagueHub.Infrastructure;
+namespace RacingLeagueHub.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

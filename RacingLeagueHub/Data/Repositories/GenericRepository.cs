@@ -1,8 +1,9 @@
 ﻿using RacingLeagueHub.BLL.Entities;
 using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.Data;
+using RacingLeagueHub.BLL.Infrastructure;
 
-namespace RacingLeagueHub.Infrastructure;
+namespace RacingLeagueHub.Data.Repositories;
 
 public class GenericRepository<TEntity> : IRepository<TEntity> 
     where TEntity : EntityBase

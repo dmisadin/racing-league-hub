@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.API.DtoFactories;
 using RacingLeagueHub.API.Dtos.Team;
 using RacingLeagueHub.BLL.Entities;
-using RacingLeagueHub.Infrastructure;
+using RacingLeagueHub.BLL.Infrastructure;
 
 namespace RacingLeagueHub.API.Controllers.Admin;
 

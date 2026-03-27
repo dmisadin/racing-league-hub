@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.BLL.Entities;
 
-namespace RacingLeagueHub.Infrastructure;
+namespace RacingLeagueHub.BLL.Infrastructure;
 
 public interface IRepository<TEntity> where TEntity : IEntity
 {

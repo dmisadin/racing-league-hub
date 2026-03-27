@@ -4,7 +4,7 @@ using RacingLeagueHub.API.DtoFactories;
 using RacingLeagueHub.API.DtoFactories.Admin;
 using RacingLeagueHub.API.Dtos.Track;
 using RacingLeagueHub.BLL.Entities;
-using RacingLeagueHub.Infrastructure;
+using RacingLeagueHub.BLL.Infrastructure;
 
 namespace RacingLeagueHub.API.Controllers.Admin;
 
