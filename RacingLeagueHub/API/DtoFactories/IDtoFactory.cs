@@ -1,7 +1,7 @@
 ﻿using RacingLeagueHub.BLL.Entities;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.BLL.Mapping.DtoFactories;
+namespace RacingLeagueHub.API.DtoFactories;
 
 public interface IDtoFactory<TEntity, TDto>
     where TEntity : IEntity

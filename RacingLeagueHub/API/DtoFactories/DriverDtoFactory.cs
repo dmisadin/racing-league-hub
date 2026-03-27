@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using RacingLeagueHub.API.Dtos;
 
-namespace RacingLeagueHub.BLL.Mapping.DtoFactories;
+namespace RacingLeagueHub.API.DtoFactories;
 
 public class DriverDtoFactory : DtoFactoryBase<Driver, DriverDto>
 {

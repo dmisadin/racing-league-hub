@@ -4,7 +4,7 @@ using RacingLeagueHub.BLL.Entities;
 using RacingLeagueHub.BLL.Models.Storage;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.BLL.Mapping.DtoFactories;
+namespace RacingLeagueHub.API.DtoFactories;
 
 public class TeamDtoFactory : DtoFactoryBase<Team, TeamDto>
 {    

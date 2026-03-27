@@ -2,7 +2,7 @@
 using RacingLeagueHub.BLL.Entities;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.BLL.Mapping.DtoFactories;
+namespace RacingLeagueHub.API.DtoFactories;
 
 public class GameTeamDtoFactory : DtoFactoryBase<GameTeam, GameTeamDto>
 {

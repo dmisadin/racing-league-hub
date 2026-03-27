@@ -27,6 +27,7 @@
   <ItemGroup>
     <Folder Include="BLL\Entities\GrandPrix\" />
     <Folder Include="BLL\Entities\League\" />
+    <Folder Include="BLL\Mapping\" />
     <Folder Include="BLL\Models\Dtos\" />
   </ItemGroup>
 

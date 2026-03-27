@@ -1,8 +1,9 @@
-﻿using RacingLeagueHub.API.Dtos.Track;
+﻿using RacingLeagueHub.API.DtoFactories;
+using RacingLeagueHub.API.Dtos.Track;
 using RacingLeagueHub.BLL.Entities;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.BLL.Mapping.DtoFactories.Admin;
+namespace RacingLeagueHub.API.DtoFactories.Admin;
 
 public class TrackDtoFactory : DtoFactoryBase<Track, TrackDto>
 {

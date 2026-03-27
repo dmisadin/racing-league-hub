@@ -3,7 +3,7 @@ using RacingLeagueHub.BLL.Entities.Resources;
 using RacingLeagueHub.BLL.Services.Interfaces;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.BLL.Mapping.DtoFactories;
+namespace RacingLeagueHub.API.DtoFactories;
 
 public class ResourceDtoFactory(IStorageService storageService) : DtoFactoryBase<Resource, ResourceDto>
 {
