@@ -24,9 +24,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.4" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="BLL\Entities\GrandPrix\" />
-    <Folder Include="BLL\Entities\League\" />
-  </ItemGroup>
-
 </Project>

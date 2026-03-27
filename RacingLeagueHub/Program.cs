@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.BLL.Database;
-using RacingLeagueHub.Infrastructure;
+using RacingLeagueHub.BLL.Infrastructure;
+using RacingLeagueHub.Data;
+using RacingLeagueHub.Data.Repositories;
 using RacingLeagueHub.Startup;
 
 var builder = WebApplication.CreateBuilder(args);

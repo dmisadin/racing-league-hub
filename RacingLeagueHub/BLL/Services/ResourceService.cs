@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RacingLeagueHub.API.DtoFactories;
 using RacingLeagueHub.API.Dtos.Resource;
 using RacingLeagueHub.BLL.Entities.Resources;
-using RacingLeagueHub.BLL.Mapping.DtoFactories;
 using RacingLeagueHub.BLL.Services.Interfaces;
 using RacingLeagueHub.Data.Repositories;
 

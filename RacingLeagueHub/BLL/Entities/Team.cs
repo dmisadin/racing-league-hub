@@ -1,4 +1,5 @@
-﻿using RacingLeagueHub.BLL.Entities.Seasons;
+﻿using RacingLeagueHub.BLL.Entities.GrandsPrix;
+using RacingLeagueHub.BLL.Entities.Seasons;
 
 namespace RacingLeagueHub.BLL.Entities;
 

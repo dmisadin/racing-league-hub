@@ -1,6 +1,4 @@
-﻿using RacingLeagueHub.BLL.Models.Dtos;
-
-namespace RacingLeagueHub.API.Dtos.Resource;
+﻿namespace RacingLeagueHub.API.Dtos.Resource;
 
 public class ResourceBaseDto : BaseDto
 {
