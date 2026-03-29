@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.API.DtoFactories;
-using RacingLeagueHub.API.DtoFactories.Admin;
 using RacingLeagueHub.API.Dtos.Track;
 using RacingLeagueHub.BLL.Entities;
 using RacingLeagueHub.BLL.Infrastructure;
+using RacingLeagueHub.BLL.Models;
 
 namespace RacingLeagueHub.API.Controllers.Admin;
 
@@ -18,9 +18,9 @@ public class TrackLayoutController : GenericController<TrackLayout, TrackLayoutD
 
     protected override IDtoFactory<TrackLayout, TrackLayoutDto> DtoFactory => new TrackLayoutDtoFactory();
 
-    public async override Task<ActionResult<long>> Update([FromBody] TrackLayoutDto dto)
+    public async override Task<ActionResult<EncryptedId>> Update([FromBody] TrackLayoutDto dto)
     {
-        var id = dto.Id;
+        var id = dto.Id?.RawId;
         if (id == null || id == 0)
             return BadRequest("Invalid ID.");
 
@@ -36,6 +36,6 @@ public class TrackLayoutController : GenericController<TrackLayout, TrackLayoutD
 
         await this.repository.CommitAsync();
 
-        return Ok(entity.Id);
+        return Ok(new EncryptedId(entity.Id));
     }
 }

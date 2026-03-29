@@ -1,9 +1,9 @@
-﻿using RacingLeagueHub.API.DtoFactories;
-using RacingLeagueHub.API.Dtos.Track;
+﻿using RacingLeagueHub.API.Dtos.Track;
 using RacingLeagueHub.BLL.Entities;
+using RacingLeagueHub.BLL.Models;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.API.DtoFactories.Admin;
+namespace RacingLeagueHub.API.DtoFactories;
 
 public class TrackDtoFactory : DtoFactoryBase<Track, TrackDto>
 {
@@ -19,15 +19,15 @@ public class TrackDtoFactory : DtoFactoryBase<Track, TrackDto>
     {
         return track => new TrackDto
         {
-            Id = track.Id,
+            Id = new EncryptedId(track.Id),
             Name = track.Name,
             CountryAlpha2 = track.Country,
             City = track.City,
             ShortName = track.ShortName,
             TrackLayouts = track.TrackLayouts.Select(tl => new TrackLayoutDto
             {
-                Id = tl.Id,
-                TrackId = tl.TrackId,
+                Id = new EncryptedId(tl.Id),
+                TrackId = new EncryptedId(tl.TrackId),
                 Name = tl.Name,
                 PitStopDuration = tl.PitStopDuration,
                 CornersTotal = tl.CornersTotal,

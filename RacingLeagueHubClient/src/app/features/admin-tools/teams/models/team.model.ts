@@ -10,7 +10,7 @@ export interface TeamDto extends BaseDto {
 
 export interface GameTeamDto extends BaseDto {
     game: Game;
-    teamId: number;
+    teamId: string;
     name: string;
     shortName: string;
     abbreviation: string;

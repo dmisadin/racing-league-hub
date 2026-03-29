@@ -4,6 +4,7 @@ using RacingLeagueHub.API.DtoFactories;
 using RacingLeagueHub.API.Dtos.Team;
 using RacingLeagueHub.BLL.Entities;
 using RacingLeagueHub.BLL.Infrastructure;
+using RacingLeagueHub.BLL.Models;
 
 namespace RacingLeagueHub.API.Controllers.Admin;
 
@@ -17,7 +18,7 @@ public class TeamController : GenericController<Team, TeamDto>
 
     protected override IDtoFactory<Team, TeamDto> DtoFactory => new TeamDtoFactory();
 
-    public override Task<IActionResult> Delete(long id)
+    public override Task<IActionResult> Delete([FromRoute] EncryptedId id)
     {
         return Task.FromResult<IActionResult>(StatusCode(StatusCodes.Status403Forbidden));
     }

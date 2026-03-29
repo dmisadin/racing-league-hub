@@ -1,6 +1,7 @@
 ﻿using RacingLeagueHub.API.Dtos.Resource;
 using RacingLeagueHub.API.Dtos.Team;
 using RacingLeagueHub.BLL.Entities;
+using RacingLeagueHub.BLL.Models;
 using RacingLeagueHub.BLL.Models.Storage;
 using System.Linq.Expressions;
 
@@ -20,24 +21,24 @@ public class TeamDtoFactory : DtoFactoryBase<Team, TeamDto>
 
         return team => new TeamDto
         {
-            Id = team.Id,
+            Id = new EncryptedId(team.Id),
             Name = team.Name,
             Color = team.Color,
             GameSpecificTeams = team.GameTeams
                 .Select(gt => new GameTeamDto
                 {
-                    Id = gt.Id,
+                    Id = new EncryptedId(gt.Id),
                     Game = gt.Game,
-                    TeamId = gt.TeamId,
+                    TeamId = new EncryptedId(gt.TeamId),
                     Name = gt.Name,
                     ShortName = gt.ShortName,
                     Abbreviation = gt.Abbreviation,
                     Color = gt.Color,
                     TelemetryId = gt.TelemetryId,
-                    LogoResourceId = gt.LogoResourceId,
+                    LogoResourceId = gt.LogoResourceId != null ? new EncryptedId(gt.LogoResourceId.Value) : null,
                     Logo = gt.LogoResourceId == null ? null : new ResourceBaseDto
                     {
-                        Id = gt.LogoResource!.Id,
+                        Id = new EncryptedId(gt.LogoResource!.Id),
                         FileUrl = baseStorageUrl + "/uploads/" + gt.LogoResource.StorageId + "." + gt.LogoResource.Extension,
                         Extension = gt.LogoResource.Extension
                     }

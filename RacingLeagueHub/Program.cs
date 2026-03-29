@@ -1,13 +1,21 @@
 using Microsoft.EntityFrameworkCore;
+using RacingLeagueHub.API.Configuration.Binders;
 using RacingLeagueHub.BLL.Infrastructure;
+using RacingLeagueHub.BLL.Models;
 using RacingLeagueHub.Data;
 using RacingLeagueHub.Data.Repositories;
 using RacingLeagueHub.Startup;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers()
-                .AddNewtonsoftJson();
+builder.Services.AddControllers(options =>
+    {
+        options.ModelBinderProviders.Insert(0, new EncryptedIdModelBinderProvider());
+    })
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.Converters.Add(new EncryptedIdJsonConverter());
+    });
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 

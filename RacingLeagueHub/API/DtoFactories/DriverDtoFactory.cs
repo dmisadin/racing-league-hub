@@ -1,6 +1,7 @@
 ﻿using RacingLeagueHub.BLL.Entities;
 using System.Linq.Expressions;
 using RacingLeagueHub.API.Dtos;
+using RacingLeagueHub.BLL.Models;
 
 namespace RacingLeagueHub.API.DtoFactories;
 
@@ -19,7 +20,7 @@ public class DriverDtoFactory : DtoFactoryBase<Driver, DriverDto>
     {
         return driver => new DriverDto
         {
-            Id = driver.Id,
+            Id = new EncryptedId(driver.Id),
             Nickname = driver.Nickname,
             FirstName = driver.FirstName,
             LastName = driver.LastName,

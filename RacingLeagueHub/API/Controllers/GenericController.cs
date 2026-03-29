@@ -4,6 +4,7 @@ using RacingLeagueHub.API.DtoFactories;
 using RacingLeagueHub.API.Dtos;
 using RacingLeagueHub.BLL.Entities;
 using RacingLeagueHub.BLL.Infrastructure;
+using RacingLeagueHub.BLL.Models;
 
 namespace RacingLeagueHub.API.Controllers;
 
@@ -23,10 +24,10 @@ public abstract class GenericController<TEntity, TDto> : Controller
     protected abstract IDtoFactory<TEntity, TDto> DtoFactory { get; }
 
     [HttpGet("get-by-id/{id}")]
-    public virtual async Task<ActionResult<TDto>> GetOne([FromRoute] long id)
+    public virtual async Task<ActionResult<TDto>> GetOne([FromRoute] EncryptedId id)
     {
         var dto = await repository.Query()
-                                .Where(e => e.Id == id)
+                                .Where(e => e.Id == id.RawId)
                                 .Select(DtoFactory.ToDtoExpression())
                                 .FirstOrDefaultAsync();
 
@@ -37,7 +38,7 @@ public abstract class GenericController<TEntity, TDto> : Controller
     }
 
     [HttpPost("add")]
-    public virtual async Task<ActionResult<long>> Add([FromBody] TDto dto)
+    public virtual async Task<ActionResult<EncryptedId>> Add([FromBody] TDto dto)
     {
         var entity = repository.Create();
         DtoFactory.FromDto(entity, dto);
@@ -45,13 +46,13 @@ public abstract class GenericController<TEntity, TDto> : Controller
         await this.repository.InsertAsync(entity);
         await this.repository.CommitAsync();
 
-        return Ok(entity.Id);
+        return Ok(new EncryptedId(entity.Id));
     }
 
     [HttpPost("update")]
-    public virtual async Task<ActionResult<long>> Update([FromBody] TDto dto)
+    public virtual async Task<ActionResult<EncryptedId>> Update([FromBody] TDto dto)
     {
-        var id = dto.Id;
+        var id = dto.Id?.RawId;
         if (id == null || id == 0)
             return BadRequest("Invalid ID.");
 
@@ -64,14 +65,14 @@ public abstract class GenericController<TEntity, TDto> : Controller
 
         await this.repository.CommitAsync();
 
-        return Ok(entity.Id);
+        return Ok(new EncryptedId(entity.Id));
     }
 
     [HttpDelete("delete/{id}")]
-    public virtual async Task<IActionResult> Delete([FromRoute] long id)
+    public virtual async Task<IActionResult> Delete([FromRoute] EncryptedId id)
     {
         var rows = await repository.Query()
-            .Where(x => x.Id == id)
+            .Where(x => x.Id == id.RawId)
             .ExecuteDeleteAsync();
 
         return rows == 0 ? NotFound() : NoContent();
@@ -80,10 +81,10 @@ public abstract class GenericController<TEntity, TDto> : Controller
     [HttpPost("upsert-many")]
     public async Task UpsertMany([FromBody]IEnumerable<TDto> dtos)
     {
-        var toUpdate = dtos.Where(x => x.Id > 0).ToList();
-        var toInsert = dtos.Where(x => x.Id == 0).ToList();
+        var toUpdate = dtos.Where(x => x.Id?.RawId > 0).ToList();
+        var toInsert = dtos.Where(x => x.Id?.RawId == 0).ToList();
 
-        var ids = toUpdate.Select(x => x.Id).ToList();
+        var ids = toUpdate.Select(x => x.Id?.RawId).ToList();
 
         var existing = await repository.Query()
             .Where(e => ids.Contains(e.Id))
@@ -91,7 +92,7 @@ public abstract class GenericController<TEntity, TDto> : Controller
 
         foreach (var dto in toUpdate)
         {
-            var entity = existing.FirstOrDefault(e => e.Id == dto.Id);
+            var entity = existing.FirstOrDefault(e => e.Id == dto.Id?.RawId);
             if (entity != null)
                 DtoFactory.FromDto(entity, dto);
         }

@@ -1,15 +1,15 @@
-﻿using RacingLeagueHub.API.DtoFactories;
-using RacingLeagueHub.API.Dtos.Track;
+﻿using RacingLeagueHub.API.Dtos.Track;
 using RacingLeagueHub.BLL.Entities;
+using RacingLeagueHub.BLL.Models;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.API.DtoFactories.Admin;
+namespace RacingLeagueHub.API.DtoFactories;
 
 public class TrackLayoutDtoFactory : DtoFactoryBase<TrackLayout, TrackLayoutDto>
 {
     public override void FromDto(TrackLayout entity, TrackLayoutDto dto)
     {
-        entity.TrackId = dto.TrackId;
+        entity.TrackId = dto.TrackId.RawId;
         entity.Name = dto.Name;
         entity.PitStopDuration = dto.PitStopDuration;
         entity.CornersTotal = dto.CornersTotal;
@@ -35,8 +35,8 @@ public class TrackLayoutDtoFactory : DtoFactoryBase<TrackLayout, TrackLayoutDto>
     {
         return tl => new TrackLayoutDto
         {
-            Id = tl.Id,
-            TrackId = tl.TrackId,
+            Id = new EncryptedId(tl.Id),
+            TrackId = new EncryptedId(tl.TrackId),
             Name = tl.Name,
             PitStopDuration = tl.PitStopDuration,
             CornersTotal = tl.CornersTotal,
