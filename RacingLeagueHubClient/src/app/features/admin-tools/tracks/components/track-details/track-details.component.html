@@ -4,7 +4,7 @@
     
     @for (layout of dto()?.trackLayouts; track layout.id) 
     {
-    <details #trackLayoutAccordion class="mb-2 border border-base-300 rounded-lg bg-base-100" name="track-layouts-accordion-2">
+    <details #trackLayoutAccordion class="mb-2 border border-base-300 rounded-lg bg-base-100 overflow-hidden" name="track-layouts-accordion-2">
         <summary class="cursor-pointer font-semibold p-4 hover:bg-base-200">
             [{{layout.id}}] {{ layout.name }}
         </summary>

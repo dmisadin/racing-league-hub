@@ -13,7 +13,7 @@ export interface TrackDto extends BaseDto {
 }
 
 export interface TrackLayoutDto extends BaseDto {
-    trackId: number;
+    trackId: string;
     name: string;
     pitStopDuration: number | null;
     cornersTotal: number;

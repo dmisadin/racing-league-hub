@@ -15,16 +15,14 @@ import { ModalFormParent } from '../../../../../shared/components/modal/modal-fo
 })
 export class TeamDetailsComponent extends ModalFormParent<TeamDto> implements OnInit {
     private readonly routeService = inject(RouteService);
-    teamId = signal<number | null>(null);
+    teamId = signal<string | null>(null);
 
     Game = Game;
 
     ngOnInit(): void {
         const teamId = this.routeService.getRouteParam('teamId');
-        if (!teamId)
-            return;
 
-        this.teamId.set(Number(teamId));
+        this.teamId.set(teamId);
     }
 
     protected override loadDto() {

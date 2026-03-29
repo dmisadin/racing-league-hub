@@ -24,7 +24,7 @@ export class GameTeamFormComponent {
     private readonly restService = inject(RestService);
     private readonly listService = inject(ListService);
 
-    gameTeamId = input<number>();
+    gameTeamId = input<string>();
     gameTeam = input<GameTeamDto | null>(null);
     cancel = output();
 
@@ -32,7 +32,7 @@ export class GameTeamFormComponent {
     gameChoices: DropdownOption[] = enumToOptions(Game);
 
     constructor() {
-        const teamId = Number(this.routeService.getRouteParam("teamId"));
+        const teamId = this.routeService.getRouteParam("teamId");
         
         this.form = this.fb.group({
             id: [null],

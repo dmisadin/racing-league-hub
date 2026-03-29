@@ -24,7 +24,7 @@ export class TrackLayoutFormComponent implements OnInit {
     private readonly restService = inject(RestService);
     private readonly listService = inject(ListService);
 
-    trackLayoutId = input<number>();
+    trackLayoutId = input<string>();
     trackLayout = input<TrackLayoutDto | null>(null);
     cancel = output();
 
@@ -32,7 +32,7 @@ export class TrackLayoutFormComponent implements OnInit {
     gameChoices: DropdownOption[] = enumToOptions(Game);
 
     ngOnInit(): void {
-        const trackId = Number(this.routeService.getRouteParam("trackId"));
+        const trackId = this.routeService.getRouteParam("trackId");
 
         this.form = this.fb.group({
             id: [null],
