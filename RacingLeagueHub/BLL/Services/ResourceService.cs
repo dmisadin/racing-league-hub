@@ -2,6 +2,7 @@
 using RacingLeagueHub.API.DtoFactories;
 using RacingLeagueHub.API.Dtos.Resource;
 using RacingLeagueHub.BLL.Entities.Resources;
+using RacingLeagueHub.BLL.Models;
 using RacingLeagueHub.BLL.Services.Interfaces;
 using RacingLeagueHub.Data.Repositories;
 
@@ -93,7 +94,7 @@ public class ResourceService(
 
     private ResourceDto ToDto(Resource r) => new()
     {
-        Id = r.Id,
+        Id = new EncryptedId(r.Id),
         StorageId = r.StorageId,
         FileName = r.FileName,
         Extension = r.Extension,

@@ -1,11 +1,12 @@
 ﻿using RacingLeagueHub.API.Dtos;
+using RacingLeagueHub.BLL.Models;
 using RacingLeagueHub.BLL.Models.Enums;
 
 namespace RacingLeagueHub.API.Dtos.Track;
 
 public class TrackLayoutDto : BaseDto
 {
-    public long TrackId { get; set; }
+    public EncryptedId TrackId { get; set; }
     public string Name { get; set; }
     public short? PitStopDuration { get; set; }
     public short CornersTotal { get; set; }

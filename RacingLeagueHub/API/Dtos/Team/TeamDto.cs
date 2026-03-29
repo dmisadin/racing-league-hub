@@ -1,6 +1,4 @@
-﻿using RacingLeagueHub.API.Dtos;
-
-namespace RacingLeagueHub.API.Dtos.Team;
+﻿namespace RacingLeagueHub.API.Dtos.Team;
 
 public class TeamDto : BaseDto
 {

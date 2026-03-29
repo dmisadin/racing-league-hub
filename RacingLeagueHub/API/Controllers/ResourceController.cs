@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.API.Dtos.Resource;
+using RacingLeagueHub.BLL.Models;
 using RacingLeagueHub.BLL.Services.Interfaces;
 
 namespace RacingLeagueHub.API.Controllers;
@@ -9,10 +10,10 @@ namespace RacingLeagueHub.API.Controllers;
 public class ResourcesController(IResourceService resourceService) : ControllerBase
 {
 
-    [HttpGet("get-by-id/{id:long}")]
-    public async Task<ActionResult<ResourceDto>> GetById(long id, CancellationToken ct)
+    [HttpGet("get-by-id/{id}")]
+    public async Task<ActionResult<ResourceDto>> GetById([FromRoute] EncryptedId id, CancellationToken ct)
     {
-        var file = await resourceService.GetByIdAsync(id, ct);
+        var file = await resourceService.GetByIdAsync(id.RawId, ct);
 
         if (file == null)
             NotFound();
@@ -20,10 +21,10 @@ public class ResourcesController(IResourceService resourceService) : ControllerB
         return Ok(file);
     }
 
-    [HttpGet("get-file-url/{id:long}")]
-    public async Task<ActionResult<IReadOnlyList<ResourceDto>>> GetFileUrl(long id, CancellationToken ct)
+    [HttpGet("get-file-url/{id}")]
+    public async Task<ActionResult<IReadOnlyList<ResourceDto>>> GetFileUrl([FromRoute] EncryptedId id, CancellationToken ct)
     {
-        var fileUrl = await resourceService.GetFileUrl(id, ct);
+        var fileUrl = await resourceService.GetFileUrl(id.RawId, ct);
 
         if (fileUrl == null)
             NotFound();
@@ -52,10 +53,10 @@ public class ResourcesController(IResourceService resourceService) : ControllerB
         return Ok(result);
     }
 
-    [HttpDelete("delete/{id:long}")]
-    public async Task<IActionResult> Delete(long id, CancellationToken ct)
+    [HttpDelete("delete/{id}")]
+    public async Task<IActionResult> Delete([FromRoute] EncryptedId id, CancellationToken ct)
     {
-        await resourceService.DeleteAsync(id, ct);
+        await resourceService.DeleteAsync(id.RawId, ct);
         return NoContent();
     }
 }
