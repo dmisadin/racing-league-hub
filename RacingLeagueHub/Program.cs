@@ -1,9 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.API.Configuration.Binders;
-using RacingLeagueHub.BLL.Infrastructure;
+using RacingLeagueHub.BLL.Interceptors.EntityHandlers;
 using RacingLeagueHub.BLL.Models;
 using RacingLeagueHub.Data;
-using RacingLeagueHub.Data.Repositories;
 using RacingLeagueHub.Startup;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +17,7 @@ builder.Services.AddControllers(options =>
     });
 
 builder.Services.AddRepositories(typeof(Program).Assembly);
+builder.Services.AddEntityHandlers(typeof(Program).Assembly);
 
 builder.Services.AddDbContext<AdventureContext>(options => 
                     options.UseNpgsql(builder.Configuration
