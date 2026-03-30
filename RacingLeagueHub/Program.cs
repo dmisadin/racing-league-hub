@@ -17,7 +17,7 @@ builder.Services.AddControllers(options =>
         options.SerializerSettings.Converters.Add(new EncryptedIdJsonConverter());
     });
 
-builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+builder.Services.AddRepositories(typeof(Program).Assembly);
 
 builder.Services.AddDbContext<AdventureContext>(options => 
                     options.UseNpgsql(builder.Configuration
