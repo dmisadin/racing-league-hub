@@ -1,10 +1,12 @@
-﻿using RacingLeagueHub.BLL.Entities;
+﻿using RacingLeagueHub.API.Dtos;
+using RacingLeagueHub.BLL.Entities;
 using System.Linq.Expressions;
 
 namespace RacingLeagueHub.API.DtoFactories;
 
 public abstract class DtoFactoryBase<TEntity, TDto> : IDtoFactory<TEntity, TDto>
     where TEntity : IEntity
+    where TDto : BaseDto
 {
     private Func<TEntity, TDto> ToDtoCompiled;
 

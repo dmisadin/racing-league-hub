@@ -1,5 +1,6 @@
 ﻿using RacingLeagueHub.API.Dtos.Resource;
 using RacingLeagueHub.BLL.Entities.Resources;
+using RacingLeagueHub.BLL.Models;
 using RacingLeagueHub.BLL.Services.Interfaces;
 using System.Linq.Expressions;
 
@@ -19,6 +20,7 @@ public class ResourceDtoFactory(IStorageService storageService) : DtoFactoryBase
 
         return resource => new ResourceDto
         {
+            Id = new EncryptedId(resource.Id),
             StorageId = resource.StorageId,
             FileName = resource.FileName,
             Extension = resource.Extension,
