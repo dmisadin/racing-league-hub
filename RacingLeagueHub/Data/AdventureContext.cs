@@ -34,7 +34,7 @@ public partial class AdventureContext : DbContext
             {
                 h.Validate(entry);
                 if (state == EntityState.Added) h.BeforeAdded(entry);
-                if (state == EntityState.Modified) h.BeforeUpdate(entry, original!);
+                if (state == EntityState.Modified) h.BeforeUpdate(entry, original!, this);
                 if (state == EntityState.Deleted) h.BeforeDeleted(entry);
             }
         }
@@ -48,7 +48,7 @@ public partial class AdventureContext : DbContext
             foreach (var h in handlers)
             {
                 if (state == EntityState.Added) h.AfterAdded(entry);
-                if (state == EntityState.Modified) h.AfterUpdate(entry, original!);
+                if (state == EntityState.Modified) h.AfterUpdate(entry, original!, this);
                 if (state == EntityState.Deleted) h.AfterDeleted(entry);
             }
         }
