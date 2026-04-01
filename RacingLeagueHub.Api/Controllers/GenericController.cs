@@ -5,7 +5,7 @@ using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.BLL.Entities;
 using RacingLeagueHub.BLL.Infrastructure;
 
-namespace RacingLeagueHub.API.Controllers;
+namespace RacingLeagueHub.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

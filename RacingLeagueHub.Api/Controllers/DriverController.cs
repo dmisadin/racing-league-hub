@@ -3,7 +3,7 @@ using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.BLL.Entities;
 using RacingLeagueHub.BLL.Infrastructure;
 
-namespace RacingLeagueHub.API.Controllers;
+namespace RacingLeagueHub.Api.Controllers;
 
 public class DriverController : GenericController<Driver, DriverDto>
 {

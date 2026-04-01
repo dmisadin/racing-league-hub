@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using RacingLeagueHub.Application.Models;
 
-namespace RacingLeagueHub.API.Configuration.Binders;
+namespace RacingLeagueHub.Api.Configuration.Binders;
 
 public class EncryptedIdModelBinder : IModelBinder
 {

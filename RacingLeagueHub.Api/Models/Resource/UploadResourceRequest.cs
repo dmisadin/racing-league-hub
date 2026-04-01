@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.API.Models.Resource;
+﻿namespace RacingLeagueHub.Api.Models.Resource;
 
 public class UploadResourceRequest
 {

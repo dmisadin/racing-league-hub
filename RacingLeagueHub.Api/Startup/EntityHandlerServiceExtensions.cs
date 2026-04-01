@@ -1,7 +1,7 @@
 ﻿using RacingLeagueHub.BLL.Interceptors.EntityHandlers;
 using System.Reflection;
 
-namespace RacingLeagueHub.API.Startup;
+namespace RacingLeagueHub.Api.Startup;
 
 public static class EntityHandlerServiceExtensions
 {

@@ -1,7 +1,7 @@
 ﻿using RacingLeagueHub.BLL.Infrastructure;
 using RacingLeagueHub.BLL.Services.Interfaces;
 
-namespace RacingLeagueHub.API.Jobs.Reccuring;
+namespace RacingLeagueHub.Api.Jobs.Reccuring;
 
 public class OrphanResourceCleanupJob(
     IServiceScopeFactory scopeFactory,

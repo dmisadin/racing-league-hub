@@ -5,7 +5,7 @@ using RacingLeagueHub.BLL.Entities;
 using RacingLeagueHub.BLL.Infrastructure;
 using RacingLeagueHub.BLL.Models.Constants;
 
-namespace RacingLeagueHub.API.Controllers.Admin;
+namespace RacingLeagueHub.Api.Controllers.Admin;
 
 [Route("api/track")]
 [ApiController]

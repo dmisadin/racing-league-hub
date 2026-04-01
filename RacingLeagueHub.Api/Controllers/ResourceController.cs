@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RacingLeagueHub.API.Models.Resource;
+using RacingLeagueHub.Api.Models.Resource;
 using RacingLeagueHub.Application.Dtos.Resource;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Models.Resource;
 using RacingLeagueHub.Application.Services;
 
-namespace RacingLeagueHub.API.Controllers;
+namespace RacingLeagueHub.Api.Controllers;
 
 [ApiController]
 [Route("api/resource")]

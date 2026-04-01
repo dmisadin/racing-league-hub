@@ -6,7 +6,7 @@ using RacingLeagueHub.BLL.Services.Interfaces;
 using RacingLeagueHub.Data.Repositories;
 using RacingLeagueHub.Infrastructure.Services;
 
-namespace RacingLeagueHub.Startup;
+namespace RacingLeagueHub.Api.Startup;
 
 public static class ConfigureAWS
 {

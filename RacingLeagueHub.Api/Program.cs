@@ -1,9 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.API.Configuration.Binders;
-using RacingLeagueHub.API.Configuration.Serialization;
-using RacingLeagueHub.API.Startup;
+using RacingLeagueHub.Api.Configuration.Binders;
+using RacingLeagueHub.Api.Configuration.Serialization;
+using RacingLeagueHub.Api.Startup;
 using RacingLeagueHub.Data;
-using RacingLeagueHub.Startup;
 
 var builder = WebApplication.CreateBuilder(args);
 

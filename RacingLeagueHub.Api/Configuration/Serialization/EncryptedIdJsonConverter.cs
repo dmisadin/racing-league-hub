@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RacingLeagueHub.Application.Models;
 
-namespace RacingLeagueHub.API.Configuration.Serialization;
+namespace RacingLeagueHub.Api.Configuration.Serialization;
 
 public class EncryptedIdJsonConverter : JsonConverter<EncryptedId>
 {
