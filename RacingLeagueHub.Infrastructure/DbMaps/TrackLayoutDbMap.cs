@@ -1,7 +1,7 @@
 ﻿using RacingLeagueHub.Domain.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace RacingLeagueHub.Data.DbMaps;
+namespace RacingLeagueHub.Infrastructure.DbMaps;
 
 public class TrackLayoutDbMap : DbMapBase<TrackLayout>
 {

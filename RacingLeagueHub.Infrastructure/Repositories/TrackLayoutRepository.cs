@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.Domain.Entities;
-using RacingLeagueHub.Data;
-using RacingLeagueHub.Data.Repositories;
 
 namespace RacingLeagueHub.Infrastructure.Repositories;
 

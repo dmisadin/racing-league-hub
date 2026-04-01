@@ -3,7 +3,7 @@ using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Infrastructure;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Data.Repositories;
+namespace RacingLeagueHub.Infrastructure.Repositories;
 
 internal class GenericRepository<TEntity> : IRepository<TEntity> 
     where TEntity : EntityBase

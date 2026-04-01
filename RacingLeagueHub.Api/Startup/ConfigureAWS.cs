@@ -3,7 +3,7 @@ using RacingLeagueHub.Application.Services;
 using RacingLeagueHub.Application.Storage;
 using RacingLeagueHub.Domain.Infrastructure;
 using RacingLeagueHub.Domain.Services.Interfaces;
-using RacingLeagueHub.Data.Repositories;
+using RacingLeagueHub.Infrastructure.Repositories;
 using RacingLeagueHub.Infrastructure.Services;
 
 namespace RacingLeagueHub.Api.Startup;

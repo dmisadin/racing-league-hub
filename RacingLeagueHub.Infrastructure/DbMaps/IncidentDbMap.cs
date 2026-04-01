@@ -1,9 +1,9 @@
-﻿using RacingLeagueHub.Domain.Entities;
-using RacingLeagueHub.Domain.Entities.Stewarding;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Entities.Stewarding;
 
-namespace RacingLeagueHub.Data.DbMaps;
+namespace RacingLeagueHub.Infrastructure.DbMaps;
 
 public class IncidentDbMap : DbMapBase<Incident>
 {

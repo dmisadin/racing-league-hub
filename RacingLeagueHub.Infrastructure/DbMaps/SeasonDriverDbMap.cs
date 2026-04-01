@@ -1,8 +1,7 @@
-﻿using RacingLeagueHub.Domain.Entities.Seasons;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using RacingLeagueHub.Domain.Entities.Seasons;
 
-namespace RacingLeagueHub.Data.DbMaps;
+namespace RacingLeagueHub.Infrastructure.DbMaps;
 
 public class SeasonDriverDbMap : DbMapBase<SeasonDriver>
 {

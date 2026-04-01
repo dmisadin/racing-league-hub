@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.Domain.Entities.Resources;
 
-namespace RacingLeagueHub.Data.DbMaps;
+namespace RacingLeagueHub.Infrastructure.DbMaps;
 
 public class ResourceDbMap : DbMapBase<Resource>
 {

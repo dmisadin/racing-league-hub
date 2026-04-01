@@ -1,8 +1,8 @@
-﻿using RacingLeagueHub.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using RacingLeagueHub.Domain.Entities;
 
-namespace RacingLeagueHub.Data.DbMaps;
+namespace RacingLeagueHub.Infrastructure.DbMaps;
 
 public abstract class DbMapBase<TEntity> : IDbMap
     where TEntity : class, IEntity

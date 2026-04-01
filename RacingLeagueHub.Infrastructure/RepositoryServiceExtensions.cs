@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RacingLeagueHub.Domain.Infrastructure;
-using RacingLeagueHub.Data.Repositories;
+using RacingLeagueHub.Infrastructure.Repositories;
 using System.Reflection;
 
-namespace RacingLeagueHub.Data;
+namespace RacingLeagueHub.Infrastructure;
 
 public static class RepositoryServiceExtensions
 {

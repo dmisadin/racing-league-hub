@@ -2,7 +2,7 @@
 using RacingLeagueHub.Domain.Entities.Resources;
 using RacingLeagueHub.Domain.Infrastructure;
 
-namespace RacingLeagueHub.Data.Repositories;
+namespace RacingLeagueHub.Infrastructure.Repositories;
 
 public class ResourceRepository(AdventureContext db) : IResourceRepository
 {

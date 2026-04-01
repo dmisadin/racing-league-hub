@@ -2,7 +2,7 @@
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Interceptors.EntityHandlers;
 
-namespace RacingLeagueHub.Data;
+namespace RacingLeagueHub.Infrastructure;
 
 public partial class AdventureContext : DbContext
 {
