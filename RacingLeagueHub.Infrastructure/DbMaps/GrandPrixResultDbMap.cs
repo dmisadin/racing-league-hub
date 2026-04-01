@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RacingLeagueHub.BLL.Entities.GrandsPrix;
+using RacingLeagueHub.Domain.Entities.GrandsPrix;
 
 namespace RacingLeagueHub.Data.DbMaps;
 

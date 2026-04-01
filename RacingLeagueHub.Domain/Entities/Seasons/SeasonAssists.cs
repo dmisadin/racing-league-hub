@@ -1,6 +1,6 @@
-﻿using RacingLeagueHub.BLL.Models.Enums.Assists;
+﻿using RacingLeagueHub.Domain.Models.Enums.Assists;
 
-namespace RacingLeagueHub.BLL.Entities.Seasons;
+namespace RacingLeagueHub.Domain.Entities.Seasons;
 
 public class SeasonAssists : EntityBase
 {

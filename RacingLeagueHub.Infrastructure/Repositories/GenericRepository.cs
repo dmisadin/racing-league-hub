@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.BLL.Entities;
-using RacingLeagueHub.BLL.Infrastructure;
+using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Infrastructure;
 using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Data.Repositories;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.BLL.Entities;
-using RacingLeagueHub.BLL.Interceptors.EntityHandlers;
+using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Interceptors.EntityHandlers;
 
 namespace RacingLeagueHub.Data;
 

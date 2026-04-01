@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.BLL.Entities.Resources;
+﻿namespace RacingLeagueHub.Domain.Entities.Resources;
 
 public enum ResourceStatus : short
 {

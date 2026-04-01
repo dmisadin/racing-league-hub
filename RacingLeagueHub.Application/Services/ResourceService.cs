@@ -3,9 +3,9 @@ using RacingLeagueHub.Application.DtoFactories;
 using RacingLeagueHub.Application.Dtos.Resource;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Models.Resource;
-using RacingLeagueHub.BLL.Entities.Resources;
-using RacingLeagueHub.BLL.Infrastructure;
-using RacingLeagueHub.BLL.Services.Interfaces;
+using RacingLeagueHub.Domain.Entities.Resources;
+using RacingLeagueHub.Domain.Infrastructure;
+using RacingLeagueHub.Domain.Services.Interfaces;
 
 namespace RacingLeagueHub.Application.Services;
 

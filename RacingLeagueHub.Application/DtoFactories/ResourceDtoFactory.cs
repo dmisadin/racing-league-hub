@@ -1,7 +1,7 @@
 ﻿using RacingLeagueHub.Application.Dtos.Resource;
 using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.BLL.Entities.Resources;
-using RacingLeagueHub.BLL.Services.Interfaces;
+using RacingLeagueHub.Domain.Entities.Resources;
+using RacingLeagueHub.Domain.Services.Interfaces;
 using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Application.DtoFactories;

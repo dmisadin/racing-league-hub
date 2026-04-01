@@ -1,6 +1,6 @@
-﻿using RacingLeagueHub.BLL.Models.Enums;
+﻿using RacingLeagueHub.Domain.Models.Enums;
 
-namespace RacingLeagueHub.BLL.Entities;
+namespace RacingLeagueHub.Domain.Entities;
 
 public class TrackLayoutGame
 {

@@ -1,7 +1,7 @@
-﻿using RacingLeagueHub.BLL.Entities.GrandsPrix;
-using RacingLeagueHub.BLL.Entities.Seasons;
+﻿using RacingLeagueHub.Domain.Entities.GrandsPrix;
+using RacingLeagueHub.Domain.Entities.Seasons;
 
-namespace RacingLeagueHub.BLL.Entities;
+namespace RacingLeagueHub.Domain.Entities;
 
 public class Team : EntityBase
 {

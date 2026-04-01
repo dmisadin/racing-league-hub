@@ -1,7 +1,7 @@
-﻿using RacingLeagueHub.BLL.Entities;
+﻿using RacingLeagueHub.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.BLL.Infrastructure;
+namespace RacingLeagueHub.Domain.Infrastructure;
 
 public interface IRepository<TEntity> where TEntity : IEntity
 {

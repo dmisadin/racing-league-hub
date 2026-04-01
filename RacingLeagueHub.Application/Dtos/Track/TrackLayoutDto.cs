@@ -1,5 +1,5 @@
 ﻿using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.BLL.Models.Enums;
+using RacingLeagueHub.Domain.Models.Enums;
 
 namespace RacingLeagueHub.Application.Dtos.Track;
 

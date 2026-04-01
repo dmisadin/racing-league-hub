@@ -2,8 +2,8 @@
 using RacingLeagueHub.Application.DtoFactories;
 using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.BLL.Entities;
-using RacingLeagueHub.BLL.Infrastructure;
+using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Infrastructure;
 
 namespace RacingLeagueHub.Api.Controllers;
 

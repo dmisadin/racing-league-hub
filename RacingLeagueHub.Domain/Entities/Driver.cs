@@ -1,6 +1,6 @@
-﻿using RacingLeagueHub.BLL.Entities.Seasons;
+﻿using RacingLeagueHub.Domain.Entities.Seasons;
 
-namespace RacingLeagueHub.BLL.Entities;
+namespace RacingLeagueHub.Domain.Entities;
 
 public partial class Driver : EntityBase
 {

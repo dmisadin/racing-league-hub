@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.BLL.Entities;
+﻿using RacingLeagueHub.Domain.Entities;
 
 namespace RacingLeagueHub.Data.DbMaps;
 

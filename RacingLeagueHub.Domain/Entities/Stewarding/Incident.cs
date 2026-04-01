@@ -1,7 +1,7 @@
-﻿using RacingLeagueHub.BLL.Models.Enums;
-using RacingLeagueHub.BLL.Entities.GrandsPrix;
+﻿using RacingLeagueHub.Domain.Models.Enums;
+using RacingLeagueHub.Domain.Entities.GrandsPrix;
 
-namespace RacingLeagueHub.BLL.Entities.Stewarding;
+namespace RacingLeagueHub.Domain.Entities.Stewarding;
 
 public class Incident : EntityBase
 {

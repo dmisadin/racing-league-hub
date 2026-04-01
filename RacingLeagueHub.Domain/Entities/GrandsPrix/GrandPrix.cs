@@ -1,7 +1,7 @@
-﻿using RacingLeagueHub.BLL.Entities.Seasons;
-using RacingLeagueHub.BLL.Entities.Stewarding;
+﻿using RacingLeagueHub.Domain.Entities.Seasons;
+using RacingLeagueHub.Domain.Entities.Stewarding;
 
-namespace RacingLeagueHub.BLL.Entities.GrandsPrix;
+namespace RacingLeagueHub.Domain.Entities.GrandsPrix;
 
 public class GrandPrix : EntityBase
 {

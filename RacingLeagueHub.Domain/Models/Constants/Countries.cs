@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.BLL.Models.Constants;
+﻿namespace RacingLeagueHub.Domain.Models.Constants;
 
 public class Country
 {

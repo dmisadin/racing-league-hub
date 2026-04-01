@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.BLL.Models.Enums.Lobby;
+﻿namespace RacingLeagueHub.Domain.Models.Enums.Lobby;
 
 // Added in F1 24
 public enum CarDamage : short

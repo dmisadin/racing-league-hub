@@ -1,7 +1,7 @@
-﻿using RacingLeagueHub.BLL.Entities.Resources;
-using RacingLeagueHub.BLL.Models.Enums;
+﻿using RacingLeagueHub.Domain.Entities.Resources;
+using RacingLeagueHub.Domain.Models.Enums;
 
-namespace RacingLeagueHub.BLL.Entities;
+namespace RacingLeagueHub.Domain.Entities;
 
 public class TrackLayout : EntityBase
 {

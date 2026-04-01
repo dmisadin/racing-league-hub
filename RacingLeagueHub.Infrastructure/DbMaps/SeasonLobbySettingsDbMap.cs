@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.BLL.Entities.Seasons;
+﻿using RacingLeagueHub.Domain.Entities.Seasons;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace RacingLeagueHub.Data.DbMaps

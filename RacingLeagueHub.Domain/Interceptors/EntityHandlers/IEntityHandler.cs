@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.BLL.Entities;
+using RacingLeagueHub.Domain.Entities;
 
-namespace RacingLeagueHub.BLL.Interceptors.EntityHandlers;
+namespace RacingLeagueHub.Domain.Interceptors.EntityHandlers;
 
 public interface IEntityHandler
 {

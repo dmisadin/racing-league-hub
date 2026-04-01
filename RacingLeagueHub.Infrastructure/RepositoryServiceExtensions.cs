@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using RacingLeagueHub.BLL.Infrastructure;
+using RacingLeagueHub.Domain.Infrastructure;
 using RacingLeagueHub.Data.Repositories;
 using System.Reflection;
 

@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.BLL.Interceptors.EntityHandlers;
+﻿using RacingLeagueHub.Domain.Interceptors.EntityHandlers;
 using System.Reflection;
 
 namespace RacingLeagueHub.Api.Startup;

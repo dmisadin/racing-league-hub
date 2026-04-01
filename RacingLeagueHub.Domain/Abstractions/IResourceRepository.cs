@@ -1,6 +1,6 @@
-﻿using RacingLeagueHub.BLL.Entities.Resources;
+﻿using RacingLeagueHub.Domain.Entities.Resources;
 
-namespace RacingLeagueHub.BLL.Infrastructure;
+namespace RacingLeagueHub.Domain.Infrastructure;
 
 public interface IResourceRepository
 {

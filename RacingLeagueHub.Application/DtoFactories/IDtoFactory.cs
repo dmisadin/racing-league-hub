@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.BLL.Entities;
+﻿using RacingLeagueHub.Domain.Entities;
 using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Application.DtoFactories;

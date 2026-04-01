@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.BLL.Entities.Seasons;
+﻿namespace RacingLeagueHub.Domain.Entities.Seasons;
 
 public class SeasonDriver : EntityBase
 {

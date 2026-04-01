@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.BLL.Models.Constants;
+﻿using RacingLeagueHub.Domain.Models.Constants;
 
 namespace RacingLeagueHub.Application.Dtos.Track;
 

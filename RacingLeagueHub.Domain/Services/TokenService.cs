@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.BLL.Services
+﻿namespace RacingLeagueHub.Domain.Services
 {
 
     //Possible change would be to make method CreateToken() private and invoked through an instance of this class

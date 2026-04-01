@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.BLL.Entities.Stewarding;
+﻿namespace RacingLeagueHub.Domain.Entities.Stewarding;
 
 public class Verdict : EntityBase
 {

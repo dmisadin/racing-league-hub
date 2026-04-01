@@ -2,7 +2,7 @@
 using Amazon.S3.Model;
 using Microsoft.Extensions.Options;
 using RacingLeagueHub.Application.Storage;
-using RacingLeagueHub.BLL.Services.Interfaces;
+using RacingLeagueHub.Domain.Services.Interfaces;
 
 namespace RacingLeagueHub.Infrastructure.Services;
 

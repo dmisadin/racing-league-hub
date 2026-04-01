@@ -1,5 +1,5 @@
-﻿using RacingLeagueHub.BLL.Infrastructure;
-using RacingLeagueHub.BLL.Services.Interfaces;
+﻿using RacingLeagueHub.Domain.Infrastructure;
+using RacingLeagueHub.Domain.Services.Interfaces;
 
 namespace RacingLeagueHub.Api.Jobs.Reccuring;
 

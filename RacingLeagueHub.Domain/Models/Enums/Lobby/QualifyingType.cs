@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.BLL.Models.Enums.Lobby;
+﻿namespace RacingLeagueHub.Domain.Models.Enums.Lobby;
 
 public enum QualifyingType : short
 {

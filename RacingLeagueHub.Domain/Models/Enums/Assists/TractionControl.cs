@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.BLL.Models.Enums.Assists;
+﻿namespace RacingLeagueHub.Domain.Models.Enums.Assists;
 
 public enum TractionControl : short
 {
