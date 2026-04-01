@@ -1,0 +1,15 @@
+﻿using RacingLeagueHub.Domain.Entities.Resources;
+
+namespace RacingLeagueHub.Domain.Infrastructure;
+
+public interface IResourceRepository
+{
+    IQueryable<Resource> Query();
+    Task<Resource?> GetOneAsync(long id, CancellationToken ct = default);
+    Task<Resource?> GetOneAsync(Guid uid, CancellationToken ct = default);
+    Task<IReadOnlyList<Resource>> GetAllAsync(CancellationToken ct = default);
+    Task<IReadOnlyList<Resource>> GetPendingOlderThanAsync(DateTimeOffset cutoff, CancellationToken ct = default);
+    Task<Resource> CreateAsync(Resource resource, CancellationToken ct = default);
+    Task ConfirmAsync(Resource resource, CancellationToken ct = default);
+    Task DeleteAsync(Resource resource, CancellationToken ct = default);
+}
