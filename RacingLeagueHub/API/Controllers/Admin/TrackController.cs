@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.API.DtoFactories;
-using RacingLeagueHub.API.Dtos.Track;
+using RacingLeagueHub.Application.DtoFactories;
+using RacingLeagueHub.Application.Dtos.Track;
 using RacingLeagueHub.BLL.Entities;
 using RacingLeagueHub.BLL.Infrastructure;
 using RacingLeagueHub.BLL.Models.Constants;
@@ -21,9 +20,7 @@ public class TrackController : GenericController<Track, TrackDto>
     [HttpGet("get-all")]
     public virtual async Task<ActionResult<List<TrackDto>>> GetAll()
     {
-        var dtos = await repository.Query()
-            .Select(DtoFactory.ToDtoExpression())
-            .ToListAsync();
+        var dtos = await repository.GetAllAsync(DtoFactory.ToDtoExpression());
 
         if (dtos == null)
             return NotFound();

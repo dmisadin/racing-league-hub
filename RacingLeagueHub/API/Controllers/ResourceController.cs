@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RacingLeagueHub.API.Dtos.Resource;
-using RacingLeagueHub.BLL.Models;
-using RacingLeagueHub.BLL.Services.Interfaces;
+using RacingLeagueHub.API.Models.Resource;
+using RacingLeagueHub.Application.Dtos.Resource;
+using RacingLeagueHub.Application.Models;
+using RacingLeagueHub.Application.Models.Resource;
+using RacingLeagueHub.Application.Services;
 
 namespace RacingLeagueHub.API.Controllers;
 
@@ -42,21 +44,21 @@ public class ResourcesController(IResourceService resourceService) : ControllerB
     [HttpPost("upload")]
     [RequestSizeLimit(5 * 1024 * 1024)]
     [Consumes("multipart/form-data")]
-    public async Task<ActionResult<ResourceDto>> Upload(
-        [FromForm] UploadResourceRequest request,
-        CancellationToken ct)
+    public async Task<ActionResult<ResourceDto>> Upload([FromForm] UploadResourceRequest request, CancellationToken ct)
     {
         if (request.File.Length == 0)
             return BadRequest("File is empty.");
 
-        var result = await resourceService.UploadAsync(request.File, request.IsThumbnail, ct);
-        return Ok(result);
-    }
+        await using var stream = request.File.OpenReadStream();
 
-    [HttpDelete("delete/{id}")]
-    public async Task<IActionResult> Delete([FromRoute] EncryptedId id, CancellationToken ct)
-    {
-        await resourceService.DeleteAsync(id.RawId, ct);
-        return NoContent();
+        var fileUpload = new FileUploadRequest(
+            FileName: request.File.FileName,
+            ContentType: request.File.ContentType,
+            SizeInBytes: request.File.Length,
+            Content: stream
+        );
+
+        var result = await resourceService.UploadAsync(fileUpload, request.IsThumbnail, ct);
+        return Ok(result);
     }
 }

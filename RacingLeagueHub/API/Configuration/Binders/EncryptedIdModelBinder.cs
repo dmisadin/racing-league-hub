@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
-using RacingLeagueHub.BLL.Models;
+using RacingLeagueHub.Application.Models;
 
 namespace RacingLeagueHub.API.Configuration.Binders;
 

@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.API.DtoFactories;
-using RacingLeagueHub.API.Dtos.Team;
+using RacingLeagueHub.Application.DtoFactories;
+using RacingLeagueHub.Application.Dtos.Team;
+using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.BLL.Entities;
 using RacingLeagueHub.BLL.Infrastructure;
-using RacingLeagueHub.BLL.Models;
 
 namespace RacingLeagueHub.API.Controllers.Admin;
 
@@ -26,9 +25,7 @@ public class TeamController : GenericController<Team, TeamDto>
     [HttpGet("get-all")]
     public virtual async Task<ActionResult<List<TeamDto>>> GetAll()
     {
-        var dtos = await repository.Query()
-            .Select(DtoFactory.ToDtoExpression())
-            .ToListAsync();
+        var dtos = await repository.GetAllAsync(DtoFactory.ToDtoExpression());
 
         if (dtos == null)
             return NotFound();

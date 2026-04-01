@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.API.Configuration.Binders;
-using RacingLeagueHub.BLL.Interceptors.EntityHandlers;
-using RacingLeagueHub.BLL.Models;
+using RacingLeagueHub.API.Configuration.Serialization;
+using RacingLeagueHub.API.Startup;
 using RacingLeagueHub.Data;
 using RacingLeagueHub.Startup;
 

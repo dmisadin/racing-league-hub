@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.API.DtoFactories;
-using RacingLeagueHub.API.Dtos.Track;
+using RacingLeagueHub.Application.DtoFactories;
+using RacingLeagueHub.Application.Dtos.Track;
+using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.BLL.Entities;
 using RacingLeagueHub.BLL.Infrastructure;
-using RacingLeagueHub.BLL.Models;
 
 namespace RacingLeagueHub.API.Controllers.Admin;
 
@@ -12,7 +11,7 @@ namespace RacingLeagueHub.API.Controllers.Admin;
 [ApiController]
 public class TrackLayoutController : GenericController<TrackLayout, TrackLayoutDto>
 {
-    public TrackLayoutController(IRepository<TrackLayout> genericRepository) : base(genericRepository)
+    public TrackLayoutController(IRepository<TrackLayout> repository) : base(repository)
     {
     }
 
@@ -24,18 +23,11 @@ public class TrackLayoutController : GenericController<TrackLayout, TrackLayoutD
         if (id == null || id == 0)
             return BadRequest("Invalid ID.");
 
-        var entity = await this.repository.Query()
-                                    .Where(e => e.Id == id)
-                                    .Include(e => e.TrackLayoutGames)
-                                    .FirstOrDefaultAsync();
+        var entityId = await this.repository.UpdateAsync<TrackLayoutDto>(DtoFactory.FromDto, id.Value, dto);
 
-        if (entity == null)
+        if (entityId == null)
             return NotFound();
 
-        DtoFactory.FromDto(entity, dto);
-
-        await this.repository.CommitAsync();
-
-        return Ok(new EncryptedId(entity.Id));
+        return Ok(new EncryptedId(entityId.Value));
     }
 }

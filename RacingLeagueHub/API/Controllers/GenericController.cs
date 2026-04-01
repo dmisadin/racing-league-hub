@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.API.DtoFactories;
-using RacingLeagueHub.API.Dtos;
+using RacingLeagueHub.Application.DtoFactories;
+using RacingLeagueHub.Application.Dtos;
+using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.BLL.Entities;
 using RacingLeagueHub.BLL.Infrastructure;
-using RacingLeagueHub.BLL.Models;
 
 namespace RacingLeagueHub.API.Controllers;
 
@@ -26,10 +25,7 @@ public abstract class GenericController<TEntity, TDto> : Controller
     [HttpGet("get-by-id/{id}")]
     public virtual async Task<ActionResult<TDto>> GetOne([FromRoute] EncryptedId id)
     {
-        var dto = await repository.Query()
-                                .Where(e => e.Id == id.RawId)
-                                .Select(DtoFactory.ToDtoExpression())
-                                .FirstOrDefaultAsync();
+        var dto = await repository.GetByIdAsync<TDto>(id.RawId, DtoFactory.ToDtoExpression());
 
         if (dto == null)
             return NotFound();
@@ -71,13 +67,12 @@ public abstract class GenericController<TEntity, TDto> : Controller
     [HttpDelete("delete/{id}")]
     public virtual async Task<IActionResult> Delete([FromRoute] EncryptedId id)
     {
-        var rows = await repository.Query()
-            .Where(x => x.Id == id.RawId)
-            .ExecuteDeleteAsync();
+        var rows = await repository.ExecuteDeleteAsync(x => x.Id == id.RawId);
 
         return rows == 0 ? NotFound() : NoContent();
     }
 
+    /* Move to Application layer
     [HttpPost("upsert-many")]
     public async Task UpsertMany([FromBody]IEnumerable<TDto> dtos)
     {
@@ -110,4 +105,5 @@ public abstract class GenericController<TEntity, TDto> : Controller
 
         await repository.CommitAsync();
     }
+    */
 }
