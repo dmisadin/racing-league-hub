@@ -12,6 +12,10 @@ export const routes: Routes = [
         providers: [RouteService]
     },
     {
+        path: 'leagues',
+        loadChildren: () => import('./features/league/league.routes').then(r => r.LEAGUE_ROUTES)
+    },
+    {
         path: '**',
         loadComponent: () => import('./core/components/not-found.component').then(c => c.NotFoundComponent)
     }
