@@ -13,7 +13,13 @@ export const LEAGUE_ROUTES: Routes = [
     },
     {
         path: ':leagueSlug',
-        loadComponent: () => import('./components/league-details/league-details.component').then(c => c.LeagueDetailsComponent)
+        loadComponent: () => import('./components/league-details/league-details.component').then(c => c.LeagueDetailsComponent),
+        children: [
+            {
+                path: 'add-season',
+                loadComponent: () => import('./season/components/season-form/modal/season-form-modal.component').then(c => c.SeasonFormModalComponent)
+            }
+        ]
     },
     {
         path: ':leagueSlug/edit',
@@ -21,7 +27,13 @@ export const LEAGUE_ROUTES: Routes = [
     },
     {
         path: ':leagueSlug/:seasonSlug',
-        loadComponent: () => import('./season/components/season-details/season-details.component').then(c => c.SeasonDetailsComponent)
+        loadComponent: () => import('./season/components/season-details/season-details.component').then(c => c.SeasonDetailsComponent),
+        children: [
+            {
+                path: 'add-grand-prix',
+                loadComponent: () => import('./season/grand-prix/components/grand-prix-form/modal/grand-prix-form-modal.component').then(c => c.GrandPrixFormModalComponent)
+            }
+        ]
     },
     {
         path: ':leagueSlug/:seasonSlug/edit',
