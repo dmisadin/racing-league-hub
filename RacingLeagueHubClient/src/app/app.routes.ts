@@ -15,8 +15,11 @@ export const routes: Routes = [
         path: 'leagues',
         loadChildren: () => import('./features/league/league.routes').then(r => r.LEAGUE_ROUTES)
     },
+    {   path: 'not-found', 
+        loadComponent: () => import('./core/components/not-found.component').then(c => c.NotFoundComponent) 
+    },
     {
         path: '**',
-        loadComponent: () => import('./core/components/not-found.component').then(c => c.NotFoundComponent)
+        redirectTo: 'not-found'
     }
 ];
