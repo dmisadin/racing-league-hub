@@ -7,6 +7,7 @@ export abstract class BaseFormControl<T> implements ControlValueAccessor, OnInit
 
     label = input("");
     placeholder = input<string>("");
+    customValidatorName = input<string | null>();
     value: T | null = null;
     disabled = false;
 

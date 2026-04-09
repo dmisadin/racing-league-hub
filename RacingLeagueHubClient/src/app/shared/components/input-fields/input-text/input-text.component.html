@@ -61,6 +61,11 @@
         @if (errors?.['email']) {
         <small>Please enter a valid email address</small>
         }
+        
+        @let customValidatorName = this.customValidatorName();
+        @if (customValidatorName && errors?.[customValidatorName]) {
+        <small> {{ errors?.[customValidatorName] }}</small>
+        }
     </div>
     }
 </label>
