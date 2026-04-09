@@ -1,1 +1,52 @@
-<p>league-form works!</p>
+<div class="space-y-8">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <input-text label="Name" formControlName="name" placeholder="My Racing League"></input-text>
+
+        <label class="block text-sm font-medium mb-1">
+            <p class="mb-1">Region</p>
+            <ng-select [items]="regionOptions" 
+                bindLabel="name"
+                bindValue="id"
+                formControlName="region">
+            </ng-select>
+        </label>
+
+        <label class="block text-sm font-medium mb-1 md:col-span-2 w-full">
+            <p class="mb-1">Description</p>
+            <textarea class="textarea w-full resize-y max-h-32"
+                placeholder="My Racing League is for my friends."
+                formControlName="description"
+                rows="4">
+            </textarea>
+        </label>
+
+        <input-text label="URL slug" 
+            formControlName="slug" 
+            [placeholder]="form.controls['name']?.value || 'My Racing League' | slug" 
+            customValidatorName="slug">
+        </input-text>
+
+        <input-text label="Abbreviation" formControlName="abbreviation" placeholder="MRL"></input-text>
+        
+        <input-file label="League logo" formControlName="logoResourceId" class="md:col-span-2"></input-file>
+
+        <label class="block text-sm font-medium mb-1 md:col-span-2">
+            <p class="mb-1">Timezone</p>
+            <ng-select [items]="timezoneOptions" 
+                bindLabel="name"
+                bindValue="id"
+                formControlName="timezone">
+            </ng-select>
+        </label>
+
+        <div class="md:col-span-2 flex justify-end gap-2">
+            <button type="button" (click)="onCancel()" class="btn btn-soft btn-error">
+                Cancel
+            </button>
+
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+                Save All Changes
+            </button>
+        </div>
+    </form>
+</div>
