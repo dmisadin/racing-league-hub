@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Infrastructure;
 using RacingLeagueHub.Infrastructure.Repositories;
 using System.Reflection;
@@ -28,6 +29,8 @@ public static class RepositoryServiceExtensions
             services.AddScoped(serviceType, repoType);
             services.AddScoped(repoType);
         }
+
+        services.AddScoped<ILeagueRepository, LeagueRepository>();
 
         return services;
     }
