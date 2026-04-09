@@ -182,6 +182,7 @@ CREATE TABLE "public"."league" (
     "id" bigint GENERATED ALWAYS AS IDENTITY,
     "region" smallint NOT NULL,
     "name" varchar(500) NOT NULL,
+    "abbreviation" varchar(5) NOT NULL,
     "description" text,
     -- IANA https://www.iana.org/time-zones
     "timezone" text NOT NULL,
