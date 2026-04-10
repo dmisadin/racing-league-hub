@@ -53,7 +53,7 @@ export class LeagueFormComponent implements OnInit {
         if (!leagueSlug)
             return;
 
-        this.restService.get<LeagueDto>(`/league/get-by-slug/${leagueSlug}`)
+        this.restService.get<LeagueDto>(`/leagues/get-by-slug/${leagueSlug}`)
                         .subscribe(res => this.form.patchValue(res));
     }
 
@@ -65,9 +65,9 @@ export class LeagueFormComponent implements OnInit {
         console.log(form);
         //return;
         if (form['id'])
-            this.restService.post('/league/update', this.form.value).subscribe();
+            this.restService.post('/leagues/update', this.form.value).subscribe();
         else
-            this.restService.post('/league/add', this.form.value).subscribe(() => this.onAddSuccess());
+            this.restService.post('/leagues/add', this.form.value).subscribe(() => this.onAddSuccess());
 
     }
 

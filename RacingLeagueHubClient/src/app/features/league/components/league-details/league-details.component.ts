@@ -20,7 +20,7 @@ export class LeagueDetailsComponent implements OnInit {
     ngOnInit(): void {
         const leagueSlug = this.routeService.getCurrentRouteParam("leagueSlug");
 
-        this.restService.get<LeagueDto>(`/league/get-by-slug/${leagueSlug}`).subscribe({
+        this.restService.get<LeagueDto>(`/leagues/get-by-slug/${leagueSlug}`).subscribe({
             next: res => this.league.set(res),
             error: () => this.routeService.navigateToNotFoundPage()
         });

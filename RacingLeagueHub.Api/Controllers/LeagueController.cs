@@ -6,10 +6,11 @@ using RacingLeagueHub.Domain.Entities;
 
 namespace RacingLeagueHub.Api.Controllers;
 
-[Route("api/league")]
+[Route("api/leagues")]
 public class LeagueController : GenericController<League, LeagueDto>
 {
     private readonly ILeagueRepository leagueRepository;
+
     public LeagueController(ILeagueRepository repository) : base(repository)
     {
         this.leagueRepository = repository;
