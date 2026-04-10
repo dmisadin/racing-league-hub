@@ -13,5 +13,5 @@ public class LeagueDto : BaseDto
     public string Timezone { get; set; }
     public string Slug { get; set; }
     public EncryptedId? LogoResourceId { get; set; }
-    public ResourceBaseDto? Logo { get; set; }
+    public string? LogoUrl { get; set; }
 }

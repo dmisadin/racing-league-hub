@@ -38,12 +38,9 @@ public class TeamDtoFactory : DtoFactoryBase<Team, TeamDto>
                     Color = gt.Color,
                     TelemetryId = gt.TelemetryId,
                     LogoResourceId = gt.LogoResourceId != null ? new EncryptedId(gt.LogoResourceId.Value) : null,
-                    Logo = gt.LogoResourceId == null ? null : new ResourceBaseDto
-                    {
-                        Id = new EncryptedId(gt.LogoResource!.Id),
-                        FileUrl = baseStorageUrl + "/uploads/" + gt.LogoResource.StorageId + "." + gt.LogoResource.Extension,
-                        Extension = gt.LogoResource.Extension
-                    }
+                    LogoUrl = gt.LogoResourceId == null 
+                        ? null 
+                        : baseStorageUrl + "/uploads/" + gt.LogoResource.StorageId + "." + gt.LogoResource.Extension
                 }).ToList()
         };
     }

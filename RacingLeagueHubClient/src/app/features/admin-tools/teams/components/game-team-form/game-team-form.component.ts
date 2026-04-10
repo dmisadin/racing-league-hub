@@ -43,7 +43,7 @@ export class GameTeamFormComponent {
             abbreviation: ["", [Validators.required, Validators.maxLength(3)]],
             color: ["#000000", Validators.required],
             telemetryId: [],
-            logoResourceId: ["", Validators.required]
+            logoResourceId: [null, Validators.required]
         });
     }
 

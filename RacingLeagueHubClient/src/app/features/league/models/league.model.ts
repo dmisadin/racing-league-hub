@@ -1,5 +1,4 @@
 import { BaseDto } from "../../../shared/models/dtos";
-import { ResourceBaseDto } from "../../../shared/models/resource";
 
 export interface LeagueDto extends BaseDto {
     region: Region;
@@ -9,7 +8,7 @@ export interface LeagueDto extends BaseDto {
     timezone: string;
     slug: string;
     logoResourceId: string;
-    logo: ResourceBaseDto | null;
+    logoUrl: string | null;
 }
 
 export enum Region {

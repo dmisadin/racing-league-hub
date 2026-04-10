@@ -36,12 +36,9 @@ public class LeagueDtoFactory : DtoFactoryBase<League, LeagueDto>
             Timezone = league.Timezone,
             Slug = league.Slug,
             LogoResourceId = league.LogoResourceId != null ? new EncryptedId(league.LogoResourceId.Value) : null,
-            Logo = league.LogoResourceId == null ? null : new ResourceBaseDto
-            {
-                Id = new EncryptedId(league.LogoResource!.Id),
-                FileUrl = baseStorageUrl + "/uploads/" + league.LogoResource.StorageId + "." + league.LogoResource.Extension,
-                Extension = league.LogoResource.Extension
-            }
+            LogoUrl = league.LogoResourceId == null 
+                ? null 
+                : baseStorageUrl + "/uploads/" + league.LogoResource!.StorageId + "." + league.LogoResource.Extension
         };
     }
 }
