@@ -33,6 +33,13 @@ public abstract class GenericController<TEntity, TDto> : Controller
         return Ok(dto);
     }
 
+    [HttpGet]
+    public async Task<ActionResult<PagedResult<TDto>>> GetAllPaginated([FromQuery] int page = 1, CancellationToken ct = default)
+    {
+        var result = await repository.GetPagedAsync(DtoFactory.ToDtoExpression(), page, pageSize: 10, ct);
+        return Ok(result);
+    }
+
     [HttpPost("add")]
     public virtual async Task<ActionResult<EncryptedId>> Add([FromBody] TDto dto)
     {
