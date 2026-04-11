@@ -30,7 +30,7 @@ export abstract class ListBase<T> {
     
     private loadPage(): void {
         this.isLoading.set(true);
-        this.restService.get<PagedResult<T>>(this.dtoEndpoint, { page: this.currentPage() }).subscribe({
+        this.getApiCall(this.dtoEndpoint).subscribe({
             next: (result) => {
                 this.list.update(current => [...(current ?? []), ...result.items]);
                 this.hasMore.set(result.hasMore);
@@ -38,5 +38,9 @@ export abstract class ListBase<T> {
             },
             error: () => this.isLoading.set(false)
         });
+    }
+
+    protected getApiCall (endpoint: string) {
+        return this.restService.get<PagedResult<T>>(endpoint, { page: this.currentPage() });
     }
 }

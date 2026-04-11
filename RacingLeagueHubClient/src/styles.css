@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 @import "@ng-select/ng-select/themes/default.theme.css";
 
 @import "./app/shared/styles/ng-select-overrides.css";
@@ -5,3 +7,7 @@
 
 @import "tailwindcss";
 @plugin "daisyui";
+
+body {
+    font-family: "Noto Sans", sans-serif;
+}

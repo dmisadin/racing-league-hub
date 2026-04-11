@@ -20,3 +20,13 @@ export enum Region {
     Oceania,
     Africa
 }
+
+export const RegionLabels: Record<Region, string> = {
+    [Region.Adria]: "Adria",
+    [Region.Europe]: "Europe",
+    [Region.NorthAmerica]: "North America",
+    [Region.SouthAmerica]: "South America",
+    [Region.Asia]: "Asia",
+    [Region.Oceania]: "Oceania",
+    [Region.Africa]: "Africa"
+}
