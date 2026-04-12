@@ -8,8 +8,15 @@ import { environment } from '../../../environments/environment';
 export class RestService {
     private httpClient = inject(HttpClient);
 
-    get<T>(path: string, queryParams?: HttpParams) {
-        return this.httpClient.get<T>(environment.apiUrl + path, { params: queryParams });
+    get<T>(path: string, queryParams?: Record<string, string | number | boolean>) {
+        const params = queryParams
+            ? Object.entries(queryParams).reduce(
+                (p, [key, value]) => p.set(key, value.toString()),
+                new HttpParams()
+            )
+            : undefined;
+
+        return this.httpClient.get<T>(environment.apiUrl + path, { params });
     }
 
     getFile<T>(path: string) {

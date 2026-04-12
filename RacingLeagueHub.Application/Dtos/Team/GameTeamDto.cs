@@ -14,6 +14,6 @@ namespace RacingLeagueHub.Application.Dtos.Team
         public string? Color { get; set; }
         public short TelemetryId { get; set; }
         public EncryptedId? LogoResourceId { get; set; }
-        public ResourceBaseDto? Logo { get; set; }
+        public string? LogoUrl { get; set; }
     }
 }

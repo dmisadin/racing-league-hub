@@ -34,13 +34,6 @@ public class ResourcesController(IResourceService resourceService) : ControllerB
         return Ok(fileUrl);
     }
 
-    [HttpGet("get-all")]
-    public async Task<ActionResult<IReadOnlyList<ResourceDto>>> GetAll(CancellationToken ct)
-    {
-        var resources = await resourceService.GetAllAsync(ct);
-        return Ok(resources);
-    }
-
     [HttpPost("upload")]
     [RequestSizeLimit(5 * 1024 * 1024)]
     [Consumes("multipart/form-data")]

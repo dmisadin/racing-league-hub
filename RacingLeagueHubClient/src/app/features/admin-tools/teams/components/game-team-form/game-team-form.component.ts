@@ -11,6 +11,7 @@ import { InputNumberComponent } from "../../../../../shared/components/input-fie
 import { InputTextComponent } from "../../../../../shared/components/input-fields/input-text/input-text.component";
 import { ListService } from '../../../../../shared/services/list.service';
 import { InputFileComponent } from "../../../../../shared/components/input-fields/input-file/input-file.component";
+import { ToastService } from '../../../../../core/services/toast.service';
 
 @Component({
     selector: 'game-team-form',
@@ -23,6 +24,7 @@ export class GameTeamFormComponent {
     private readonly routeService = inject(RouteService);
     private readonly restService = inject(RestService);
     private readonly listService = inject(ListService);
+    private readonly toastService = inject(ToastService);
 
     gameTeamId = input<string>();
     gameTeam = input<GameTeamDto | null>(null);
@@ -43,7 +45,7 @@ export class GameTeamFormComponent {
             abbreviation: ["", [Validators.required, Validators.maxLength(3)]],
             color: ["#000000", Validators.required],
             telemetryId: [],
-            logoResourceId: ["", Validators.required]
+            logoResourceId: [null, Validators.required]
         });
     }
 
@@ -70,9 +72,15 @@ export class GameTeamFormComponent {
         
         const form = this.form.value;
         if (form['id'])
-            this.restService.post('/game-team/update', this.form.value).subscribe();
+            this.restService.post('/game-team/update', this.form.value).subscribe({
+                next: () => this.toastService.showSuccess("Successfully updated the team."),
+                error: () => this.toastService.showError("Failed to update the team.")
+            });
         else
-            this.restService.post('/game-team/add', this.form.value).subscribe(() => this.onAddSuccess());
+            this.restService.post('/game-team/add', this.form.value).subscribe({
+                next: () => this.onAddSuccess(),
+                error: () => this.toastService.showError("Failed to add a new team.")
+            });
     }
 
     onCancel() {
@@ -80,6 +88,7 @@ export class GameTeamFormComponent {
     }
 
     onAddSuccess() {
+        this.toastService.showSuccess("Successfully added a new team.")
         this.listService.triggerReload();
         this.routeService.navigateToParent();
     }

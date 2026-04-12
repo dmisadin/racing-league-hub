@@ -1,5 +1,6 @@
 ﻿using RacingLeagueHub.Domain.Entities.GrandsPrix;
 using RacingLeagueHub.Domain.Entities.Resources;
+using RacingLeagueHub.Domain.Models.Enums;
 
 namespace RacingLeagueHub.Domain.Entities.Seasons;
 
@@ -7,8 +8,8 @@ public class Season : EntityBase
 {
     public long LeagueId { get; set; }
     public string Name { get; set; }
-    public short Platform { get; set; }
-    public short Game { get; set; }
+    public Platform Platform { get; set; }
+    public Game Game { get; set; }
     public short LapPercentageRequired { get; set; }
     public string Slug { get; set; }
     public long? LogoResourceId { get; set; }

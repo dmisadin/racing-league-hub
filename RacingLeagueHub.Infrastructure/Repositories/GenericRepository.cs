@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Infrastructure;
 using System.Linq.Expressions;
@@ -47,6 +48,24 @@ internal class GenericRepository<TEntity> : IRepository<TEntity>
     public virtual Task<List<TDto>> GetAllAsync<TDto>(Expression<Func<TEntity, TDto>> selector)
     {
         return Query().Select(selector).ToListAsync();
+    }
+
+    public async Task<PagedResult<TDto>> GetPagedAsync<TDto>(Expression<Func<TEntity, TDto>> selector,
+        int page,
+        int pageSize = 10,
+        CancellationToken ct = default)
+    {
+        var query = dbContext.Set<TEntity>();
+
+        var totalCount = await query.CountAsync(ct);
+
+        var items = await query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Select(selector)
+            .ToListAsync(ct);
+
+        return new PagedResult<TDto>(items, page, pageSize, totalCount);
     }
 
     public virtual async Task<long?> UpdateAsync<TDto>(Func<TEntity, TDto, bool> mappingFunction, long id, TDto dto)

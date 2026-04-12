@@ -59,6 +59,11 @@
         @if (errors?.['max']) {
         <small class="block">Maximum value is {{ errors?.['max'].max }}</small>
         }
+
+        @let customValidatorName = this.customValidatorName();
+        @if (customValidatorName && errors?.[customValidatorName]) {
+        <small> {{ errors?.[customValidatorName] }}</small>
+        }
     </div>
     }
 </label>
