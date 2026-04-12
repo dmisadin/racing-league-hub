@@ -22,7 +22,7 @@
 
         <input-text label="URL slug" 
             formControlName="slug" 
-            [placeholder]="form.controls['name']?.value || 'My Racing League' | slug" 
+            [placeholder]="(form.controls['name']?.value || 'My Racing League') | slug" 
             customValidatorName="slug">
         </input-text>
 

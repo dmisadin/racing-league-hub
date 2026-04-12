@@ -1,13 +1,12 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLinkWithHref } from '@angular/router';
 import { RestService } from '../../../../core/services/rest.service';
-import { LeagueDto } from '../../models/league.model';
+import { LeagueDto, RegionLabels } from '../../models/league.model';
 import { RouteService } from '../../../../core/services/route.service';
-import { JsonPipe } from '@angular/common';
 
 @Component({
     selector: 'league-details',
-    imports: [RouterOutlet, JsonPipe],
+    imports: [RouterOutlet, RouterLinkWithHref],
     providers: [RouteService],
     templateUrl: './league-details.component.html'
 })
@@ -17,10 +16,12 @@ export class LeagueDetailsComponent implements OnInit {
 
     league = signal<LeagueDto | null>(null);
 
+    regionLabels = RegionLabels;
+
     ngOnInit(): void {
         const leagueSlug = this.routeService.getCurrentRouteParam("leagueSlug");
 
-        this.restService.get<LeagueDto>(`/leagues/get-by-slug/${leagueSlug}`).subscribe({
+        this.restService.get<LeagueDto>(`/leagues/${leagueSlug}`).subscribe({
             next: res => this.league.set(res),
             error: () => this.routeService.navigateToNotFoundPage()
         });

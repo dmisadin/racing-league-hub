@@ -1,5 +1,42 @@
-<p>league-details works!</p>
+@if (league(); as l) {
 
-<div>{{ league() | json }}</div>
+@if (l.logoUrl) {
+<figure class="px-6 pt-6">
+    <img [src]="l.logoUrl" [alt]="l.name" class="rounded-xl max-h-32 object-contain" />
+</figure>
+}
+
+<div class="space-y-4">
+    <h2 class="card-title flex justify-between items-center text-3xl">
+        {{ l.name }}
+        <a class="btn btn-outline" routerLink="edit">Edit</a>
+    </h2>
+
+    <div class="flex gap-2">
+        <span class="badge badge-primary font-bold">
+            {{ l.abbreviation }}
+        </span>
+        <span class="badge badge-outline">
+            {{ regionLabels[l.region] }}
+        </span>
+    </div>
+
+    @if (l.description) {
+    <p class="text-sm opacity-80">
+        {{ l.description }}
+    </p>
+    }
+
+    <div class="mt-2 space-y-1 text-sm">
+        <span class="font-semibold">Timezone:</span>
+        {{ l.timezone }}
+    </div>
+</div>
+
+} @else {
+<div class="alert">
+    <span>No league selected</span>
+</div>
+}
 
 <router-outlet></router-outlet>

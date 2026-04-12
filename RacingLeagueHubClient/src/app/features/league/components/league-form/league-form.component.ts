@@ -53,7 +53,7 @@ export class LeagueFormComponent implements OnInit {
         if (!leagueSlug)
             return;
 
-        this.restService.get<LeagueDto>(`/leagues/get-by-slug/${leagueSlug}`)
+        this.restService.get<LeagueDto>(`/leagues/${leagueSlug}`)
                         .subscribe(res => this.form.patchValue(res));
     }
 
