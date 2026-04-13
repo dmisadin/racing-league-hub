@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { ListBase } from '../../../../../shared/components/list/list-base';
 import { SeasonDto } from '../../models/season.model';
-import { RouterLink, RouterLinkWithHref } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'season-list',
