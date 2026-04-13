@@ -62,8 +62,7 @@ export class LeagueFormComponent implements OnInit {
             return;
 
         const form = this.form.value;
-        console.log(form);
-        //return;
+        
         if (form['id'])
             this.restService.post('/leagues/update', this.form.value).subscribe();
         else

@@ -3,10 +3,11 @@ import { RouterOutlet, RouterLinkWithHref } from '@angular/router';
 import { RestService } from '../../../../core/services/rest.service';
 import { LeagueDto, RegionLabels } from '../../models/league.model';
 import { RouteService } from '../../../../core/services/route.service';
+import { SeasonListComponent } from "../../season/components/season-list/season-list.component";
 
 @Component({
     selector: 'league-details',
-    imports: [RouterOutlet, RouterLinkWithHref],
+    imports: [RouterOutlet, RouterLinkWithHref, SeasonListComponent],
     providers: [RouteService],
     templateUrl: './league-details.component.html'
 })

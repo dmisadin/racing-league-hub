@@ -31,12 +31,18 @@
         <span class="font-semibold">Timezone:</span>
         {{ l.timezone }}
     </div>
+
+    @if(l.slug) {
+    <season-list [leagueSlug]="l.slug"></season-list>
+    }
 </div>
+
 
 } @else {
 <div class="alert">
     <span>No league selected</span>
 </div>
 }
+
 
 <router-outlet></router-outlet>
