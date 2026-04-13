@@ -5,6 +5,7 @@ namespace RacingLeagueHub.Application.Dtos;
 
 public class SeasonDto : BaseDto
 {
+    public EncryptedId LeagueId { get; set; }
     public string Name { get; set; }
     public Platform Platform { get; set; }
     public Game Game { get; set; }

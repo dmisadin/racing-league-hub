@@ -1,1 +1,43 @@
-<p>season-details works!</p>
+@if (season(); as season) {
+<div class="space-y-6">
+    <div class="flex items-center gap-4">
+        @if (season.logoUrl) {
+        <img [src]="season.logoUrl" [alt]="season.name"
+            class="w-16 h-16 rounded-xl object-cover border border-base-200" />
+        } @else {
+        <div
+            class="w-16 h-16 rounded-xl bg-base-200 border border-base-200 flex items-center justify-center text-2xl font-bold text-base-content/30">
+            {{ season.name.charAt(0) }}
+        </div>
+        }
+        <div>
+            <h1 class="text-2xl font-bold">{{ season.name }}</h1>
+            <p class="text-sm text-base-content/50">{{ season.slug }}</p>
+        </div>
+
+        <a class="btn btn-outline" routerLink="edit">Edit</a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-base-200 rounded-xl p-4 space-y-1">
+            <p class="text-xs font-medium uppercase tracking-wider text-base-content/50">Game</p>
+            <p class="font-medium">{{ Game[season.game] }}</p>
+        </div>
+
+        <div class="bg-base-200 rounded-xl p-4 space-y-1">
+            <p class="text-xs font-medium uppercase tracking-wider text-base-content/50">Platform</p>
+            <p class="font-medium">{{ Platform[season.platform] }}</p>
+        </div>
+
+        <div class="bg-base-200 rounded-xl p-4 space-y-1">
+            <p class="text-xs font-medium uppercase tracking-wider text-base-content/50">Lap completion required</p>
+            <p class="font-medium">{{ season.lapPercentageRequired }}%</p>
+        </div>
+    </div>
+
+</div>
+} @else {
+<div class="flex justify-center items-center py-16">
+    <span class="loading loading-spinner loading-md"></span>
+</div>
+}

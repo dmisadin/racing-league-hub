@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Entities.Seasons;
 using RacingLeagueHub.Infrastructure;
@@ -25,14 +26,25 @@ internal class SeasonRepository : GenericRepository<Season>, ISeasonRepository
             .FirstOrDefaultAsync(ct);
     }
 
-    public async Task<IList<TDto>?> GetLeagueSeasonsAsync<TDto>(
+    public async Task<PagedResult<TDto>?> GetLeagueSeasonsAsync<TDto>(
         string leagueSlug, 
-        Expression<Func<Season, TDto>> selector, 
+        Expression<Func<Season, TDto>> selector,
+        int page = 1,
+        int pageSize = 10,
         CancellationToken ct = default)
     {
-        return await this.dbContext.Set<Season>()
-                        .Where(s => s.League.Slug == leagueSlug)
-                        .Select(selector)
-                        .ToListAsync(ct);
+        var query = this.dbContext.Set<Season>().Where(s => s.League.Slug == leagueSlug);
+        return await GetPagedAsync(selector, query, page, pageSize, ct);
+    }
+
+    public async Task<PagedResult<TDto>?> GetLeagueSeasonsAsync<TDto>(
+        long leagueId, 
+        Expression<Func<Season, TDto>> selector,
+        int page = 1,
+        int pageSize = 10,
+        CancellationToken ct = default)
+    {
+        var query = this.dbContext.Set<Season>().Where(s => s.LeagueId == leagueId);
+        return await GetPagedAsync(selector, query, page, pageSize, ct);
     }
 }

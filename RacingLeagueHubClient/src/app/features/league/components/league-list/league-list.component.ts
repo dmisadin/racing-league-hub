@@ -9,5 +9,7 @@ import { LeagueDto } from '../../models/league.model';
     templateUrl: './league-list.component.html'
 })
 export class LeagueListComponent extends ListBase<LeagueDto>{
-    protected override dtoEndpoint = "/leagues";
+    protected override get endpoint(): string {
+        return "/leagues"
+    }
 }

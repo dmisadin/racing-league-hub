@@ -50,16 +50,26 @@ internal class GenericRepository<TEntity> : IRepository<TEntity>
         return Query().Select(selector).ToListAsync();
     }
 
-    public async Task<PagedResult<TDto>> GetPagedAsync<TDto>(Expression<Func<TEntity, TDto>> selector,
+    public async Task<PagedResult<TDto>> GetPagedAsync<TDto>(
+        Expression<Func<TEntity, TDto>> selector,
         int page,
         int pageSize = 10,
         CancellationToken ct = default)
     {
-        var query = dbContext.Set<TEntity>();
+        return await GetPagedAsync(selector, dbContext.Set<TEntity>(), page, pageSize, ct);
+    }
 
-        var totalCount = await query.CountAsync(ct);
+    public async Task<PagedResult<TDto>> GetPagedAsync<TDto>(
+        Expression<Func<TEntity, TDto>> selector,
+        IQueryable<TEntity> query,
+        int page,
+        int pageSize = 10,
+        CancellationToken ct = default)
+    {
+        var baseQuery = query ?? dbContext.Set<TEntity>();
+        var totalCount = await baseQuery.CountAsync(ct);
 
-        var items = await query
+        var items = await baseQuery
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .Select(selector)

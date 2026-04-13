@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Application.DtoFactories;
 using RacingLeagueHub.Application.Dtos;
+using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Entities.Seasons;
@@ -39,12 +40,12 @@ public class LeagueController : GenericController<League, LeagueDto>
     }
 
     [HttpGet("{leagueSlug}/seasons")]
-    public async Task<ActionResult<List<SeasonDto>>> GetLeagueSeasons(string leagueSlug)
+    public async Task<ActionResult<PagedResult<SeasonDto>>> GetAllPaginated(string leagueSlug, [FromQuery] int page = 1, CancellationToken ct = default)
     {
         if (string.IsNullOrEmpty(leagueSlug))
             return BadRequest();
 
-        var seasons = await this.seasonRepository.GetLeagueSeasonsAsync(leagueSlug, SeasonDtoFactory.ToDtoExpression());
+        var seasons = await seasonRepository.GetLeagueSeasonsAsync(leagueSlug, SeasonDtoFactory.ToDtoExpression(), page, ct: ct);
 
         if (seasons == null)
             return NotFound(leagueSlug);
@@ -53,12 +54,12 @@ public class LeagueController : GenericController<League, LeagueDto>
     }
 
     [HttpGet("{leagueSlug}/seasons/{seasonSlug}")]
-    public async Task<ActionResult<SeasonDto>> GetLeagueSeasons(string leagueSlug, string seasonSlug)
+    public async Task<ActionResult<SeasonDto>> GetLeagueSeasons(string leagueSlug, string seasonSlug, CancellationToken ct = default)
     {
         if (string.IsNullOrEmpty(leagueSlug) || string.IsNullOrEmpty(seasonSlug))
             return BadRequest();
 
-        var season = await this.seasonRepository.GetBySlugAsync(leagueSlug, seasonSlug, SeasonDtoFactory.ToDtoExpression());
+        var season = await this.seasonRepository.GetBySlugAsync(leagueSlug, seasonSlug, SeasonDtoFactory.ToDtoExpression(), ct);
 
         if (season == null)
             return NotFound($"{leagueSlug}/{seasonSlug}");

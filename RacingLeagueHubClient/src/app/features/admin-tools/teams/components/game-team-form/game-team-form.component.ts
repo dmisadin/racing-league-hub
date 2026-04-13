@@ -88,7 +88,7 @@ export class GameTeamFormComponent {
     }
 
     onAddSuccess() {
-        this.toastService.showSuccess("Successfully added a new team.")
+        this.toastService.showSuccess("Successfully added a new team.");
         this.listService.triggerReload();
         this.routeService.navigateToParent();
     }

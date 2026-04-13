@@ -10,6 +10,7 @@ public class SeasonDtoFactory : DtoFactoryBase<Season, SeasonDto>
 {
     public override bool FromDto(Season entity, SeasonDto dto)
     {
+        entity.LeagueId = dto.LeagueId.RawId;
         entity.Name = dto.Name;
         entity.Platform = dto.Platform;
         entity.Game = dto.Game;
@@ -27,6 +28,7 @@ public class SeasonDtoFactory : DtoFactoryBase<Season, SeasonDto>
         return season => new SeasonDto
         {
             Id = new EncryptedId(season.Id),
+            LeagueId = new EncryptedId(season.LeagueId),
             Name = season.Name,
             Platform = season.Platform,
             Game = season.Game,

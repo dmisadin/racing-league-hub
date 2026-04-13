@@ -15,9 +15,9 @@ public abstract class GenericController<TEntity, TDto> : Controller
 {
     protected readonly IRepository<TEntity> repository;
 
-    public GenericController(IRepository<TEntity> genericRepository)
+    public GenericController(IRepository<TEntity> repository)
     {
-        this.repository = genericRepository;
+        this.repository = repository;
     }
 
     protected abstract IDtoFactory<TEntity, TDto> DtoFactory { get; }
