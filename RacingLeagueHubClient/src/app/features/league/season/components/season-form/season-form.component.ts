@@ -13,15 +13,20 @@ import { NgSelectComponent } from "@ng-select/ng-select";
 import { SlugPipe } from "../../../../../shared/pipes/slug.pipe";
 import { InputNumberComponent } from "../../../../../shared/components/input-fields/input-number/input-number.component";
 import { InputFileComponent } from '../../../../../shared/components/input-fields/input-file/input-file.component';
+import { ToastService } from '../../../../../core/services/toast.service';
+import { ListService } from '../../../../../shared/services/list.service';
 
 @Component({
     selector: 'season-form',
     imports: [ReactiveFormsModule, InputTextComponent, NgSelectComponent, InputNumberComponent, InputFileComponent, SlugPipe],
+    providers: [RouteService],
     templateUrl: './season-form.component.html'
 })
 export class SeasonFormComponent implements OnInit {
     private readonly routeService = inject(RouteService);
     private readonly restService = inject(RestService);
+    private readonly toastService = inject(ToastService);
+    private readonly listService = inject(ListService);
     private readonly fb = inject(FormBuilder);
 
     season = input<SeasonDto | null>();
@@ -70,9 +75,15 @@ export class SeasonFormComponent implements OnInit {
         const form = this.form.value;
 
         if (form['id'])
-            this.restService.post('/seasons/update', this.form.value).subscribe();
+            this.restService.post('/seasons/update', this.form.value).subscribe({
+                next: () => this.toastService.showSuccess("Successfully updated the season."),
+                error: () => this.toastService.showError("Failed to update the season.")
+            });
         else
-            this.restService.post('/seasons/add', this.form.value).subscribe(() => this.onAddSuccess());
+            this.restService.post('/seasons/add', this.form.value).subscribe({
+                next: () => this.onAddSuccess(),
+                error: () => this.toastService.showError("Failed to add a new season.")
+            });
 
     }
 
@@ -81,6 +92,8 @@ export class SeasonFormComponent implements OnInit {
     }
 
     onAddSuccess() {
+        this.toastService.showSuccess("Successfully added a new season.");
+        this.listService.triggerReload();
         this.routeService.navigateToParent();
     }
 }

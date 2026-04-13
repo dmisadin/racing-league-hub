@@ -10,6 +10,8 @@ import { InputFileComponent } from '../../../../shared/components/input-fields/i
 import { slugValidator } from '../../../../shared/validators/slug.validator';
 import { SlugPipe } from "../../../../shared/pipes/slug.pipe";
 import { timezoneOptions } from '../../../../shared/utilities/date.utility';
+import { ToastService } from '../../../../core/services/toast.service';
+import { ListService } from '../../../../shared/services/list.service';
 
 @Component({
     selector: 'league-form',
@@ -20,6 +22,8 @@ import { timezoneOptions } from '../../../../shared/utilities/date.utility';
 export class LeagueFormComponent implements OnInit {
     private readonly routeService = inject(RouteService);
     private readonly restService = inject(RestService);
+    private readonly toastService = inject(ToastService);
+    private readonly listService = inject(ListService);
     private readonly fb = inject(FormBuilder);
 
     league = input<LeagueDto | null>();
@@ -64,9 +68,15 @@ export class LeagueFormComponent implements OnInit {
         const form = this.form.value;
         
         if (form['id'])
-            this.restService.post('/leagues/update', this.form.value).subscribe();
+            this.restService.post('/leagues/update', this.form.value).subscribe({
+                next: () => this.toastService.showSuccess("Successfully updated the league."),
+                error: () => this.toastService.showError("Failed to update the league.")
+            });
         else
-            this.restService.post('/leagues/add', this.form.value).subscribe(() => this.onAddSuccess());
+            this.restService.post('/leagues/add', this.form.value).subscribe({
+                next: () => this.onAddSuccess(),
+                error: () => this.toastService.showError("Failed to add a new league.")
+            });
 
     }
 
@@ -75,6 +85,8 @@ export class LeagueFormComponent implements OnInit {
     }
 
     onAddSuccess() {
+        this.toastService.showSuccess("Successfully added a new league.");
+        this.listService.triggerReload();
         this.routeService.navigateToParent();
     }
 }
