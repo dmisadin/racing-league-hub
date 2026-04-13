@@ -12,6 +12,9 @@ import { CountryNamePipe } from "../../../../../shared/pipes/country-name.pipe";
     imports: [RouterLink, RouterOutlet, FlagUrlPipe, CountryNamePipe],
 })
 export class TrackListComponent extends ListBase<TrackDto> {
-    protected override dtoEndpoint = "/track";
     countryService = inject(CountryService);
+
+    protected override get endpoint(): string {
+        return "/track";
+    }
 }

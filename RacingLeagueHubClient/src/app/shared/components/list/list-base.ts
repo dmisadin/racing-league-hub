@@ -7,30 +7,31 @@ import { PagedResult } from "../../models/models";
 export abstract class ListBase<T> {
     protected readonly restService = inject(RestService);
     protected readonly listService = inject(ListService);
-
+    
     list = signal<T[] | null>(null);
     currentPage = signal(1);
     hasMore = signal(false);
     isLoading = signal(false);
 
-    protected abstract dtoEndpoint: string;
+    protected abstract get endpoint(): string;
 
     constructor() {
         effect(() => {
             this.listService.refresh();
             this.currentPage.set(1);
+            this.list.set(null);
             this.loadPage();
-        })
+        });
     }
 
     loadMore(): void {
-        this.currentPage.update(page => page++);
+        this.currentPage.update(page => page + 1);
         this.loadPage();
     }
-    
+
     private loadPage(): void {
         this.isLoading.set(true);
-        this.getApiCall(this.dtoEndpoint).subscribe({
+        this.getApiCall().subscribe({
             next: (result) => {
                 this.list.update(current => [...(current ?? []), ...result.items]);
                 this.hasMore.set(result.hasMore);
@@ -40,7 +41,7 @@ export abstract class ListBase<T> {
         });
     }
 
-    protected getApiCall (endpoint: string) {
-        return this.restService.get<PagedResult<T>>(endpoint, { page: this.currentPage() });
+    protected getApiCall() {
+        return this.restService.get<PagedResult<T>>(this.endpoint, { page: this.currentPage() });
     }
 }
