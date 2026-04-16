@@ -3,7 +3,7 @@
     <div class="flex items-center gap-4">
         @if (season.logoUrl) {
         <img [src]="season.logoUrl" [alt]="season.name"
-            class="w-16 h-16 rounded-xl object-cover border border-base-200" />
+            class="w-16 h-16 rounded-xl object-cover border border-base-200 drop-shadow-md drop-shadow-base-content/10" />
         } @else {
         <div
             class="w-16 h-16 rounded-xl bg-base-200 border border-base-200 flex items-center justify-center text-2xl font-bold text-base-content/30">

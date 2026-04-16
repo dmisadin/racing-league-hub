@@ -10,7 +10,7 @@
             @if (uploadedResource.extension | isImageExtension) {
                 <img [src]="uploadedResource.fileUrl"
                     [alt]="uploadedResource.fileName"
-                    class="h-12 w-12 object-cover rounded" />
+                    class="h-12 w-12 object-cover rounded drop-shadow-md drop-shadow-base-content/10" />
             } @else {
                 <div class="flex items-center justify-center h-12 w-12 rounded bg-base-300 text-xs font-bold uppercase">
                     {{ uploadedResource.extension }}
