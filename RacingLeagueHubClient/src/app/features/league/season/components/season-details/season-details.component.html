@@ -35,6 +35,11 @@
         </div>
     </div>
 
+    @let leagueSlug = this.leagueSlug();
+    @let seasonSlug = this.seasonSlug();
+    @if(leagueSlug && seasonSlug) {
+        <grand-prix-list [leagueSlug]="leagueSlug" [seasonSlug]="seasonSlug"></grand-prix-list>
+    }
 </div>
 } @else {
 <div class="flex justify-center items-center py-16">

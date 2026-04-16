@@ -1,27 +1,31 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Platform, SeasonDto } from '../../models/season.model';
 import { RouteService } from '../../../../../core/services/route.service';
 import { Game } from '../../../../../shared/models/enums';
 import { RouterLink } from "@angular/router";
 import { ModalFormParent } from '../../../../../shared/components/modal/modal-form-parent';
+import { GrandPrixListComponent } from '../../grand-prix/components/grand-prix-list/grand-prix-list.component';
 
 @Component({
     selector: 'season-details',
-    imports: [RouterLink],
+    imports: [RouterLink, GrandPrixListComponent],
     providers: [RouteService],
     templateUrl: './season-details.component.html'
 })
 export class SeasonDetailsComponent extends ModalFormParent<SeasonDto> {
     private readonly routeService = inject(RouteService);
 
+    leagueSlug = signal<string | null>(null);
+    seasonSlug = signal<string | null>(null);
+
     readonly Platform = Platform;
     readonly Game = Game;
 
     protected override loadDto(): void {
-        const leagueSlug = this.routeService.getRouteParam("leagueSlug");
-        const seasonSlug = this.routeService.getRouteParam("seasonSlug");
+        this.leagueSlug.set(this.routeService.getRouteParam("leagueSlug"));
+        this.seasonSlug.set(this.routeService.getRouteParam("seasonSlug"));
 
-        this.restService.get<SeasonDto>(`/leagues/${leagueSlug}/seasons/${seasonSlug}`)
+        this.restService.get<SeasonDto>(`/leagues/${this.leagueSlug()}/seasons/${this.seasonSlug()}`)
             .subscribe(res => this.dto.set(res));
     }
 }
