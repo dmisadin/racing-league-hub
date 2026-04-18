@@ -1,1 +1,30 @@
-<p>grand-prix-details works!</p>
+@if (dto(); as gp) {
+<div class="space-y-6">
+    <div class="flex items-center gap-4">
+        <div>
+            <h1 class="text-2xl font-bold">{{ gp.name }}</h1>
+            <p class="text-sm text-base-content/50">{{ gp.slug }}</p>
+        </div>
+
+        <a class="btn btn-outline" routerLink="edit">Edit</a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-base-200 rounded-xl p-4 space-y-1">
+            <p class="text-xs font-medium uppercase tracking-wider text-base-content/50">Starting time</p>
+            <p class="font-medium">{{ gp.startingAt | date:'dd.M.yyyy. HH:mm'}}</p>
+        </div>
+
+        @if (gp.vodUrl) {
+            <div class="bg-base-200 rounded-xl p-4 space-y-1">
+                <p class="text-xs font-medium uppercase tracking-wider text-base-content/50">Platform</p>
+                <a class="font-medium" href="{{gp.vodUrl}}"> Video URL </a>
+            </div>
+        }
+    </div>
+</div>
+} @else {
+<div class="flex justify-center items-center py-16">
+    <span class="loading loading-spinner loading-md"></span>
+</div>
+}
