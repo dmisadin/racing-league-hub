@@ -1,10 +1,7 @@
 ﻿using RacingLeagueHub.Application.Dtos.GrandPrix;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Entities.GrandsPrix;
-using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace RacingLeagueHub.Application.DtoFactories;
 
@@ -12,7 +9,14 @@ public class GrandPrixDtoFactory : DtoFactoryBase<GrandPrix, GrandPrixDto>
 {
     public override bool FromDto(GrandPrix entity, GrandPrixDto dto)
     {
-        throw new NotImplementedException();
+        entity.SeasonId = dto.SeasonId.RawId;
+        entity.TrackLayoutId = dto.TrackLayoutId.RawId;
+        entity.Name = dto.Name;
+        entity.StartingAt = dto.StartingAt;
+        entity.VodUrl = dto.VodUrl;
+        entity.Slug = dto.Slug;
+
+        return true;
     }
 
     public override Expression<Func<GrandPrix, GrandPrixDto>> ToDtoExpression()
