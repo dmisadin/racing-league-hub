@@ -15,6 +15,7 @@ import { toUtcIso } from '../../../../../../shared/utilities/date.utility';
 @Component({
     selector: 'grand-prix-form',
     imports: [ReactiveFormsModule, InputTextComponent, SlugPipe, ApiInputSelectComponent],
+    providers: [RouteService],
     templateUrl: './grand-prix-form.component.html'
 })
 export class GrandPrixFormComponent {
@@ -57,8 +58,8 @@ export class GrandPrixFormComponent {
                 .subscribe(res => this.form.patchValue({ seasonId: res.id }));
             return;
         }
-
-        this.restService.get<GrandPrixDto>(`/leagues/${leagueSlug}/seasons/${seasonSlug}/grand-prix/${grandPrix}`)
+        
+        this.restService.get<GrandPrixDto>(`/leagues/${leagueSlug}/seasons/${seasonSlug}/grands-prix/${grandPrixSlug}`)
             .subscribe(res => this.form.patchValue(res));
     }
 
