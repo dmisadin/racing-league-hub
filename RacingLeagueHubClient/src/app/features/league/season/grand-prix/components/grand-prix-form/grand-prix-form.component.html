@@ -6,7 +6,7 @@
             <p class="mb-1">Track</p>
             <api-input-select endpoint="/track/lookup" 
                 placeholder="Select an option"
-                (selectedChange)="onSelect($event)">
+                formControlName="trackLayoutId">
             </api-input-select>
         </label>
 
