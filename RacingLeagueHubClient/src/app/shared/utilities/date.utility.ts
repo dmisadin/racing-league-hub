@@ -22,3 +22,7 @@ export const timezoneOptions: DropdownOption[] = Intl.supportedValuesOf('timeZon
     })
     .sort((a, b) => a.offset - b.offset || a.id.localeCompare(b.id))
     .map(({ id, name }) => ({ id, name }));
+
+export function toUtcIso(localDateString: string): string {
+    return new Date(localDateString).toISOString();
+}
