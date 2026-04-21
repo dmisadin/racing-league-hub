@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Application.DtoFactories;
+using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.Dtos.Track;
+using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Infrastructure;
 using RacingLeagueHub.Domain.Models.Constants;
@@ -32,5 +34,19 @@ public class TrackController : GenericController<Track, TrackDto>
         }
 
         return Ok(dtos);
+    }
+
+    [HttpGet("lookup")]
+    public async Task<ActionResult<LookupDto>> GetLookup()
+    {
+        var tracks = await repository.GetAllAsync(DtoFactory.ToDtoExpression());
+
+        var lookups = tracks.Select(x => new LookupDto
+        {
+            Id = x.Id,
+            Label = x.Name
+        });
+
+        return Ok(lookups);
     }
 }

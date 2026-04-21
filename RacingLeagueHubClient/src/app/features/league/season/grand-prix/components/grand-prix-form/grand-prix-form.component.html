@@ -1,1 +1,37 @@
-<p>grand-prix-form works!</p>
+<div class="space-y-8">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <input-text label="Name" formControlName="name" placeholder="Australian Grand Prix"></input-text>
+
+        <label class="block text-sm font-medium mb-1">
+            <p class="mb-1">Track</p>
+            <api-input-select endpoint="/track/lookup" 
+                placeholder="Select an option"
+                formControlName="trackLayoutId">
+            </api-input-select>
+        </label>
+
+        <input-text label="VOD URL" formControlName="vodUrl" placeholder="https://youtube.com/watch?v=dQw4w9WgXcQ"></input-text>
+
+        
+        <label class="block text-sm font-medium mb-1">
+            <p class="mb-1">Starting time</p>
+            <input type="datetime-local" formControlName="startingAt" class="input w-full">
+        </label>
+
+        <input-text label="URL slug" 
+            formControlName="slug" 
+            [placeholder]="(form.controls['name']?.value || 'Australian GP') | slug" 
+            customValidatorName="slug">
+        </input-text>
+
+        <div class="md:col-span-2 flex justify-end gap-2">
+            <button type="button" (click)="onCancel()" class="btn btn-soft btn-error">
+                Cancel
+            </button>
+
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+                Save All Changes
+            </button>
+        </div>
+    </form>
+</div>

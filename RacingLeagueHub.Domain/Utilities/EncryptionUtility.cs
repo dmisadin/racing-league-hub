@@ -8,9 +8,8 @@ public static class EncryptionUtility
     private const int NonceSize = 12;
     private const int TagSize = 16;
     private const int CipherSize = 8;
-    public const int OutputLength = 48;
+    public const int OutputLength = 32; // was 48 — nonce no longer in output
 
-    // Lazy ensures the env variable is read once, on first use, not at startup
     private static readonly Lazy<byte[]> _key = new(() =>
     {
         var base64Key = Environment.GetEnvironmentVariable("RACINGLEAGUEHUB_ENCRYPTION_KEY")
@@ -28,17 +27,20 @@ public static class EncryptionUtility
 
     public static string Encrypt(this long rawId)
     {
-        Span<byte> nonce = stackalloc byte[NonceSize];
         Span<byte> plaintext = stackalloc byte[CipherSize];
         Span<byte> ciphertext = stackalloc byte[CipherSize];
         Span<byte> tag = stackalloc byte[TagSize];
 
-        RandomNumberGenerator.Fill(nonce);
         BinaryPrimitives.WriteInt64LittleEndian(plaintext, rawId);
+
+        // Derive nonce from plaintext — deterministic
+        var nonce = DeriveNonce(plaintext);
 
         using var aes = new AesGcm(_key.Value, TagSize);
         aes.Encrypt(nonce, plaintext, ciphertext, tag);
 
+        // Store nonce + ciphertext + tag — same as non-deterministic layout
+        // Nonce is not secret, just needs to be present for decryption
         var output = new byte[NonceSize + CipherSize + TagSize];
         nonce.CopyTo(output.AsSpan(0));
         ciphertext.CopyTo(output.AsSpan(NonceSize));
@@ -67,6 +69,7 @@ public static class EncryptionUtility
             throw new ArgumentException(
                 $"Encrypted ID has invalid length. Expected {NonceSize + CipherSize + TagSize} bytes.");
 
+        // Read nonce from payload — same as non-deterministic
         var nonce = data.AsSpan(0, NonceSize);
         var ciphertext = data.AsSpan(NonceSize, CipherSize);
         var tag = data.AsSpan(NonceSize + CipherSize, TagSize);
@@ -85,5 +88,13 @@ public static class EncryptionUtility
         }
 
         return BinaryPrimitives.ReadInt64LittleEndian(plaintext);
+    }
+
+    // Nonce derived from plaintext bytes — same rawId always → same nonce → same output
+    private static byte[] DeriveNonce(ReadOnlySpan<byte> input)
+    {
+        using var hmac = new HMACSHA256(_key.Value);
+        var hash = hmac.ComputeHash(input.ToArray());
+        return hash[..NonceSize];
     }
 }

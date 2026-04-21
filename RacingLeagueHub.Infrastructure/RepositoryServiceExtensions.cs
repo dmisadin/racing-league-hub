@@ -33,6 +33,7 @@ public static class RepositoryServiceExtensions
 
         services.AddScoped<ILeagueRepository, LeagueRepository>();
         services.AddScoped<ISeasonRepository, SeasonRepository>();
+        services.AddScoped<IGrandPrixRepository, GrandPrixRepository>();
 
         return services;
     }

@@ -58,9 +58,9 @@ export class SeasonFormComponent implements OnInit {
 
         const leagueSlug = this.routeService.getRouteParam("leagueSlug");
         const seasonSlug = this.routeService.getRouteParam("seasonSlug");
-        if (!leagueSlug || !seasonSlug) {
+        if (!seasonSlug && leagueSlug) {
             this.restService.get<LeagueDto>(`/leagues/${leagueSlug}`)
-                            .subscribe(res => this.form.patchValue({leagueId: res.id}));
+                .subscribe(res => this.form.patchValue({leagueId: res.id}));
             return;
         }
 

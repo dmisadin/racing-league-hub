@@ -1,39 +1,39 @@
-@if (league(); as l) {
+@if (dto(); as league) {
 
-@if (l.logoUrl) {
+@if (league.logoUrl) {
 <figure class="px-6 pt-6">
-    <img [src]="l.logoUrl" [alt]="l.name" class="rounded-xl max-h-32 object-contain" />
+    <img [src]="league.logoUrl" [alt]="league.name" class="rounded-xl max-h-32 object-contain drop-shadow-md drop-shadow-base-content/10" />
 </figure>
 }
 
 <div class="space-y-4">
     <h2 class="card-title flex justify-between items-center text-3xl">
-        {{ l.name }}
+        {{ league.name }}
         <a class="btn btn-outline" routerLink="edit">Edit</a>
     </h2>
 
     <div class="flex gap-2">
         <span class="badge badge-primary font-bold">
-            {{ l.abbreviation }}
+            {{ league.abbreviation }}
         </span>
         <span class="badge badge-outline">
-            {{ regionLabels[l.region] }}
+            {{ regionLabels[league.region] }}
         </span>
     </div>
 
-    @if (l.description) {
+    @if (league.description) {
     <p class="text-sm opacity-80">
-        {{ l.description }}
+        {{ league.description }}
     </p>
     }
 
     <div class="mt-2 space-y-1 text-sm">
         <span class="font-semibold">Timezone:</span>
-        {{ l.timezone }}
+        {{ league.timezone }}
     </div>
 
-    @if(l.slug) {
-    <season-list [leagueSlug]="l.slug"></season-list>
+    @if(league.slug) {
+    <season-list [leagueSlug]="league.slug"></season-list>
     }
 </div>
 

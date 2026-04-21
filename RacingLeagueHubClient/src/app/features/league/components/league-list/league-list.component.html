@@ -10,7 +10,7 @@
     @for (league of list(); track league.id)
     {
     <li class="list-row cursor-pointer hover:bg-base-200" routerLink="{{league.slug}}">
-        <img class="size-10 rounded-box" [src]="league.logoUrl" />
+        <img class="size-10 rounded-box drop-shadow-md drop-shadow-base-content/10" [src]="league.logoUrl" />
         <div>
             <div>{{ league.name }}</div>
             <div class="text-xs uppercase font-semibold opacity-60">{{ league.abbreviation }}</div>

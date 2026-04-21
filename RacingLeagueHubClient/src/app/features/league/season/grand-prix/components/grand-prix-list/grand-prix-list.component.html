@@ -1,0 +1,22 @@
+<ul class="list bg-base-100 rounded-box shadow-md pb-4">
+
+    <li class="flex justify-between p-4 pb-2 tracking-wide text-xs">
+        <span class="opacity-60">List of all available Grand Prix</span>
+        <span>
+            <a routerLink="add-grand-prix" class="hover:underline">+ Add new Grand Prix</a>
+        </span>
+    </li>
+
+    @for (grandPrix of list(); track grandPrix.id)
+    {
+    <li class="list-row cursor-pointer hover:bg-base-200" routerLink="{{grandPrix.slug}}">
+        <!-- <img class="size-10 rounded-box drop-shadow-md drop-shadow-base-content/10" [src]="season.logoUrl" /> -->
+        <div>
+            <div>{{ grandPrix.name }}</div>
+            <div class="text-xs uppercase font-semibold opacity-60">{{ grandPrix.startingAt }}</div>
+        </div>
+    </li>
+    }
+</ul>
+
+<router-outlet></router-outlet>

@@ -11,7 +11,7 @@ import { SeasonFormComponent } from "../season-form.component";
           <modal [openByDefault]="true" 
               (onClose)="onModalClosed()" 
               (onDiscard)="onModalDiscarded()"
-              title="Create a new league">
+              title="Create a new Season">
               <season-form (cancel)="onModalDiscarded()"></season-form>
           </modal>
       `,

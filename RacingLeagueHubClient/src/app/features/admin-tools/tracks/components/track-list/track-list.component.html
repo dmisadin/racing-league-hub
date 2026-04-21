@@ -10,7 +10,7 @@
     @for (track of list(); track track.id)
     {
     <li class="list-row cursor-pointer hover:bg-base-200" routerLink="{{track.id}}">
-        <div><img class="size-10 rounded-box" [src]="track.countryAlpha2 | flagUrl" /></div>
+        <div><img class="size-10 rounded-box drop-shadow-md drop-shadow-base-content/10" [src]="track.countryAlpha2 | flagUrl" /></div>
         <div>
             <div>{{ track.country?.name ?? (track.countryAlpha2 | countryName) }} - {{track.city}}</div>
             <div class="text-xs uppercase font-semibold opacity-60">{{ track.name }}</div>
