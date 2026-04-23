@@ -92,9 +92,9 @@ internal class GenericRepository<TEntity> : IRepository<TEntity>
         return entity.Id;
     }
 
-    public virtual Task<int> CommitAsync()
+    public virtual Task<int> CommitAsync(CancellationToken cancellationToken = default)
     {
-        return this.dbContext.SaveChangesAsync();
+        return this.dbContext.SaveChangesAsync(cancellationToken);
     }
 
     public virtual Task<int> ExecuteDeleteAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)

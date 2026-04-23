@@ -4,7 +4,7 @@ using RacingLeagueHub.Domain.Interceptors.EntityHandlers;
 
 namespace RacingLeagueHub.Infrastructure;
 
-public partial class AdventureContext : DbContext
+public class AdventureContext : DbContext
 {
     private readonly IEnumerable<IEntityHandler> handlers;
 
