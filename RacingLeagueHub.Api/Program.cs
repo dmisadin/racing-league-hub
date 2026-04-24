@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.Api.Configuration.Binders;
 using RacingLeagueHub.Api.Configuration.Serialization;
+using RacingLeagueHub.Api.Middleware;
 using RacingLeagueHub.Api.Startup;
+using RacingLeagueHub.Application.Services;
 using RacingLeagueHub.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,7 @@ builder.Services.AddControllers(options =>
 
 builder.Services.AddRepositories(typeof(Program).Assembly);
 builder.Services.AddEntityHandlers(typeof(Program).Assembly);
+builder.Services.RegisterAppLayerServices();
 
 builder.Services.AddDbContext<AdventureContext>(options => 
                     options.UseNpgsql(builder.Configuration
@@ -47,6 +50,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthentication();
 

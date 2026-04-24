@@ -34,6 +34,8 @@ public static class RepositoryServiceExtensions
         services.AddScoped<ILeagueRepository, LeagueRepository>();
         services.AddScoped<ISeasonRepository, SeasonRepository>();
         services.AddScoped<IGrandPrixRepository, GrandPrixRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 
         return services;
     }

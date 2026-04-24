@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.Application.Dtos.User;
+﻿namespace RacingLeagueHub.Application.Dtos.Auth;
 
 public class LoginDto
 {
