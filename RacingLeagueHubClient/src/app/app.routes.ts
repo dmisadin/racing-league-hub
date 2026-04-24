@@ -8,6 +8,11 @@ export const routes: Routes = [
         loadComponent: () => import('./features/home/home.component').then(c => c.HomeComponent)
     },
     {
+        path: 'auth', 
+        loadChildren: () => import('./features/authentication/authentication.routes').then(r => r.AUTHENTICATION_ROUTES),
+        // canActivate: [loggedInGuard]
+    },
+    {
         path: 'admin-tools',
         loadChildren: () => import('./features/admin-tools/admin-tools.routes').then(r => r.ADMIN_TOOLS_ROUTES),
         providers: [RouteService]
