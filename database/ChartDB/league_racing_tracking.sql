@@ -140,11 +140,12 @@ CREATE UNIQUE INDEX "grand_prix_season_id_slug_key" ON "public"."grand_prix" ("s
 
 CREATE TABLE "public"."user" (
     "id" bigint GENERATED ALWAYS AS IDENTITY,
-    "username" varchar(32) NOT NULL,
-    "email" varchar(64) NOT NULL,
-    "password" text NOT NULL,
-    "is_admin" boolean NOT NULL,
-    "driver_id" bigint,
+    "username" varchar(100) NOT NULL,
+    "email" varchar(256) NOT NULL,
+    "password_hash" varchar(512) NOT NULL,
+    "is_admin" boolean NOT NULL DEFAULT FALSE,
+    "created_at" timestamp NOT NULL DEFAULT NOW(),
+    "driver_id" bigint
     PRIMARY KEY ("id")
 );
 -- Indexes
