@@ -20,6 +20,8 @@ builder.Services.AddControllers(options =>
 builder.Services.AddRepositories(typeof(Program).Assembly);
 builder.Services.AddEntityHandlers(typeof(Program).Assembly);
 builder.Services.RegisterAppLayerServices();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 builder.Services.AddDbContext<AdventureContext>(options => 
                     options.UseNpgsql(builder.Configuration
@@ -51,10 +53,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseExceptionHandler();
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.UseCors("AngularApp");

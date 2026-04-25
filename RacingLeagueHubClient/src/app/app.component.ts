@@ -3,10 +3,11 @@ import { RouterOutlet, RouterLinkWithHref } from '@angular/router';
 import { ThemeService } from './core/services/theme.service';
 import { FormsModule } from "@angular/forms";
 import { ToastContainerComponent } from "./shared/components/toast/toast.component";
+import { UserDropdownComponent } from "./features/user/user-dropdown/user-dropdown.component";
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, FormsModule, RouterLinkWithHref, ToastContainerComponent],
+    imports: [RouterOutlet, FormsModule, RouterLinkWithHref, ToastContainerComponent, UserDropdownComponent],
     templateUrl: './app.component.html'
 })
 export class App {

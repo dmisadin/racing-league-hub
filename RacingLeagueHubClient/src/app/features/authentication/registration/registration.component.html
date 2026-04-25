@@ -1,26 +1,21 @@
 <div class="flex justify-center">
-    <div class="card w-96 bg-base-100 shadow-xl mt-20 mb-20">
-        <form [formGroup]="formGroup" class="card-body" (ngSubmit)="onSubmit()">
-            <h2 class="card-title">Register</h2>
-            <div class="items-center mt-2">
-                <label class="input input-bordered flex items-center gap-2 mb-2 w-full">
-                    <!-- <lucide-icon [img]="UserIcon" size="20"></lucide-icon> -->
-                    <input type="text" placeholder="Enter username" formControlName="username" class="grow" />
-                </label>
-                <label class="input input-bordered flex items-center gap-2 mb-2 w-full">
-                    <!-- <lucide-icon [img]="MailIcon" size="20"></lucide-icon> -->
-                    <input type="text" placeholder="Enter email" formControlName="email" class="grow" />
-                </label>
-                <label class="input input-bordered flex items-center gap-2 mb-2 w-full">
-                    <!-- <lucide-icon [img]="KeyRoundIcon" size="20"></lucide-icon> -->
-                    <input type="password" placeholder="Enter password" formControlName="password" class="grow" />
-                </label>
+    <div class="card w-fit min-w-96 bg-base-100 shadow-xl mt-20 mb-20 p-6">
+        <h2 class="card-title mb-4">Register</h2>
+        <form [formGroup]="form" class="flex flex-col gap-4" (ngSubmit)="onSubmit()">
+            <input-text label="Username" placeholder="Enter username" formControlName="username"></input-text>
+            <input-text label="Email" type="email" placeholder="Enter email" formControlName="email"></input-text>
+            <div class="flex flex-col gap-4">
+                <input-text label="Password" type="password" placeholder="Enter password" formControlName="password"></input-text>
+                <input-text label="Repeat the password" type="password" placeholder="Enter password again" formControlName="repeatPassword"></input-text>
+    
+                @if (passwordMismatch) {
+                    <small class="block text-error">Passwords do not match.</small>
+                }
             </div>
-            
-            <small>Already have an account? <a class="link" routerLink="/auth/login">Log in!</a></small>
 
             <div class="card-actions justify-end">
-                <button class="btn btn-primary w-full">Submit</button>
+                <small>Already have an account? <a class="link" routerLink="/auth/login">Log in!</a></small>
+                <button class="btn btn-primary w-full" [disabled]="form.invalid">Submit</button>
             </div>
         </form>
     </div>

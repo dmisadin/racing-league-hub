@@ -10,3 +10,9 @@ export interface PagedResult<T> {
     totalCount: number;
     hasMore: boolean;
 }
+
+export interface ProblemDetails {
+    status: number;
+    title: string;
+    instance: string;
+}

@@ -23,7 +23,7 @@ import { ToastService } from "../../../core/services/toast.service";
     styles: [`
     .toast-wrapper {
         position: fixed;
-        top: 1em;
+        bottom: 1em;
         right: 1em;
         z-index: 9999;
         display: flex;

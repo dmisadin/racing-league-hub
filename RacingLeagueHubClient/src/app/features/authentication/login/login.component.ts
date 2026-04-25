@@ -2,25 +2,43 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { RouterLink } from "@angular/router";
+import { ToastService } from '../../../core/services/toast.service';
+import { RouteService } from '../../../core/services/route.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { InputTextComponent } from '../../../shared/components/input-fields/input-text/input-text.component';
 
 @Component({
-    selector: 'login',
-    imports: [ReactiveFormsModule, RouterLink],
+    selector: 'login-form',
+    imports: [ReactiveFormsModule, RouterLink, InputTextComponent],
+    providers: [RouteService],
     templateUrl: './login.component.html',
 })
 export class LoginComponent {
     private readonly authService = inject(AuthService);
-    formGroup: FormGroup;
+    private readonly toastService = inject(ToastService);
+    private readonly routeService = inject(RouteService);
+
+    form: FormGroup;
 
     constructor(private fb: FormBuilder) {
-        this.formGroup = this.fb.group({
-            email: ["", Validators.required],
+        this.form = this.fb.group({
+            email: ["", [Validators.required, Validators.email]],
             password: ["", Validators.required]
         });
     }
 
     onSubmit() {
-        if (this.formGroup.valid)
-            this.authService.login(this.formGroup.value).subscribe();
+        if (this.form.invalid)
+            return;
+
+        this.authService.login(this.form.value).subscribe({
+            next: () => this.onSuccess(),
+            error: (err: HttpErrorResponse) => {console.log("test", err.error); this.toastService.showError(err.error.title)}
+        });
+    }
+
+    onSuccess() {
+        this.toastService.showSuccess("Login successful.");
+        this.routeService.navigateToRoot();
     }
 }
