@@ -9,9 +9,9 @@ import { passwordMatchValidator } from '../../../shared/validators/password-matc
 @Component({
     selector: 'registration-form',
     imports: [ReactiveFormsModule, RouterLink, InputTextComponent],
-    templateUrl: './registration.component.html',
+    templateUrl: './registration-form.component.html',
 })
-export class RegistrationComponent {
+export class RegistrationFormComponent {
     private readonly authService = inject(AuthService);
     private readonly restService = inject(RestService);
     private readonly router = inject(Router);

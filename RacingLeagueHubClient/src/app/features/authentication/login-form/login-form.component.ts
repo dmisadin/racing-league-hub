@@ -11,9 +11,9 @@ import { InputTextComponent } from '../../../shared/components/input-fields/inpu
     selector: 'login-form',
     imports: [ReactiveFormsModule, RouterLink, InputTextComponent],
     providers: [RouteService],
-    templateUrl: './login.component.html',
+    templateUrl: './login-form.component.html',
 })
-export class LoginComponent {
+export class LoginFormComponent {
     private readonly authService = inject(AuthService);
     private readonly toastService = inject(ToastService);
     private readonly routeService = inject(RouteService);
