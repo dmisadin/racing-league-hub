@@ -1,13 +1,13 @@
 <div class="flex justify-center">
-    <div class="card w-fit min-w-96 bg-base-100 shadow-xl mt-20 mb-20 p-6">
+    <div class="card flex-grow bg-base-100 shadow-xl mt-20 mb-20 p-6">
         <h2 class="card-title mb-4">Login</h2>
         <form [formGroup]="form" class="flex flex-col gap-4" (ngSubmit)="onSubmit()">
             <input-text label="Email" type="email" placeholder="Enter email" formControlName="email"></input-text>
             <input-text label="Password" type="password" placeholder="Enter password" formControlName="password"></input-text>
 
-            <small>Still don't have an account? <a class="link" routerLink="/auth/register">Register here!</a></small>
-
-            <div class="card-actions justify-end">
+            
+            <div class="text-center">
+                <small class="block mb-2">Still don't have an account? <a class="link" routerLink="/auth/register">Register here!</a></small>
                 <button class="btn btn-primary w-full" [disabled]="form.invalid || isLoading()">
                     Log in
                     @if (isLoading()) {

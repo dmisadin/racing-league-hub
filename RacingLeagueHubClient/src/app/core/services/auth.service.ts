@@ -6,11 +6,13 @@ import { Router } from '@angular/router';
 import { tap, catchError, EMPTY, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AuthResponse, LoginRequest, RegisterRequest, UserDto } from '../models/auth.model';
+import { ToastService } from './toast.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
     private readonly http = inject(HttpClient);
     private readonly router = inject(Router);
+    private readonly toastService = inject(ToastService);
 
     private readonly apiUrl = `${environment.apiUrl}/auth`;
 
@@ -41,7 +43,7 @@ export class AuthService {
         if (this.refreshToken) {
             this.http.post(`${this.apiUrl}/revoke`, { refreshToken: this.refreshToken })
                 .pipe(catchError(() => EMPTY))
-                .subscribe();
+                .subscribe(res => this.toastService.showSuccess("Successfully logged out."));
         }
 
         this.clearAuth();

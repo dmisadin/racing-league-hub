@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
-import { RestService } from '../../../core/services/rest.service';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { InputTextComponent } from "../../../shared/components/input-fields/input-text/input-text.component";
 import { passwordMatchValidator } from '../../../shared/validators/password-match.validator';
@@ -12,6 +11,7 @@ import { RouteService } from '../../../core/services/route.service';
 @Component({
     selector: 'registration-form',
     imports: [ReactiveFormsModule, RouterLink, InputTextComponent],
+    providers: [RouteService],
     templateUrl: './registration-form.component.html',
 })
 export class RegistrationFormComponent {

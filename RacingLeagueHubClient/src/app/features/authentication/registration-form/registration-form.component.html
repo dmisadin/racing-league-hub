@@ -1,5 +1,5 @@
 <div class="flex justify-center">
-    <div class="card w-fit min-w-96 bg-base-100 shadow-xl mt-20 mb-20 p-6">
+    <div class="card flex-grow bg-base-100 shadow-xl mt-20 mb-20 p-6">
         <h2 class="card-title mb-4">Register</h2>
         <form [formGroup]="form" class="flex flex-col gap-4" (ngSubmit)="onSubmit()">
             <input-text label="Username" placeholder="Enter username" formControlName="username"></input-text>
@@ -13,8 +13,8 @@
                 }
             </div>
 
-            <div class="card-actions justify-end">
-                <small>Already have an account? <a class="link" routerLink="/auth/login">Log in!</a></small>
+            <div class="text-center">
+                <small class="block mb-2">Already have an account? <a class="link" routerLink="/auth/login">Log in!</a></small>
                 <button class="btn btn-primary w-full" [disabled]="form.invalid || isLoading()">
                     Submit
                     @if (isLoading()) {

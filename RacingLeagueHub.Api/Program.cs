@@ -20,6 +20,9 @@ builder.Services.AddControllers(options =>
 builder.Services.AddRepositories(typeof(Program).Assembly);
 builder.Services.AddEntityHandlers(typeof(Program).Assembly);
 builder.Services.RegisterAppLayerServices();
+builder.Services.RegisterAWSServices(builder.Configuration); 
+builder.Services.AddJwtAuthentication(builder.Configuration);
+
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
@@ -41,8 +44,6 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.RegisterAWSServices(builder.Configuration);
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -55,10 +56,10 @@ app.UseHttpsRedirection();
 
 app.UseExceptionHandler();
 
+app.UseCors("AngularApp");
+
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseCors("AngularApp");
 
 app.MapControllers();
 

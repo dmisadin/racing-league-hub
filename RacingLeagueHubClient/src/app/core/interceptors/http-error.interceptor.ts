@@ -1,7 +1,7 @@
 import { HttpInterceptorFn, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { ToastService } from '../services/toast.service';
+import { ToastService, ToastType } from '../services/toast.service';
 import { ProblemDetails } from '../../shared/models/models';
 
 export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
@@ -9,19 +9,31 @@ export const httpErrorInterceptor: HttpInterceptorFn = (req, next) => {
 
     return next(req).pipe(
         catchError((err: HttpErrorResponse) => {
-            const problem = err.error as ProblemDetails;
-            
-            const message = problem?.title ?? getDefaultMessage(err.status);
-
-            // skip 401 — auth interceptor handles those
             if (err.status !== HttpStatusCode.Unauthorized) {
-                toastService.showError(message);
+                toastService.show(resolveMessage(err), resolveType(err));
             }
-
             return throwError(() => err);
         })
     );
 };
+
+function resolveMessage(err: HttpErrorResponse): string {
+    const problem = err.error as ProblemDetails;
+
+    if (err.status >= HttpStatusCode.BadRequest 
+        && err.status < HttpStatusCode.InternalServerError 
+        && problem?.title) {
+        return problem.title;
+    }
+
+    return getDefaultMessage(err.status);
+}
+
+function resolveType(err: HttpErrorResponse): ToastType {
+    if (err.status >= HttpStatusCode.InternalServerError ) return 'error';
+    if (err.status >= HttpStatusCode.BadRequest) return 'warning';
+    return 'info';
+}
 
 function getDefaultMessage(status: number): string {
     switch (status) {
