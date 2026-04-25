@@ -15,7 +15,12 @@
 
             <div class="card-actions justify-end">
                 <small>Already have an account? <a class="link" routerLink="/auth/login">Log in!</a></small>
-                <button class="btn btn-primary w-full" [disabled]="form.invalid">Submit</button>
+                <button class="btn btn-primary w-full" [disabled]="form.invalid || isLoading()">
+                    Submit
+                    @if (isLoading()) {
+                        <span class="loading loading-spinner loading-sm"></span>
+                    }
+                </button>
             </div>
         </form>
     </div>

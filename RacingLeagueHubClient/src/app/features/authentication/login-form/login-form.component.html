@@ -8,7 +8,12 @@
             <small>Still don't have an account? <a class="link" routerLink="/auth/register">Register here!</a></small>
 
             <div class="card-actions justify-end">
-                <button class="btn btn-primary w-full" [disabled]="form.invalid">Log in</button>
+                <button class="btn btn-primary w-full" [disabled]="form.invalid || isLoading()">
+                    Log in
+                    @if (isLoading()) {
+                        <span class="loading loading-spinner loading-sm"></span>
+                    }
+                </button>
             </div>
         </form>
     </div>

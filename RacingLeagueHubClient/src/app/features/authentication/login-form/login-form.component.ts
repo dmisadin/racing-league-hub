@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { RouterLink } from "@angular/router";
@@ -18,6 +18,8 @@ export class LoginFormComponent {
     private readonly toastService = inject(ToastService);
     private readonly routeService = inject(RouteService);
 
+    isLoading = signal(false);
+
     form: FormGroup;
 
     constructor(private fb: FormBuilder) {
@@ -31,14 +33,22 @@ export class LoginFormComponent {
         if (this.form.invalid)
             return;
 
+        this.isLoading.set(true);
         this.authService.login(this.form.value).subscribe({
             next: () => this.onSuccess(),
-            error: (err: HttpErrorResponse) => {console.log("test", err.error); this.toastService.showError(err.error.title)}
+            error: (err: HttpErrorResponse) => this.onError(err.error.title),
+            complete: () => this.isLoading.set(false)
         });
     }
 
     onSuccess() {
+        this.isLoading.set(false);
         this.toastService.showSuccess("Login successful.");
         this.routeService.navigateToRoot();
+    }
+
+    onError(errorMessage?: string) {
+        this.isLoading.set(false);
+        this.toastService.showError(errorMessage ?? "Something went wrong")
     }
 }

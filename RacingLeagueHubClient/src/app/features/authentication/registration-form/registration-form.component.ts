@@ -1,10 +1,13 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RestService } from '../../../core/services/rest.service';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { InputTextComponent } from "../../../shared/components/input-fields/input-text/input-text.component";
 import { passwordMatchValidator } from '../../../shared/validators/password-match.validator';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastService } from '../../../core/services/toast.service';
+import { RouteService } from '../../../core/services/route.service';
 
 @Component({
     selector: 'registration-form',
@@ -13,8 +16,11 @@ import { passwordMatchValidator } from '../../../shared/validators/password-matc
 })
 export class RegistrationFormComponent {
     private readonly authService = inject(AuthService);
-    private readonly restService = inject(RestService);
-    private readonly router = inject(Router);
+    private readonly toastService = inject(ToastService);
+    private readonly routeService = inject(RouteService);
+    
+    isLoading = signal(false);
+    
     form: FormGroup;
 
     constructor(private fb: FormBuilder) {
@@ -32,10 +38,24 @@ export class RegistrationFormComponent {
     }
 
     onSubmit() {
-        console.log(this.form.value)
         if (this.form.invalid)
             return;
 
-        this.authService.register(this.form.value).subscribe();
+        this.authService.register(this.form.value).subscribe({
+            next: () => this.onSuccess(),
+            error: (err: HttpErrorResponse) => this.onError(err.error.title),
+            complete: () => this.isLoading.set(false)
+        });
+    }
+
+    onSuccess() {
+        this.isLoading.set(false);
+        this.toastService.showSuccess("Login successful.");
+        this.routeService.navigateToRoot();
+    }
+
+    onError(errorMessage?: string) {
+        this.isLoading.set(false);
+        this.toastService.showError(errorMessage ?? "Something went wrong")
     }
 }
