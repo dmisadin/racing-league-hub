@@ -14,20 +14,17 @@ export class AuthService {
 
     private readonly apiUrl = `${environment.apiUrl}/auth`;
 
-    // ── state ──────────────────────────────────────────────────────────────────
     private readonly currentUser = signal<UserDto | null>(null);
     private readonly accessToken = signal<string | null>(null);
     private readonly accessTokenExpiry = signal<Date | null>(null);
-    private refreshToken: string | null = null;  // not a signal — never rendered
+    private refreshToken: string | null = null;
     private refreshTimeout: ReturnType<typeof setTimeout> | null = null;
 
-    // ── public selectors ───────────────────────────────────────────────────────
     readonly user = this.currentUser.asReadonly();
     readonly isLoggedIn = computed(() => !!this.currentUser());
     readonly isAdmin = computed(() => this.currentUser()?.isAdmin ?? false);
     readonly driverId = computed(() => this.currentUser()?.driverId ?? null);
 
-    // ── public methods ─────────────────────────────────────────────────────────
     login(payload: LoginRequest): Observable<AuthResponse> {
         return this.http.post<AuthResponse>(`${this.apiUrl}/login`, payload).pipe(
             tap(res => this.handleAuthResponse(res))
@@ -48,7 +45,7 @@ export class AuthService {
         }
 
         this.clearAuth();
-        this.router.navigate(['/login']);
+        this.router.navigate(['/auth/login']);
     }
 
     requestRefreshToken(): Observable<AuthResponse> {
@@ -85,7 +82,6 @@ export class AuthService {
         return new Date() >= expiry;
     }
 
-    // ── internals ──────────────────────────────────────────────────────────────
     private handleAuthResponse(res: AuthResponse): void {
         this.accessToken.set(res.accessToken);
         this.accessTokenExpiry.set(new Date(res.accessTokenExpiry));

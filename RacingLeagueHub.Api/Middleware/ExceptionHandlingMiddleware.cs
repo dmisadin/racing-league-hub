@@ -1,43 +1,33 @@
-﻿using System.Net;
-using System.Text.Json;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 
 namespace RacingLeagueHub.Api.Middleware;
 
-public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
+public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IExceptionHandler
 {
-    public async Task InvokeAsync(HttpContext context)
+    public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception exception, CancellationToken ct)
     {
-        try
-        {
-            await next(context);
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Exception caught: {Message}", ex.Message);
-            await HandleExceptionAsync(context, ex);
-        }
-    }
+        logger.LogError(exception, "Exception caught: {Message}", exception.Message);
 
-    private static Task HandleExceptionAsync(HttpContext context, Exception ex)
-    {
-        var (statusCode, message) = ex switch
+        var (statusCode, title) = exception switch
         {
-            UnauthorizedAccessException => (HttpStatusCode.Unauthorized, ex.Message),
-            InvalidOperationException => (HttpStatusCode.BadRequest, ex.Message),
-            KeyNotFoundException => (HttpStatusCode.NotFound, ex.Message),
-            ArgumentException => (HttpStatusCode.BadRequest, ex.Message),
-            _ => (HttpStatusCode.InternalServerError, "An unexpected error occurred.")
+            UnauthorizedAccessException => (StatusCodes.Status401Unauthorized, exception.Message),
+            InvalidOperationException => (StatusCodes.Status400BadRequest, exception.Message),
+            KeyNotFoundException => (StatusCodes.Status404NotFound, exception.Message),
+            ArgumentException => (StatusCodes.Status400BadRequest, exception.Message),
+            _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred.")
         };
 
-        context.Response.ContentType = "application/json";
-        context.Response.StatusCode = (int)statusCode;
-
-        var body = JsonSerializer.Serialize(new
+        var problemDetails = new ProblemDetails
         {
-            statusCode = (int)statusCode,
-            message
-        });
+            Status = statusCode,
+            Title = title,
+            Instance = context.Request.Path
+        };
 
-        return context.Response.WriteAsync(body);
+        context.Response.StatusCode = statusCode;
+        await context.Response.WriteAsJsonAsync(problemDetails, ct);
+
+        return true;
     }
 }
