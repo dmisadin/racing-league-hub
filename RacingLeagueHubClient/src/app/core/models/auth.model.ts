@@ -8,14 +8,14 @@ export interface UserDto {
 
 export interface AuthResponse {
     accessToken: string;
-    refreshToken: string;
-    accessTokenExpiry: string; // ISO date string
+    accessTokenExpiry: string;
     user: UserDto;
 }
 
 export interface LoginRequest {
     email: string;
     password: string;
+    rememberMe: boolean;
 }
 
 export interface RegisterRequest {

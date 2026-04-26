@@ -12,12 +12,12 @@ internal class RefreshTokenRepository : GenericRepository<RefreshToken>, IRefres
 
     public async Task<RefreshToken?> GetRefreshTokenAsync(string token, CancellationToken ct = default)
     {
-        return await Query().Include(rt => rt.User)
-                            .FirstOrDefaultAsync(rt => rt.Token == token, ct);
+        return await Query().FirstOrDefaultAsync(rt => rt.Token == token, ct);
     }
 
     public async Task<RefreshToken?> GetRefreshTokenWithUserAsync(string token, CancellationToken ct = default)
     {
-        return await Query().FirstOrDefaultAsync(rt => rt.Token == token, ct);
+        return await Query().Include(rt => rt.User)
+                            .FirstOrDefaultAsync(rt => rt.Token == token, ct);
     }
 }

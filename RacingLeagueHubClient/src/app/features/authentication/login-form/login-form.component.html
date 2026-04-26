@@ -5,13 +5,18 @@
             <input-text label="Email" type="email" placeholder="Enter email" formControlName="email"></input-text>
             <input-text label="Password" type="password" placeholder="Enter password" formControlName="password"></input-text>
 
-            
+            <label class="label">
+                <input type="checkbox" class="checkbox" formControlName="rememberMe"/>
+                Remember me
+            </label>
+
             <div class="text-center">
-                <small class="block mb-2">Still don't have an account? <a class="link" routerLink="/auth/register">Register here!</a></small>
+                <small class="block mb-2">Still don't have an account? <a class="link"
+                        routerLink="/auth/register">Register here!</a></small>
                 <button class="btn btn-primary w-full" [disabled]="form.invalid || isLoading()">
                     Log in
                     @if (isLoading()) {
-                        <span class="loading loading-spinner loading-sm"></span>
+                    <span class="loading loading-spinner loading-sm"></span>
                     }
                 </button>
             </div>

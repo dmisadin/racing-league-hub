@@ -11,7 +11,8 @@ public record RegisterRequest(
 
 public record LoginRequest(
     string Email,
-    string Password
+    string Password,
+    bool RememberMe
 );
 
 public record RefreshTokenRequest(
@@ -20,7 +21,6 @@ public record RefreshTokenRequest(
 
 public record AuthResponse(
     string AccessToken,
-    string RefreshToken,
     DateTime AccessTokenExpiry,
     UserDto User
 );

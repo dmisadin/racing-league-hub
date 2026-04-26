@@ -28,11 +28,19 @@ public class AuthController(IAuthService authService) : Controller
         return Ok(result);
     }
 
+    [HttpPost("refresh")]
+    [AllowAnonymous]
+    public async Task<IActionResult> Refresh(CancellationToken ct)
+    {
+        var result = await authService.RefreshTokenAsync(ct);
+        return Ok(result);
+    }
+
     [HttpPost("revoke")]
     [Authorize]
-    public async Task<IActionResult> Revoke([FromBody] RefreshTokenRequest request, CancellationToken ct)
+    public async Task<IActionResult> Revoke(CancellationToken ct)
     {
-        await authService.RevokeTokenAsync(request.RefreshToken, ct);
+        await authService.RevokeTokenAsync(ct);
         return NoContent();
     }
 

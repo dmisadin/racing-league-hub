@@ -13,108 +13,108 @@ export class AuthService {
     private readonly http = inject(HttpClient);
     private readonly router = inject(Router);
     private readonly toastService = inject(ToastService);
-
     private readonly apiUrl = `${environment.apiUrl}/auth`;
 
-    private readonly currentUser = signal<UserDto | null>(null);
-    private readonly accessToken = signal<string | null>(null);
-    private readonly accessTokenExpiry = signal<Date | null>(null);
-    private refreshToken: string | null = null;
-    private refreshTimeout: ReturnType<typeof setTimeout> | null = null;
+    private readonly _user = signal<UserDto | null>(null);
+    private readonly _accessToken = signal<string | null>(null);
+    private readonly _accessTokenExpiry = signal<Date | null>(null);
+    private readonly _isInitialized = signal<boolean>(false);
+    private _refreshTimeout: ReturnType<typeof setTimeout> | null = null;
 
-    readonly user = this.currentUser.asReadonly();
-    readonly isLoggedIn = computed(() => !!this.currentUser());
-    readonly isAdmin = computed(() => this.currentUser()?.isAdmin ?? false);
-    readonly driverId = computed(() => this.currentUser()?.driverId ?? null);
+    readonly user = this._user.asReadonly();
+    readonly isLoggedIn = computed(() => !!this._user());
+    readonly isAdmin = computed(() => this._user()?.isAdmin ?? false);
+    readonly driverId = computed(() => this._user()?.driverId ?? null);
+    readonly isInitialized = this._isInitialized.asReadonly(); // public!
 
-    login(payload: LoginRequest): Observable<AuthResponse> {
-        return this.http.post<AuthResponse>(`${this.apiUrl}/login`, payload).pipe(
-            tap(res => this.handleAuthResponse(res))
-        );
-    }
-
-    register(payload: RegisterRequest): Observable<AuthResponse> {
-        return this.http.post<AuthResponse>(`${this.apiUrl}/register`, payload).pipe(
-            tap(res => this.handleAuthResponse(res))
-        );
-    }
-
-    logout(): void {
-        if (this.refreshToken) {
-            this.http.post(`${this.apiUrl}/revoke`, { refreshToken: this.refreshToken })
-                .pipe(catchError(() => EMPTY))
-                .subscribe(res => this.toastService.showSuccess("Successfully logged out."));
-        }
-
-        this.clearAuth();
-        this.router.navigate(['/auth/login']);
-    }
-
-    requestRefreshToken(): Observable<AuthResponse> {
-        if (!this.refreshToken) {
-            this.clearAuth();
-            return EMPTY as any;
-        }
-
-        return this.http.post<AuthResponse>(`${this.apiUrl}/refresh`, {
-            refreshToken: this.refreshToken
-        }).pipe(
-            tap(res => this.handleAuthResponse(res)),
+    initialize(): Observable<AuthResponse> {
+        return this.http.post<AuthResponse>(
+            `${this.apiUrl}/refresh`, {}, { withCredentials: true }
+        ).pipe(
+            tap(res => {
+                this.handleAuthResponse(res);
+                this._isInitialized.set(true);
+            }),
             catchError(() => {
-                this.clearAuth();
-                this.router.navigate(['/login']);
+                this._isInitialized.set(true);
                 return EMPTY;
             })
         );
     }
 
-    fetchMe(): Observable<UserDto> {
-        return this.http.get<UserDto>(`${this.apiUrl}/me`).pipe(
-            tap(user => this.currentUser.set(user))
+    login(payload: LoginRequest): Observable<AuthResponse> {
+        return this.http.post<AuthResponse>(
+            `${this.apiUrl}/login`, payload, { withCredentials: true }
+        ).pipe(
+            tap(res => this.handleAuthResponse(res))
+        );
+    }
+
+    register(payload: RegisterRequest): Observable<AuthResponse> {
+        return this.http.post<AuthResponse>(
+            `${this.apiUrl}/register`, payload, { withCredentials: true }
+        ).pipe(
+            tap(res => this.handleAuthResponse(res))
+        );
+    }
+
+    logout(): void {
+        this.http.post(`${this.apiUrl}/revoke`, {}, { withCredentials: true })
+            .pipe(catchError(() => EMPTY))
+            .subscribe({
+                complete: () => {
+                    this.toastService.showSuccess('Successfully logged out.');
+                    this.clearAuth();
+                    this.router.navigate(['/auth/login']);
+                }
+            });
+    }
+
+    requestRefreshToken(): Observable<AuthResponse> {
+        return this.http.post<AuthResponse>(
+            `${this.apiUrl}/refresh`, {}, { withCredentials: true }
+        ).pipe(
+            tap(res => this.handleAuthResponse(res)),
+            catchError(() => {
+                this.clearAuth();
+                this.router.navigate(['/auth/login']);
+                return EMPTY;
+            })
         );
     }
 
     getAccessToken(): string | null {
-        return this.accessToken();
-    }
-
-    isTokenExpired(): boolean {
-        const expiry = this.accessTokenExpiry();
-        if (!expiry) return true;
-        return new Date() >= expiry;
+        return this._accessToken();
     }
 
     private handleAuthResponse(res: AuthResponse): void {
-        this.accessToken.set(res.accessToken);
-        this.accessTokenExpiry.set(new Date(res.accessTokenExpiry));
-        this.refreshToken = res.refreshToken;
-        this.currentUser.set(res.user);
+        this._accessToken.set(res.accessToken);
+        this._accessTokenExpiry.set(new Date(res.accessTokenExpiry));
+        this._user.set(res.user);
         this.scheduleTokenRefresh();
     }
 
     private clearAuth(): void {
-        this.accessToken.set(null);
-        this.accessTokenExpiry.set(null);
-        this.refreshToken = null;
-        this.currentUser.set(null);
+        this._accessToken.set(null);
+        this._accessTokenExpiry.set(null);
+        this._user.set(null);
 
-        if (this.refreshTimeout) {
-            clearTimeout(this.refreshTimeout);
-            this.refreshTimeout = null;
+        if (this._refreshTimeout) {
+            clearTimeout(this._refreshTimeout);
+            this._refreshTimeout = null;
         }
     }
 
     private scheduleTokenRefresh(): void {
-        if (this.refreshTimeout) clearTimeout(this.refreshTimeout);
+        if (this._refreshTimeout) clearTimeout(this._refreshTimeout);
 
-        const expiry = this.accessTokenExpiry();
+        const expiry = this._accessTokenExpiry();
         if (!expiry) return;
 
-        // refresh 30 seconds before expiry
         const msUntilRefresh = expiry.getTime() - Date.now() - 30_000;
         if (msUntilRefresh <= 0) return;
 
-        this.refreshTimeout = setTimeout(() => {
+        this._refreshTimeout = setTimeout(() => {
             this.requestRefreshToken().subscribe();
         }, msUntilRefresh);
     }

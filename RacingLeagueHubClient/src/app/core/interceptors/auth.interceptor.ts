@@ -10,15 +10,23 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     const token = authService.getAccessToken();
 
     const authReq = token
-        ? req.clone({ setHeaders: { Authorization: `Bearer ${token}` } })
-        : req;
+        ? req.clone({
+            withCredentials: true,
+            setHeaders: { Authorization: `Bearer ${token}` }
+        })
+        : req.clone({ withCredentials: true });
 
     return next(authReq).pipe(
         catchError((err: HttpErrorResponse) => {
-            if (err.status === HttpStatusCode.Unauthorized && !req.url.includes('/auth/')) {
+            const isAuthRoute = req.url.includes('/auth/');
+            const isUnauthorized = err.status === HttpStatusCode.Unauthorized;
+
+            if (isUnauthorized && !isAuthRoute) {
+                console.log("test")
                 return authService.requestRefreshToken().pipe(
                     switchMap(() => {
                         const retryReq = req.clone({
+                            withCredentials: true,
                             setHeaders: { Authorization: `Bearer ${authService.getAccessToken()}` }
                         });
                         return next(retryReq);

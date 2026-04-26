@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using RacingLeagueHub.Application.Dtos.Auth;
 using RacingLeagueHub.Application.Dtos.User;
 using RacingLeagueHub.Domain.Abstractions;
@@ -6,12 +7,12 @@ using RacingLeagueHub.Domain.Entities;
 
 namespace RacingLeagueHub.Application.Services.Identity;
 
-
 public class AuthService(
     IUserRepository userRepository,
     IRefreshTokenRepository tokenRepository,
     IJwtService jwtService,
-    IPasswordHasher<User> passwordHasher
+    IPasswordHasher<User> passwordHasher,
+    IHttpContextAccessor httpContextAccessor
 ) : IAuthService
 {
     public async Task<AuthResponse> RegisterAsync(RegisterRequest req, CancellationToken ct = default)
@@ -35,7 +36,7 @@ public class AuthService(
         await userRepository.InsertAsync(user);
         await userRepository.CommitAsync(ct);
 
-        return await BuildAuthResponse(user, ct);
+        return await BuildAuthResponse(user, rememberMe: false, ct);
     }
 
     public async Task<AuthResponse> LoginAsync(LoginRequest req, CancellationToken ct = default)
@@ -48,53 +49,110 @@ public class AuthService(
         if (result == PasswordVerificationResult.Failed)
             throw new UnauthorizedAccessException("Invalid credentials.");
 
-        return await BuildAuthResponse(user, ct);
+        return await BuildAuthResponse(user, req.RememberMe, ct);
     }
 
-    public async Task<AuthResponse> RefreshTokenAsync(string refreshToken, CancellationToken ct = default)
+    public async Task<AuthResponse> RefreshTokenAsync(CancellationToken ct = default)
     {
+        var refreshToken = httpContextAccessor.HttpContext?.Request.Cookies["refresh_token"]
+                           ?? throw new UnauthorizedAccessException("Refresh token not found.");
+
         var token = await tokenRepository.GetRefreshTokenWithUserAsync(refreshToken, ct)
             ?? throw new UnauthorizedAccessException("Invalid refresh token.");
 
         if (!token.IsActive)
             throw new UnauthorizedAccessException("Refresh token expired or revoked.");
 
-        // Rotate — revoke old, issue new
         token.IsRevoked = true;
         await tokenRepository.CommitAsync(ct);
 
-        return await BuildAuthResponse(token.User, ct);
+        return await BuildAuthResponse(token.User, rememberMe: IsLongLivedCookie(), ct);
     }
 
-    public async Task RevokeTokenAsync(string refreshToken, CancellationToken ct = default)
+    public async Task RevokeTokenAsync(CancellationToken ct = default)
     {
+        var refreshToken = httpContextAccessor.HttpContext?.Request.Cookies["refresh_token"]
+                           ?? throw new UnauthorizedAccessException("Token not found.");
+
         var token = await tokenRepository.GetRefreshTokenAsync(refreshToken, ct)
             ?? throw new UnauthorizedAccessException("Token not found.");
 
         token.IsRevoked = true;
         await tokenRepository.CommitAsync(ct);
+
+        ClearRefreshTokenCookie();
     }
-
-
-    private async Task<AuthResponse> BuildAuthResponse(User user, CancellationToken ct)
+    
+    private async Task<AuthResponse> BuildAuthResponse(User user, bool rememberMe, CancellationToken ct)
     {
         var accessToken = jwtService.GenerateAccessToken(user);
         var rawRefresh = jwtService.GenerateRefreshToken();
+        var expiry = rememberMe ? DateTime.UtcNow.AddDays(7) : DateTime.UtcNow.AddHours(8);
 
         await tokenRepository.InsertAsync(new RefreshToken
         {
             Token = rawRefresh,
             UserId = user.Id,
-            ExpiresAt = DateTime.UtcNow.AddDays(7),
+            ExpiresAt = expiry,
         });
 
         await tokenRepository.CommitAsync(ct);
 
+        SetRefreshTokenCookie(rawRefresh, rememberMe ? expiry : null);
+
         return new AuthResponse(
             AccessToken: accessToken,
-            RefreshToken: rawRefresh,
             AccessTokenExpiry: jwtService.GetAccessTokenExpiry(),
             User: new UserDto(user.Id, user.Email, user.Username, user.IsAdmin, user.DriverId)
         );
+    }
+
+    private void SetRefreshTokenCookie(string token, DateTime? expires)
+    {
+        httpContextAccessor.HttpContext!.Response.Cookies.Append("refresh_token", token, new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.None,
+            Expires = expires,
+            Path = "/api/auth"
+        });
+
+        if (expires.HasValue)
+        {
+            httpContextAccessor.HttpContext!.Response.Cookies.Append("remember_me", "true", new CookieOptions
+            {
+                HttpOnly = false,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Expires = expires,
+                Path = "/api/auth"
+            });
+        }
+    }
+
+    private void ClearRefreshTokenCookie()
+    {
+        var options = new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.None,
+            Path = "/api/auth"
+        };
+
+        httpContextAccessor.HttpContext!.Response.Cookies.Delete("refresh_token", options);
+        httpContextAccessor.HttpContext!.Response.Cookies.Delete("remember_me", new CookieOptions
+        {
+            Secure = true,
+            SameSite = SameSiteMode.None,
+            Path = "/api/auth"
+        });
+    }
+
+    private bool IsLongLivedCookie()
+    {
+        var request = httpContextAccessor.HttpContext?.Request;
+        return request?.Cookies.ContainsKey("remember_me") == true;
     }
 }
