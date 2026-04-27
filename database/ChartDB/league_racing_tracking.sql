@@ -299,6 +299,20 @@ CREATE UNIQUE INDEX "refresh_token_token_key" ON "public"."refresh_token" ("toke
 CREATE INDEX "refresh_token_user_id_idx" ON "public"."refresh_token" ("user_id");
 CREATE INDEX "refresh_token_expires_at_idx" ON "public"."refresh_token" ("expires_at") WHERE "is_revoked" = FALSE; -- partial index, only care about active tokens
 
+CREATE TABLE "public"."password_reset_token" (
+    "id"         BIGINT GENERATED ALWAYS AS IDENTITY,
+    "token"      VARCHAR(256)    NOT NULL,
+    "expires_at" TIMESTAMP       NOT NULL,
+    "created_at" TIMESTAMP       NOT NULL    DEFAULT NOW(),
+    "is_used"    BOOLEAN         NOT NULL    DEFAULT FALSE,
+    "user_id"    BIGINT          NOT NULL,
+    PRIMARY KEY ("id")
+);
+
+CREATE UNIQUE INDEX password_reset_token_token_key  ON "public"."password_reset_token" ("token");
+CREATE INDEX password_reset_token_user_id_idx ON "public"."password_reset_token" ("user_id");
+
+
 -- Foreign key constraints
 -- Schema: public
 ALTER TABLE "public"."grand_prix_driver" ADD CONSTRAINT "grand_prix_driver_driver_id_fkey" FOREIGN KEY("driver_id") REFERENCES "public"."driver"("id");
@@ -331,3 +345,4 @@ ALTER TABLE "public"."incident" ADD CONSTRAINT "incident_user_id_fkey" FOREIGN K
 ALTER TABLE "public"."season_assists" ADD CONSTRAINT "season_assists_season_id_season_id_fkey" FOREIGN KEY("season_id") REFERENCES "public"."season"("id");
 ALTER TABLE "public"."season_lobby_settings" ADD CONSTRAINT "season_lobby_settings_season_id_fkey" FOREIGN KEY("season_id") REFERENCES "public"."season"("id");
 ALTER TABLE "public"."refresh_token" ADD CONSTRAINT "refresh_token_user_id_fkey" FOREIGN KEY("user_id") REFERENCES "public"."user"("id") ON DELETE CASCADE;
+ALTER TABLE "public"."password_reset_token" ADD CONSTRAINT "password_reset_token_user_id_fkey" FOREIGN KEY("user_id") REFERENCES "public"."user"("id") ON DELETE CASCADE;

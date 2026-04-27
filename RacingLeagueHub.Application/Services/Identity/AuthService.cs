@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Security.Cryptography;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using RacingLeagueHub.Application.Dtos.Auth;
 using RacingLeagueHub.Application.Dtos.User;
 using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Entities.Authentication;
 
 namespace RacingLeagueHub.Application.Services.Identity;
 
 public class AuthService(
     IUserRepository userRepository,
     IRefreshTokenRepository tokenRepository,
+    IPasswordResetTokenRepository passwordResetTokenRepository,
     IJwtService jwtService,
     IPasswordHasher<User> passwordHasher,
     IHttpContextAccessor httpContextAccessor
@@ -154,5 +157,54 @@ public class AuthService(
     {
         var request = httpContextAccessor.HttpContext?.Request;
         return request?.Cookies.ContainsKey("remember_me") == true;
+    }
+    
+    public async Task ForgotPasswordAsync(ForgotPasswordRequest req, CancellationToken ct = default)
+    {
+        // always return success even if email not found — prevents user enumeration
+        var user = await userRepository.FindByEmailAsync(req.Email, ct);
+        if (user is null) return;
+
+        // invalidate any existing active tokens for this user
+        await passwordResetTokenRepository.InvalidateUserTokensAsync(user.Id, ct);
+
+        var rawToken = GenerateResetToken();
+
+        await passwordResetTokenRepository.InsertAsync(new PasswordResetToken
+        {
+            Token = rawToken,
+            UserId = user.Id,
+            ExpiresAt = DateTime.UtcNow.AddHours(1),
+        });
+
+        await passwordResetTokenRepository.CommitAsync(ct);
+
+        // TODO: send email with reset link
+        // e.g. https://localhost:4200/auth/reset-password?token={rawToken}
+        // await emailService.SendPasswordResetAsync(user.Email, rawToken);
+    }
+
+    public async Task ResetPasswordAsync(ResetPasswordRequest req, CancellationToken ct = default)
+    {
+        if (req.NewPassword != req.ConfirmPassword)
+            throw new InvalidOperationException("Passwords do not match.");
+
+        var token = await passwordResetTokenRepository.GetTokenWithUserAsync(req.Token, ct)
+                    ?? throw new InvalidOperationException("Invalid or expired reset token.");
+
+        if (!token.IsActive)
+            throw new InvalidOperationException("Invalid or expired reset token.");
+
+        token.User.PasswordHash = passwordHasher.HashPassword(token.User, req.NewPassword);
+        token.IsUsed = true;
+
+        await passwordResetTokenRepository.CommitAsync(ct);
+    }
+
+    private static string GenerateResetToken()
+    {
+        var bytes = new byte[64];
+        RandomNumberGenerator.Fill(bytes);
+        return Convert.ToBase64String(bytes);
     }
 }

@@ -6,7 +6,7 @@
             <input-text label="Email" type="email" placeholder="Enter email" formControlName="email"></input-text>
             <div class="flex flex-col gap-4">
                 <input-text label="Password" type="password" placeholder="Enter password" formControlName="password"></input-text>
-                <input-text label="Repeat the password" type="password" placeholder="Enter password again" formControlName="repeatPassword"></input-text>
+                <input-text label="Repeat the password" type="password" placeholder="Enter password again" formControlName="confirmPassword"></input-text>
     
                 @if (passwordMismatch) {
                     <small class="block text-error">Passwords do not match.</small>

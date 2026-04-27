@@ -28,13 +28,13 @@ export class RegistrationFormComponent {
             username: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.minLength(8)]],
-            repeatPassword: ['', Validators.required],
+            confirmPassword: ['', Validators.required],
         }, { validators: passwordMatchValidator });
     }
 
     get passwordMismatch(): boolean {
         return this.form.hasError('passwordMismatch') &&
-            this.form.get('repeatPassword')?.touched === true;
+            this.form.get('confirmPassword')?.touched === true;
     }
 
     onSubmit() {

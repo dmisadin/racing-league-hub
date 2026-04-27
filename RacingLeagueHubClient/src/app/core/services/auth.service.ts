@@ -5,7 +5,7 @@ import { Injectable, signal, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap, catchError, EMPTY, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { AuthResponse, LoginRequest, RegisterRequest, UserDto } from '../models/auth.model';
+import { AuthResponse, ForgotPasswordRequest, LoginRequest, RegisterRequest, ResetPasswordRequest, UserDto } from '../models/auth.model';
 import { ToastService } from './toast.service';
 
 @Injectable({ providedIn: 'root' })
@@ -25,7 +25,7 @@ export class AuthService {
     readonly isLoggedIn = computed(() => !!this._user());
     readonly isAdmin = computed(() => this._user()?.isAdmin ?? false);
     readonly driverId = computed(() => this._user()?.driverId ?? null);
-    readonly isInitialized = this._isInitialized.asReadonly(); // public!
+    readonly isInitialized = this._isInitialized.asReadonly();
 
     initialize(): Observable<AuthResponse> {
         return this.http.post<AuthResponse>(
@@ -85,6 +85,14 @@ export class AuthService {
 
     getAccessToken(): string | null {
         return this._accessToken();
+    }
+
+    forgotPassword(payload: ForgotPasswordRequest): Observable<void> {
+        return this.http.post<void>(`${this.apiUrl}/forgot-password`, payload);
+    }
+
+    resetPassword(payload: ResetPasswordRequest): Observable<void> {
+        return this.http.post<void>(`${this.apiUrl}/reset-password`, payload);
     }
 
     private handleAuthResponse(res: AuthResponse): void {

@@ -24,3 +24,11 @@ public record AuthResponse(
     DateTime AccessTokenExpiry,
     UserDto User
 );
+
+public record ForgotPasswordRequest(string Email);
+
+public record ResetPasswordRequest(
+    string Token,
+    string NewPassword,
+    string ConfirmPassword
+);

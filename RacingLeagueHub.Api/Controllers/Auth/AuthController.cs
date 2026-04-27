@@ -60,10 +60,20 @@ public class AuthController(IAuthService authService) : Controller
                 : null
         ));
     }
-    /*
+    
     [HttpPost("forgot-password")]
-    public LoginModel ForgotPassword([FromBody] LoginDto loginDto)
+    [AllowAnonymous]
+    public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request, CancellationToken ct)
     {
+        await authService.ForgotPasswordAsync(request, ct);
+        return Ok(new { message = "If that email exists, a reset link has been sent." });
     }
-    */
+
+    [HttpPost("reset-password")]
+    [AllowAnonymous]
+    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request, CancellationToken ct)
+    {
+        await authService.ResetPasswordAsync(request, ct);
+        return Ok(new { message = "Password reset successfully." });
+    }
 }

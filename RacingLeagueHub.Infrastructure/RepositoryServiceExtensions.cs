@@ -36,6 +36,7 @@ public static class RepositoryServiceExtensions
         services.AddScoped<IGrandPrixRepository, GrandPrixRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+        services.AddScoped<IPasswordResetTokenRepository, PasswordResetTokenRepository>();
 
         return services;
     }
