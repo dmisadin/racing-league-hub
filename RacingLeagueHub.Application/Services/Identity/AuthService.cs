@@ -6,6 +6,7 @@ using RacingLeagueHub.Application.Dtos.User;
 using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Entities.Authentication;
+using RacingLeagueHub.Domain.Utilities;
 
 namespace RacingLeagueHub.Application.Services.Identity;
 
@@ -161,11 +162,9 @@ public class AuthService(
     
     public async Task ForgotPasswordAsync(ForgotPasswordRequest req, CancellationToken ct = default)
     {
-        // always return success even if email not found — prevents user enumeration
         var user = await userRepository.FindByEmailAsync(req.Email, ct);
         if (user is null) return;
 
-        // invalidate any existing active tokens for this user
         await passwordResetTokenRepository.InvalidateUserTokensAsync(user.Id, ct);
 
         var rawToken = GenerateResetToken();
@@ -178,7 +177,9 @@ public class AuthService(
         });
 
         await passwordResetTokenRepository.CommitAsync(ct);
-
+        
+        Console.WriteLine($"http://localhost:4200/auth/reset-password?token={rawToken}");
+        
         // TODO: send email with reset link
         // e.g. https://localhost:4200/auth/reset-password?token={rawToken}
         // await emailService.SendPasswordResetAsync(user.Email, rawToken);
@@ -205,6 +206,6 @@ public class AuthService(
     {
         var bytes = new byte[64];
         RandomNumberGenerator.Fill(bytes);
-        return Convert.ToBase64String(bytes);
+        return Base64UrlUtility.Encode(bytes);
     }
 }
