@@ -3,6 +3,7 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { InputTextComponent } from "../../../shared/components/input-fields/input-text/input-text.component";
+import { ToastService } from '../../../core/services/toast.service';
 
 @Component({
     selector: 'forgot-password-form',
@@ -11,6 +12,7 @@ import { InputTextComponent } from "../../../shared/components/input-fields/inpu
 })
 export class ForgotPasswordFormComponent {
     private readonly authService = inject(AuthService);
+    private readonly toastService = inject(ToastService);
     private readonly router = inject(Router);
 
     isLoading = signal(false);
@@ -27,9 +29,14 @@ export class ForgotPasswordFormComponent {
         this.isLoading.set(true);
 
         this.authService.forgotPassword({email: email}).subscribe({
-            //next: () => this.router.navigate(['/auth/login']),
+            next: () => this.onSuccess(),
             error: () => this.isLoading.set(false),
             complete: () => this.isLoading.set(false)
         });
+    }
+
+    onSuccess() {
+        this.toastService.showSuccess("If that email exists, a reset link has been sent.");
+        this.router.navigate(['/auth/login']);
     }
 }

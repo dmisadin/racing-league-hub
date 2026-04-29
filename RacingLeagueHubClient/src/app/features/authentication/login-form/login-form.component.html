@@ -11,14 +11,17 @@
             </label>
 
             <div class="text-center">
-                <small class="block mb-2">Still don't have an account? <a class="link"
-                        routerLink="/auth/register">Register here!</a></small>
-                <button class="btn btn-primary w-full" [disabled]="form.invalid || isLoading()">
+                <small class="block mb-4">
+                    Still don't have an account? 
+                    <a class="link" routerLink="/auth/register">Register here!</a>
+                </small>
+                <button type="submit" class="btn btn-primary w-full mb-2" [disabled]="form.invalid || isLoading()">
                     Log in
                     @if (isLoading()) {
                     <span class="loading loading-spinner loading-sm"></span>
                     }
                 </button>
+                <button type="button" class="btn btn-ghost w-full" routerLink="/auth/forgot-password"> Forgot password? </button>
             </div>
         </form>
     </div>
