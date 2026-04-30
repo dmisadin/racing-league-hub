@@ -8,6 +8,10 @@ export class RouteService {
     private readonly activatedRoute = inject(ActivatedRoute);
     private readonly location = inject(Location);
 
+    public navigateToRoot(): void {
+        this.router.navigate(["/"]);
+    }
+
     public navigateToNotFoundPage(): void {
         this.router.navigate(["/not-found"]);
     }

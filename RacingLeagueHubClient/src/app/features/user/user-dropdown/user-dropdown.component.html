@@ -1,0 +1,21 @@
+@if (authService.isLoggedIn()) {
+<button popovertarget="user-dropdown-popover" style="anchor-name:--user-dropdown-anchor">
+    {{ authService.user()?.username }}
+</button>
+
+<ul class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm" popover id="user-dropdown-popover" style="position-anchor:--user-dropdown-anchor">
+    <li class="menu-title">
+        <span>{{ authService.user()?.email }}</span>
+    </li>
+
+    @if (authService.isAdmin()) {
+        <li><a routerLink="/admin">Admin Panel</a></li>
+        <div class="divider my-0"></div>
+    }
+
+    <li (click)="logout()"><a>Log out</a></li>
+</ul>
+} 
+@else {
+<a routerLink="/auth">Log in</a>
+}

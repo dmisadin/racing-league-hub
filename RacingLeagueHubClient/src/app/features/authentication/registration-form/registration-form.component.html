@@ -1,0 +1,27 @@
+<div class="flex justify-center">
+    <div class="card flex-grow bg-base-100 shadow-xl mt-20 mb-20 p-6">
+        <h2 class="card-title mb-4">Register</h2>
+        <form [formGroup]="form" class="flex flex-col gap-4" (ngSubmit)="onSubmit()">
+            <input-text label="Username" placeholder="Enter username" formControlName="username"></input-text>
+            <input-text label="Email" type="email" placeholder="Enter email" formControlName="email"></input-text>
+            <div class="flex flex-col gap-4">
+                <input-text label="Password" type="password" placeholder="Enter password" formControlName="password"></input-text>
+                <input-text label="Repeat the password" type="password" placeholder="Enter password again" formControlName="confirmPassword"></input-text>
+    
+                @if (passwordMismatch) {
+                    <small class="block text-error">Passwords do not match.</small>
+                }
+            </div>
+
+            <div class="text-center">
+                <small class="block mb-2">Already have an account? <a class="link" routerLink="/auth/login">Log in!</a></small>
+                <button class="btn btn-primary w-full" [disabled]="form.invalid || isLoading()">
+                    Submit
+                    @if (isLoading()) {
+                        <span class="loading loading-spinner loading-sm"></span>
+                    }
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

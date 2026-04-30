@@ -9,7 +9,7 @@ import { ToastService } from "../../../core/services/toast.service";
     <!-- text-info text-success text-warning text-error -->
     <div class="toast-wrapper">
         @for (toast of toastService.toasts(); track toast.id) {
-            <div class="toast-card bg-base-200 border-l-4" 
+            <div class="toast-card bg-base-200 border-l-6 border-1" 
                 [class]="'border-' + toast.type"
                 (click)="toastService.remove(toast.id)"
                 animate.enter="fade-slide-in"
@@ -23,7 +23,7 @@ import { ToastService } from "../../../core/services/toast.service";
     styles: [`
     .toast-wrapper {
         position: fixed;
-        top: 1em;
+        top: 4em;
         right: 1em;
         z-index: 9999;
         display: flex;

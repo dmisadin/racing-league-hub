@@ -37,5 +37,7 @@ export class ToastService {
 export interface Toast {
     id: number;
     message: string;
-    type: 'success' | 'error' | 'info' | 'warning';
+    type: ToastType;
 }
+
+export type ToastType = 'success' | 'error' | 'info' | 'warning';
