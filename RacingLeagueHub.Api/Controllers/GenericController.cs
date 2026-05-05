@@ -9,7 +9,7 @@ namespace RacingLeagueHub.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public abstract class GenericController<TEntity, TDto> : Controller
+public abstract class GenericController<TEntity, TDto> : BaseController
     where TEntity : IEntity
     where TDto : BaseDto
 {

@@ -1,16 +1,19 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.JsonWebTokens;
 using RacingLeagueHub.Application.Dtos.Auth;
 using RacingLeagueHub.Application.Dtos.User;
+using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Services.Identity;
-using System.Security.Claims;
+using RacingLeagueHub.Domain.Abstractions;
 
 namespace RacingLeagueHub.Api.Controllers.Auth;
 
 [ApiController]
 [Route("api/auth")]
-public class AuthController(IAuthService authService) : Controller
+public class AuthController(IAuthService authService,
+    ILeagueUserRepository leagueUserRepository) : BaseController
 {
     [HttpPost("register")]
     [AllowAnonymous]
