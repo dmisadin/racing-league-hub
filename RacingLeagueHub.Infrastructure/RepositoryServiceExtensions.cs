@@ -37,6 +37,7 @@ public static class RepositoryServiceExtensions
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         services.AddScoped<IPasswordResetTokenRepository, PasswordResetTokenRepository>();
+        services.AddScoped<ILeagueUserRepository, LeagueUserRepository>();
 
         return services;
     }

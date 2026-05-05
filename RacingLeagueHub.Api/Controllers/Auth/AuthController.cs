@@ -79,4 +79,18 @@ public class AuthController(IAuthService authService,
         await authService.ResetPasswordAsync(request, ct);
         return Ok(new { message = "Password reset successfully." });
     }
+    
+    [HttpGet("me/league-roles")]
+    [Authorize]
+    public async Task<IActionResult> GetMyLeagueRoles()
+    {
+        var userId = GetCurrentUserId();
+
+        var leagues = await leagueUserRepository.GetAllLeagueRolesForUser(userId);
+
+        var leagueRoles = leagues
+            .Select(l => new UserLeagueRolesDto(new EncryptedId(l.LeagueId), l.IsOwner, l.IsAdmin, l.IsEditor, l.IsSteward));
+
+        return Ok(leagueRoles);
+    }
 }
