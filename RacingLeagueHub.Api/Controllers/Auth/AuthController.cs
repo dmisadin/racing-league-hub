@@ -82,14 +82,23 @@ public class AuthController(IAuthService authService,
     
     [HttpGet("me/league-roles")]
     [Authorize]
-    public async Task<IActionResult> GetMyLeagueRoles()
+    public async Task<ActionResult<UserLeagueRolesDto>> GetMyLeagueRoles()
     {
         var userId = GetCurrentUserId();
 
         var leagues = await leagueUserRepository.GetAllLeagueRolesForUser(userId);
 
         var leagueRoles = leagues
-            .Select(l => new UserLeagueRolesDto(new EncryptedId(l.LeagueId), l.IsOwner, l.IsAdmin, l.IsEditor, l.IsSteward));
+            .Select(l => 
+                new UserLeagueRolesDto(
+                    new EncryptedId(l.LeagueId), 
+                    l.League.Slug,
+                    l.IsOwner, 
+                    l.IsAdmin, 
+                    l.IsEditor, 
+                    l.IsSteward
+                )
+            );
 
         return Ok(leagueRoles);
     }
