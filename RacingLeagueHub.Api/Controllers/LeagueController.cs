@@ -60,7 +60,7 @@ public class LeagueController : GenericController<League, LeagueDto>
     }
 
     [HttpGet("{leagueSlug}/seasons/{seasonSlug}")]
-    public async Task<ActionResult<SeasonDto>> GetLeagueSeasons(string leagueSlug, string seasonSlug, CancellationToken ct = default)
+    public async Task<ActionResult<SeasonDto>> GetSeasonBySlug(string leagueSlug, string seasonSlug, CancellationToken ct = default)
     {
         if (string.IsNullOrEmpty(leagueSlug) || string.IsNullOrEmpty(seasonSlug))
             return BadRequest();
@@ -88,16 +88,16 @@ public class LeagueController : GenericController<League, LeagueDto>
     }
 
     [HttpGet("{leagueSlug}/seasons/{seasonSlug}/grands-prix/{grandPrixSlug}")]
-    public async Task<ActionResult<SeasonDto>> GetLeagueSeasons(string leagueSlug, string seasonSlug, string grandPrixSlug, CancellationToken ct = default)
+    public async Task<ActionResult<GrandPrixDto>> GetGrandPrixBySlug(string leagueSlug, string seasonSlug, string grandPrixSlug, CancellationToken ct = default)
     {
         if (string.IsNullOrEmpty(leagueSlug) || string.IsNullOrEmpty(seasonSlug) || string.IsNullOrEmpty(grandPrixSlug))
             return BadRequest();
 
-        var season = await this.grandPrixRepository.GetBySlugAsync(leagueSlug, seasonSlug, grandPrixSlug, GrandPrixDtoFactory.ToDtoExpression(), ct);
+        var grandPrix = await this.grandPrixRepository.GetBySlugAsync(leagueSlug, seasonSlug, grandPrixSlug, GrandPrixDtoFactory.ToDtoExpression(), ct);
 
-        if (season == null)
+        if (grandPrix == null)
             return NotFound($"{leagueSlug}/{seasonSlug}/{grandPrixSlug}");
 
-        return Ok(season);
+        return Ok(grandPrix);
     }
 }

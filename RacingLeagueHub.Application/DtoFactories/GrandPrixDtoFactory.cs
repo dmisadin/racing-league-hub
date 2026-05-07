@@ -25,6 +25,7 @@ public class GrandPrixDtoFactory : DtoFactoryBase<GrandPrix, GrandPrixDto>
         {
             Id = new EncryptedId(gp.Id),
             TrackLayoutId = new EncryptedId(gp.TrackLayoutId),
+            LeagueId = new EncryptedId(gp.Season.LeagueId),
             SeasonId = new EncryptedId(gp.SeasonId),
             Name = gp.Name,
             StartingAt = gp.StartingAt,
