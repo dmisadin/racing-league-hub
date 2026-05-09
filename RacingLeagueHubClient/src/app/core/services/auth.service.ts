@@ -7,6 +7,7 @@ import { tap, catchError, EMPTY, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AuthResponse, ForgotPasswordRequest, LoginRequest, RegisterRequest, ResetPasswordRequest, UserDto } from '../models/auth.model';
 import { ToastService } from './toast.service';
+import { LeagueRole } from '../../features/league/models/league-roles.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -16,6 +17,7 @@ export class AuthService {
     private readonly apiUrl = `${environment.apiUrl}/auth`;
 
     private readonly _user = signal<UserDto | null>(null);
+    private readonly _leagueRoles = signal<LeagueRole[]>([]);
     private readonly _accessToken = signal<string | null>(null);
     private readonly _accessTokenExpiry = signal<Date | null>(null);
     private readonly _isInitialized = signal<boolean>(false);
@@ -95,11 +97,27 @@ export class AuthService {
         return this.http.post<void>(`${this.apiUrl}/reset-password`, payload);
     }
 
+    loadLeagueRoles() {
+        this.http.get<LeagueRole[]>(`${this.apiUrl}/me/league-roles`).subscribe(roles => {
+            this._leagueRoles.set(roles);
+        });
+    }
+
+    getLeagueRole(leagueId: string): LeagueRole | undefined {
+        return this._leagueRoles().find(r => r.leagueId === leagueId);
+    }
+
+    canEditLeague(leagueSlug: string): boolean {
+        const role = this._leagueRoles().find(r => r.leagueSlug === leagueSlug);
+        return (role?.isOwner || role?.isAdmin || role?.isEditor) ?? false;
+    }
+
     private handleAuthResponse(res: AuthResponse): void {
         this._accessToken.set(res.accessToken);
         this._accessTokenExpiry.set(new Date(res.accessTokenExpiry));
         this._user.set(res.user);
         this.scheduleTokenRefresh();
+        this.loadLeagueRoles();
     }
 
     private clearAuth(): void {

@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { RouteService } from './core/services/route.service';
 import { ListService } from './shared/services/list.service';
+import { adminGuard, authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -15,7 +16,8 @@ export const routes: Routes = [
     {
         path: 'admin-tools',
         loadChildren: () => import('./features/admin-tools/admin-tools.routes').then(r => r.ADMIN_TOOLS_ROUTES),
-        providers: [RouteService]
+        providers: [RouteService],
+        canActivate: [adminGuard]
     },
     {
         path: 'leagues',
