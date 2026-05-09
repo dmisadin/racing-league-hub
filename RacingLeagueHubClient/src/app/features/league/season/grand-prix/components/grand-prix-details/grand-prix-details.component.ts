@@ -1,10 +1,11 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RestService } from '../../../../../../core/services/rest.service';
 import { RouteService } from '../../../../../../core/services/route.service';
 import { ListService } from '../../../../../../shared/services/list.service';
 import { GrandPrixDto } from '../../models/grand-prix.model';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from "@angular/router";
+import { AuthService } from '../../../../../../core/services/auth.service';
 
 @Component({
     selector: 'grand-prix-details',
@@ -16,6 +17,12 @@ export class GrandPrixDetailsComponent implements OnInit {
     private readonly routeService = inject(RouteService);
     protected readonly restService = inject(RestService);
     protected readonly listService = inject(ListService);
+    private readonly authService = inject(AuthService);
+
+    canEdit = computed(() => {
+        const leagueId = this.dto()?.leagueId;
+        return leagueId ? this.authService.canEditLeague(leagueId) : false;
+    });
 
     protected dto = signal<GrandPrixDto | null>(null);
     leagueSlug = signal<string | null>(null);

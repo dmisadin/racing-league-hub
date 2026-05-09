@@ -11,6 +11,7 @@ import { RouterLink, RouterOutlet } from "@angular/router";
 export class GrandPrixListComponent extends ListBase<GrandPrixDto> {
     leagueSlug = input.required<string>();
     seasonSlug = input.required<string>();
+    canEdit = input(false);
 
     protected override get endpoint(): string {
         return `/leagues/${this.leagueSlug()}/seasons/${this.seasonSlug()}/grands-prix`;

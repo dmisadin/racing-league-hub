@@ -9,7 +9,10 @@
 <div class="space-y-4">
     <h2 class="card-title flex justify-between items-center text-3xl">
         {{ league.name }}
-        <a class="btn btn-outline" routerLink="edit">Edit</a>
+
+        @if (canEdit()) {
+            <a class="btn btn-outline" routerLink="edit">Edit</a>
+        }
     </h2>
 
     <div class="flex gap-2">
@@ -33,7 +36,7 @@
     </div>
 
     @if(league.slug) {
-    <season-list [leagueSlug]="league.slug"></season-list>
+    <season-list [leagueSlug]="league.slug" [canEdit]="canEdit()"></season-list>
     }
 </div>
 

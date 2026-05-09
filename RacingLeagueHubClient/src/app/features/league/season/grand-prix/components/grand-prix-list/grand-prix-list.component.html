@@ -2,9 +2,9 @@
 
     <li class="flex justify-between p-4 pb-2 tracking-wide text-xs">
         <span class="opacity-60">List of all available Grand Prix</span>
-        <span>
+        @if (canEdit()) {
             <a routerLink="add-grand-prix" class="hover:underline">+ Add new Grand Prix</a>
-        </span>
+        }
     </li>
 
     @for (grandPrix of list(); track grandPrix.id)
