@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Application.DtoFactories;
 using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.Dtos.GrandPrix;
@@ -11,6 +12,7 @@ using RacingLeagueHub.Domain.Entities.Seasons;
 namespace RacingLeagueHub.Api.Controllers;
 
 [Route("api/leagues")]
+[AllowAnonymous]
 public class LeagueController : GenericController<League, LeagueDto>
 {
     private readonly ILeagueRepository leagueRepository;
