@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RacingLeagueHub.Api.Controllers.Leagues;
 using RacingLeagueHub.Application.DtoFactories;
 using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Domain.Abstractions;
@@ -8,7 +9,7 @@ using RacingLeagueHub.Domain.Infrastructure;
 namespace RacingLeagueHub.Api.Controllers;
 
 [Route("api/seasons")]
-public class SeasonController : GenericController<Season, SeasonDto>
+public class SeasonController : GenericLeagueController<Season, SeasonDto>
 {
     private readonly ISeasonRepository seasonRepository;
 

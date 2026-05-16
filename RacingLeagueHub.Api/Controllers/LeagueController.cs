@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RacingLeagueHub.Api.Controllers.Leagues;
 using RacingLeagueHub.Application.DtoFactories;
 using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.Dtos.GrandPrix;
@@ -12,8 +13,7 @@ using RacingLeagueHub.Domain.Entities.Seasons;
 namespace RacingLeagueHub.Api.Controllers;
 
 [Route("api/leagues")]
-[AllowAnonymous]
-public class LeagueController : GenericController<League, LeagueDto>
+public class LeagueController : GenericLeagueController<League, LeagueDto>
 {
     private readonly ILeagueRepository leagueRepository;
     private readonly ISeasonRepository seasonRepository;
@@ -33,6 +33,7 @@ public class LeagueController : GenericController<League, LeagueDto>
     protected IDtoFactory<Season, SeasonDto> SeasonDtoFactory => new SeasonDtoFactory();
     protected IDtoFactory<GrandPrix, GrandPrixDto> GrandPrixDtoFactory => new GrandPrixDtoFactory();
 
+    [AllowAnonymous]
     [HttpGet("{leagueSlug}")]
     public async Task<ActionResult<LeagueDto>> GetBySlug(string leagueSlug)
     {
@@ -47,6 +48,7 @@ public class LeagueController : GenericController<League, LeagueDto>
         return Ok(league);
     }
 
+    [AllowAnonymous]
     [HttpGet("{leagueSlug}/seasons")]
     public async Task<ActionResult<PagedResult<SeasonDto>>> GetAllPaginated(string leagueSlug, [FromQuery] int page = 1, CancellationToken ct = default)
     {
@@ -61,6 +63,7 @@ public class LeagueController : GenericController<League, LeagueDto>
         return Ok(seasons);
     }
 
+    [AllowAnonymous]
     [HttpGet("{leagueSlug}/seasons/{seasonSlug}")]
     public async Task<ActionResult<SeasonDto>> GetSeasonBySlug(string leagueSlug, string seasonSlug, CancellationToken ct = default)
     {
@@ -75,6 +78,7 @@ public class LeagueController : GenericController<League, LeagueDto>
         return Ok(season);
     }
 
+    [AllowAnonymous]
     [HttpGet("{leagueSlug}/seasons/{seasonSlug}/grands-prix")]
     public async Task<ActionResult<PagedResult<SeasonDto>>> GetAllGrandsPrixPaginated(string leagueSlug, string seasonSlug, [FromQuery] int page = 1, CancellationToken ct = default)
     {
@@ -88,7 +92,8 @@ public class LeagueController : GenericController<League, LeagueDto>
 
         return Ok(grandsPrix);
     }
-
+    
+    [AllowAnonymous]
     [HttpGet("{leagueSlug}/seasons/{seasonSlug}/grands-prix/{grandPrixSlug}")]
     public async Task<ActionResult<GrandPrixDto>> GetGrandPrixBySlug(string leagueSlug, string seasonSlug, string grandPrixSlug, CancellationToken ct = default)
     {

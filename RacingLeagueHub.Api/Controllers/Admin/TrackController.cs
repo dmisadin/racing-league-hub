@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Application.DtoFactories;
 using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.Dtos.Track;

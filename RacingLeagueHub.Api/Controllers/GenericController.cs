@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Application.DtoFactories;
 using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.Models;
@@ -34,7 +35,8 @@ public abstract class GenericController<TEntity, TDto> : BaseController
     }
 
     [HttpGet]
-    public async Task<ActionResult<PagedResult<TDto>>> GetAllPaginated([FromQuery] int page = 1, CancellationToken ct = default)
+    [AllowAnonymous]
+    public virtual async Task<ActionResult<PagedResult<TDto>>> GetAllPaginated([FromQuery] int page = 1, CancellationToken ct = default)
     {
         var result = await repository.GetPagedAsync(DtoFactory.ToDtoExpression(), page, pageSize: 10, ct);
         return Ok(result);
