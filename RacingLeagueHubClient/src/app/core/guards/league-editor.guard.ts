@@ -12,7 +12,7 @@ export const leagueEditorGuard: CanActivateFn = (route) => {
     if (!leagueSlug)
         return router.createUrlTree(['/not-found']);
 
-    if (authService.canEditLeague(leagueSlug)) 
+    if (authService.canEditLeagueSlug(leagueSlug)) 
         return true;
 
     return router.createUrlTree(['/not-found']);

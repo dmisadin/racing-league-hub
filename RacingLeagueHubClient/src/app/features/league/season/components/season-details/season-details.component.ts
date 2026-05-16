@@ -19,7 +19,7 @@ export class SeasonDetailsComponent extends ModalFormParent<SeasonDto> {
 
     canEdit = computed(() => {
         const leagueId = this.dto()?.leagueId;
-        return leagueId ? this.authService.canEditLeague(leagueId) : false;
+        return leagueId ? this.authService.canEditLeagueId(leagueId) : false;
     });
 
     leagueSlug = signal<string | null>(null);

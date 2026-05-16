@@ -18,7 +18,7 @@ export class LeagueDetailsComponent extends ModalFormParent<LeagueDto> {
 
     canEdit = computed(() => {
         const leagueId = this.dto()?.id;
-        return leagueId ? this.authService.canEditLeague(leagueId) : false;
+        return leagueId ? this.authService.canEditLeagueId(leagueId) : false;
     });
 
     regionLabels = RegionLabels;

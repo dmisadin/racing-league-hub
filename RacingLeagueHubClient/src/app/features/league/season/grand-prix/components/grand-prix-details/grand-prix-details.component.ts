@@ -21,7 +21,7 @@ export class GrandPrixDetailsComponent implements OnInit {
 
     canEdit = computed(() => {
         const leagueId = this.dto()?.leagueId;
-        return leagueId ? this.authService.canEditLeague(leagueId) : false;
+        return leagueId ? this.authService.canEditLeagueId(leagueId) : false;
     });
 
     protected dto = signal<GrandPrixDto | null>(null);

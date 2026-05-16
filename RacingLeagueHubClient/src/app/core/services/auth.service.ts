@@ -107,9 +107,18 @@ export class AuthService {
         return this._leagueRoles().find(r => r.leagueId === leagueId);
     }
 
-    canEditLeague(leagueSlug: string): boolean {
+    canEditLeagueSlug(leagueSlug: string): boolean {
         const role = this._leagueRoles().find(r => r.leagueSlug === leagueSlug);
-        return (role?.isOwner || role?.isAdmin || role?.isEditor) ?? false;
+        return role ? this.canEditLeague(role): false;
+    }
+
+    canEditLeagueId(leagueId: string): boolean {
+        const role = this._leagueRoles().find(r => r.leagueId === leagueId);
+        return role ? this.canEditLeague(role) : false;
+    }
+
+    private canEditLeague(role: LeagueRole): boolean {
+        return role.isOwner || role.isAdmin || role.isEditor;
     }
 
     private handleAuthResponse(res: AuthResponse): void {
