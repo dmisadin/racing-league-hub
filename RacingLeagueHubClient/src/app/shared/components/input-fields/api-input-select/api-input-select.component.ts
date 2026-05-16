@@ -1,16 +1,8 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    forwardRef,
-    input,
-    output,
-    resource,
-    signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, forwardRef, input, signal } from '@angular/core';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { environment } from '../../../../../environments/environment';
+import { httpResource } from '@angular/common/http';
 
 export interface SelectOption {
     value: string | number;
@@ -73,28 +65,29 @@ export class ApiInputSelectComponent implements ControlValueAccessor {
     private onChange: (v: string | number | null) => void = () => { };
     onTouched: () => void = () => { };
 
-    // --- Resource: fetches all options once (re-fetches if apiUrl changes) ---
-    readonly optionsResource = resource({
-        params: () => ({ url: this.baseApiUrl + this.endpoint() }),
-        loader: async ({ params }): Promise<SelectOption[]> => {
-            const response = await fetch(params.url);
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-            const data: Record<string, unknown>[] = await response.json();
-            return data.map((item) => ({
-                label: String(item[this.labelKey()]),
-                value: item[this.valueKey()] as string | number,
-            }));
-        },
-    });
+    // --- Resource: fetches all options through Angular HttpClient ---
+    readonly optionsResource = httpResource<Record<string, unknown>[]>(
+        () => this.baseApiUrl + this.endpoint()
+    );
 
-    // --- Derived: local filtering only ---
+    // --- Derived: map API response to SelectOption[] and apply local filtering ---
     readonly filteredOptions = computed<SelectOption[]>(() => {
-        const all = this.optionsResource.value() ?? [];
+        const data = this.optionsResource.value() ?? [];
+
+        const allOptions = data.map((item) => ({
+            label: String(item[this.labelKey()]),
+            value: item[this.valueKey()] as string | number,
+        }));
+
         const term = this.searchTerm().toLowerCase().trim();
-        if (!term) return all;
-        return all.filter((opt) => opt.label.toLowerCase().includes(term));
+
+        if (!term) {
+            return allOptions;
+        }
+
+        return allOptions.filter((opt) =>
+            opt.label.toLowerCase().includes(term)
+        );
     });
 
 
