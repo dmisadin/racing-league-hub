@@ -43,6 +43,8 @@ public static class AuthorizationServiceExtensions
             });
         });
 
+        services.AddScoped<IAuthorizationHandler, LeaguePermissionHandler>();
+
         return services;
     }
 }

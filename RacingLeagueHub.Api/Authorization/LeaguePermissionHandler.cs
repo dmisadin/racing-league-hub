@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.JsonWebTokens;
+using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Models.Enums;
 using RacingLeagueHub.Domain.Abstractions;
 using System.Security.Claims;
 
 namespace RacingLeagueHub.Api.Authorization;
-
 
 public sealed class LeaguePermissionHandler
     : AuthorizationHandler<LeaguePermissionRequirement>
@@ -34,13 +35,13 @@ public sealed class LeaguePermissionHandler
         if (userId is null)
             return;
 
-        var leagueId = GetLeagueIdFromRoute(httpContext);
+        var leagueSlug = GetLeagueSlugFromRoute(httpContext);
 
-        if (leagueId is null)
+        if (leagueSlug is null)
             return;
 
         var leagueUser = await this.leagueUserRepository.GetByLeagueAndUserAsync(
-            leagueId.Value,
+            leagueSlug,
             userId.Value,
             httpContext.RequestAborted);
 
@@ -68,12 +69,25 @@ public sealed class LeaguePermissionHandler
 
     private static long? GetUserId(ClaimsPrincipal user)
     {
-        var userIdValue = user.FindFirstValue(ClaimTypes.NameIdentifier);
+        var encryptedUserId = user.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
-        if (long.TryParse(userIdValue, out var userId))
-            return userId;
+        if (string.IsNullOrWhiteSpace(encryptedUserId))
+            return null;
 
-        return null;
+        try
+        {
+            var encryptedId = new EncryptedId(encryptedUserId);
+            return encryptedId.RawId;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private static string? GetLeagueSlugFromRoute(HttpContext httpContext)
+    {
+        return httpContext.Request.RouteValues["leagueSlug"]?.ToString();
     }
 
     private static long? GetLeagueIdFromRoute(HttpContext httpContext)
