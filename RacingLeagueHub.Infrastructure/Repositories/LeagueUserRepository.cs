@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.Application.Models.Enums;
 using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Entities;
 
@@ -28,6 +27,18 @@ internal class LeagueUserRepository : GenericRepository<LeagueUser>, ILeagueUser
             .AsNoTracking()
             .FirstOrDefaultAsync(x =>
                 x.LeagueId == leagueId && x.UserId == userId,
+                cancellationToken);
+    }
+
+    public async Task<LeagueUser?> GetByLeagueAndUserAsync(
+        string leagueSlug,
+        long userId,
+        CancellationToken cancellationToken = default)
+    {
+        return await Query()
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x =>
+                x.UserId == userId && x.League.Slug == leagueSlug,
                 cancellationToken);
     }
 }

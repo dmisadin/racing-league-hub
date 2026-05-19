@@ -11,11 +11,15 @@ internal class LeagueRepository : GenericRepository<League>, ILeagueRepository
     {
     }
 
-    public async Task<TDto?> GetBySlugAsync<TDto>(string slug, Expression<Func<League, TDto>> selector)
+    public async Task<TDto?> GetBySlugAsync<TDto>(
+        string leagueSlug,
+        Expression<Func<League, TDto>> selector,
+        CancellationToken ct = default)
     {
-        return await this.dbContext.Set<League>()
-                        .Where(l => l.Slug == slug)
-                        .Select(selector)
-                        .FirstOrDefaultAsync();
+        return await Query()
+            .AsNoTracking()
+            .Where(l => l.Slug == leagueSlug)
+            .Select(selector)
+            .FirstOrDefaultAsync(ct);
     }
 }

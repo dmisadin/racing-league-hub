@@ -6,11 +6,10 @@ namespace RacingLeagueHub.Domain.Infrastructure;
 
 public interface IRepository<TEntity> where TEntity : IEntity
 {
-    IQueryable<TEntity> Query();
     TEntity Create();
     ValueTask<TEntity?> FindAsync(params object[] values);
-    Task<TDto?> GetByIdAsync<TDto>(long id, Expression<Func<TEntity, TDto>> selector);
-    Task<List<TDto>> GetAllAsync<TDto>(Expression<Func<TEntity, TDto>> selector);
+    Task<TDto?> GetByIdAsync<TDto>(long id, Expression<Func<TEntity, TDto>> selector, CancellationToken ct = default);
+    Task<List<TDto>> GetAllAsync<TDto>(Expression<Func<TEntity, TDto>> selector, CancellationToken ct = default);
     Task<PagedResult<TDto>> GetPagedAsync<TDto>(Expression<Func<TEntity, TDto>> selector, int page, int pageSize = 10, CancellationToken ct = default);
     Task<PagedResult<TDto>> GetPagedAsync<TDto>(Expression<Func<TEntity, TDto>> selector, IQueryable<TEntity> query, int page, int pageSize = 10, CancellationToken ct = default);
     Task InsertAsync(params TEntity[] entities);

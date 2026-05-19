@@ -10,4 +10,8 @@ public interface ILeagueUserRepository : IRepository<LeagueUser>
         long leagueId,
         long userId,
         CancellationToken cancellationToken = default);
+    Task<LeagueUser?> GetByLeagueAndUserAsync(
+        string leagueSlug,
+        long userId,
+        CancellationToken cancellationToken = default);
 }

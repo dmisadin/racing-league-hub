@@ -37,17 +37,17 @@ internal class GenericRepository<TEntity> : IRepository<TEntity>
         return await this.dbContext.Set<TEntity>().FindAsync(values);
     }
 
-    public virtual async Task<TDto?> GetByIdAsync<TDto>(long id, Expression<Func<TEntity, TDto>> selector)
+    public virtual async Task<TDto?> GetByIdAsync<TDto>(long id, Expression<Func<TEntity, TDto>> selector, CancellationToken ct = default)
     {
         return await this.dbContext.Set<TEntity>()
                                 .Where(x => x.Id == id )
                                 .Select(selector)
-                                .FirstOrDefaultAsync();
+                                .FirstOrDefaultAsync(ct);
     }
 
-    public virtual Task<List<TDto>> GetAllAsync<TDto>(Expression<Func<TEntity, TDto>> selector)
+    public virtual Task<List<TDto>> GetAllAsync<TDto>(Expression<Func<TEntity, TDto>> selector, CancellationToken ct = default)
     {
-        return Query().Select(selector).ToListAsync();
+        return Query().Select(selector).ToListAsync(ct);
     }
 
     public async Task<PagedResult<TDto>> GetPagedAsync<TDto>(
