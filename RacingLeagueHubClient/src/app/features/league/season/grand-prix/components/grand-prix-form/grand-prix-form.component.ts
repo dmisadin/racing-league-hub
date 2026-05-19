@@ -29,6 +29,9 @@ export class GrandPrixFormComponent {
     cancel = output();
 
     form: FormGroup;
+    leagueSlug: string | null = "";
+    seasonSlug: string | null = "";
+    grandPrixSlug: string | null = "";
 
     constructor() {
         this.form = this.fb.group({
@@ -49,17 +52,17 @@ export class GrandPrixFormComponent {
             return;
         }
 
-        const leagueSlug = this.routeService.getRouteParam("leagueSlug");
-        const seasonSlug = this.routeService.getRouteParam("seasonSlug");
-        const grandPrixSlug = this.routeService.getRouteParam("grandPrixSlug");
+        this.leagueSlug = this.routeService.getRouteParam("leagueSlug");
+        this.seasonSlug = this.routeService.getRouteParam("seasonSlug");
+        this.grandPrixSlug = this.routeService.getRouteParam("grandPrixSlug");
 
-        if (!grandPrixSlug && seasonSlug && leagueSlug) {
-            this.restService.get<SeasonDto>(`/leagues/${leagueSlug}/seasons/${seasonSlug}`)
+        if (!this.grandPrixSlug && this.seasonSlug && this.leagueSlug) {
+            this.restService.get<SeasonDto>(`/leagues/${this.leagueSlug}/seasons/${this.seasonSlug}`)
                 .subscribe(res => this.form.patchValue({ seasonId: res.id }));
             return;
         }
         
-        this.restService.get<GrandPrixDto>(`/leagues/${leagueSlug}/seasons/${seasonSlug}/grands-prix/${grandPrixSlug}`)
+        this.restService.get<GrandPrixDto>(`/leagues/${this.leagueSlug}/seasons/${this.seasonSlug}/grands-prix/${this.grandPrixSlug}`)
             .subscribe(res => this.form.patchValue(res));
     }
 
@@ -75,12 +78,12 @@ export class GrandPrixFormComponent {
         form.startingAt = toUtcIso(form.startingAt);
 
         if (form['id'])
-            this.restService.post('/grands-prix/update', this.form.value).subscribe({
+            this.restService.put(`/leagues/${this.leagueSlug}/seasons/${this.seasonSlug}/grands-prix/${this.grandPrixSlug}`, this.form.value).subscribe({
                 next: () => this.toastService.showSuccess("Successfully updated the Grand Prix."),
                 error: () => this.toastService.showError("Failed to update the Grand Prix.")
             });
         else
-            this.restService.post('/grands-prix/add', this.form.value).subscribe({
+            this.restService.post(`/leagues/${this.leagueSlug}/seasons/${this.seasonSlug}/grands-prix`, this.form.value).subscribe({
                 next: () => this.onAddSuccess(),
                 error: () => this.toastService.showError("Failed to add a new Grand Prix.")
             });

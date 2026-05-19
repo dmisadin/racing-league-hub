@@ -30,6 +30,7 @@ export class LeagueFormComponent implements OnInit {
     cancel = output();
 
     form: FormGroup;
+    leagueSlug: string | null = "";
     regionOptions = enumToOptions(Region);
     timezoneOptions = timezoneOptions;
 
@@ -53,11 +54,11 @@ export class LeagueFormComponent implements OnInit {
             return;
         }
 
-        const leagueSlug = this.routeService.getRouteParam("leagueSlug");
-        if (!leagueSlug)
+        this.leagueSlug = this.routeService.getRouteParam("leagueSlug");
+        if (!this.leagueSlug)
             return;
 
-        this.restService.get<LeagueDto>(`/leagues/${leagueSlug}`)
+        this.restService.get<LeagueDto>(`/leagues/${this.leagueSlug}`)
                         .subscribe(res => this.form.patchValue(res));
     }
 
@@ -68,12 +69,12 @@ export class LeagueFormComponent implements OnInit {
         const form = this.form.value;
         
         if (form['id'])
-            this.restService.post('/leagues/update', this.form.value).subscribe({
+            this.restService.put(`/leagues/${this.leagueSlug}`, this.form.value).subscribe({
                 next: () => this.toastService.showSuccess("Successfully updated the league."),
                 error: () => this.toastService.showError("Failed to update the league.")
             });
         else
-            this.restService.post('/leagues/add', this.form.value).subscribe({
+            this.restService.post('/leagues', this.form.value).subscribe({
                 next: () => this.onAddSuccess(),
                 error: () => this.toastService.showError("Failed to add a new league.")
             });
