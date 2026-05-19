@@ -18,7 +18,7 @@ public class GameTeamController : GenericController<GameTeam, GameTeamDto>
 
     protected override IDtoFactory<GameTeam, GameTeamDto> DtoFactory => new GameTeamDtoFactory();
 
-    public override Task<IActionResult> Delete([FromRoute] EncryptedId id)
+    public override Task<IActionResult> Delete([FromRoute] EncryptedId id, CancellationToken ct = default)
     {
         return Task.FromResult<IActionResult>(StatusCode(StatusCodes.Status403Forbidden));
     }

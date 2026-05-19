@@ -17,13 +17,13 @@ public class TrackLayoutController : GenericController<TrackLayout, TrackLayoutD
 
     protected override IDtoFactory<TrackLayout, TrackLayoutDto> DtoFactory => new TrackLayoutDtoFactory();
 
-    public async override Task<ActionResult<EncryptedId>> Update([FromBody] TrackLayoutDto dto)
+    public override async Task<ActionResult<EncryptedId>> Update([FromRoute] EncryptedId id, [FromBody] TrackLayoutDto dto, CancellationToken ct = default)
     {
-        var id = dto.Id?.RawId;
-        if (id == null || id == 0)
+        var trackId = dto.Id?.RawId;
+        if (trackId == null || trackId == 0)
             return BadRequest("Invalid ID.");
 
-        var entityId = await this.repository.UpdateAsync<TrackLayoutDto>(DtoFactory.FromDto, id.Value, dto);
+        var entityId = await this.repository.UpdateAsync(DtoFactory.FromDto, trackId.Value, dto);
 
         if (entityId == null)
             return NotFound();
