@@ -78,7 +78,11 @@ internal class GenericRepository<TEntity> : IRepository<TEntity>
         return new PagedResult<TDto>(items, page, pageSize, totalCount);
     }
 
-    public virtual async Task<long?> UpdateAsync<TDto>(Func<TEntity, TDto, bool> mappingFunction, long id, TDto dto)
+    public virtual async Task<long?> UpdateAsync<TDto>(
+        Func<TEntity, TDto, bool> mappingFunction, 
+        long id, 
+        TDto dto,
+        CancellationToken ct = default)
     {
         var entity = await FindAsync(id);
 

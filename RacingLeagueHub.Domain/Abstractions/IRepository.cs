@@ -13,7 +13,7 @@ public interface IRepository<TEntity> where TEntity : IEntity
     Task<PagedResult<TDto>> GetPagedAsync<TDto>(Expression<Func<TEntity, TDto>> selector, int page, int pageSize = 10, CancellationToken ct = default);
     Task<PagedResult<TDto>> GetPagedAsync<TDto>(Expression<Func<TEntity, TDto>> selector, IQueryable<TEntity> query, int page, int pageSize = 10, CancellationToken ct = default);
     Task InsertAsync(params TEntity[] entities);
-    Task<long?> UpdateAsync<TDto>(Func<TEntity, TDto, bool> mappingFunction, long id, TDto dto);
+    Task<long?> UpdateAsync<TDto>(Func<TEntity, TDto, bool> mappingFunction, long id, TDto dto, CancellationToken ct = default);
     Task<int> CommitAsync(CancellationToken ct = default);
     Task<int> ExecuteDeleteAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
     Task DeleteAsync(params TEntity[] entities);
