@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Application.DtoFactories;
 using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.Models;
@@ -9,7 +10,7 @@ namespace RacingLeagueHub.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public abstract class GenericController<TEntity, TDto> : Controller
+public abstract class GenericController<TEntity, TDto> : BaseController
     where TEntity : IEntity
     where TDto : BaseDto
 {
@@ -22,61 +23,89 @@ public abstract class GenericController<TEntity, TDto> : Controller
 
     protected abstract IDtoFactory<TEntity, TDto> DtoFactory { get; }
 
-    [HttpGet("get-by-id/{id}")]
-    public virtual async Task<ActionResult<TDto>> GetOne([FromRoute] EncryptedId id)
-    {
-        var dto = await repository.GetByIdAsync<TDto>(id.RawId, DtoFactory.ToDtoExpression());
 
-        if (dto == null)
+    [HttpGet("get-by-id/{id}")]
+    public virtual async Task<ActionResult<TDto>> GetById(
+        [FromRoute] EncryptedId id,
+        CancellationToken ct = default)
+    {
+        var dto = await repository.GetByIdAsync<TDto>(
+            id.RawId,
+            DtoFactory.ToDtoExpression());
+
+        if (dto is null)
             return NotFound();
 
         return Ok(dto);
     }
 
     [HttpGet]
-    public async Task<ActionResult<PagedResult<TDto>>> GetAllPaginated([FromQuery] int page = 1, CancellationToken ct = default)
+    [AllowAnonymous]
+    public virtual async Task<ActionResult<PagedResult<TDto>>> GetPaged(
+        [FromQuery] int page = 1,
+        CancellationToken ct = default)
     {
-        var result = await repository.GetPagedAsync(DtoFactory.ToDtoExpression(), page, pageSize: 10, ct);
+        var result = await repository.GetPagedAsync(
+            DtoFactory.ToDtoExpression(),
+            page,
+            pageSize: 10,
+            ct);
+
         return Ok(result);
     }
 
-    [HttpPost("add")]
-    public virtual async Task<ActionResult<EncryptedId>> Add([FromBody] TDto dto)
+    [HttpPost]
+    public virtual async Task<ActionResult<EncryptedId>> Create(
+        [FromBody] TDto dto,
+        CancellationToken ct = default)
     {
         var entity = repository.Create();
+
         DtoFactory.FromDto(entity, dto);
 
-        await this.repository.InsertAsync(entity);
-        await this.repository.CommitAsync();
+        await repository.InsertAsync(entity);
+        await repository.CommitAsync(ct);
 
         return Ok(new EncryptedId(entity.Id));
     }
 
-    [HttpPost("update")]
-    public virtual async Task<ActionResult<EncryptedId>> Update([FromBody] TDto dto)
+    [HttpPut("{id}")]
+    public virtual async Task<ActionResult<EncryptedId>> Update(
+        [FromRoute] EncryptedId id,
+        [FromBody] TDto dto,
+        CancellationToken ct = default)
     {
-        var id = dto.Id?.RawId;
-        if (id == null || id == 0)
+        if (id.RawId <= 0)
             return BadRequest("Invalid ID.");
 
-        var entity = await this.repository.FindAsync(id);
+        if (dto.Id is not null && dto.Id.RawId != id.RawId)
+            return BadRequest("Route ID does not match body ID.");
 
-        if (entity == null)
+        var entity = await repository.FindAsync(id.RawId);
+
+        if (entity is null)
             return NotFound();
 
         DtoFactory.FromDto(entity, dto);
 
-        await this.repository.CommitAsync();
+        await repository.CommitAsync(ct);
 
         return Ok(new EncryptedId(entity.Id));
     }
 
-    [HttpDelete("delete/{id}")]
-    public virtual async Task<IActionResult> Delete([FromRoute] EncryptedId id)
+    [HttpDelete("{id}")]
+    public virtual async Task<IActionResult> Delete(
+        [FromRoute] EncryptedId id,
+        CancellationToken ct = default)
     {
+        if (id.RawId <= 0)
+            return BadRequest("Invalid ID.");
+
         var rows = await repository.ExecuteDeleteAsync(x => x.Id == id.RawId);
 
-        return rows == 0 ? NotFound() : NoContent();
+        return rows == 0
+            ? NotFound()
+            : NoContent();
     }
 
     /* Move to Application layer

@@ -2,9 +2,9 @@
 
     <li class="flex justify-between p-4 pb-2 tracking-wide text-xs">
         <span class="opacity-60">List of all available seasons</span>
-        <span>
+        @if (canEdit()) {
             <a routerLink="add-season" class="hover:underline">+ Add new season</a>
-        </span>
+        }
     </li>
 
     @for (season of list(); track season.id)

@@ -14,7 +14,7 @@
             <div class="mx-2 flex-1 px-2" routerLink="/"> Racing League Hub</div>
             <div class="hidden flex-none lg:block">
                 <ul class="menu menu-horizontal">
-                    <li><a routerLink="/admin-tools">Admin Tools</a></li>
+                    <li *isAdmin><a routerLink="/admin-tools">Admin Tools</a></li>
                     <li><a routerLink="/leagues">Leagues</a></li>
                     <li>
                         <label class="swap swap-rotate">

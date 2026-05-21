@@ -14,8 +14,9 @@
             <h1 class="text-2xl font-bold">{{ season.name }}</h1>
             <p class="text-sm text-base-content/50">{{ season.slug }}</p>
         </div>
-
-        <a class="btn btn-outline" routerLink="edit">Edit</a>
+        @if (canEdit()) {
+            <a class="btn btn-outline" routerLink="edit">Edit</a>
+        }
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -38,7 +39,7 @@
     @let leagueSlug = this.leagueSlug();
     @let seasonSlug = this.seasonSlug();
     @if(leagueSlug && seasonSlug) {
-        <grand-prix-list [leagueSlug]="leagueSlug" [seasonSlug]="seasonSlug"></grand-prix-list>
+        <grand-prix-list [leagueSlug]="leagueSlug" [seasonSlug]="seasonSlug" [canEdit]="canEdit()"></grand-prix-list>
     }
 </div>
 } @else {

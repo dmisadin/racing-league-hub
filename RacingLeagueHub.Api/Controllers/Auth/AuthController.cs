@@ -1,16 +1,19 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.JsonWebTokens;
 using RacingLeagueHub.Application.Dtos.Auth;
 using RacingLeagueHub.Application.Dtos.User;
+using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Services.Identity;
-using System.Security.Claims;
+using RacingLeagueHub.Domain.Abstractions;
 
 namespace RacingLeagueHub.Api.Controllers.Auth;
 
 [ApiController]
 [Route("api/auth")]
-public class AuthController(IAuthService authService) : Controller
+public class AuthController(IAuthService authService,
+    ILeagueUserRepository leagueUserRepository) : BaseController
 {
     [HttpPost("register")]
     [AllowAnonymous]
@@ -75,5 +78,28 @@ public class AuthController(IAuthService authService) : Controller
     {
         await authService.ResetPasswordAsync(request, ct);
         return Ok(new { message = "Password reset successfully." });
+    }
+    
+    [HttpGet("me/league-roles")]
+    [Authorize]
+    public async Task<ActionResult<UserLeagueRolesDto>> GetMyLeagueRoles()
+    {
+        var userId = GetCurrentUserId();
+
+        var leagues = await leagueUserRepository.GetAllLeagueRolesForUser(userId);
+
+        var leagueRoles = leagues
+            .Select(l => 
+                new UserLeagueRolesDto(
+                    new EncryptedId(l.LeagueId), 
+                    l.League.Slug,
+                    l.IsOwner, 
+                    l.IsAdmin, 
+                    l.IsEditor, 
+                    l.IsSteward
+                )
+            );
+
+        return Ok(leagueRoles);
     }
 }

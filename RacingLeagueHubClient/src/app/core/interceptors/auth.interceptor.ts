@@ -22,7 +22,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             const isUnauthorized = err.status === HttpStatusCode.Unauthorized;
 
             if (isUnauthorized && !isAuthRoute) {
-                console.log("test")
                 return authService.requestRefreshToken().pipe(
                     switchMap(() => {
                         const retryReq = req.clone({

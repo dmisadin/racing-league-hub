@@ -20,7 +20,7 @@ internal class SeasonRepository : GenericRepository<Season>, ISeasonRepository
         Expression<Func<Season, TDto>> selector,
         CancellationToken ct = default)
     {
-        return await dbContext.Set<Season>()
+        return await Query()
             .Where(s => s.Slug == seasonSlug && s.League.Slug == leagueSlug)
             .Select(selector)
             .FirstOrDefaultAsync(ct);
@@ -33,7 +33,8 @@ internal class SeasonRepository : GenericRepository<Season>, ISeasonRepository
         int pageSize = 10,
         CancellationToken ct = default)
     {
-        var query = this.dbContext.Set<Season>().Where(s => s.League.Slug == leagueSlug);
+        var query = Query().Where(s => s.League.Slug == leagueSlug);
+
         return await GetPagedAsync(selector, query, page, pageSize, ct);
     }
 
@@ -44,7 +45,8 @@ internal class SeasonRepository : GenericRepository<Season>, ISeasonRepository
         int pageSize = 10,
         CancellationToken ct = default)
     {
-        var query = this.dbContext.Set<Season>().Where(s => s.LeagueId == leagueId);
+        var query = Query().Where(s => s.LeagueId == leagueId);
+
         return await GetPagedAsync(selector, query, page, pageSize, ct);
     }
 }

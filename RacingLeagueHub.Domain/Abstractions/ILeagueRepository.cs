@@ -6,5 +6,8 @@ namespace RacingLeagueHub.Domain.Abstractions;
 
 public interface ILeagueRepository : IRepository<League>
 {
-    Task<TDto?> GetBySlugAsync<TDto>(string slug, Expression<Func<League, TDto>> selector);
+    Task<TDto?> GetBySlugAsync<TDto>(
+        string leagueSlug,
+        Expression<Func<League, TDto>> selector,
+        CancellationToken ct = default);
 }

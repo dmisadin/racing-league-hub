@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { leagueEditorGuard } from '../../core/guards/league-editor.guard';
 
 export const LEAGUE_ROUTES: Routes = [
     {
@@ -23,7 +24,8 @@ export const LEAGUE_ROUTES: Routes = [
     },
     {
         path: ':leagueSlug/edit',
-        loadComponent: () => import('./components/league-form/league-form.component').then(c => c.LeagueFormComponent)
+        loadComponent: () => import('./components/league-form/league-form.component').then(c => c.LeagueFormComponent),
+        canActivate: [leagueEditorGuard]
     },
     {
         path: ':leagueSlug/:seasonSlug',
@@ -37,7 +39,8 @@ export const LEAGUE_ROUTES: Routes = [
     },
     {
         path: ':leagueSlug/:seasonSlug/edit',
-        loadComponent: () => import('./season/components/season-form/season-form.component').then(c => c.SeasonFormComponent)
+        loadComponent: () => import('./season/components/season-form/season-form.component').then(c => c.SeasonFormComponent),
+        canActivate: [leagueEditorGuard]
     },
     {
         path: ':leagueSlug/:seasonSlug/:grandPrixSlug',
@@ -45,6 +48,7 @@ export const LEAGUE_ROUTES: Routes = [
     },
     {
         path: ':leagueSlug/:seasonSlug/:grandPrixSlug/edit',
-        loadComponent: () => import('./season/grand-prix/components/grand-prix-form/grand-prix-form.component').then(c => c.GrandPrixFormComponent)
+        loadComponent: () => import('./season/grand-prix/components/grand-prix-form/grand-prix-form.component').then(c => c.GrandPrixFormComponent),
+        canActivate: [leagueEditorGuard]
     }
 ];

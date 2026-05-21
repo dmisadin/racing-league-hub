@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using RacingLeagueHub.Api.Authorization;
 using RacingLeagueHub.Application.DtoFactories;
 using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.Dtos.Track;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Infrastructure;
 using RacingLeagueHub.Domain.Models.Constants;
 
 namespace RacingLeagueHub.Api.Controllers.Admin;
 
+[Authorize(Policy = AppPolicies.SuperAdmin)]
 [Route("api/track")]
 [ApiController]
 public class TrackController : GenericController<Track, TrackDto>

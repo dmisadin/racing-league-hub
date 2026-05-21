@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using RacingLeagueHub.Domain.Entities;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using RacingLeagueHub.Application.Models;
+using RacingLeagueHub.Domain.Entities;
 
 namespace RacingLeagueHub.Application.Services.Identity;
 
@@ -17,13 +18,15 @@ public class JwtService(IConfiguration config) : IJwtService
 
     public string GenerateAccessToken(User user)
     {
+        var userEncryptedId = new EncryptedId(user.Id);
+        
         var claims = new List<Claim>
         {
-            new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new(JwtRegisteredClaimNames.Sub, userEncryptedId.EncryptedReadonlyValue),
             new(JwtRegisteredClaimNames.Email, user.Email),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new("username", user.Username),
-            new(ClaimTypes.Role, user.IsAdmin ? "Admin" : "User"),
+            new("role", user.IsAdmin ? "Admin" : "User")
         };
 
         if (user.DriverId.HasValue)

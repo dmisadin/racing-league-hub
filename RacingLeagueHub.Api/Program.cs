@@ -21,7 +21,9 @@ builder.Services.AddRepositories(typeof(Program).Assembly);
 builder.Services.AddEntityHandlers(typeof(Program).Assembly);
 builder.Services.RegisterAppLayerServices();
 builder.Services.RegisterAWSServices(builder.Configuration); 
+
 builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddAuthorizationPolicies();
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();

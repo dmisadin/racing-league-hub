@@ -10,6 +10,7 @@ import { RouterLink } from '@angular/router';
 })
 export class SeasonListComponent extends ListBase<SeasonDto> {
     leagueSlug = input.required<string>();
+    canEdit = input(false);
 
     protected override get endpoint(): string {
         return `/leagues/${this.leagueSlug()}/seasons`;

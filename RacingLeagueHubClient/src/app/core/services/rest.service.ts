@@ -23,6 +23,10 @@ export class RestService {
         return this.httpClient.get(environment.apiUrl + path, { responseType: 'blob' });
     }
 
+    put<T>(path: string, data?: any) {
+        return this.httpClient.put<T>(environment.apiUrl + path, data);
+    }
+    
     post<T>(path: string, data?: any) {
         return this.httpClient.post<T>(environment.apiUrl + path, data);
     }

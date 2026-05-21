@@ -2,10 +2,9 @@ import { Component, inject, input, OnInit, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RestService } from '../../../../../core/services/rest.service';
 import { RouteService } from '../../../../../core/services/route.service';
-import { timezoneOptions } from '../../../../../shared/utilities/date.utility';
 import { enumToOptions } from '../../../../../shared/utilities/enum.utility';
 import { slugValidator } from '../../../../../shared/validators/slug.validator';
-import { LeagueDto, Region } from '../../../models/league.model';
+import { LeagueDto } from '../../../models/league.model';
 import { Platform, SeasonDto } from '../../models/season.model';
 import { Game } from '../../../../../shared/models/enums';
 import { InputTextComponent } from "../../../../../shared/components/input-fields/input-text/input-text.component";
@@ -33,6 +32,8 @@ export class SeasonFormComponent implements OnInit {
     cancel = output();
 
     form: FormGroup;
+    leagueSlug: string | null = "";
+    seasonSlug: string | null = "";
     platformOptions = enumToOptions(Platform);
     gameOptions = enumToOptions(Game);
 
@@ -56,15 +57,16 @@ export class SeasonFormComponent implements OnInit {
             return;
         }
 
-        const leagueSlug = this.routeService.getRouteParam("leagueSlug");
-        const seasonSlug = this.routeService.getRouteParam("seasonSlug");
-        if (!seasonSlug && leagueSlug) {
-            this.restService.get<LeagueDto>(`/leagues/${leagueSlug}`)
+        this.leagueSlug = this.routeService.getRouteParam("leagueSlug");
+        this.seasonSlug = this.routeService.getRouteParam("seasonSlug");
+
+        if (!this.seasonSlug && this.leagueSlug) {
+            this.restService.get<LeagueDto>(`/leagues/${this.leagueSlug}`)
                 .subscribe(res => this.form.patchValue({leagueId: res.id}));
             return;
         }
-
-        this.restService.get<SeasonDto>(`/leagues/${leagueSlug}/seasons/${seasonSlug}`)
+        
+        this.restService.get<SeasonDto>(`/leagues/${this.leagueSlug}/seasons/${this.seasonSlug}`)
             .subscribe(res => this.form.patchValue(res));
     }
 
@@ -75,12 +77,12 @@ export class SeasonFormComponent implements OnInit {
         const form = this.form.value;
 
         if (form['id'])
-            this.restService.post('/seasons/update', this.form.value).subscribe({
+            this.restService.put(`/leagues/${this.leagueSlug}/seasons/${this.seasonSlug}`, this.form.value).subscribe({
                 next: () => this.toastService.showSuccess("Successfully updated the season."),
                 error: () => this.toastService.showError("Failed to update the season.")
             });
         else
-            this.restService.post('/seasons/add', this.form.value).subscribe({
+            this.restService.post(`/leagues/${this.leagueSlug}/seasons`, this.form.value).subscribe({
                 next: () => this.onAddSuccess(),
                 error: () => this.toastService.showError("Failed to add a new season.")
             });
