@@ -6,6 +6,7 @@ import { InputTextComponent } from "../../../../../shared/components/input-field
 import { RestService } from "../../../../../core/services/rest.service";
 import { RouteService } from "../../../../../core/services/route.service";
 import { ListService } from "../../../../../shared/services/list.service";
+import { ToastService } from "../../../../../core/services/toast.service";
 
 @Component({
     selector: 'track-form',
@@ -17,6 +18,7 @@ export class TrackFormComponent implements OnInit {
     private readonly restService = inject(RestService);
     private readonly routeService = inject(RouteService);
     private readonly listService = inject(ListService);
+    private readonly toastService = inject(ToastService);
     track = input<TrackDto | null>(null);
     cancel = output();
     form: FormGroup;
@@ -53,9 +55,12 @@ export class TrackFormComponent implements OnInit {
 
         const form = this.form.value;
         if (form['id'])
-            this.restService.post('/track/update', this.form.value).subscribe();
+            this.restService.put(`/track/${form['id']}`, this.form.value).subscribe({
+                next: () => this.toastService.showSuccess("Successfully updated the track."),
+                error: () => this.toastService.showError("Failed to update the track.")
+            });
         else
-            this.restService.post('/track/add', this.form.value).subscribe(() => this.onAddSuccess());
+            this.restService.post('/track', this.form.value).subscribe(() => this.onAddSuccess());
     }
 
     onCancel() {
@@ -63,6 +68,7 @@ export class TrackFormComponent implements OnInit {
     }
 
     onAddSuccess() {
+        this.toastService.showSuccess("Successfully added a new track.");
         this.listService.triggerReload();
         this.routeService.navigateToParent();
     }

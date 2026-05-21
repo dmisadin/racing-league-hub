@@ -5,6 +5,7 @@ import { RestService } from "../../../../../core/services/rest.service";
 import { RouteService } from "../../../../../core/services/route.service";
 import { InputTextComponent } from "../../../../../shared/components/input-fields/input-text/input-text.component";
 import { ListService } from "../../../../../shared/services/list.service";
+import { ToastService } from "../../../../../core/services/toast.service";
 
 @Component({
     selector: 'team-form',
@@ -16,6 +17,7 @@ export class TeamFormComponent implements OnInit {
     private readonly restService = inject(RestService);
     private readonly routeService = inject(RouteService);
     private readonly listService = inject(ListService);
+    private readonly toastService = inject(ToastService);
     team = input<TeamDto | null>();
     cancel = output();
     form: FormGroup;
@@ -48,9 +50,12 @@ export class TeamFormComponent implements OnInit {
 
         const form = this.form.value;
         if (form['id'])
-            this.restService.post('/team/update', this.form.value).subscribe();
+            this.restService.put(`/team/${form['id']}`, this.form.value).subscribe({
+                next: () => this.toastService.showSuccess("Successfully updated the team."),
+                error: () => this.toastService.showError("Failed to update the team.")
+            });
         else
-            this.restService.post('/team/add', this.form.value).subscribe(() => this.onAddSuccess());
+            this.restService.post('/team', this.form.value).subscribe(() => this.onAddSuccess());
 
     }
 
@@ -59,6 +64,7 @@ export class TeamFormComponent implements OnInit {
     }
 
     onAddSuccess() {
+        this.toastService.showSuccess("Successfully added a new team.");
         this.listService.triggerReload();
         this.routeService.navigateToParent();
     }

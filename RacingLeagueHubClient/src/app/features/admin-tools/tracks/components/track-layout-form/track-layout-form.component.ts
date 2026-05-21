@@ -11,6 +11,7 @@ import { Game } from "../../../../../shared/models/enums";
 import { RestService } from "../../../../../core/services/rest.service";
 import { RouteService } from "../../../../../core/services/route.service";
 import { ListService } from "../../../../../shared/services/list.service";
+import { ToastService } from "../../../../../core/services/toast.service";
 
 @Component({
     selector: 'track-layout-form',
@@ -23,6 +24,7 @@ export class TrackLayoutFormComponent implements OnInit {
     private readonly routeService = inject(RouteService);
     private readonly restService = inject(RestService);
     private readonly listService = inject(ListService);
+        private readonly toastService = inject(ToastService);
 
     trackLayoutId = input<string>();
     trackLayout = input<TrackLayoutDto | null>(null);
@@ -71,9 +73,12 @@ export class TrackLayoutFormComponent implements OnInit {
 
         const form = this.form.value;
         if (form['id'])
-            this.restService.post('/track-layout/update', this.form.value).subscribe();
+            this.restService.put(`/track-layout/${form['id']}`, this.form.value).subscribe({
+                next: () => this.toastService.showSuccess("Successfully updated the track layout."),
+                error: () => this.toastService.showError("Failed to update the track layout.")
+            });
         else
-            this.restService.post('/track-layout/add', this.form.value).subscribe(() => this.onAddSuccess());
+            this.restService.post('/track-layout', this.form.value).subscribe(() => this.onAddSuccess());
     }
 
     onCancel() {
@@ -82,6 +87,7 @@ export class TrackLayoutFormComponent implements OnInit {
     }
 
     onAddSuccess() {
+        this.toastService.showSuccess("Successfully added a new track layout.");
         this.listService.triggerReload();
         this.routeService.navigateToParent();
     }

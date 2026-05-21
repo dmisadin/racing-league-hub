@@ -72,12 +72,12 @@ export class GameTeamFormComponent {
         
         const form = this.form.value;
         if (form['id'])
-            this.restService.post('/game-team/update', this.form.value).subscribe({
+            this.restService.put(`/game-team/${form['id']}`, this.form.value).subscribe({
                 next: () => this.toastService.showSuccess("Successfully updated the team."),
                 error: () => this.toastService.showError("Failed to update the team.")
             });
         else
-            this.restService.post('/game-team/add', this.form.value).subscribe({
+            this.restService.post('/game-team', this.form.value).subscribe({
                 next: () => this.onAddSuccess(),
                 error: () => this.toastService.showError("Failed to add a new team.")
             });
@@ -88,7 +88,7 @@ export class GameTeamFormComponent {
     }
 
     onAddSuccess() {
-        this.toastService.showSuccess("Successfully added a new team.");
+        this.toastService.showSuccess("Successfully added a new game related team.");
         this.listService.triggerReload();
         this.routeService.navigateToParent();
     }
