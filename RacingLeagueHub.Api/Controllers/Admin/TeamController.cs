@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using RacingLeagueHub.Api.Authorization;
 using RacingLeagueHub.Application.DtoFactories;
 using RacingLeagueHub.Application.Dtos.Team;
 using RacingLeagueHub.Application.Models;
@@ -7,6 +9,7 @@ using RacingLeagueHub.Domain.Infrastructure;
 
 namespace RacingLeagueHub.Api.Controllers.Admin;
 
+[Authorize(Policy = AppPolicies.SuperAdmin)]
 [Route("api/team")]
 [ApiController]
 public class TeamController : GenericController<Team, TeamDto>

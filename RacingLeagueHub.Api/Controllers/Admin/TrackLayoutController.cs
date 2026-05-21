@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using RacingLeagueHub.Api.Authorization;
 using RacingLeagueHub.Application.DtoFactories;
 using RacingLeagueHub.Application.Dtos.Track;
 using RacingLeagueHub.Application.Models;
+using RacingLeagueHub.Domain.Abstractions.Admin;
 using RacingLeagueHub.Domain.Entities;
 
 namespace RacingLeagueHub.Api.Controllers.Admin;
 
+[Authorize(Policy = AppPolicies.SuperAdmin)]
 [Route("api/track-layout")]
 [ApiController]
 public class TrackLayoutController : GenericController<TrackLayout, TrackLayoutDto>

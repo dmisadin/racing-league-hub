@@ -14,6 +14,12 @@ public static class AuthorizationServiceExtensions
                 .RequireAuthenticatedUser()
                 .Build();
 
+            options.AddPolicy(AppPolicies.SuperAdmin, policy =>
+            {
+                policy.RequireAuthenticatedUser();
+                policy.RequireRole("Admin");
+            });
+
             options.AddPolicy(LeaguePolicies.LeagueOwner, policy =>
             {
                 policy.RequireAuthenticatedUser();

@@ -1,5 +1,4 @@
-﻿using RacingLeagueHub.Application.Dtos.Resource;
-using RacingLeagueHub.Application.Dtos.Team;
+﻿using RacingLeagueHub.Application.Dtos.Team;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Storage;
 using RacingLeagueHub.Domain.Entities;
