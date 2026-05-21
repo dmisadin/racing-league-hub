@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RacingLeagueHub.Domain.Abstractions;
+using RacingLeagueHub.Domain.Abstractions.Admin;
 using RacingLeagueHub.Domain.Infrastructure;
 using RacingLeagueHub.Infrastructure.Repositories;
 using RacingSeasonHub.Infrastructure.Repositories;
@@ -38,6 +39,8 @@ public static class RepositoryServiceExtensions
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         services.AddScoped<IPasswordResetTokenRepository, PasswordResetTokenRepository>();
         services.AddScoped<ILeagueUserRepository, LeagueUserRepository>();
+
+        services.AddScoped<ITrackLayoutRepository, TrackLayoutRepository>();
 
         return services;
     }

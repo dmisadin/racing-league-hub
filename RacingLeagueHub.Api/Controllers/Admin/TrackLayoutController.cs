@@ -3,7 +3,6 @@ using RacingLeagueHub.Application.DtoFactories;
 using RacingLeagueHub.Application.Dtos.Track;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Entities;
-using RacingLeagueHub.Domain.Infrastructure;
 
 namespace RacingLeagueHub.Api.Controllers.Admin;
 
@@ -11,8 +10,11 @@ namespace RacingLeagueHub.Api.Controllers.Admin;
 [ApiController]
 public class TrackLayoutController : GenericController<TrackLayout, TrackLayoutDto>
 {
-    public TrackLayoutController(IRepository<TrackLayout> repository) : base(repository)
+    private readonly ITrackLayoutRepository trackLayoutRepository;
+
+    public TrackLayoutController(ITrackLayoutRepository repository) : base(repository)
     {
+        this.trackLayoutRepository = repository;
     }
 
     protected override IDtoFactory<TrackLayout, TrackLayoutDto> DtoFactory => new TrackLayoutDtoFactory();
@@ -23,7 +25,7 @@ public class TrackLayoutController : GenericController<TrackLayout, TrackLayoutD
         if (trackId == null || trackId == 0)
             return BadRequest("Invalid ID.");
 
-        var entityId = await this.repository.UpdateAsync(DtoFactory.FromDto, trackId.Value, dto);
+        var entityId = await trackLayoutRepository.UpdateAsync(DtoFactory.FromDto, trackId.Value, dto, ct);
 
         if (entityId == null)
             return NotFound();
