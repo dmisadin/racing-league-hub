@@ -18,7 +18,7 @@ public class TeamController : GenericController<Team, TeamDto>
     {
     }
 
-    protected override IDtoMapper<Team, TeamDto> DtoFactory => new TeamDtoMapper();
+    protected override IDtoMapper<Team, TeamDto> DtoMapper => new TeamDtoMapper();
 
     public override Task<IActionResult> Delete([FromRoute] EncryptedId id, CancellationToken ct = default)
     {
@@ -28,7 +28,7 @@ public class TeamController : GenericController<Team, TeamDto>
     [HttpGet("get-all")]
     public virtual async Task<ActionResult<List<TeamDto>>> GetAll()
     {
-        var dtos = await repository.GetAllAsync(DtoFactory.ToDtoExpression());
+        var dtos = await repository.GetAllAsync(DtoMapper.ToDtoExpression());
 
         if (dtos == null)
             return NotFound();

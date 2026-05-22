@@ -18,7 +18,7 @@ public class GameTeamController : GenericController<GameTeam, GameTeamDto>
     {
     }
 
-    protected override IDtoMapper<GameTeam, GameTeamDto> DtoFactory => new GameTeamDtoMapper();
+    protected override IDtoMapper<GameTeam, GameTeamDto> DtoMapper => new GameTeamDtoMapper();
 
     public override Task<IActionResult> Delete([FromRoute] EncryptedId id, CancellationToken ct = default)
     {

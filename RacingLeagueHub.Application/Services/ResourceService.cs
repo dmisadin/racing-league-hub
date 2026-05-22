@@ -13,20 +13,20 @@ public class ResourceService(
     IResourceRepository resourceRepository,
     IStorageService storageService) : IResourceService
 {
-    private IDtoMapper<Resource, ResourceDto> DtoFactory => new ResourceDtoMapper(storageService);
+    private IDtoMapper<Resource, ResourceDto> DtoMapper => new ResourceDtoMapper(storageService);
 
     public async Task<ResourceDto?> GetByIdAsync(long id, CancellationToken ct = default)
     {
         return await resourceRepository.Query()
             .Where(r => r.Id == id)
-            .Select(DtoFactory.ToDtoExpression())
+            .Select(DtoMapper.ToDtoExpression())
             .FirstOrDefaultAsync(ct);
     }
 
     public async Task<IReadOnlyList<ResourceDto>> GetAllAsync(CancellationToken ct = default)
     {
         return resourceRepository.Query()
-            .Select(DtoFactory.ToDtoExpression())
+            .Select(DtoMapper.ToDtoExpression())
             .ToList();
     }
 

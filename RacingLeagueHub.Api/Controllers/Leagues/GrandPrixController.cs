@@ -17,7 +17,7 @@ public class GrandPrixController : BaseController
     private readonly IGrandPrixRepository grandPrixRepository;
     private readonly ISeasonRepository seasonRepository;
 
-    private readonly IDtoMapper<GrandPrix, GrandPrixDto> dtoFactory =
+    private readonly IDtoMapper<GrandPrix, GrandPrixDto> DtoMapper =
         new GrandPrixDtoMapper();
 
     public GrandPrixController(
@@ -39,7 +39,7 @@ public class GrandPrixController : BaseController
         var result = await grandPrixRepository.GetSeasonGrandsPrixAsync(
             leagueSlug,
             seasonSlug,
-            dtoFactory.ToDtoExpression(),
+            DtoMapper.ToDtoExpression(),
             page,
             PageSize,
             ct);
@@ -62,7 +62,7 @@ public class GrandPrixController : BaseController
             leagueSlug,
             seasonSlug,
             grandPrixSlug,
-            dtoFactory.ToDtoExpression(),
+            DtoMapper.ToDtoExpression(),
             ct);
 
         if (dto is null)
@@ -93,7 +93,7 @@ public class GrandPrixController : BaseController
 
         var entity = grandPrixRepository.Create();
 
-        dtoFactory.FromDto(entity, dto);
+        DtoMapper.FromDto(entity, dto);
 
         entity.SeasonId = season.Id;
 
@@ -116,7 +116,7 @@ public class GrandPrixController : BaseController
             leagueSlug,
             seasonSlug,
             grandPrixSlug,
-            dtoFactory.FromDto,
+            DtoMapper.FromDto,
             dto,
             ct);
 
