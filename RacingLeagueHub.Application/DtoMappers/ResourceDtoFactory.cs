@@ -4,7 +4,7 @@ using RacingLeagueHub.Domain.Entities.Resources;
 using RacingLeagueHub.Domain.Services.Interfaces;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Application.DtoFactories;
+namespace RacingLeagueHub.Application.DtoMappers;
 
 public class ResourceDtoFactory(IStorageService storageService) : DtoMapperBase<Resource, ResourceDto>
 {

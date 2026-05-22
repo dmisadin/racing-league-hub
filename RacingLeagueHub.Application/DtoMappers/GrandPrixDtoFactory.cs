@@ -3,7 +3,7 @@ using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Entities.GrandsPrix;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Application.DtoFactories;
+namespace RacingLeagueHub.Application.DtoMappers;
 
 public class GrandPrixDtoFactory : DtoMapperBase<GrandPrix, GrandPrixDto>
 {

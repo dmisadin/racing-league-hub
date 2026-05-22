@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.Application.DtoFactories;
+﻿using RacingLeagueHub.Application.DtoMappers;
 using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Infrastructure;
