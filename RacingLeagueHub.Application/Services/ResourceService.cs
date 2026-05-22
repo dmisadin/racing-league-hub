@@ -13,7 +13,7 @@ public class ResourceService(
     IResourceRepository resourceRepository,
     IStorageService storageService) : IResourceService
 {
-    private IDtoFactory<Resource, ResourceDto> DtoFactory => new ResourceDtoFactory(storageService);
+    private IDtoMapper<Resource, ResourceDto> DtoFactory => new ResourceDtoFactory(storageService);
 
     public async Task<ResourceDto?> GetByIdAsync(long id, CancellationToken ct = default)
     {

@@ -18,7 +18,7 @@ public class SeasonController : BaseController
     private readonly ISeasonRepository seasonRepository;
     private readonly ILeagueRepository leagueRepository;
 
-    private readonly IDtoFactory<Season, SeasonDto> dtoFactory =
+    private readonly IDtoMapper<Season, SeasonDto> dtoFactory =
         new SeasonDtoFactory();
 
     public SeasonController(

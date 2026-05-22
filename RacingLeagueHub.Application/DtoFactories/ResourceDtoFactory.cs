@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Application.DtoFactories;
 
-public class ResourceDtoFactory(IStorageService storageService) : DtoFactoryBase<Resource, ResourceDto>
+public class ResourceDtoFactory(IStorageService storageService) : DtoMapperBase<Resource, ResourceDto>
 {
 
     public override bool FromDto(Resource entity, ResourceDto dto)

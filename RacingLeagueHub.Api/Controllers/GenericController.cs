@@ -21,7 +21,7 @@ public abstract class GenericController<TEntity, TDto> : BaseController
         this.repository = repository;
     }
 
-    protected abstract IDtoFactory<TEntity, TDto> DtoFactory { get; }
+    protected abstract IDtoMapper<TEntity, TDto> DtoFactory { get; }
 
 
     [HttpGet("get-by-id/{id}")]

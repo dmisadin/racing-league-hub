@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Application.DtoFactories;
 
-public abstract class DtoFactoryBase<TEntity, TDto> : IDtoFactory<TEntity, TDto>
+public abstract class DtoMapperBase<TEntity, TDto> : IDtoMapper<TEntity, TDto>
     where TEntity : IEntity
     where TDto : BaseDto
 {

@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Application.DtoFactories;
 
-public interface IDtoFactory<TEntity, TDto>
+public interface IDtoMapper<TEntity, TDto>
     where TEntity : IEntity
 {
     Expression<Func<TEntity, TDto>> ToDtoExpression();

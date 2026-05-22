@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Application.DtoFactories;
 
-public class LeagueDtoFactory : DtoFactoryBase<League, LeagueDto>
+public class LeagueDtoFactory : DtoMapperBase<League, LeagueDto>
 {
     public override bool FromDto(League entity, LeagueDto dto)
     {

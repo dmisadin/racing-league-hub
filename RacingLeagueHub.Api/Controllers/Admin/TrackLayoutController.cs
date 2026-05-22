@@ -21,7 +21,7 @@ public class TrackLayoutController : GenericController<TrackLayout, TrackLayoutD
         this.trackLayoutRepository = repository;
     }
 
-    protected override IDtoFactory<TrackLayout, TrackLayoutDto> DtoFactory => new TrackLayoutDtoFactory();
+    protected override IDtoMapper<TrackLayout, TrackLayoutDto> DtoFactory => new TrackLayoutDtoFactory();
 
     public override async Task<ActionResult<EncryptedId>> Update([FromRoute] EncryptedId id, [FromBody] TrackLayoutDto dto, CancellationToken ct = default)
     {

@@ -11,5 +11,5 @@ public class DriverController : GenericController<Driver, DriverDto>
     {
     }
 
-    protected override IDtoFactory<Driver, DriverDto> DtoFactory => new DriverDtoFactory();
+    protected override IDtoMapper<Driver, DriverDto> DtoFactory => new DriverDtoFactory();
 }
