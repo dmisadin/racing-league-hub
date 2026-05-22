@@ -19,7 +19,7 @@ public class TrackController : GenericController<Track, TrackDto>
     {
     }
 
-    protected override IDtoMapper<Track, TrackDto> DtoFactory => new TrackDtoFactory();
+    protected override IDtoMapper<Track, TrackDto> DtoFactory => new TrackDtoMapper();
 
     [HttpGet("get-all")]
     public virtual async Task<ActionResult<List<TrackDto>>> GetAll()

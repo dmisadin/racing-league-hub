@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Application.DtoMappers;
 
-public class TrackDtoFactory : DtoMapperBase<Track, TrackDto>
+public class TrackDtoMapper : DtoMapperBase<Track, TrackDto>
 {
     public override bool FromDto(Track entity, TrackDto dto)
     {

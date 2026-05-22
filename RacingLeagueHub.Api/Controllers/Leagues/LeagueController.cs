@@ -18,7 +18,7 @@ public class LeagueController : BaseController
 
     private readonly ILeagueRepository leagueRepository;
 
-    private readonly IDtoMapper<League, LeagueDto> dtoFactory = new LeagueDtoFactory();
+    private readonly IDtoMapper<League, LeagueDto> dtoFactory = new LeagueDtoMapper();
 
     public LeagueController(ILeagueRepository leagueRepository)
     {

@@ -18,7 +18,7 @@ public class GrandPrixController : BaseController
     private readonly ISeasonRepository seasonRepository;
 
     private readonly IDtoMapper<GrandPrix, GrandPrixDto> dtoFactory =
-        new GrandPrixDtoFactory();
+        new GrandPrixDtoMapper();
 
     public GrandPrixController(
         IGrandPrixRepository grandPrixRepository,
