@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
-using RacingLeagueHub.Application.DtoFactories;
+using RacingLeagueHub.Application.DtoMappers;
 using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.Dtos.Track;
 using RacingLeagueHub.Domain.Entities;
@@ -19,12 +19,12 @@ public class TrackController : GenericController<Track, TrackDto>
     {
     }
 
-    protected override IDtoFactory<Track, TrackDto> DtoFactory => new TrackDtoFactory();
+    protected override IDtoMapper<Track, TrackDto> DtoMapper => new TrackDtoMapper();
 
     [HttpGet("get-all")]
     public virtual async Task<ActionResult<List<TrackDto>>> GetAll()
     {
-        var dtos = await repository.GetAllAsync(DtoFactory.ToDtoExpression());
+        var dtos = await repository.GetAllAsync(DtoMapper.ToDtoExpression());
 
         if (dtos == null)
             return NotFound();
@@ -41,7 +41,7 @@ public class TrackController : GenericController<Track, TrackDto>
     [HttpGet("lookup")]
     public async Task<ActionResult<LookupDto>> GetLookup()
     {
-        var tracks = await repository.GetAllAsync(DtoFactory.ToDtoExpression());
+        var tracks = await repository.GetAllAsync(DtoMapper.ToDtoExpression());
 
         var lookups = tracks.Select(x => new LookupDto
         {

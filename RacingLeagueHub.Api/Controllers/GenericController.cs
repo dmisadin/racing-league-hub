@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RacingLeagueHub.Application.DtoFactories;
+using RacingLeagueHub.Application.DtoMappers;
 using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Entities;
@@ -21,7 +21,7 @@ public abstract class GenericController<TEntity, TDto> : BaseController
         this.repository = repository;
     }
 
-    protected abstract IDtoFactory<TEntity, TDto> DtoFactory { get; }
+    protected abstract IDtoMapper<TEntity, TDto> DtoMapper { get; }
 
 
     [HttpGet("get-by-id/{id}")]
@@ -31,7 +31,7 @@ public abstract class GenericController<TEntity, TDto> : BaseController
     {
         var dto = await repository.GetByIdAsync<TDto>(
             id.RawId,
-            DtoFactory.ToDtoExpression());
+            DtoMapper.ToDtoExpression());
 
         if (dto is null)
             return NotFound();
@@ -46,7 +46,7 @@ public abstract class GenericController<TEntity, TDto> : BaseController
         CancellationToken ct = default)
     {
         var result = await repository.GetPagedAsync(
-            DtoFactory.ToDtoExpression(),
+            DtoMapper.ToDtoExpression(),
             page,
             pageSize: 10,
             ct);
@@ -61,7 +61,7 @@ public abstract class GenericController<TEntity, TDto> : BaseController
     {
         var entity = repository.Create();
 
-        DtoFactory.FromDto(entity, dto);
+        DtoMapper.FromDto(entity, dto);
 
         await repository.InsertAsync(entity);
         await repository.CommitAsync(ct);
@@ -86,7 +86,7 @@ public abstract class GenericController<TEntity, TDto> : BaseController
         if (entity is null)
             return NotFound();
 
-        DtoFactory.FromDto(entity, dto);
+        DtoMapper.FromDto(entity, dto);
 
         await repository.CommitAsync(ct);
 
@@ -125,7 +125,7 @@ public abstract class GenericController<TEntity, TDto> : BaseController
         {
             var entity = existing.FirstOrDefault(e => e.Id == dto.Id?.RawId);
             if (entity != null)
-                DtoFactory.FromDto(entity, dto);
+                DtoMapper.FromDto(entity, dto);
         }
 
         var newEntities = new List<TEntity>();
@@ -133,7 +133,7 @@ public abstract class GenericController<TEntity, TDto> : BaseController
         foreach (var dto in toInsert)
         {
             var newEntity = repository.Create();
-            DtoFactory.FromDto(newEntity, dto);
+            DtoMapper.FromDto(newEntity, dto);
             newEntities.Add(newEntity);
         }
 

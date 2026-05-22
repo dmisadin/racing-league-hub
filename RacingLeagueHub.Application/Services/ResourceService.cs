@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.Application.DtoFactories;
+using RacingLeagueHub.Application.DtoMappers;
 using RacingLeagueHub.Application.Dtos.Resource;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Models.Resource;
@@ -13,20 +13,20 @@ public class ResourceService(
     IResourceRepository resourceRepository,
     IStorageService storageService) : IResourceService
 {
-    private IDtoFactory<Resource, ResourceDto> DtoFactory => new ResourceDtoFactory(storageService);
+    private IDtoMapper<Resource, ResourceDto> DtoMapper => new ResourceDtoMapper(storageService);
 
     public async Task<ResourceDto?> GetByIdAsync(long id, CancellationToken ct = default)
     {
         return await resourceRepository.Query()
             .Where(r => r.Id == id)
-            .Select(DtoFactory.ToDtoExpression())
+            .Select(DtoMapper.ToDtoExpression())
             .FirstOrDefaultAsync(ct);
     }
 
     public async Task<IReadOnlyList<ResourceDto>> GetAllAsync(CancellationToken ct = default)
     {
         return resourceRepository.Query()
-            .Select(DtoFactory.ToDtoExpression())
+            .Select(DtoMapper.ToDtoExpression())
             .ToList();
     }
 

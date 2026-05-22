@@ -4,9 +4,9 @@ using RacingLeagueHub.Application.Storage;
 using RacingLeagueHub.Domain.Entities.Seasons;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Application.DtoFactories;
+namespace RacingLeagueHub.Application.DtoMappers;
 
-public class SeasonDtoFactory : DtoFactoryBase<Season, SeasonDto>
+public class SeasonDtoMapper : DtoMapperBase<Season, SeasonDto>
 {
     public override bool FromDto(Season entity, SeasonDto dto)
     {

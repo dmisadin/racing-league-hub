@@ -3,9 +3,9 @@ using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Entities.GrandsPrix;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Application.DtoFactories;
+namespace RacingLeagueHub.Application.DtoMappers;
 
-public class GrandPrixDtoFactory : DtoFactoryBase<GrandPrix, GrandPrixDto>
+public class GrandPrixDtoMapper : DtoMapperBase<GrandPrix, GrandPrixDto>
 {
     public override bool FromDto(GrandPrix entity, GrandPrixDto dto)
     {

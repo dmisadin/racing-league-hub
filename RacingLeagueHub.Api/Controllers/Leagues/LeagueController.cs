@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
-using RacingLeagueHub.Application.DtoFactories;
+using RacingLeagueHub.Application.DtoMappers;
 using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Abstractions;
@@ -18,7 +18,7 @@ public class LeagueController : BaseController
 
     private readonly ILeagueRepository leagueRepository;
 
-    private readonly IDtoFactory<League, LeagueDto> dtoFactory = new LeagueDtoFactory();
+    private readonly IDtoMapper<League, LeagueDto> DtoMapper = new LeagueDtoMapper();
 
     public LeagueController(ILeagueRepository leagueRepository)
     {
@@ -32,7 +32,7 @@ public class LeagueController : BaseController
         CancellationToken ct = default)
     {
         var result = await leagueRepository.GetPagedAsync(
-            dtoFactory.ToDtoExpression(),
+            DtoMapper.ToDtoExpression(),
             page,
             PageSize,
             ct);
@@ -48,7 +48,7 @@ public class LeagueController : BaseController
     {
         var dto = await leagueRepository.GetBySlugAsync(
             leagueSlug,
-            dtoFactory.ToDtoExpression(),
+            DtoMapper.ToDtoExpression(),
             ct);
 
         if (dto is null)
@@ -65,7 +65,7 @@ public class LeagueController : BaseController
     {
         var entity = leagueRepository.Create();
 
-        dtoFactory.FromDto(entity, dto);
+        DtoMapper.FromDto(entity, dto);
 
         await leagueRepository.InsertAsync(entity);
         await leagueRepository.CommitAsync(ct);
@@ -95,7 +95,7 @@ public class LeagueController : BaseController
             return BadRequest("Route league slug does not match body ID.");
 
         var updatedId = await leagueRepository.UpdateAsync(
-            dtoFactory.FromDto,
+            DtoMapper.FromDto,
             league.Id,
             dto);
 

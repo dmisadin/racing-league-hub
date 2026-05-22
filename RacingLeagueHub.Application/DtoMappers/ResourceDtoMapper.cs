@@ -4,9 +4,9 @@ using RacingLeagueHub.Domain.Entities.Resources;
 using RacingLeagueHub.Domain.Services.Interfaces;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Application.DtoFactories;
+namespace RacingLeagueHub.Application.DtoMappers;
 
-public class ResourceDtoFactory(IStorageService storageService) : DtoFactoryBase<Resource, ResourceDto>
+public class ResourceDtoMapper(IStorageService storageService) : DtoMapperBase<Resource, ResourceDto>
 {
 
     public override bool FromDto(Resource entity, ResourceDto dto)

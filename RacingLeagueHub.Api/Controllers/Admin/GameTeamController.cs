@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
-using RacingLeagueHub.Application.DtoFactories;
+using RacingLeagueHub.Application.DtoMappers;
 using RacingLeagueHub.Application.Dtos.Team;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Entities;
@@ -18,7 +18,7 @@ public class GameTeamController : GenericController<GameTeam, GameTeamDto>
     {
     }
 
-    protected override IDtoFactory<GameTeam, GameTeamDto> DtoFactory => new GameTeamDtoFactory();
+    protected override IDtoMapper<GameTeam, GameTeamDto> DtoMapper => new GameTeamDtoMapper();
 
     public override Task<IActionResult> Delete([FromRoute] EncryptedId id, CancellationToken ct = default)
     {

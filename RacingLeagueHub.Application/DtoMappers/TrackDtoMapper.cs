@@ -3,9 +3,9 @@ using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Application.DtoFactories;
+namespace RacingLeagueHub.Application.DtoMappers;
 
-public class TrackDtoFactory : DtoFactoryBase<Track, TrackDto>
+public class TrackDtoMapper : DtoMapperBase<Track, TrackDto>
 {
     public override bool FromDto(Track entity, TrackDto dto)
     {

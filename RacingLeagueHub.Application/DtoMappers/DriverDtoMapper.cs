@@ -3,9 +3,9 @@ using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Application.DtoFactories;
+namespace RacingLeagueHub.Application.DtoMappers;
 
-public class DriverDtoFactory : DtoFactoryBase<Driver, DriverDto>
+public class DriverDtoMapper : DtoMapperBase<Driver, DriverDto>
 {
     public override bool FromDto(Driver entity, DriverDto dto)
     {

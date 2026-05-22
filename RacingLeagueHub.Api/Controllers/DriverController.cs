@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.Application.DtoFactories;
+﻿using RacingLeagueHub.Application.DtoMappers;
 using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Infrastructure;
@@ -11,5 +11,5 @@ public class DriverController : GenericController<Driver, DriverDto>
     {
     }
 
-    protected override IDtoFactory<Driver, DriverDto> DtoFactory => new DriverDtoFactory();
+    protected override IDtoMapper<Driver, DriverDto> DtoMapper => new DriverDtoMapper();
 }

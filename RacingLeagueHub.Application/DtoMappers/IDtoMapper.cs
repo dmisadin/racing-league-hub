@@ -1,9 +1,9 @@
 ﻿using RacingLeagueHub.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Application.DtoFactories;
+namespace RacingLeagueHub.Application.DtoMappers;
 
-public interface IDtoFactory<TEntity, TDto>
+public interface IDtoMapper<TEntity, TDto>
     where TEntity : IEntity
 {
     Expression<Func<TEntity, TDto>> ToDtoExpression();

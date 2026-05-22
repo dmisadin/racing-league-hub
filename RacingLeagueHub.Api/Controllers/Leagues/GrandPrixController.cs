@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
-using RacingLeagueHub.Application.DtoFactories;
+using RacingLeagueHub.Application.DtoMappers;
 using RacingLeagueHub.Application.Dtos.GrandPrix;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Abstractions;
@@ -17,8 +17,8 @@ public class GrandPrixController : BaseController
     private readonly IGrandPrixRepository grandPrixRepository;
     private readonly ISeasonRepository seasonRepository;
 
-    private readonly IDtoFactory<GrandPrix, GrandPrixDto> dtoFactory =
-        new GrandPrixDtoFactory();
+    private readonly IDtoMapper<GrandPrix, GrandPrixDto> DtoMapper =
+        new GrandPrixDtoMapper();
 
     public GrandPrixController(
         IGrandPrixRepository grandPrixRepository,
@@ -39,7 +39,7 @@ public class GrandPrixController : BaseController
         var result = await grandPrixRepository.GetSeasonGrandsPrixAsync(
             leagueSlug,
             seasonSlug,
-            dtoFactory.ToDtoExpression(),
+            DtoMapper.ToDtoExpression(),
             page,
             PageSize,
             ct);
@@ -62,7 +62,7 @@ public class GrandPrixController : BaseController
             leagueSlug,
             seasonSlug,
             grandPrixSlug,
-            dtoFactory.ToDtoExpression(),
+            DtoMapper.ToDtoExpression(),
             ct);
 
         if (dto is null)
@@ -93,7 +93,7 @@ public class GrandPrixController : BaseController
 
         var entity = grandPrixRepository.Create();
 
-        dtoFactory.FromDto(entity, dto);
+        DtoMapper.FromDto(entity, dto);
 
         entity.SeasonId = season.Id;
 
@@ -116,7 +116,7 @@ public class GrandPrixController : BaseController
             leagueSlug,
             seasonSlug,
             grandPrixSlug,
-            dtoFactory.FromDto,
+            DtoMapper.FromDto,
             dto,
             ct);
 

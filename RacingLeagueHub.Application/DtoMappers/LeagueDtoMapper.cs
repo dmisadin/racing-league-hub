@@ -5,9 +5,9 @@ using RacingLeagueHub.Application.Storage;
 using RacingLeagueHub.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Application.DtoFactories;
+namespace RacingLeagueHub.Application.DtoMappers;
 
-public class LeagueDtoFactory : DtoFactoryBase<League, LeagueDto>
+public class LeagueDtoMapper : DtoMapperBase<League, LeagueDto>
 {
     public override bool FromDto(League entity, LeagueDto dto)
     {

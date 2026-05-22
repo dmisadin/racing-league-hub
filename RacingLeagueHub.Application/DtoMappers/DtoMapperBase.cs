@@ -2,9 +2,9 @@
 using RacingLeagueHub.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Application.DtoFactories;
+namespace RacingLeagueHub.Application.DtoMappers;
 
-public abstract class DtoFactoryBase<TEntity, TDto> : IDtoFactory<TEntity, TDto>
+public abstract class DtoMapperBase<TEntity, TDto> : IDtoMapper<TEntity, TDto>
     where TEntity : IEntity
     where TDto : BaseDto
 {
