@@ -14,6 +14,10 @@ export const routes: Routes = [
         // canActivate: [loggedInGuard]
     },
     {
+        path: 'account',
+        loadChildren: () => import('./features/account/account.routes').then(r => r.ACCOUNT_ROUTES)
+    },
+    {
         path: 'admin-tools',
         loadChildren: () => import('./features/admin-tools/admin-tools.routes').then(r => r.ADMIN_TOOLS_ROUTES),
         providers: [RouteService],

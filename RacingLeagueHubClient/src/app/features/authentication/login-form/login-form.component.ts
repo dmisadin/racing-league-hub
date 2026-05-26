@@ -6,6 +6,7 @@ import { ToastService } from '../../../core/services/toast.service';
 import { RouteService } from '../../../core/services/route.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { InputTextComponent } from '../../../shared/components/input-fields/input-text/input-text.component';
+import { LoginResponse } from '../auth.models';
 
 @Component({
     selector: 'login-form',
@@ -36,14 +37,20 @@ export class LoginFormComponent {
 
         this.isLoading.set(true);
         this.authService.login(this.form.value).subscribe({
-            next: () => this.onSuccess(),
+            next: (res) => this.onSuccess(res),
             error: (err: HttpErrorResponse) => this.onError(err.error.title),
             complete: () => this.isLoading.set(false)
         });
     }
 
-    onSuccess() {
+    onSuccess(res: LoginResponse) {
         this.isLoading.set(false);
+
+        if (res.requiresTwoFactor) {
+            this.routeService.navigateTo("auth/login/2fa");
+            return;
+        }
+
         this.toastService.showSuccess("Login successful.");
         this.routeService.navigateToRoot();
     }

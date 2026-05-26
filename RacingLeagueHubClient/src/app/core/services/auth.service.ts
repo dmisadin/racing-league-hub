@@ -5,9 +5,9 @@ import { Injectable, signal, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap, catchError, EMPTY, Observable, throwError, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { AuthResponse, ForgotPasswordRequest, LoginRequest, RegisterRequest, ResetPasswordRequest, UserDto } from '../models/auth.model';
 import { ToastService } from './toast.service';
 import { LeagueRole } from '../../features/league/models/league-roles.model';
+import { UserDto, AuthResponse, LoginRequest, RegisterRequest, ForgotPasswordRequest, ResetPasswordRequest, LoginResponse, TwoFactorLoginRequest } from '../../features/authentication/auth.models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -23,6 +23,8 @@ export class AuthService {
     private readonly _accessToken = signal<string | null>(null);
     private readonly _accessTokenExpiry = signal<Date | null>(null);
     private readonly _isInitialized = signal<boolean>(false);
+    private readonly _pendingTwoFactorToken = signal<string | null>(null);
+    private readonly _pendingRememberMe = signal<boolean>(false);
 
     private _refreshTimeout: ReturnType<typeof setTimeout> | null = null;
 
@@ -31,6 +33,8 @@ export class AuthService {
     readonly isAdmin = computed(() => this._user()?.isAdmin ?? false);
     readonly driverId = computed(() => this._user()?.driverId ?? null);
     readonly isInitialized = this._isInitialized.asReadonly();
+    readonly pendingTwoFactorToken = this._pendingTwoFactorToken.asReadonly();
+    readonly pendingRememberMe = this._pendingRememberMe.asReadonly();
 
     initialize(): Observable<AuthResponse | null> {
         if (!this.hadSession()) {
@@ -52,20 +56,53 @@ export class AuthService {
             );
     }
 
-    login(payload: LoginRequest): Observable<AuthResponse> {
-        return this.http.post<AuthResponse>(
-            `${this.apiUrl}/login`, payload, { withCredentials: true }
-        ).pipe(
-            tap(res => this.handleAuthResponse(res))
+    login(payload: LoginRequest): Observable<LoginResponse> {
+        return this.http.post<LoginResponse>(`${this.apiUrl}/login`, payload, { withCredentials: true })
+            .pipe(
+                tap(res => {
+                    if (res.requiresTwoFactor) {
+                        this._pendingTwoFactorToken.set(res.twoFactorToken);
+                        this._pendingRememberMe.set(payload.rememberMe);
+                        return;
+                    }
+
+                    if (!res.auth) {
+                        throw new Error('Invalid login response.');
+                    }
+
+                    this.clearPendingTwoFactor();
+                    this.handleAuthResponse(res.auth);
+                })
         );
     }
 
+    loginWithTwoFactor(code: string): Observable<AuthResponse> {
+        const twoFactorToken = this._pendingTwoFactorToken();
+
+        if (!twoFactorToken) {
+            throw new Error('Missing two-factor login token.');
+        }
+
+        const payload: TwoFactorLoginRequest = {
+            twoFactorToken,
+            code,
+            rememberMe: this._pendingRememberMe()
+        };
+
+        return this.http.post<AuthResponse>(`${this.apiUrl}/login/2fa`, payload, { withCredentials: true })
+            .pipe(
+                tap(res => {
+                    this.clearPendingTwoFactor();
+                    this.handleAuthResponse(res);
+                })
+            );
+    }
+
     register(payload: RegisterRequest): Observable<AuthResponse> {
-        return this.http.post<AuthResponse>(
-            `${this.apiUrl}/register`, payload, { withCredentials: true }
-        ).pipe(
-            tap(res => this.handleAuthResponse(res))
-        );
+        return this.http.post<AuthResponse>(`${this.apiUrl}/register`, payload, { withCredentials: true })
+            .pipe(
+                tap(res => this.handleAuthResponse(res))
+            );
     }
 
     logout(): void {
@@ -160,10 +197,17 @@ export class AuthService {
 
         localStorage.removeItem(this.hadSessionKey);
 
+        this.clearPendingTwoFactor();
+
         if (this._refreshTimeout) {
             clearTimeout(this._refreshTimeout);
             this._refreshTimeout = null;
         }
+    }
+
+    private clearPendingTwoFactor(): void {
+        this._pendingTwoFactorToken.set(null);
+        this._pendingRememberMe.set(false);
     }
 
     private hadSession(): boolean {

@@ -28,6 +28,10 @@ export class RouteService {
         this.router.navigate(pathFragments, { relativeTo: this.activatedRoute })
     }
 
+    public navigateTo(...pathFragments: string[]): void {
+        this.router.navigate(pathFragments)
+    }
+
     public getId(isNullable = false): string {
         let selector = 'id';
 

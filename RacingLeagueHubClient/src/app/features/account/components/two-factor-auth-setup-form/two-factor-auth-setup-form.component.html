@@ -1,0 +1,69 @@
+<div class="mx-auto max-w-xl space-y-6">
+    <div>
+        <h1 class="text-2xl font-bold">Set up two-factor authentication</h1>
+        <p class="text-base-content/70">
+            Scan the QR code with Authy, Google Authenticator, Microsoft Authenticator,
+            1Password, Bitwarden, or another authenticator app.
+        </p>
+    </div>
+
+    @if (error()) {
+    <div class="alert alert-error">
+        <span>{{ error() }}</span>
+    </div>
+    }
+
+    @if (success()) {
+    <div class="alert alert-success">
+        <span>Two-factor authentication has been enabled.</span>
+    </div>
+    }
+
+    @if (!hasSetupStarted() && !success()) {
+    <button type="button" class="btn btn-primary" [disabled]="loading()" (click)="startSetup()">
+
+        @if (loading()) {
+        <span class="loading loading-spinner loading-sm"></span>
+        }
+
+        Start setup
+    </button>
+    }
+
+    @if (setupResult() && !success()) {
+    <div class="card bg-base-100 border border-base-300 shadow-sm">
+        <div class="card-body space-y-5">
+            <div class="flex justify-center">
+                <qrcode [qrdata]="setupResult()!.otpAuthUri" [width]="220" [errorCorrectionLevel]="'M'">
+                </qrcode>
+            </div>
+
+            <div class="space-y-2">
+                <p class="font-medium">Manual setup key</p>
+
+                <div class="rounded-box bg-base-200 p-3 font-mono text-sm break-all">
+                    {{ setupResult()!.manualEntryKey }}
+                </div>
+
+                <p class="text-sm text-base-content/70">
+                    Use this key if your authenticator app cannot scan the QR code.
+                </p>
+            </div>
+
+            <form [formGroup]="form" (ngSubmit)="confirm()" class="space-y-4">
+                <input-text label="Authenticator code" placeholder="123456" formControlName="code">
+                </input-text>
+
+                <button type="submit" class="btn btn-primary w-full" [disabled]="confirming()">
+
+                    @if (confirming()) {
+                    <span class="loading loading-spinner loading-sm"></span>
+                    }
+
+                    Verify and enable 2FA
+                </button>
+            </form>
+        </div>
+    </div>
+    }
+</div>
