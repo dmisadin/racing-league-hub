@@ -11,6 +11,13 @@ public class User : EntityBase
     public DateTime CreatedAt { get; set; }
     public long? DriverId { get; set; }
 
+    public bool TwoFactorEnabled { get; set; }
+    public string? TwoFactorSecret { get; set; }
+    public DateTimeOffset? TwoFactorEnabledAt { get; set; }
+    // Prevent accepting the same TOTP code twice in the same 30-second window.
+    public long? LastTotpTimeStepUsed { get; set; }
+
+
     public virtual Driver? Driver { get; set; }
 
     public virtual ICollection<LeagueUser> LeagueUsers { get; set; }

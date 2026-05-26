@@ -1,5 +1,4 @@
 ﻿using RacingLeagueHub.Application.Dtos.User;
-using RacingLeagueHub.Application.Models;
 
 namespace RacingLeagueHub.Application.Dtos.Auth;
 
