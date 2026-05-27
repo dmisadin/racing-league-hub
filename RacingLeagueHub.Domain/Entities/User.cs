@@ -23,5 +23,6 @@ public class User : EntityBase
     public virtual ICollection<LeagueUser> LeagueUsers { get; set; }
     public virtual ICollection<Incident> Incidents { get; set; }
     public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
+    public virtual ICollection<UserRecoveryCode> UserRecoveryCodes { get; set; }
 }
 
