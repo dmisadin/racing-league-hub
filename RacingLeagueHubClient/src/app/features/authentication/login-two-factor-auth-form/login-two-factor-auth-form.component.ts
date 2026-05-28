@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouteService } from '../../../core/services/route.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { InputTextComponent } from "../../../shared/components/input-fields/input-text/input-text.component";
@@ -12,28 +12,59 @@ import { InputTextComponent } from "../../../shared/components/input-fields/inpu
     providers: [RouteService]
 })
 export class LoginTwoFactorAuthFormComponent {
+    private readonly fb = inject(FormBuilder);
     private readonly authService = inject(AuthService);
     private readonly routeService = inject(RouteService);
     private readonly toastService = inject(ToastService);
 
+    mode = signal<TwoFactorMode>('totp');
     isLoading = signal(false);
+    error = signal<string | null>(null);
 
-    code = new FormControl<string>('', Validators.required);
+    form = this.fb.group({
+        code: ['', Validators.required]
+    });
 
-    submitCode() {
-        const code = this.code.value;
+    switchToRecoveryCode(): void {
+        this.mode.set('recovery');
+        this.form.reset();
+        this.error.set(null);
+    }
 
-        if (this.code.invalid || !code)
+    switchToTotp(): void {
+        this.mode.set('totp');
+        this.form.reset();
+        this.error.set(null);
+    }
+
+    submit(): void {
+        if (this.form.invalid) {
+            this.form.markAllAsTouched();
             return;
+        }
 
-        this.authService.loginWithTwoFactor(code).subscribe({
+        const code = this.form.controls.code.value ?? '';
+        const isRecoveryCode = this.mode() === 'recovery';
+
+        this.isLoading.set(true);
+        this.error.set(null);
+
+        this.authService.loginWithTwoFactor(code, isRecoveryCode).subscribe({
             next: () => {
-                this.toastService.showSuccess("Successfully logged in.");
+                this.isLoading.set(false);
+                this.toastService.showSuccess('Login successful.');
                 this.routeService.navigateToRoot();
             },
             error: err => {
-                this.toastService.showError("Failed to log in.");
+                this.isLoading.set(false);
+                this.error.set(
+                    isRecoveryCode
+                        ? 'Invalid recovery code.'
+                        : 'Invalid authenticator code.'
+                );
             }
         });
     }
 }
+
+type TwoFactorMode = 'totp' | 'recovery';

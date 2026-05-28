@@ -76,7 +76,7 @@ export class AuthService {
         );
     }
 
-    loginWithTwoFactor(code: string): Observable<AuthResponse> {
+    loginWithTwoFactor(code: string, isRecoveryCode = false): Observable<AuthResponse> {
         const twoFactorToken = this._pendingTwoFactorToken();
 
         if (!twoFactorToken) {
@@ -86,6 +86,7 @@ export class AuthService {
         const payload: TwoFactorLoginRequest = {
             twoFactorToken,
             code,
+            isRecoveryCode,
             rememberMe: this._pendingRememberMe()
         };
 

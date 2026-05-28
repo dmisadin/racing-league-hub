@@ -16,6 +16,7 @@ export interface TwoFactorLoginRequest {
     twoFactorToken: string;
     code: string;
     rememberMe: boolean;
+    isRecoveryCode: boolean;
 }
 
 export interface RegisterRequest {

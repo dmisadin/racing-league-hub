@@ -1,22 +1,74 @@
-<div class="flex justify-center">
-    <div class="card flex-grow bg-base-100 shadow-xl mt-20 mb-20 p-6">
-        <h2 class="card-title mb-4">Enter your 2FA code</h2>
-        <div class="flex flex-col gap-4">
-            <input-text label="Code" placeholder="Enter your code" [formControl]="code"></input-text>
-<!-- 
-            <label class="label">
-                <input type="checkbox" class="checkbox" formControlName="rememberMe"/>
-                Remember me
-            </label> -->
-
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary w-full mb-2" [disabled]="code.invalid || isLoading()" (click)="submitCode()">
-                    Log in
-                    @if (isLoading()) {
-                    <span class="loading loading-spinner loading-sm"></span>
-                    }
-                </button>
-            </div>
-        </div>
+<div class="mx-auto max-w-md space-y-6">
+    @if (mode() === 'totp') {
+    <div>
+        <h1 class="text-2xl font-bold">Two-factor authentication</h1>
+        <p class="text-base-content/70">
+            Enter the 6-digit code from your authenticator app.
+        </p>
     </div>
+    }
+
+    @if (mode() === 'recovery') {
+    <div>
+        <h1 class="text-2xl font-bold">Use a recovery code</h1>
+        <p class="text-base-content/70">
+            Enter one of the recovery codes you saved when enabling two-factor authentication.
+        </p>
+    </div>
+    }
+
+    @if (error()) {
+    <div class="alert alert-error">
+        <span>{{ error() }}</span>
+    </div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+        @if (mode() === 'totp') {
+        <input-text label="Authenticator code" placeholder="123456" formControlName="code">
+        </input-text>
+        }
+
+        @if (mode() === 'recovery') {
+        <input-text label="Recovery code" placeholder="ABCD-EFGH-JKLM" formControlName="code">
+        </input-text>
+        }
+
+        <button type="submit" class="btn btn-primary w-full" [disabled]="isLoading()">
+
+            @if (isLoading()) {
+            <span class="loading loading-spinner loading-sm"></span>
+            }
+
+            @if (mode() === 'totp') {
+            Verify
+            } @else {
+            Sign in with recovery code
+            }
+        </button>
+    </form>
+
+    @if (mode() === 'totp') {
+    <div class="text-center text-sm">
+        <span class="text-base-content/70">
+            Can't access your authenticator app?
+        </span>
+
+        <button type="button" class="link link-primary" (click)="switchToRecoveryCode()">
+            Use a recovery code
+        </button>
+    </div>
+    }
+
+    @if (mode() === 'recovery') {
+    <div class="text-center text-sm">
+        <span class="text-base-content/70">
+            Have access to your authenticator app?
+        </span>
+
+        <button type="button" class="link link-primary" (click)="switchToTotp()">
+            Use authenticator code
+        </button>
+    </div>
+    }
 </div>
