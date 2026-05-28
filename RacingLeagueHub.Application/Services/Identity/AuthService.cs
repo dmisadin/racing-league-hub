@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using RacingLeagueHub.Application.Dtos.Auth;
 using RacingLeagueHub.Application.Dtos.User;
 using RacingLeagueHub.Domain.Abstractions;
+using RacingLeagueHub.Domain.Abstractions.Repositories;
 using RacingLeagueHub.Domain.Abstractions.Services;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Entities.Authentication;
@@ -15,8 +16,10 @@ public class AuthService(
     IUserRepository userRepository,
     IRefreshTokenRepository tokenRepository,
     IPasswordResetTokenRepository passwordResetTokenRepository,
+    IUserRecoveryCodeRepository userRecoveryCodeRepository,
     IJwtService jwtService,
     ITotpService totpService,
+    IRecoveryCodeService recoveryCodeService,
     IPasswordHasher<User> passwordHasher,
     IHttpContextAccessor httpContextAccessor
 ) : IAuthService
@@ -93,17 +96,19 @@ public class AuthService(
         if (!user.TwoFactorEnabled || string.IsNullOrWhiteSpace(user.TwoFactorSecret))
             throw new UnauthorizedAccessException("Two-factor authentication is not enabled.");
 
-        var valid = totpService.VerifyCode(
-            user.TwoFactorSecret,
-            req.Code,
-            user.LastTotpTimeStepUsed,
-            out var matchedStep
-        );
+        if (req.IsRecoveryCode)
+        {
+            await UseRecoveryCodeAsync(user.Id, req.Code, ct);
+        }
+        else
+        {
+            var valid = totpService.VerifyCode(user.TwoFactorSecret, req.Code, user.LastTotpTimeStepUsed, out var matchedStep);
 
-        if (!valid)
-            throw new UnauthorizedAccessException("Invalid authentication code.");
+            if (!valid)
+                throw new UnauthorizedAccessException("Invalid authentication code.");
 
-        user.LastTotpTimeStepUsed = matchedStep;
+            user.LastTotpTimeStepUsed = matchedStep;
+        }
 
         await userRepository.CommitAsync(ct);
 
@@ -140,7 +145,20 @@ public class AuthService(
 
         ClearRefreshTokenCookie();
     }
-    
+
+    private async Task UseRecoveryCodeAsync(long userId, string code, CancellationToken ct)
+    {
+        var unusedCodes = await userRecoveryCodeRepository.GetUnusedForUserAsync(userId, ct);
+
+        var matchingCode = unusedCodes.FirstOrDefault(x =>
+            recoveryCodeService.VerifyCode(code, x.CodeHash));
+
+        if (matchingCode is null)
+            throw new UnauthorizedAccessException("Invalid recovery code.");
+
+        matchingCode.UsedAt = DateTime.UtcNow;
+    }
+
     private async Task<AuthResponse> BuildAuthResponse(User user, bool rememberMe, CancellationToken ct)
     {
         var accessToken = jwtService.GenerateAccessToken(user);

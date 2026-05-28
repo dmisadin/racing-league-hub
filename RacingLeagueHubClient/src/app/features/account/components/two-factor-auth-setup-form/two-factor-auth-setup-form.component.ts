@@ -19,6 +19,7 @@ export class TwoFactorAuthSetupFormComponent {
     readonly confirming = signal(false);
     readonly success = signal(false);
     readonly error = signal<string | null>(null);
+    readonly recoveryCodes = signal<string[] | null>(null);
 
     readonly hasSetupStarted = computed(() => this.setupResult() !== null);
 
@@ -63,7 +64,8 @@ export class TwoFactorAuthSetupFormComponent {
         this.error.set(null);
 
         this.accountSecurityService.confirmTwoFactor({ code }).subscribe({
-            next: () => {
+            next: (res) => {
+                this.recoveryCodes.set(res.recoveryCodes);
                 this.success.set(true);
                 this.confirming.set(false);
                 this.form.reset();

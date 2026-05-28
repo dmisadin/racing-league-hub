@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Application.Dtos.Auth.Totp;
-using RacingLeagueHub.Domain.Abstractions;
-using RacingLeagueHub.Domain.Abstractions.Services;
+using RacingLeagueHub.Application.Dtos.Auth.TwoFactor;
+using RacingLeagueHub.Application.Services.TwoFactorAuthentication;
 
 namespace RacingLeagueHub.Api.Controllers.Auth;
 
@@ -10,16 +10,11 @@ namespace RacingLeagueHub.Api.Controllers.Auth;
 [Authorize]
 public class TwoFactorAuthenticationController : BaseController
 {
-    private const string Issuer = "RacingLeagueHub";
+    private readonly ITwoFactorService twoFactorService;
 
-    private readonly ITotpService totpService;
-    private readonly IUserRepository userRepository;
-
-    public TwoFactorAuthenticationController(ITotpService totpService,
-        IUserRepository userRepository)
+    public TwoFactorAuthenticationController(ITwoFactorService twoFactorService)
     {
-        this.totpService = totpService;
-        this.userRepository = userRepository;
+        this.twoFactorService = twoFactorService;
     }
 
     [HttpPost("setup")]
@@ -27,63 +22,28 @@ public class TwoFactorAuthenticationController : BaseController
     {
         var userId = GetCurrentUserId();
 
-        var user = await userRepository.GetByIdAsync(userId, user => user);
+        var result = await twoFactorService.StartSetupAsync(userId, ct);
 
-        if (user is null)
-            return Unauthorized();
-
-        if (user.TwoFactorEnabled)
-            return BadRequest("Two-factor authentication is already enabled.");
-
-        var secret = totpService.GenerateSecret();
-
-        user.TwoFactorSecret = secret;
-
-        await userRepository.CommitAsync(ct);
-
-        var uri = totpService.BuildOtpAuthUri(Issuer, user.Email, secret);
-
-        return Ok(new TwoFactorSetupDto
-        {
-            ManualEntryKey = secret,
-            OtpAuthUri = uri
-        });
+        return Ok(result);
     }
 
     [HttpPost("confirm")]
-    public async Task<ActionResult> Confirm(
-        ConfirmTwoFactorDto dto,
-        CancellationToken ct)
+    public async Task<ActionResult<ConfirmTwoFactorResponse>> Confirm(ConfirmTwoFactorDto dto,CancellationToken ct)
     {
         var userId = GetCurrentUserId();
 
-        var user = await userRepository.GetByIdAsync(userId, user => user);
+        var result = await twoFactorService.ConfirmSetupAsync(userId, dto.Code, ct);
 
-        if (user is null)
-            return Unauthorized();
+        return Ok(result);
+    }
 
-        if (user.TwoFactorEnabled)
-            return BadRequest("Two-factor authentication is already enabled.");
+    [HttpPost("recovery-codes/regenerate")]
+    public async Task<ActionResult<RecoveryCodesResponse>> RegenerateRecoveryCodes(CancellationToken ct)
+    {
+        var userId = GetCurrentUserId();
 
-        if (string.IsNullOrWhiteSpace(user.TwoFactorSecret))
-            return BadRequest("Two-factor setup has not been started.");
+        var result = await twoFactorService.RegenerateRecoveryCodesAsync(userId, ct);
 
-        var valid = totpService.VerifyCode(
-            user.TwoFactorSecret,
-            dto.Code,
-            user.LastTotpTimeStepUsed,
-            out var matchedStep
-        );
-
-        if (!valid)
-            return BadRequest("Invalid authentication code.");
-
-        user.TwoFactorEnabled = true;
-        user.TwoFactorEnabledAt = DateTimeOffset.UtcNow;
-        user.LastTotpTimeStepUsed = matchedStep;
-
-        await userRepository.CommitAsync(ct);
-
-        return NoContent();
+        return Ok(result);
     }
 }

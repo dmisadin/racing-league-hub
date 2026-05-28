@@ -37,6 +37,13 @@ internal class GenericRepository<TEntity> : IRepository<TEntity>
         return await this.dbContext.Set<TEntity>().FindAsync(values);
     }
 
+    public virtual async Task<TEntity?> GetByIdAsync(long id, CancellationToken ct = default)
+    {
+        return await this.dbContext.Set<TEntity>()
+                                .Where(x => x.Id == id)
+                                .FirstOrDefaultAsync(ct);
+    }
+
     public virtual async Task<TDto?> GetByIdAsync<TDto>(long id, Expression<Func<TEntity, TDto>> selector, CancellationToken ct = default)
     {
         return await this.dbContext.Set<TEntity>()

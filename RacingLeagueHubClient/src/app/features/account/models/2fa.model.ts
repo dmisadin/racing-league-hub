@@ -6,3 +6,7 @@ export interface TwoFactorSetupResponse {
 export interface ConfirmTwoFactorRequest {
     code: string;
 }
+
+export interface ConfirmTwoFactorResponse {
+    recoveryCodes: string[];
+}

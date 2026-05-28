@@ -50,7 +50,7 @@
                 </p>
             </div>
 
-            <form [formGroup]="form" (ngSubmit)="confirm()" class="space-y-4">
+            <form [formGroup]="form" (ngSubmit)="confirm()" class="flex flex-col gap-4">
                 <input-text label="Authenticator code" placeholder="123456" formControlName="code">
                 </input-text>
 
@@ -66,4 +66,21 @@
         </div>
     </div>
     }
+
+    @if (setupResult() && success() && recoveryCodes()) {
+    <div class="card bg-base-100 border border-base-300 shadow-sm">
+        <div class="card-body mb-8">
+            <h1 class="text-2xl font-bold">Save your recovery codes!</h1>
+            <p class="mb-4">Once you leave this page, you <span class="font-bold">won't be able to see these codes again.</span> 
+                In case you lose access to your 2FA authenticator application, you won't get locked out of your account!
+            </p>
+            <ul>
+                @for (code of recoveryCodes(); track code) 
+                {
+                    <li> {{ code }} </li>
+                }
+            </ul>
+        </div>
+    </div>
+    } 
 </div>

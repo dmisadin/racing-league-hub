@@ -15,5 +15,6 @@ public record LoginResponse(
 public record TwoFactorLoginRequest(
     string TwoFactorToken,
     string Code,
-    bool RememberMe
+    bool RememberMe,
+    bool IsRecoveryCode = false
 );

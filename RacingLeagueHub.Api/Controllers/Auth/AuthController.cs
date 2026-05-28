@@ -33,9 +33,7 @@ public class AuthController(IAuthService authService,
 
     [HttpPost("login/2fa")]
     [AllowAnonymous]
-    public async Task<ActionResult<AuthResponse>> LoginWithTwoFactor(
-        [FromBody] TwoFactorLoginRequest request,
-        CancellationToken ct)
+    public async Task<ActionResult<AuthResponse>> LoginWithTwoFactor([FromBody] TwoFactorLoginRequest request, CancellationToken ct)
     {
         var result = await authService.LoginWithTwoFactorAsync(request, ct);
         return Ok(result);
