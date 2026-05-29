@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using RacingLeagueHub.Application.Services.Identity;
+using RacingLeagueHub.Application.Services.TwoFactorAuthentication;
 using RacingLeagueHub.Domain.Entities;
 
 namespace RacingLeagueHub.Application.Services;
@@ -12,6 +13,7 @@ public static class ServiceExtensions
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+        services.AddScoped<ITwoFactorService, TwoFactorService>();
 
         return services;
     }

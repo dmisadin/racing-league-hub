@@ -25,9 +25,17 @@ public class AuthController(IAuthService authService,
 
     [HttpPost("login")]
     [AllowAnonymous]
-    public async Task<ActionResult<AuthResponse>> Login([FromBody] LoginRequest loginDto, CancellationToken ct)
+    public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest loginDto, CancellationToken ct)
     {
         var result = await authService.LoginAsync(loginDto, ct);
+        return Ok(result);
+    }
+
+    [HttpPost("login/2fa")]
+    [AllowAnonymous]
+    public async Task<ActionResult<AuthResponse>> LoginWithTwoFactor([FromBody] TwoFactorLoginRequest request, CancellationToken ct)
+    {
+        var result = await authService.LoginWithTwoFactorAsync(request, ct);
         return Ok(result);
     }
 

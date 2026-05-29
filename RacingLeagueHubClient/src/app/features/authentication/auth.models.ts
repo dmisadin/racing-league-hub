@@ -6,16 +6,17 @@ export interface UserDto {
     driverId: string | null;
 }
 
-export interface AuthResponse {
-    accessToken: string;
-    accessTokenExpiry: string;
-    user: UserDto;
-}
-
 export interface LoginRequest {
     email: string;
     password: string;
     rememberMe: boolean;
+}
+
+export interface TwoFactorLoginRequest {
+    twoFactorToken: string;
+    code: string;
+    rememberMe: boolean;
+    isRecoveryCode: boolean;
 }
 
 export interface RegisterRequest {
@@ -36,4 +37,17 @@ export interface ResetPasswordRequest {
     token: string;
     newPassword: string;
     confirmPassword: string;
+}
+
+export type LoginResponse = {
+    requiresTwoFactor: boolean;
+    auth: AuthResponse | null;
+    twoFactorToken: string | null;
+};
+
+
+export interface AuthResponse {
+    accessToken: string;
+    accessTokenExpiry: string;
+    user: UserDto;
 }

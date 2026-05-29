@@ -8,6 +8,7 @@ public interface IRepository<TEntity> where TEntity : IEntity
 {
     TEntity Create();
     ValueTask<TEntity?> FindAsync(params object[] values);
+    Task<TEntity?> GetByIdAsync(long id, CancellationToken ct = default);
     Task<TDto?> GetByIdAsync<TDto>(long id, Expression<Func<TEntity, TDto>> selector, CancellationToken ct = default);
     Task<List<TDto>> GetAllAsync<TDto>(Expression<Func<TEntity, TDto>> selector, CancellationToken ct = default);
     Task<PagedResult<TDto>> GetPagedAsync<TDto>(Expression<Func<TEntity, TDto>> selector, int page, int pageSize = 10, CancellationToken ct = default);

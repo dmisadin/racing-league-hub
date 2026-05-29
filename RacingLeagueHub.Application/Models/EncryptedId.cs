@@ -17,6 +17,5 @@ public class EncryptedId
     }
 
     public long RawId { get; set; }
-    public string EncryptedValue => this.RawId.ToString();
     public string EncryptedReadonlyValue { get; set; }
 }

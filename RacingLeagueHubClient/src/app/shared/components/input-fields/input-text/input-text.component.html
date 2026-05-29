@@ -41,7 +41,7 @@
 
     @if (control?.touched && control?.invalid) 
     {
-    <div class="text-error mt-1">
+    <div class="text-error mt-1 flex flex-col">
         @if (errors?.['required']) {
         <small class="block">{{ label() || 'This field' }} is required</small>
         }

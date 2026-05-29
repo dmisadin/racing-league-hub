@@ -1,14 +1,19 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Abstractions.Admin;
+using RacingLeagueHub.Domain.Abstractions.Repositories;
+using RacingLeagueHub.Domain.Abstractions.Services;
+using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Infrastructure;
 using RacingLeagueHub.Infrastructure.Repositories;
+using RacingLeagueHub.Infrastructure.Security;
 using RacingSeasonHub.Infrastructure.Repositories;
 using System.Reflection;
 
 namespace RacingLeagueHub.Infrastructure;
 
-public static class RepositoryServiceExtensions
+public static class InfrastructureServiceRegistration
 {
     public static IServiceCollection AddRepositories(this IServiceCollection services, params Assembly[] assemblies)
     {
@@ -41,6 +46,16 @@ public static class RepositoryServiceExtensions
         services.AddScoped<ILeagueUserRepository, LeagueUserRepository>();
 
         services.AddScoped<ITrackLayoutRepository, TrackLayoutRepository>();
+        services.AddScoped<IUserRecoveryCodeRepository, UserRecoveryCodeRepository>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
+    {
+        services.AddScoped<ITotpService, TotpService>();
+        services.AddScoped<IPasswordHasher<UserRecoveryCode>, PasswordHasher<UserRecoveryCode>>();
+        services.AddScoped<IRecoveryCodeService, RecoveryCodeService>();
 
         return services;
     }

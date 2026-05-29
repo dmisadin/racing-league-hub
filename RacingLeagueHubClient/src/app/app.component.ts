@@ -3,7 +3,7 @@ import { RouterOutlet, RouterLinkWithHref, RouterLinkActive } from '@angular/rou
 import { ThemeService } from './core/services/theme.service';
 import { FormsModule } from "@angular/forms";
 import { ToastContainerComponent } from "./shared/components/toast/toast.component";
-import { UserDropdownComponent } from "./features/user/user-dropdown/user-dropdown.component";
+import { UserDropdownComponent } from "./features/account/components/user-dropdown/user-dropdown.component";
 
 @Component({
     selector: 'app-root',
