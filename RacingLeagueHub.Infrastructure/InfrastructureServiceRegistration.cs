@@ -1,13 +1,17 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RacingLeagueHub.Application.Services.Abstractions;
 using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Abstractions.Admin;
 using RacingLeagueHub.Domain.Abstractions.Repositories;
 using RacingLeagueHub.Domain.Abstractions.Services;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Infrastructure;
+using RacingLeagueHub.Infrastructure.Auth;
+using RacingLeagueHub.Infrastructure.Auth.SSO;
+using RacingLeagueHub.Infrastructure.Auth.SSO.Models;
 using RacingLeagueHub.Infrastructure.Repositories;
-using RacingLeagueHub.Infrastructure.Security;
 using RacingSeasonHub.Infrastructure.Repositories;
 using System.Reflection;
 
@@ -47,15 +51,20 @@ public static class InfrastructureServiceRegistration
 
         services.AddScoped<ITrackLayoutRepository, TrackLayoutRepository>();
         services.AddScoped<IUserRecoveryCodeRepository, UserRecoveryCodeRepository>();
+        services.AddScoped<IUserExternalLoginRepository, UserExternalLoginRepository>();
 
         return services;
     }
 
-    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<ITotpService, TotpService>();
         services.AddScoped<IPasswordHasher<UserRecoveryCode>, PasswordHasher<UserRecoveryCode>>();
         services.AddScoped<IRecoveryCodeService, RecoveryCodeService>();
+
+        services.Configure<GoogleAuthOptions>(configuration.GetSection("Authentication:Google"));
+        services.AddHttpClient<IGoogleOAuthService, GoogleOAuthService>();
+        services.AddScoped<ISsoStateService, SsoStateService>();
 
         return services;
     }

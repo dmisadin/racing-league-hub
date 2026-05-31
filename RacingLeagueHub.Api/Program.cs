@@ -19,7 +19,7 @@ builder.Services.AddControllers(options =>
 
 builder.Services.AddRepositories(typeof(Program).Assembly);
 builder.Services.AddEntityHandlers(typeof(Program).Assembly);
-builder.Services.AddInfrastructureServices();
+builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.RegisterAppLayerServices();
 builder.Services.RegisterAWSServices(builder.Configuration); 
 

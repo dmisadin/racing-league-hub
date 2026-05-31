@@ -1,7 +1,7 @@
 ﻿using OtpNet;
 using RacingLeagueHub.Domain.Abstractions.Services;
 
-namespace RacingLeagueHub.Infrastructure.Security;
+namespace RacingLeagueHub.Infrastructure.Auth;
 
 internal class TotpService : ITotpService
 {
