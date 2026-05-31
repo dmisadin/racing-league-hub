@@ -3,7 +3,7 @@
     {{ authService.user()?.username }}
 </button>
 
-<ul class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm" popover id="user-dropdown-popover" style="position-anchor:--user-dropdown-anchor">
+<ul class="dropdown menu max-w-72 w-fit rounded-box bg-base-100 shadow-sm" popover id="user-dropdown-popover" style="position-anchor:--user-dropdown-anchor">
     <li class="menu-title">
         <span>{{ authService.user()?.email }}</span>
     </li>

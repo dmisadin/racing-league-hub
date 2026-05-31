@@ -7,6 +7,7 @@ import { RouteService } from '../../../core/services/route.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { InputTextComponent } from '../../../shared/components/input-fields/input-text/input-text.component';
 import { LoginResponse } from '../auth.models';
+import { environment } from '../../../../environments/environment';
 
 @Component({
     selector: 'login-form',
@@ -58,5 +59,9 @@ export class LoginFormComponent {
     onError(errorMessage?: string) {
         this.isLoading.set(false);
         this.toastService.showError(errorMessage ?? "Something went wrong")
+    }
+
+    signInWithGoogle(): void {
+        window.location.href = `${environment.apiUrl}/auth/google/login`;
     }
 }

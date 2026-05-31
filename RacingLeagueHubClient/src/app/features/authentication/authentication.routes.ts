@@ -24,4 +24,8 @@ export const AUTHENTICATION_ROUTES: Routes = [
         path: 'reset-password',
         loadComponent: () => import('./reset-password-form/reset-password-form.component').then(c => c.ResetPasswordFormComponent)
     },
+    {
+        path: 'sso/callback',
+        loadComponent: () => import('./sso-callback/sso-callback.component').then(c => c.SsoCallbackComponent)
+    }
 ];
