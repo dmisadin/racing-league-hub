@@ -1,4 +1,5 @@
 ﻿using RacingLeagueHub.Application.Dtos.Auth;
+using RacingLeagueHub.Application.Dtos.Auth.SSO;
 
 namespace RacingLeagueHub.Application.Services.Identity;
 
@@ -11,4 +12,6 @@ public interface IAuthService
     Task RevokeTokenAsync(CancellationToken ct = default);
     Task ForgotPasswordAsync(ForgotPasswordRequest request, CancellationToken ct = default);
     Task ResetPasswordAsync(ResetPasswordRequest request, CancellationToken ct = default);
+
+    Task<AuthResponse> LoginWithGoogleAsync(GoogleUserInfo googleUser, CancellationToken ct = default);
 }

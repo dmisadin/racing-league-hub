@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using RacingLeagueHub.Application.Dtos.Auth;
+using RacingLeagueHub.Application.Dtos.Auth.SSO;
 using RacingLeagueHub.Application.Dtos.User;
 using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Abstractions.Repositories;
 using RacingLeagueHub.Domain.Abstractions.Services;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Entities.Authentication;
+using RacingLeagueHub.Domain.Infrastructure;
 using RacingLeagueHub.Domain.Utilities;
 using System.Security.Cryptography;
 
@@ -17,6 +19,7 @@ public class AuthService(
     IRefreshTokenRepository tokenRepository,
     IPasswordResetTokenRepository passwordResetTokenRepository,
     IUserRecoveryCodeRepository userRecoveryCodeRepository,
+    IUserExternalLoginRepository externalLoginRepository,
     IJwtService jwtService,
     ITotpService totpService,
     IRecoveryCodeService recoveryCodeService,
@@ -144,6 +147,64 @@ public class AuthService(
         await tokenRepository.CommitAsync(ct);
 
         ClearRefreshTokenCookie();
+    }
+
+    public async Task<AuthResponse> LoginWithGoogleAsync(
+        GoogleUserInfo googleUser,
+        CancellationToken ct = default)
+    {
+        if (!googleUser.EmailVerified)
+            throw new UnauthorizedAccessException("Google email is not verified.");
+
+        const string provider = "Google";
+
+        var externalLogin = await externalLoginRepository.FindByProviderAsync(
+            provider,
+            googleUser.ProviderUserId,
+            ct);
+
+        if (externalLogin is not null)
+        {
+            return await BuildAuthResponse(
+                externalLogin.User,
+                rememberMe: true,
+                ct);
+        }
+
+        var user = await userRepository.FindByEmailAsync(googleUser.Email, ct);
+
+        if (user is null)
+        {
+            user = new User
+            {
+                Email = googleUser.Email,
+                Username = await GenerateUniqueUsernameAsync(googleUser.Email, ct),
+                IsAdmin = false,
+                CreatedAt = DateTime.UtcNow,
+
+                // Important:
+                // external-login-only users may not have a password.
+                PasswordHash = string.Empty
+            };
+
+            await userRepository.InsertAsync(user);
+            await userRepository.CommitAsync(ct);
+        }
+
+        await externalLoginRepository.InsertAsync(new UserExternalLogin
+        {
+            UserId = user.Id,
+            Provider = provider,
+            ProviderUserId = googleUser.ProviderUserId,
+            Email = googleUser.Email,
+            DisplayName = googleUser.Name,
+            PictureUrl = googleUser.PictureUrl,
+            CreatedAt = DateTime.UtcNow
+        });
+
+        await externalLoginRepository.CommitAsync(ct);
+
+        return await BuildAuthResponse(user, rememberMe: true, ct);
     }
 
     private async Task UseRecoveryCodeAsync(long userId, string code, CancellationToken ct)
@@ -279,5 +340,27 @@ public class AuthService(
         var bytes = new byte[64];
         RandomNumberGenerator.Fill(bytes);
         return Base64UrlUtility.Encode(bytes);
+    }
+
+    private async Task<string> GenerateUniqueUsernameAsync(string email, CancellationToken ct)
+    {
+        var baseUsername = email.Split('@')[0]
+            .ToLowerInvariant()
+            .Where(char.IsLetterOrDigit)
+            .Aggregate("", (current, c) => current + c);
+
+        if (string.IsNullOrWhiteSpace(baseUsername))
+            baseUsername = "user";
+
+        var username = baseUsername;
+        var counter = 1;
+
+        while (await userRepository.IsUsernameTakenAsync(username, ct))
+        {
+            username = $"{baseUsername}{counter}";
+            counter++;
+        }
+
+        return username;
     }
 }
