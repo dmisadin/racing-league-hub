@@ -1,12 +1,12 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Model;
 using Microsoft.Extensions.Options;
-using RacingLeagueHub.Application.Storage;
 using RacingLeagueHub.Domain.Services.Interfaces;
+using RacingLeagueHub.Infrastructure.Configuration;
 
 namespace RacingLeagueHub.Infrastructure.Services;
 
-public class S3StorageService(IAmazonS3 s3Client, IOptions<S3Options> options) : IStorageService
+internal class S3StorageService(IAmazonS3 s3Client, IOptions<S3Options> options) : IStorageService
 {
     private readonly S3Options options = options.Value;
 
@@ -26,7 +26,10 @@ public class S3StorageService(IAmazonS3 s3Client, IOptions<S3Options> options) :
 
     public string GetBaseUrl() => options.PublicBaseUrl.TrimEnd('/');
 
-    public string GetFileUrl(string s3Key) => $"{GetBaseUrl()}/{s3Key}";
+    public string GetFileUrl(string s3Key)
+    {
+        return $"{options.PublicBaseUrl.TrimEnd('/')}/{s3Key.TrimStart('/')}";
+    }
 
     public async Task DeleteAsync(string s3Key, CancellationToken ct = default)
     {

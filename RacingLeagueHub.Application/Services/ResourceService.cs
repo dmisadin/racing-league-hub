@@ -9,24 +9,34 @@ using RacingLeagueHub.Domain.Services.Interfaces;
 
 namespace RacingLeagueHub.Application.Services;
 
-public class ResourceService(
-    IResourceRepository resourceRepository,
-    IStorageService storageService) : IResourceService
+public class ResourceService : IResourceService
 {
-    private IDtoMapper<Resource, ResourceDto> DtoMapper => new ResourceDtoMapper(storageService);
+    private readonly IResourceRepository resourceRepository;
+    private readonly IStorageService storageService;
+    private readonly IDtoMapper<Resource, ResourceDto> dtoMapper;
+
+    public ResourceService(
+        IResourceRepository resourceRepository,
+        IStorageService storageService,
+        IDtoMapper<Resource, ResourceDto> dtoMapper)
+    {
+        this.resourceRepository = resourceRepository;
+        this.storageService = storageService;
+        this.dtoMapper = dtoMapper;
+    }
 
     public async Task<ResourceDto?> GetByIdAsync(long id, CancellationToken ct = default)
     {
         return await resourceRepository.Query()
             .Where(r => r.Id == id)
-            .Select(DtoMapper.ToDtoExpression())
+            .Select(dtoMapper.ToDtoExpression())
             .FirstOrDefaultAsync(ct);
     }
 
     public async Task<IReadOnlyList<ResourceDto>> GetAllAsync(CancellationToken ct = default)
     {
         return resourceRepository.Query()
-            .Select(DtoMapper.ToDtoExpression())
+            .Select(dtoMapper.ToDtoExpression())
             .ToList();
     }
 

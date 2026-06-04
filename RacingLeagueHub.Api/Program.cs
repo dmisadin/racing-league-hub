@@ -3,7 +3,7 @@ using RacingLeagueHub.Api.Configuration.Binders;
 using RacingLeagueHub.Api.Configuration.Serialization;
 using RacingLeagueHub.Api.Middleware;
 using RacingLeagueHub.Api.Startup;
-using RacingLeagueHub.Application.Services;
+using RacingLeagueHub.Application;
 using RacingLeagueHub.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,8 +20,8 @@ builder.Services.AddControllers(options =>
 builder.Services.AddRepositories(typeof(Program).Assembly);
 builder.Services.AddEntityHandlers(typeof(Program).Assembly);
 builder.Services.AddInfrastructureServices(builder.Configuration);
-builder.Services.RegisterAppLayerServices();
-builder.Services.RegisterAWSServices(builder.Configuration); 
+builder.Services.AddApplicationServices();
+builder.Services.AddAwsStorage(builder.Configuration); 
 
 builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddAuthorizationPolicies();
