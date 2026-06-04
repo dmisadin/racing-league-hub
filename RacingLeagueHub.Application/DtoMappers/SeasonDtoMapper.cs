@@ -1,12 +1,13 @@
 ﻿using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Application.Storage;
 using RacingLeagueHub.Domain.Entities.Seasons;
+using RacingLeagueHub.Domain.Services.Interfaces;
 using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Application.DtoMappers;
 
-public class SeasonDtoMapper : DtoMapperBase<Season, SeasonDto>
+public class SeasonDtoMapper(IStorageService storageService) 
+    : DtoMapperBase<Season, SeasonDto>
 {
     public override bool FromDto(Season entity, SeasonDto dto)
     {
@@ -23,7 +24,7 @@ public class SeasonDtoMapper : DtoMapperBase<Season, SeasonDto>
 
     public override Expression<Func<Season, SeasonDto>> ToDtoExpression()
     {
-        var baseStorageUrl = S3Settings.Values.PublicBaseUrl;
+        var baseStorageUrl = storageService.GetBaseUrl();
 
         return season => new SeasonDto
         {

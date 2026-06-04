@@ -1,13 +1,13 @@
 ﻿using RacingLeagueHub.Application.Dtos;
-using RacingLeagueHub.Application.Dtos.Resource;
 using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Application.Storage;
 using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Services.Interfaces;
 using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Application.DtoMappers;
 
-public class LeagueDtoMapper : DtoMapperBase<League, LeagueDto>
+public class LeagueDtoMapper(IStorageService storageService) 
+    : DtoMapperBase<League, LeagueDto>
 {
     public override bool FromDto(League entity, LeagueDto dto)
     {
@@ -24,7 +24,7 @@ public class LeagueDtoMapper : DtoMapperBase<League, LeagueDto>
 
     public override Expression<Func<League, LeagueDto>> ToDtoExpression()
     {
-        var baseStorageUrl = S3Settings.Values.PublicBaseUrl;
+        var baseStorageUrl = storageService.GetBaseUrl();
 
         return league => new LeagueDto
         {

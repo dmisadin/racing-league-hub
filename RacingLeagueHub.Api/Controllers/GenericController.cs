@@ -15,13 +15,14 @@ public abstract class GenericController<TEntity, TDto> : BaseController
     where TDto : BaseDto
 {
     protected readonly IRepository<TEntity> repository;
+    protected readonly IDtoMapper<TEntity, TDto> dtoMapper;
 
-    public GenericController(IRepository<TEntity> repository)
+    public GenericController(IRepository<TEntity> repository,
+        IDtoMapper<TEntity, TDto> dtoMapper)
     {
         this.repository = repository;
+        this.dtoMapper = dtoMapper;
     }
-
-    protected abstract IDtoMapper<TEntity, TDto> DtoMapper { get; }
 
 
     [HttpGet("get-by-id/{id}")]
@@ -31,7 +32,7 @@ public abstract class GenericController<TEntity, TDto> : BaseController
     {
         var dto = await repository.GetByIdAsync<TDto>(
             id.RawId,
-            DtoMapper.ToDtoExpression());
+            dtoMapper.ToDtoExpression());
 
         if (dto is null)
             return NotFound();
@@ -46,7 +47,7 @@ public abstract class GenericController<TEntity, TDto> : BaseController
         CancellationToken ct = default)
     {
         var result = await repository.GetPagedAsync(
-            DtoMapper.ToDtoExpression(),
+            dtoMapper.ToDtoExpression(),
             page,
             pageSize: 10,
             ct);
@@ -61,7 +62,7 @@ public abstract class GenericController<TEntity, TDto> : BaseController
     {
         var entity = repository.Create();
 
-        DtoMapper.FromDto(entity, dto);
+        dtoMapper.FromDto(entity, dto);
 
         await repository.InsertAsync(entity);
         await repository.CommitAsync(ct);
@@ -86,7 +87,7 @@ public abstract class GenericController<TEntity, TDto> : BaseController
         if (entity is null)
             return NotFound();
 
-        DtoMapper.FromDto(entity, dto);
+        dtoMapper.FromDto(entity, dto);
 
         await repository.CommitAsync(ct);
 

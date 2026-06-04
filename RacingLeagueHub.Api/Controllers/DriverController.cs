@@ -7,9 +7,8 @@ namespace RacingLeagueHub.Api.Controllers;
 
 public class DriverController : GenericController<Driver, DriverDto>
 {
-    public DriverController(IRepository<Driver> driverRepository) : base(driverRepository)
+    public DriverController(IRepository<Driver> repository,
+        IDtoMapper<Driver, DriverDto> dtoMapper) : base(repository, dtoMapper)
     {
     }
-
-    protected override IDtoMapper<Driver, DriverDto> DtoMapper => new DriverDtoMapper();
 }
