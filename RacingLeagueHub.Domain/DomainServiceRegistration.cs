@@ -1,9 +1,10 @@
-﻿using RacingLeagueHub.Domain.Interceptors.EntityHandlers;
+﻿using Microsoft.Extensions.DependencyInjection;
+using RacingLeagueHub.Domain.Interceptors.EntityHandlers;
 using System.Reflection;
 
-namespace RacingLeagueHub.Api.Startup;
+namespace RacingLeagueHub.Domain;
 
-public static class EntityHandlerServiceExtensions
+public static class DomainServiceRegistration
 {
     public static IServiceCollection AddEntityHandlers(this IServiceCollection services, params Assembly[] assemblies)
     {
