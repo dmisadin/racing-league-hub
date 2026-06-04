@@ -8,7 +8,6 @@ using RacingLeagueHub.Domain.Abstractions.Repositories;
 using RacingLeagueHub.Domain.Abstractions.Services;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Entities.Authentication;
-using RacingLeagueHub.Domain.Infrastructure;
 using RacingLeagueHub.Domain.Utilities;
 using System.Security.Cryptography;
 
