@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 
 namespace RacingLeagueHub.Infrastructure.Auth;
 
-public class RecoveryCodeService : IRecoveryCodeService
+internal class RecoveryCodeService : IRecoveryCodeService
 {
     private readonly IPasswordHasher<UserRecoveryCode> passwordHasher;
 

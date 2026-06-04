@@ -1,5 +1,6 @@
 ﻿using Amazon.S3;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RacingLeagueHub.Application.Services;
@@ -24,6 +25,17 @@ namespace RacingLeagueHub.Infrastructure;
 
 public static class InfrastructureServiceRegistration
 {
+
+    public static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddDbContext<AdventureContext>(options =>
+                            options.UseNpgsql(configuration
+                                    .GetConnectionString("DefaultConnection"))
+                                    .UseSnakeCaseNamingConvention());
+
+        return services;
+
+    }
     public static IServiceCollection AddRepositories(this IServiceCollection services, params Assembly[] assemblies)
     {
         var targetAssemblies = assemblies.Length > 0

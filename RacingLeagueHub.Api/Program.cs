@@ -17,6 +17,7 @@ builder.Services.AddControllers(options =>
         options.SerializerSettings.Converters.Add(new EncryptedIdJsonConverter());
     });
 
+builder.Services.AddDbContext(builder.Configuration);
 builder.Services.AddRepositories(typeof(Program).Assembly);
 builder.Services.AddEntityHandlers(typeof(Program).Assembly);
 builder.Services.AddInfrastructureServices(builder.Configuration);
@@ -28,11 +29,6 @@ builder.Services.AddAuthorizationPolicies();
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
-
-builder.Services.AddDbContext<AdventureContext>(options => 
-                    options.UseNpgsql(builder.Configuration
-                            .GetConnectionString("DefaultConnection"))
-                            .UseSnakeCaseNamingConvention());
 
 builder.Services.AddSwaggerGen();
 
