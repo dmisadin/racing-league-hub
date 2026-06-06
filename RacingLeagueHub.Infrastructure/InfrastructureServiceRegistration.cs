@@ -14,7 +14,6 @@ using RacingLeagueHub.Domain.Infrastructure;
 using RacingLeagueHub.Domain.Services.Interfaces;
 using RacingLeagueHub.Infrastructure.Auth;
 using RacingLeagueHub.Infrastructure.Auth.SSO;
-using RacingLeagueHub.Infrastructure.Auth.SSO.Models;
 using RacingLeagueHub.Infrastructure.Configuration;
 using RacingLeagueHub.Infrastructure.Repositories;
 using RacingLeagueHub.Infrastructure.Services;

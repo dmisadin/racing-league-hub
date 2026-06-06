@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using RacingLeagueHub.Application.Dtos.Auth.SSO;
 using RacingLeagueHub.Application.Services.Abstractions;
-using RacingLeagueHub.Infrastructure.Auth.SSO.Models;
+using RacingLeagueHub.Infrastructure.Configuration;
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
 

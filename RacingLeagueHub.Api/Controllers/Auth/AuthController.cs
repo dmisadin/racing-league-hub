@@ -8,7 +8,7 @@ using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Services.Abstractions;
 using RacingLeagueHub.Application.Services.Identity;
 using RacingLeagueHub.Domain.Abstractions;
-using RacingLeagueHub.Infrastructure.Auth.SSO.Models;
+using RacingLeagueHub.Infrastructure.Configuration;
 using System.Security.Claims;
 
 namespace RacingLeagueHub.Api.Controllers.Auth;

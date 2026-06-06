@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.Infrastructure.Auth.SSO.Models;
+﻿namespace RacingLeagueHub.Infrastructure.Configuration;
 
 public sealed class GoogleAuthOptions
 {
