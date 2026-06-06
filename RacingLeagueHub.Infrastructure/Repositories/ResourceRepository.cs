@@ -4,7 +4,7 @@ using RacingLeagueHub.Domain.Infrastructure;
 
 namespace RacingLeagueHub.Infrastructure.Repositories;
 
-public class ResourceRepository(AdventureContext db) : IResourceRepository
+internal class ResourceRepository(AdventureContext db) : IResourceRepository
 {
     private DbSet<Resource> Resources = db.Set<Resource>();
 

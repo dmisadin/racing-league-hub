@@ -1,9 +1,9 @@
-using Microsoft.EntityFrameworkCore;
+using RacingLeagueHub.Api.Authorization;
 using RacingLeagueHub.Api.Configuration.Binders;
 using RacingLeagueHub.Api.Configuration.Serialization;
 using RacingLeagueHub.Api.Middleware;
-using RacingLeagueHub.Api.Startup;
-using RacingLeagueHub.Application.Services;
+using RacingLeagueHub.Application;
+using RacingLeagueHub.Domain;
 using RacingLeagueHub.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,22 +17,18 @@ builder.Services.AddControllers(options =>
         options.SerializerSettings.Converters.Add(new EncryptedIdJsonConverter());
     });
 
+builder.Services.AddDbContext(builder.Configuration);
 builder.Services.AddRepositories(typeof(Program).Assembly);
 builder.Services.AddEntityHandlers(typeof(Program).Assembly);
-builder.Services.AddInfrastructureServices();
-builder.Services.RegisterAppLayerServices();
-builder.Services.RegisterAWSServices(builder.Configuration); 
+builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddApplicationServices();
+builder.Services.AddAwsStorage(builder.Configuration); 
 
 builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddAuthorizationPolicies();
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
-
-builder.Services.AddDbContext<AdventureContext>(options => 
-                    options.UseNpgsql(builder.Configuration
-                            .GetConnectionString("DefaultConnection"))
-                            .UseSnakeCaseNamingConvention());
 
 builder.Services.AddSwaggerGen();
 

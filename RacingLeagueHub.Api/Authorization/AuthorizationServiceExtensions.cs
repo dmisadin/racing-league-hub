@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using RacingLeagueHub.Api.Authorization;
 using RacingLeagueHub.Application.Models.Enums;
 
-namespace RacingLeagueHub.Api.Startup;
+namespace RacingLeagueHub.Api.Authorization;
 
 public static class AuthorizationServiceExtensions
 {

@@ -3,9 +3,9 @@ using RacingLeagueHub.Domain.Abstractions.Services;
 using RacingLeagueHub.Domain.Entities;
 using System.Security.Cryptography;
 
-namespace RacingLeagueHub.Infrastructure.Security;
+namespace RacingLeagueHub.Infrastructure.Auth;
 
-public class RecoveryCodeService : IRecoveryCodeService
+internal class RecoveryCodeService : IRecoveryCodeService
 {
     private readonly IPasswordHasher<UserRecoveryCode> passwordHasher;
 

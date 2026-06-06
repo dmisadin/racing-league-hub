@@ -14,11 +14,10 @@ namespace RacingLeagueHub.Api.Controllers.Admin;
 [ApiController]
 public class GameTeamController : GenericController<GameTeam, GameTeamDto>
 {
-    public GameTeamController(IRepository<GameTeam> genericRepository) : base(genericRepository)
+    public GameTeamController(IRepository<GameTeam> repository,
+        IDtoMapper<GameTeam, GameTeamDto> dtoMapper) : base(repository, dtoMapper)
     {
     }
-
-    protected override IDtoMapper<GameTeam, GameTeamDto> DtoMapper => new GameTeamDtoMapper();
 
     public override Task<IActionResult> Delete([FromRoute] EncryptedId id, CancellationToken ct = default)
     {

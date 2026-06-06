@@ -1,13 +1,22 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Amazon.S3;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RacingLeagueHub.Application.Services;
+using RacingLeagueHub.Application.Services.Abstractions;
 using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Abstractions.Admin;
 using RacingLeagueHub.Domain.Abstractions.Repositories;
 using RacingLeagueHub.Domain.Abstractions.Services;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Infrastructure;
+using RacingLeagueHub.Domain.Services.Interfaces;
+using RacingLeagueHub.Infrastructure.Auth;
+using RacingLeagueHub.Infrastructure.Auth.SSO;
+using RacingLeagueHub.Infrastructure.Configuration;
 using RacingLeagueHub.Infrastructure.Repositories;
-using RacingLeagueHub.Infrastructure.Security;
+using RacingLeagueHub.Infrastructure.Services;
 using RacingSeasonHub.Infrastructure.Repositories;
 using System.Reflection;
 
@@ -15,6 +24,17 @@ namespace RacingLeagueHub.Infrastructure;
 
 public static class InfrastructureServiceRegistration
 {
+
+    public static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddDbContext<AdventureContext>(options =>
+                            options.UseNpgsql(configuration
+                                    .GetConnectionString("DefaultConnection"))
+                                    .UseSnakeCaseNamingConvention());
+
+        return services;
+
+    }
     public static IServiceCollection AddRepositories(this IServiceCollection services, params Assembly[] assemblies)
     {
         var targetAssemblies = assemblies.Length > 0
@@ -47,15 +67,35 @@ public static class InfrastructureServiceRegistration
 
         services.AddScoped<ITrackLayoutRepository, TrackLayoutRepository>();
         services.AddScoped<IUserRecoveryCodeRepository, UserRecoveryCodeRepository>();
+        services.AddScoped<IUserExternalLoginRepository, UserExternalLoginRepository>();
 
         return services;
     }
 
-    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<ITotpService, TotpService>();
         services.AddScoped<IPasswordHasher<UserRecoveryCode>, PasswordHasher<UserRecoveryCode>>();
         services.AddScoped<IRecoveryCodeService, RecoveryCodeService>();
+
+        services.Configure<GoogleAuthOptions>(configuration.GetSection("Authentication:Google"));
+        services.AddHttpClient<IGoogleOAuthService, GoogleOAuthService>();
+        services.AddScoped<ISsoStateService, SsoStateService>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddAwsStorage(this IServiceCollection services, IConfiguration configuration)
+    {
+        var s3ConfigurationSection = configuration.GetSection("S3");
+        services.Configure<S3Options>(s3ConfigurationSection);
+
+        services.AddAWSService<IAmazonS3>();
+
+        services.AddScoped<IResourceRepository, ResourceRepository>();
+
+        services.AddScoped<IStorageService, S3StorageService>();
+        services.AddScoped<IResourceService, ResourceService>();
 
         return services;
     }

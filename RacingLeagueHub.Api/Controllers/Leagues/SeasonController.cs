@@ -17,16 +17,16 @@ public class SeasonController : BaseController
 
     private readonly ISeasonRepository seasonRepository;
     private readonly ILeagueRepository leagueRepository;
-
-    private readonly IDtoMapper<Season, SeasonDto> DtoMapper =
-        new SeasonDtoMapper();
+    private readonly IDtoMapper<Season, SeasonDto> dtoMapper;
 
     public SeasonController(
         ISeasonRepository seasonRepository,
-        ILeagueRepository leagueRepository)
+        ILeagueRepository leagueRepository,
+        IDtoMapper<Season, SeasonDto> dtoMapper)
     {
         this.seasonRepository = seasonRepository;
         this.leagueRepository = leagueRepository;
+        this.dtoMapper = dtoMapper;
     }
 
     [HttpGet]
@@ -38,7 +38,7 @@ public class SeasonController : BaseController
     {
         var result = await seasonRepository.GetLeagueSeasonsAsync(
             leagueSlug,
-            DtoMapper.ToDtoExpression(),
+            dtoMapper.ToDtoExpression(),
             page,
             PageSize,
             ct);
@@ -56,7 +56,7 @@ public class SeasonController : BaseController
         var dto = await seasonRepository.GetBySlugAsync(
             leagueSlug,
             seasonSlug,
-            DtoMapper.ToDtoExpression(),
+            dtoMapper.ToDtoExpression(),
             ct);
 
         if (dto is null)
@@ -85,7 +85,7 @@ public class SeasonController : BaseController
 
         var entity = seasonRepository.Create();
 
-        DtoMapper.FromDto(entity, dto);
+        dtoMapper.FromDto(entity, dto);
 
         entity.LeagueId = league.Id;
 
@@ -123,7 +123,7 @@ public class SeasonController : BaseController
             (entity, seasonDto) =>
             {
                 var originalLeagueId = entity.LeagueId;
-                var changed = DtoMapper.FromDto(entity, seasonDto);
+                var changed = dtoMapper.FromDto(entity, seasonDto);
                 entity.LeagueId = originalLeagueId;
                 return changed;
             },

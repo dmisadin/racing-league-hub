@@ -15,16 +15,15 @@ namespace RacingLeagueHub.Api.Controllers.Admin;
 [ApiController]
 public class TrackController : GenericController<Track, TrackDto>
 {
-    public TrackController(IRepository<Track> genericRepository) : base(genericRepository)
+    public TrackController(IRepository<Track> repository,
+        IDtoMapper<Track, TrackDto> dtoMapper) : base(repository, dtoMapper)
     {
     }
-
-    protected override IDtoMapper<Track, TrackDto> DtoMapper => new TrackDtoMapper();
 
     [HttpGet("get-all")]
     public virtual async Task<ActionResult<List<TrackDto>>> GetAll()
     {
-        var dtos = await repository.GetAllAsync(DtoMapper.ToDtoExpression());
+        var dtos = await repository.GetAllAsync(dtoMapper.ToDtoExpression());
 
         if (dtos == null)
             return NotFound();
@@ -41,7 +40,7 @@ public class TrackController : GenericController<Track, TrackDto>
     [HttpGet("lookup")]
     public async Task<ActionResult<LookupDto>> GetLookup()
     {
-        var tracks = await repository.GetAllAsync(DtoMapper.ToDtoExpression());
+        var tracks = await repository.GetAllAsync(dtoMapper.ToDtoExpression());
 
         var lookups = tracks.Select(x => new LookupDto
         {

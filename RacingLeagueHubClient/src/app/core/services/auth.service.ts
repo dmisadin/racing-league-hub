@@ -73,7 +73,7 @@ export class AuthService {
                     this.clearPendingTwoFactor();
                     this.handleAuthResponse(res.auth);
                 })
-        );
+            );
     }
 
     loginWithTwoFactor(code: string, isRecoveryCode = false): Observable<AuthResponse> {
@@ -149,6 +149,13 @@ export class AuthService {
 
     resetPassword(payload: ResetPasswordRequest): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/reset-password`, payload);
+    }
+
+    refreshSession(): Observable<AuthResponse> {
+        return this.http.post<AuthResponse>(`${this.apiUrl}/refresh`, {}, { withCredentials: true })
+        .pipe(
+            tap(res => this.handleAuthResponse(res))
+        );
     }
 
     loadLeagueRoles(): void {

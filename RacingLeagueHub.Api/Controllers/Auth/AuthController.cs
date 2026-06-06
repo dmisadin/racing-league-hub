@@ -1,20 +1,41 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using RacingLeagueHub.Application.Dtos.Auth;
 using RacingLeagueHub.Application.Dtos.User;
 using RacingLeagueHub.Application.Models;
+using RacingLeagueHub.Application.Services.Abstractions;
 using RacingLeagueHub.Application.Services.Identity;
 using RacingLeagueHub.Domain.Abstractions;
+using RacingLeagueHub.Infrastructure.Configuration;
+using System.Security.Claims;
 
 namespace RacingLeagueHub.Api.Controllers.Auth;
 
 [ApiController]
 [Route("api/auth")]
-public class AuthController(IAuthService authService,
-    ILeagueUserRepository leagueUserRepository) : BaseController
+public class AuthController : BaseController
 {
+    private readonly IAuthService authService;
+    private readonly ILeagueUserRepository leagueUserRepository;
+    private readonly ISsoStateService ssoStateService;
+    private readonly IGoogleOAuthService googleOAuthService;
+    private readonly GoogleAuthOptions googleOptions;
+
+    public AuthController(IAuthService authService,
+        ILeagueUserRepository leagueUserRepository,
+        ISsoStateService ssoStateService,
+        IGoogleOAuthService googleOAuthService, 
+        IOptions<GoogleAuthOptions> googleOptions)
+    {
+        this.authService = authService;
+        this.leagueUserRepository = leagueUserRepository;
+        this.ssoStateService = ssoStateService;
+        this.googleOAuthService = googleOAuthService;
+        this.googleOptions = googleOptions.Value;
+    }
+
     [HttpPost("register")]
     [AllowAnonymous]
     public async Task<ActionResult<AuthResponse>> Register([FromBody] RegisterRequest registerDto, CancellationToken ct)
@@ -109,5 +130,57 @@ public class AuthController(IAuthService authService,
             );
 
         return Ok(leagueRoles);
+    }
+
+    [HttpGet("google/login")]
+    [AllowAnonymous]
+    public IActionResult GoogleLogin()
+    {
+        var state = ssoStateService.GenerateState();
+
+        ssoStateService.SetStateCookie(state);
+
+        var authorizationUrl = googleOAuthService.BuildAuthorizationUrl(state);
+
+        return Redirect(authorizationUrl);
+    }
+
+    [HttpGet("google/callback")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GoogleCallback(
+        [FromQuery] string? code,
+        [FromQuery] string? state,
+        [FromQuery] string? error,
+        CancellationToken ct)
+    {
+        var frontendCallbackUrl = googleOptions.FrontendCallbackUrl;
+
+        if (!string.IsNullOrWhiteSpace(error))
+        {
+            return Redirect($"{frontendCallbackUrl}?success=false&error=google_denied");
+        }
+
+        if (string.IsNullOrWhiteSpace(code))
+        {
+            return Redirect($"{frontendCallbackUrl}?success=false&error=missing_code");
+        }
+
+        if (!ssoStateService.ValidateAndClearState(state))
+        {
+            return Redirect($"{frontendCallbackUrl}?success=false&error=invalid_state");
+        }
+
+        try
+        {
+            var googleUser = await googleOAuthService.ExchangeCodeAsync(code, ct);
+
+            await authService.LoginWithGoogleAsync(googleUser, ct);
+
+            return Redirect($"{frontendCallbackUrl}?success=true");
+        }
+        catch
+        {
+            return Redirect($"{frontendCallbackUrl}?success=false&error=login_failed");
+        }
     }
 }

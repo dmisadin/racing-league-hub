@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
 using RacingLeagueHub.Application.DtoMappers;
+using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.Dtos.Track;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Abstractions.Admin;
@@ -16,12 +17,11 @@ public class TrackLayoutController : GenericController<TrackLayout, TrackLayoutD
 {
     private readonly ITrackLayoutRepository trackLayoutRepository;
 
-    public TrackLayoutController(ITrackLayoutRepository repository) : base(repository)
+    public TrackLayoutController(ITrackLayoutRepository repository,
+        IDtoMapper<TrackLayout, TrackLayoutDto> dtoMapper) : base(repository, dtoMapper)
     {
         this.trackLayoutRepository = repository;
     }
-
-    protected override IDtoMapper<TrackLayout, TrackLayoutDto> DtoMapper => new TrackLayoutDtoMapper();
 
     public override async Task<ActionResult<EncryptedId>> Update([FromRoute] EncryptedId id, [FromBody] TrackLayoutDto dto, CancellationToken ct = default)
     {
@@ -29,7 +29,7 @@ public class TrackLayoutController : GenericController<TrackLayout, TrackLayoutD
         if (trackId == null || trackId == 0)
             return BadRequest("Invalid ID.");
 
-        var entityId = await trackLayoutRepository.UpdateAsync(DtoMapper.FromDto, trackId.Value, dto, ct);
+        var entityId = await trackLayoutRepository.UpdateAsync(dtoMapper.FromDto, trackId.Value, dto, ct);
 
         if (entityId == null)
             return NotFound();

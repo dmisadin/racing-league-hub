@@ -14,11 +14,10 @@ namespace RacingLeagueHub.Api.Controllers.Admin;
 [ApiController]
 public class TeamController : GenericController<Team, TeamDto>
 {
-    public TeamController(IRepository<Team> genericRepository) : base(genericRepository)
+    public TeamController(IRepository<Team> repository,
+        IDtoMapper<Team, TeamDto> dtoMapper) : base(repository, dtoMapper)
     {
     }
-
-    protected override IDtoMapper<Team, TeamDto> DtoMapper => new TeamDtoMapper();
 
     public override Task<IActionResult> Delete([FromRoute] EncryptedId id, CancellationToken ct = default)
     {
@@ -28,7 +27,7 @@ public class TeamController : GenericController<Team, TeamDto>
     [HttpGet("get-all")]
     public virtual async Task<ActionResult<List<TeamDto>>> GetAll()
     {
-        var dtos = await repository.GetAllAsync(DtoMapper.ToDtoExpression());
+        var dtos = await repository.GetAllAsync(dtoMapper.ToDtoExpression());
 
         if (dtos == null)
             return NotFound();

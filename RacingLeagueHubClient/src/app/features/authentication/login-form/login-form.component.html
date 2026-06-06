@@ -21,8 +21,11 @@
                     <span class="loading loading-spinner loading-sm"></span>
                     }
                 </button>
-                <button type="button" class="btn btn-ghost w-full" routerLink="/auth/forgot-password"> Forgot password? </button>
+                <button type="button" class="btn btn-ghost w-full mb-8" routerLink="/auth/forgot-password"> Forgot password? </button>
             </div>
         </form>
+        <button type="button" class="btn btn-outline w-full mb-4" (click)="signInWithGoogle()">
+            Sign in with Google
+        </button>
     </div>
 </div>

@@ -6,7 +6,6 @@ using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Entities;
-using RacingLeagueHub.Domain.Entities.Seasons;
 
 namespace RacingLeagueHub.Api.Controllers.Leagues;
 
@@ -17,12 +16,13 @@ public class LeagueController : BaseController
     private const int PageSize = 10;
 
     private readonly ILeagueRepository leagueRepository;
+    private readonly IDtoMapper<League, LeagueDto> dtoMapper;
 
-    private readonly IDtoMapper<League, LeagueDto> DtoMapper = new LeagueDtoMapper();
-
-    public LeagueController(ILeagueRepository leagueRepository)
+    public LeagueController(ILeagueRepository leagueRepository,
+        IDtoMapper<League, LeagueDto> dtoMapper)
     {
         this.leagueRepository = leagueRepository;
+        this.dtoMapper = dtoMapper;
     }
 
     [HttpGet]
@@ -32,7 +32,7 @@ public class LeagueController : BaseController
         CancellationToken ct = default)
     {
         var result = await leagueRepository.GetPagedAsync(
-            DtoMapper.ToDtoExpression(),
+            dtoMapper.ToDtoExpression(),
             page,
             PageSize,
             ct);
@@ -48,7 +48,7 @@ public class LeagueController : BaseController
     {
         var dto = await leagueRepository.GetBySlugAsync(
             leagueSlug,
-            DtoMapper.ToDtoExpression(),
+            dtoMapper.ToDtoExpression(),
             ct);
 
         if (dto is null)
@@ -65,7 +65,7 @@ public class LeagueController : BaseController
     {
         var entity = leagueRepository.Create();
 
-        DtoMapper.FromDto(entity, dto);
+        dtoMapper.FromDto(entity, dto);
 
         await leagueRepository.InsertAsync(entity);
         await leagueRepository.CommitAsync(ct);
@@ -95,7 +95,7 @@ public class LeagueController : BaseController
             return BadRequest("Route league slug does not match body ID.");
 
         var updatedId = await leagueRepository.UpdateAsync(
-            DtoMapper.FromDto,
+            dtoMapper.FromDto,
             league.Id,
             dto);
 
