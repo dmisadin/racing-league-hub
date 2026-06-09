@@ -1,5 +1,6 @@
 using RacingLeagueHub.Api.Authorization;
 using RacingLeagueHub.Api.Configuration.Binders;
+using RacingLeagueHub.Api.Configuration.Cors;
 using RacingLeagueHub.Api.Configuration.Serialization;
 using RacingLeagueHub.Api.Middleware;
 using RacingLeagueHub.Application;
@@ -32,16 +33,7 @@ builder.Services.AddProblemDetails();
 
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AngularApp", policy =>
-    {
-        policy.WithOrigins("http://localhost:4200")
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials();
-    });
-});
+builder.Services.AddConfiguredCors(builder.Configuration);
 
 builder.Services.AddHttpContextAccessor();
 
@@ -57,7 +49,7 @@ app.UseHttpsRedirection();
 
 app.UseExceptionHandler();
 
-app.UseCors("AngularApp");
+app.UseCors(CorsPolicies.AngularApp);
 
 app.UseAuthentication();
 app.UseAuthorization();
