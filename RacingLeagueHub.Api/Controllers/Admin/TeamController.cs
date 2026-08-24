@@ -1,37 +1,69 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
-using RacingLeagueHub.Application.DtoMappers;
-using RacingLeagueHub.Application.Dtos.Team;
 using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Domain.Entities;
-using RacingLeagueHub.Domain.Infrastructure;
+using RacingLeagueHub.Application.Services.TeamService.Dtos;
 
 namespace RacingLeagueHub.Api.Controllers.Admin;
 
 [Authorize(Policy = AppPolicies.SuperAdmin)]
 [Route("api/team")]
-[ApiController]
-public class TeamController : GenericController<Team, TeamDto>
+public class TeamController : ApiController
 {
-    public TeamController(IRepository<Team> repository,
-        IDtoMapper<Team, TeamDto> dtoMapper) : base(repository, dtoMapper)
+    private readonly ITeamService teamService;
+
+    public TeamController(ITeamService teamService)
     {
+        this.teamService = teamService;
     }
 
-    public override Task<IActionResult> Delete([FromRoute] EncryptedId id, CancellationToken ct = default)
-    {
-        return Task.FromResult<IActionResult>(StatusCode(StatusCodes.Status403Forbidden));
-    }
 
-    [HttpGet("get-all")]
-    public virtual async Task<ActionResult<List<TeamDto>>> GetAll()
+    [HttpGet("{id}")]
+    public async Task<ActionResult<TeamDto>> GetById(EncryptedId id, CancellationToken ct)
     {
-        var dtos = await repository.GetAllAsync(dtoMapper.ToDtoExpression());
+        var team = await teamService.GetByIdAsync(id.RawId, ct);
 
-        if (dtos == null)
+        if (team is null)
             return NotFound();
 
-        return Ok(dtos);
+        return Ok(team);
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<IReadOnlyList<TeamDto>>> GetPaged([FromQuery] int page = 1, CancellationToken ct = default)
+    {
+        var teams = await teamService.GetPagedAsync(page, ct);
+
+        return Ok(teams);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<TeamDto>> AddTeam([FromBody] CreateTeamDto dto, CancellationToken ct)
+    {
+        var team = await teamService.AddAsync(dto, ct);
+
+        return CreatedAtAction(nameof(GetById), new { id = team.Id }, team);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<TeamDto>> UpdateTeam([FromRoute] EncryptedId id, [FromBody] UpdateTeamDto dto, CancellationToken ct)
+    {
+        var team = await teamService.UpdateAsync(id.RawId, dto, ct);
+
+        if (team is null)
+            return NotFound();
+
+        return Ok(team);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteTeam(EncryptedId id, CancellationToken ct)
+    {
+        var deleted = await teamService.DeleteAsync(id.RawId, ct);
+
+        if (!deleted)
+            return NotFound();
+
+        return NoContent();
     }
 }

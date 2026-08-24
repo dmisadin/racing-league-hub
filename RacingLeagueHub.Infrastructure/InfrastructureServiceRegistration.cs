@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RacingLeagueHub.Application.Services;
 using RacingLeagueHub.Application.Services.Abstractions;
+using RacingLeagueHub.Application.Services.Infrastructure;
 using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Abstractions.Admin;
 using RacingLeagueHub.Domain.Abstractions.Repositories;
@@ -15,6 +16,7 @@ using RacingLeagueHub.Domain.Services.Interfaces;
 using RacingLeagueHub.Infrastructure.Auth;
 using RacingLeagueHub.Infrastructure.Auth.SSO;
 using RacingLeagueHub.Infrastructure.Configuration;
+using RacingLeagueHub.Infrastructure.Persistence;
 using RacingLeagueHub.Infrastructure.Repositories;
 using RacingLeagueHub.Infrastructure.Services;
 using RacingSeasonHub.Infrastructure.Repositories;
@@ -31,6 +33,11 @@ public static class InfrastructureServiceRegistration
                             options.UseNpgsql(configuration
                                     .GetConnectionString("DefaultConnection"))
                                     .UseSnakeCaseNamingConvention());
+
+        services.AddDbContext<IRacingContext, RacingContext>(options =>
+                    options.UseNpgsql(configuration
+                            .GetConnectionString("DefaultConnection"))
+                            .UseSnakeCaseNamingConvention());
 
         return services;
 
