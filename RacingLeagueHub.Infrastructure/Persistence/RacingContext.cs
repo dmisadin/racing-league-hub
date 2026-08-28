@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.Application.Services.Infrastructure;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Entities.Authentication;
 using RacingLeagueHub.Domain.Entities.GrandsPrix;
@@ -9,7 +8,7 @@ using RacingLeagueHub.Domain.Entities.Stewarding;
 
 namespace RacingLeagueHub.Infrastructure.Persistence;
 
-internal class RacingContext : DbContext, IRacingContext
+internal class RacingContext : DbContext
 {
     public DbSet<User> User => Set<User>();
 

@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RacingLeagueHub.Application.Services;
 using RacingLeagueHub.Application.Services.Abstractions;
 using RacingLeagueHub.Application.Services.Infrastructure;
+using RacingLeagueHub.Application.Services.TeamService.Persistence;
 using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Abstractions.Admin;
 using RacingLeagueHub.Domain.Abstractions.Repositories;
@@ -17,6 +17,7 @@ using RacingLeagueHub.Infrastructure.Auth;
 using RacingLeagueHub.Infrastructure.Auth.SSO;
 using RacingLeagueHub.Infrastructure.Configuration;
 using RacingLeagueHub.Infrastructure.Persistence;
+using RacingLeagueHub.Infrastructure.Persistence.Teams;
 using RacingLeagueHub.Infrastructure.Repositories;
 using RacingLeagueHub.Infrastructure.Services;
 using RacingSeasonHub.Infrastructure.Repositories;
@@ -34,14 +35,14 @@ public static class InfrastructureServiceRegistration
                                     .GetConnectionString("DefaultConnection"))
                                     .UseSnakeCaseNamingConvention());
 
-        services.AddDbContext<IRacingContext, RacingContext>(options =>
+        services.AddDbContext<RacingContext>(options =>
                     options.UseNpgsql(configuration
                             .GetConnectionString("DefaultConnection"))
                             .UseSnakeCaseNamingConvention());
 
         return services;
-
     }
+
     public static IServiceCollection AddRepositories(this IServiceCollection services, params Assembly[] assemblies)
     {
         var targetAssemblies = assemblies.Length > 0
@@ -103,6 +104,14 @@ public static class InfrastructureServiceRegistration
 
         services.AddScoped<IStorageService, S3StorageService>();
         services.AddScoped<IResourceService, ResourceService>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddQueriesAndCommands(this IServiceCollection services)
+    {
+        services.AddScoped<ITeamQueries, TeamQueries>();
+        services.AddScoped<ITeamCommands, TeamCommands>();
 
         return services;
     }

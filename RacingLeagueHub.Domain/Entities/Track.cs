@@ -3,7 +3,7 @@
 public class Track : EntityBase
 {
     public string Name { get; set; }
-    public string Country { get; set; }
+    public string Country { get; set; } // TODO šifrarnik
     public string City { get; set; }
     public string? ShortName { get; set; }
 
