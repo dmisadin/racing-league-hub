@@ -3,7 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
 using RacingLeagueHub.Application.DtoMappers;
 using RacingLeagueHub.Application.Dtos;
-using RacingLeagueHub.Application.Dtos.Track;
+using RacingLeagueHub.Application.Models;
+using RacingLeagueHub.Application.Services.TrackService;
+using RacingLeagueHub.Application.Services.TrackService.Dtos;
+using RacingLeagueHub.Application.Services.TrackService.Dtos;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Infrastructure;
 using RacingLeagueHub.Domain.Models.Constants;
@@ -12,14 +15,64 @@ namespace RacingLeagueHub.Api.Controllers.Admin;
 
 [Authorize(Policy = AppPolicies.SuperAdmin)]
 [Route("api/track")]
-[ApiController]
-public class TrackController : GenericController<Track, TrackDto>
+public class TrackController : ApiController
 {
-    public TrackController(IRepository<Track> repository,
-        IDtoMapper<Track, TrackDto> dtoMapper) : base(repository, dtoMapper)
+    private readonly ITrackService trackService;
+
+    public TrackController(ITrackService trackService)
     {
+        this.trackService = trackService;
     }
 
+    [HttpGet("{id}")]
+    public async Task<ActionResult<TrackDto>> GetById(EncryptedId id, CancellationToken ct)
+    {
+        var track = await trackService.GetByIdAsync(id.RawId, ct);
+
+        if (track is null)
+            return NotFound();
+
+        return Ok(track);
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<IReadOnlyList<TrackDto>>> GetPaged([FromQuery] int page = 1, CancellationToken ct = default)
+    {
+        var tracks = await trackService.GetPagedAsync(page, ct);
+
+        return Ok(tracks);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<TrackDto>> AddTrack([FromBody] CreateTrackDto dto, CancellationToken ct)
+    {
+        var track = await trackService.AddAsync(dto, ct);
+
+        return CreatedAtAction(nameof(GetById), new { id = track.Id }, track);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<TrackDto>> UpdateTrack([FromRoute] EncryptedId id, [FromBody] UpdateTrackDto dto, CancellationToken ct)
+    {
+        var track = await trackService.UpdateAsync(id.RawId, dto, ct);
+
+        if (track is null)
+            return NotFound();
+
+        return Ok(track);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteTrack(EncryptedId id, CancellationToken ct)
+    {
+        var deleted = await trackService.DeleteAsync(id.RawId, ct);
+
+        if (!deleted)
+            return NotFound();
+
+        return NoContent();
+    }
+    /*
     [HttpGet("get-all")]
     public virtual async Task<ActionResult<List<TrackDto>>> GetAll()
     {
@@ -50,4 +103,5 @@ public class TrackController : GenericController<Track, TrackDto>
 
         return Ok(lookups);
     }
+    */
 }

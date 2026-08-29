@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RacingLeagueHub.Application.Services.Abstractions;
 using RacingLeagueHub.Application.Services.Infrastructure;
 using RacingLeagueHub.Application.Services.TeamService.Persistence;
+using RacingLeagueHub.Application.Services.TrackService.Persistence;
 using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Abstractions.Admin;
 using RacingLeagueHub.Domain.Abstractions.Repositories;
@@ -112,6 +113,8 @@ public static class InfrastructureServiceRegistration
     {
         services.AddScoped<ITeamQueries, TeamQueries>();
         services.AddScoped<ITeamCommands, TeamCommands>();
+        services.AddScoped<ITrackQueries, TrackQueries>();
+        services.AddScoped<ITrackCommands, TrackCommands>();
 
         return services;
     }
