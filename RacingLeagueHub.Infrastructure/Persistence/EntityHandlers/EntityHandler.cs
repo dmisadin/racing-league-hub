@@ -1,22 +1,29 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
 using RacingLeagueHub.Domain.Entities;
 
-namespace RacingLeagueHub.Domain.Interceptors.EntityHandlers;
+namespace RacingLeagueHub.Infrastructure.Persistence.EntityHandlers;
 
-public abstract class EntityHandler<TEntity> : IEntityHandler
+internal abstract class EntityHandler<TEntity> : IEntityHandler
     where TEntity : class, IEntity
 {
+    protected readonly RacingContext racingContext;
+
+    public EntityHandler(RacingContext racingContext)
+    {
+        this.racingContext = racingContext;
+    }
+
     public virtual int Order => 0;
     public virtual bool CanHandle(Type entityType) => typeof(TEntity).IsAssignableFrom(entityType);
 
-    public void BeforeUpdate(IEntity entity, IEntity originalEntity, DbContext db)
+    public void BeforeUpdate(IEntity entity, IEntity originalEntity)
     {
-        BeforeUpdated(entity as TEntity, originalEntity as TEntity, db);
+        BeforeUpdated(entity as TEntity, originalEntity as TEntity);
     }
 
-    public void AfterUpdate(IEntity entity, IEntity originalEntity, DbContext db)
+    public void AfterUpdate(IEntity entity, IEntity originalEntity)
     {
-        AfterUpdated(entity as TEntity, originalEntity as TEntity, db);
+        AfterUpdated(entity as TEntity, originalEntity as TEntity);
     }
 
     public void BeforeAdded(IEntity entity)
@@ -43,8 +50,8 @@ public abstract class EntityHandler<TEntity> : IEntityHandler
     {
     }
 
-    public virtual void BeforeUpdated(TEntity entity, TEntity originalEntity, DbContext db) { }
-    public virtual void AfterUpdated(TEntity entity, TEntity originalEntity, DbContext db) { }
+    public virtual void BeforeUpdated(TEntity entity, TEntity originalEntity) { }
+    public virtual void AfterUpdated(TEntity entity, TEntity originalEntity) { }
     public virtual void BeforeAdded(TEntity entity) { }
     public virtual void AfterAdded(TEntity entity) { }
     public virtual void BeforeDeleted(TEntity entity) { }

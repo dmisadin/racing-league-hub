@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using RacingLeagueHub.Application.DtoMappers;
+using RacingLeagueHub.Application.Services.GameTeamService;
 using RacingLeagueHub.Application.Services.Identity;
 using RacingLeagueHub.Application.Services.TeamService;
 using RacingLeagueHub.Application.Services.TrackService;
@@ -28,6 +29,7 @@ public static class ApplicationServiceRegistration
     private static IServiceCollection AddBusinessLogicServices(this IServiceCollection services)
     {
         services.AddScoped<ITeamService, TeamService>();
+        services.AddScoped<IGameTeamService, GameTeamService>();
         services.AddScoped<ITrackService, TrackService>();
 
         return services;

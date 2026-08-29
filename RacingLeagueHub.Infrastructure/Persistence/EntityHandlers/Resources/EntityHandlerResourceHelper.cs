@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.Domain.Entities.Resources;
 
-namespace RacingLeagueHub.Domain.Interceptors.EntityHandlers.Resources;
+namespace RacingLeagueHub.Infrastructure.Persistence.EntityHandlers.Resources;
 
 public class EntityHandlerResourceHelper(DbContext db)
 {

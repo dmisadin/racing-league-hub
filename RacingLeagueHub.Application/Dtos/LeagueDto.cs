@@ -1,5 +1,4 @@
-﻿using RacingLeagueHub.Application.Dtos.Resource;
-using RacingLeagueHub.Application.Models;
+﻿using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Models.Enums;
 
 namespace RacingLeagueHub.Application.Dtos;

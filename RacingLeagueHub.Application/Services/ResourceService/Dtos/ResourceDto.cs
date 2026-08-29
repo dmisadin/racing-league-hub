@@ -1,4 +1,6 @@
-﻿namespace RacingLeagueHub.Application.Dtos.Resource;
+﻿using RacingLeagueHub.Application.Dtos;
+
+namespace RacingLeagueHub.Application.Services.ResourceService.Dtos;
 
 public class ResourceDto : BaseDto
 {

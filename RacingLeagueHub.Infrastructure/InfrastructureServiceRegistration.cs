@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RacingLeagueHub.Application.Services.Abstractions;
-using RacingLeagueHub.Application.Services.Infrastructure;
+using RacingLeagueHub.Application.Services.GameTeamService.Persistence;
+using RacingLeagueHub.Application.Services.ResourceService;
+using RacingLeagueHub.Application.Services.ResourceService.Persistence;
 using RacingLeagueHub.Application.Services.TeamService.Persistence;
 using RacingLeagueHub.Application.Services.TrackService.Persistence;
 using RacingLeagueHub.Domain.Abstractions;
@@ -18,6 +20,9 @@ using RacingLeagueHub.Infrastructure.Auth;
 using RacingLeagueHub.Infrastructure.Auth.SSO;
 using RacingLeagueHub.Infrastructure.Configuration;
 using RacingLeagueHub.Infrastructure.Persistence;
+using RacingLeagueHub.Infrastructure.Persistence.EntityHandlers;
+using RacingLeagueHub.Infrastructure.Persistence.GameTeams;
+using RacingLeagueHub.Infrastructure.Persistence.Resources;
 using RacingLeagueHub.Infrastructure.Persistence.Teams;
 using RacingLeagueHub.Infrastructure.Repositories;
 using RacingLeagueHub.Infrastructure.Services;
@@ -109,12 +114,37 @@ public static class InfrastructureServiceRegistration
         return services;
     }
 
+    public static IServiceCollection AddEntityHandlers(this IServiceCollection services, params Assembly[] assemblies)
+    {
+        var targetAssemblies = assemblies.Length > 0
+            ? assemblies
+            : [typeof(InfrastructureServiceRegistration).Assembly];
+
+        var handlerTypes = targetAssemblies
+            .SelectMany(a => a.GetTypes())
+            .Where(t => !t.IsAbstract && !t.IsInterface)
+            .Where(t =>
+                t.BaseType is { IsGenericType: true } 
+                && t.BaseType.GetGenericTypeDefinition() == typeof(EntityHandler<>));
+
+        foreach (var handlerType in handlerTypes)
+        {
+            services.AddScoped(typeof(IEntityHandler), handlerType);
+        }
+
+        return services;
+    }
+
     public static IServiceCollection AddQueriesAndCommands(this IServiceCollection services)
     {
         services.AddScoped<ITeamQueries, TeamQueries>();
         services.AddScoped<ITeamCommands, TeamCommands>();
+        services.AddScoped<IGameTeamQueries, GameTeamQueries>();
+        services.AddScoped<IGameTeamCommands, GameTeamCommands>();
         services.AddScoped<ITrackQueries, TrackQueries>();
         services.AddScoped<ITrackCommands, TrackCommands>();
+        services.AddScoped<IResourceQueries, ResourceQueries>();
+        services.AddScoped<IResourceCommands, ResourceCommands>();
 
         return services;
     }
