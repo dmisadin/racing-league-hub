@@ -1,6 +1,7 @@
-﻿using RacingLeagueHub.Application.Dtos.Track;
+﻿using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Services.TrackService.Dtos;
+using RacingLeagueHub.Application.TrackLayouts.Dtos;
 using RacingLeagueHub.Domain.Entities;
 using System.Linq.Expressions;
 
@@ -11,7 +12,7 @@ public class TrackDtoMapper : DtoMapperBase<Track, TrackDto>
     public override bool FromDto(Track entity, TrackDto dto)
     {
         entity.Name = dto.Name;
-        entity.Country = dto.CountryAlpha2;
+        // entity.Country = dto.CountryAlpha2; stop using this
         entity.City = dto.City;
         entity.ShortName = dto.ShortName;
 
@@ -24,7 +25,7 @@ public class TrackDtoMapper : DtoMapperBase<Track, TrackDto>
         {
             Id = new EncryptedId(track.Id),
             Name = track.Name,
-            CountryAlpha2 = track.Country,
+            Country = new CountryDto(track.Country.Id, track.Country.CodeAlpha2, track.Country.Name),
             City = track.City,
             ShortName = track.ShortName,
             TrackLayouts = track.TrackLayouts.Select(tl => new TrackLayoutDto

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.Application.Dtos.Track;
+using RacingLeagueHub.Application.TrackLayouts.Dtos;
 using RacingLeagueHub.Domain.Abstractions.Admin;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Models.Enums;

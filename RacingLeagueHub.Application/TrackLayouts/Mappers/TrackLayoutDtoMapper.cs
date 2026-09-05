@@ -1,9 +1,10 @@
-﻿using RacingLeagueHub.Application.Dtos.Track;
+﻿using RacingLeagueHub.Application.DtoMappers;
 using RacingLeagueHub.Application.Models;
+using RacingLeagueHub.Application.TrackLayouts.Dtos;
 using RacingLeagueHub.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Application.DtoMappers;
+namespace RacingLeagueHub.Application.TrackLayouts.Mappers;
 
 public class TrackLayoutDtoMapper : DtoMapperBase<TrackLayout, TrackLayoutDto>
 {

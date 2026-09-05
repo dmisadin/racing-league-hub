@@ -9,6 +9,7 @@ using RacingLeagueHub.Application.Services.ResourceService;
 using RacingLeagueHub.Application.Services.ResourceService.Persistence;
 using RacingLeagueHub.Application.Services.TeamService.Persistence;
 using RacingLeagueHub.Application.Services.TrackService.Persistence;
+using RacingLeagueHub.Application.TrackLayouts.Persistence;
 using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Abstractions.Admin;
 using RacingLeagueHub.Domain.Abstractions.Repositories;
@@ -24,6 +25,7 @@ using RacingLeagueHub.Infrastructure.Persistence.EntityHandlers;
 using RacingLeagueHub.Infrastructure.Persistence.GameTeams;
 using RacingLeagueHub.Infrastructure.Persistence.Resources;
 using RacingLeagueHub.Infrastructure.Persistence.Teams;
+using RacingLeagueHub.Infrastructure.Persistence.TrackLayouts;
 using RacingLeagueHub.Infrastructure.Repositories;
 using RacingLeagueHub.Infrastructure.Services;
 using RacingSeasonHub.Infrastructure.Repositories;
@@ -79,7 +81,6 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<IPasswordResetTokenRepository, PasswordResetTokenRepository>();
         services.AddScoped<ILeagueUserRepository, LeagueUserRepository>();
 
-        services.AddScoped<ITrackLayoutRepository, TrackLayoutRepository>();
         services.AddScoped<IUserRecoveryCodeRepository, UserRecoveryCodeRepository>();
         services.AddScoped<IUserExternalLoginRepository, UserExternalLoginRepository>();
 
@@ -143,6 +144,8 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<IGameTeamCommands, GameTeamCommands>();
         services.AddScoped<ITrackQueries, TrackQueries>();
         services.AddScoped<ITrackCommands, TrackCommands>();
+        services.AddScoped<ITrackLayoutQueries, TrackLayoutQueries>();
+        services.AddScoped<ITrackLayoutCommands, TrackLayoutCommands>();
         services.AddScoped<IResourceQueries, ResourceQueries>();
         services.AddScoped<IResourceCommands, ResourceCommands>();
 
