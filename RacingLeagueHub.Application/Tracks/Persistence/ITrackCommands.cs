@@ -1,6 +1,6 @@
-﻿using RacingLeagueHub.Application.Services.TrackService.Dtos;
+﻿using RacingLeagueHub.Application.Tracks.Dtos;
 
-namespace RacingLeagueHub.Application.Services.TrackService.Persistence;
+namespace RacingLeagueHub.Application.Tracks.Persistence;
 
 public interface ITrackCommands
 {

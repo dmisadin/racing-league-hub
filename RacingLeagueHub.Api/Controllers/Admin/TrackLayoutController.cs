@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
 using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Application.TrackLayoutService;
-using RacingLeagueHub.Application.TrackLayoutService.Dtos;
+using RacingLeagueHub.Application.TrackLayouts;
+using RacingLeagueHub.Application.TrackLayouts.Dtos;
 
 namespace RacingLeagueHub.Api.Controllers.Admin;
 

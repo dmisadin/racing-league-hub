@@ -1,7 +1,7 @@
 ﻿using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.TrackLayouts.Dtos;
 
-namespace RacingLeagueHub.Application.Services.TrackService.Dtos;
+namespace RacingLeagueHub.Application.Tracks.Dtos;
 
 public class TrackDto : BaseDto
 {

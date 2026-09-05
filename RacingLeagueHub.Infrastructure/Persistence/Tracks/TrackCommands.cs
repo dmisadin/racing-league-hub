@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.Application.DtoMappers;
-using RacingLeagueHub.Application.Services.TrackService.Dtos;
-using RacingLeagueHub.Application.Services.TrackService.Persistence;
+using RacingLeagueHub.Application.Tracks.Dtos;
+using RacingLeagueHub.Application.Tracks.Persistence;
 using RacingLeagueHub.Domain.Entities;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.Teams;
@@ -36,9 +36,7 @@ internal class TrackCommands : ITrackCommands
     public async Task<TrackDto?> UpdateAsync(long id, UpdateTrackDto dto, CancellationToken ct)
     {
         var track = await racingContext.Track
-            .SingleOrDefaultAsync(
-                t => t.Id == id,
-                ct);
+            .SingleOrDefaultAsync(t => t.Id == id, ct);
 
         if (track is null)
             return null;
@@ -53,9 +51,7 @@ internal class TrackCommands : ITrackCommands
     public async Task<bool> DeleteAsync(long id, CancellationToken ct)
     {
         var track = await racingContext.Track
-            .SingleOrDefaultAsync(
-                t => t.Id == id,
-                ct);
+            .SingleOrDefaultAsync(t => t.Id == id, ct);
 
         if (track is null)
             return false;

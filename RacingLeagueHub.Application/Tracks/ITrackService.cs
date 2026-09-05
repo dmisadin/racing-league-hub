@@ -1,8 +1,7 @@
 ﻿using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Application.Services.TeamService.Dtos;
-using RacingLeagueHub.Application.Services.TrackService.Dtos;
+using RacingLeagueHub.Application.Tracks.Dtos;
 
-namespace RacingLeagueHub.Application.Services.TrackService;
+namespace RacingLeagueHub.Application.Tracks;
 
 public interface ITrackService
 {

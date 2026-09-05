@@ -4,9 +4,9 @@ using RacingLeagueHub.Application.DtoMappers;
 using RacingLeagueHub.Application.Services.GameTeamService;
 using RacingLeagueHub.Application.Services.Identity;
 using RacingLeagueHub.Application.Services.TeamService;
-using RacingLeagueHub.Application.Services.TrackService;
 using RacingLeagueHub.Application.Services.TwoFactorAuthentication;
 using RacingLeagueHub.Application.TrackLayouts;
+using RacingLeagueHub.Application.Tracks;
 using RacingLeagueHub.Domain.Entities;
 
 namespace RacingLeagueHub.Application;
