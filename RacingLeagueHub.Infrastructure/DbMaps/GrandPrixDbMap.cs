@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RacingLeagueHub.Domain.Entities.GrandsPrix;
 
 namespace RacingLeagueHub.Infrastructure.DbMaps;

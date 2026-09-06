@@ -1,9 +1,12 @@
-﻿using RacingLeagueHub.Application.Dtos;
+﻿using RacingLeagueHub.Application.Drivers.Dtos;
+using RacingLeagueHub.Application.DtoMappers;
+using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Entities;
+using System.Diagnostics;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Application.DtoMappers;
+namespace RacingLeagueHub.Application.Drivers.Mappers;
 
 public class DriverDtoMapper : DtoMapperBase<Driver, DriverDto>
 {
@@ -12,7 +15,7 @@ public class DriverDtoMapper : DtoMapperBase<Driver, DriverDto>
         entity.Nickname = dto.Nickname;
         entity.FirstName = dto.FirstName;
         entity.LastName = dto.LastName;
-        entity.Country = dto.Country;
+        //entity.DcCountryId = dto.Country; stop using this
         entity.Slug = string.IsNullOrEmpty(dto.Slug) ? dto.Nickname : dto.Slug;
 
         return true;
@@ -26,7 +29,9 @@ public class DriverDtoMapper : DtoMapperBase<Driver, DriverDto>
             Nickname = driver.Nickname,
             FirstName = driver.FirstName,
             LastName = driver.LastName,
-            Country = driver.Country,
+            Country = driver.Country == null
+                ? null    
+                : new CountryDto(driver.Country.Id, driver.Country.CodeAlpha2, driver.Country.Name),
             Slug = driver.Slug
         };
     }

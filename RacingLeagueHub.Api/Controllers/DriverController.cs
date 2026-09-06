@@ -1,5 +1,5 @@
-﻿using RacingLeagueHub.Application.DtoMappers;
-using RacingLeagueHub.Application.Dtos;
+﻿using RacingLeagueHub.Application.Drivers.Dtos;
+using RacingLeagueHub.Application.DtoMappers;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Infrastructure;
 

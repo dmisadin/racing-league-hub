@@ -1,10 +1,12 @@
-﻿namespace RacingLeagueHub.Application.Dtos;
+﻿using RacingLeagueHub.Application.Dtos;
+
+namespace RacingLeagueHub.Application.Drivers.Dtos;
 
 public class DriverDto : BaseDto
 {
     public string Nickname { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
-    public string Country { get; set; }
+    public CountryDto? Country { get; set; }
     public string Slug { get; set; }
 }

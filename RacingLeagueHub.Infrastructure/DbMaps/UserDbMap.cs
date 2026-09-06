@@ -16,6 +16,10 @@ public class UserDbMap : DbMapBase<User>
             .WithOne(d => d.User)
             .HasForeignKey<User>(x => x.DriverId);
 
+        builder.HasOne(x => x.DcCountry)
+            .WithOne()
+            .HasForeignKey<User>(x => x.CountryId);
+
         builder.HasMany(x => x.RefreshTokens)
             .WithOne(rt => rt.User)
             .HasForeignKey(rt => rt.UserId)

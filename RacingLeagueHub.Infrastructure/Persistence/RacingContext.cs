@@ -44,7 +44,7 @@ internal class RacingContext : DbContext
 
     public DbSet<TrackLayoutGame> TrackLayoutGame => Set<TrackLayoutGame>();
 
-    public DbSet<Country> Country => Set<Country>();
+    public DbSet<DcCountry> Country => Set<DcCountry>();
 
     public DbSet<Incident> Incident => Set<Incident>();
 
