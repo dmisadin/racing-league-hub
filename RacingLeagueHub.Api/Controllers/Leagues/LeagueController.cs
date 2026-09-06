@@ -11,7 +11,7 @@ namespace RacingLeagueHub.Api.Controllers.Leagues;
 
 
 [Route("api/leagues")]
-public class LeagueController : BaseController
+public class LeagueController : ApiController
 {
     private const int PageSize = 10;
 

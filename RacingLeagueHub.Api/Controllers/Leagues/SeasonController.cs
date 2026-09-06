@@ -9,9 +9,8 @@ using RacingLeagueHub.Domain.Entities.Seasons;
 
 namespace RacingLeagueHub.Api.Controllers.Leagues;
 
-[ApiController]
 [Route("api/leagues/{leagueSlug}/seasons")]
-public class SeasonController : BaseController
+public class SeasonController : ApiController
 {
     private const int PageSize = 10;
 

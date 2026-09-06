@@ -8,7 +8,7 @@ namespace RacingLeagueHub.Api.Controllers.Auth;
 
 [Route("api/account/2fa")]
 [Authorize]
-public class TwoFactorAuthenticationController : BaseController
+public class TwoFactorAuthenticationController : ApiController
 {
     private readonly ITwoFactorService twoFactorService;
 

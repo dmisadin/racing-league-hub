@@ -4,10 +4,10 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using RacingLeagueHub.Application.Dtos.Auth;
 using RacingLeagueHub.Application.Dtos.User;
-using RacingLeagueHub.Application.Models;
+using RacingLeagueHub.Application.LeagueUsers.Dtos;
+using RacingLeagueHub.Application.LeagueUsers.Persistence;
 using RacingLeagueHub.Application.Services.Abstractions;
 using RacingLeagueHub.Application.Services.Identity;
-using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Infrastructure.Configuration;
 using System.Security.Claims;
 
@@ -15,22 +15,22 @@ namespace RacingLeagueHub.Api.Controllers.Auth;
 
 [ApiController]
 [Route("api/auth")]
-public class AuthController : BaseController
+public class AuthController : ApiController
 {
     private readonly IAuthService authService;
-    private readonly ILeagueUserRepository leagueUserRepository;
+    private readonly ILeagueUserQueries leagueUserQueries;
     private readonly ISsoStateService ssoStateService;
     private readonly IGoogleOAuthService googleOAuthService;
     private readonly GoogleAuthOptions googleOptions;
 
     public AuthController(IAuthService authService,
-        ILeagueUserRepository leagueUserRepository,
+        ILeagueUserQueries leagueUserQueries,
         ISsoStateService ssoStateService,
         IGoogleOAuthService googleOAuthService, 
         IOptions<GoogleAuthOptions> googleOptions)
     {
         this.authService = authService;
-        this.leagueUserRepository = leagueUserRepository;
+        this.leagueUserQueries = leagueUserQueries;
         this.ssoStateService = ssoStateService;
         this.googleOAuthService = googleOAuthService;
         this.googleOptions = googleOptions.Value;
@@ -111,16 +111,17 @@ public class AuthController : BaseController
     
     [HttpGet("me/league-roles")]
     [Authorize]
-    public async Task<ActionResult<UserLeagueRolesDto>> GetMyLeagueRoles()
+    public async Task<ActionResult<LeagueUserRolesDto>> GetMyLeagueRoles(CancellationToken ct)
     {
         var userId = GetCurrentUserId();
 
-        var leagues = await leagueUserRepository.GetAllLeagueRolesForUser(userId);
+        var leagues = await leagueUserQueries.GetAllLeagueRolesForUserAsync(userId, ct);
 
         var leagueRoles = leagues
             .Select(l => 
-                new UserLeagueRolesDto(
-                    new EncryptedId(l.LeagueId), 
+                new LeagueUserRolesDto(
+                    l.UserId,
+                    l.LeagueId, 
                     l.League.Slug,
                     l.IsOwner, 
                     l.IsAdmin, 
