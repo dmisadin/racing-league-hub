@@ -1,9 +1,10 @@
-﻿using RacingLeagueHub.Application.GrandsPrix.Dtos;
+﻿using RacingLeagueHub.Application.DtoMappers;
+using RacingLeagueHub.Application.GrandsPrix.Dtos;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Entities.GrandsPrix;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Application.DtoMappers;
+namespace RacingLeagueHub.Application.GrandsPrix.Mappers;
 
 public class GrandPrixDtoMapper : DtoMapperBase<GrandPrix, GrandPrixDto>
 {

@@ -46,9 +46,9 @@ internal class GrandPrixCommands : IGrandPrixCommands
     {
         var entity = await racingContext.GrandPrix
             .FirstOrDefaultAsync(x =>
-                x.Slug == grandPrixSlug &&
-                x.Season.Slug == seasonSlug &&
-                x.Season.League.Slug == leagueSlug,
+                x.Slug == grandPrixSlug
+                && x.Season.Slug == seasonSlug
+                && x.Season.League.Slug == leagueSlug,
                 ct);
 
         if (entity is null)
@@ -73,9 +73,9 @@ internal class GrandPrixCommands : IGrandPrixCommands
     {
         return await racingContext.GrandPrix
             .Where(x =>
-                x.Slug == grandPrixSlug &&
-                x.Season.Slug == seasonSlug &&
-                x.Season.League.Slug == leagueSlug)
+                x.Slug == grandPrixSlug 
+                && x.Season.Slug == seasonSlug 
+                && x.Season.League.Slug == leagueSlug)
             .ExecuteDeleteAsync(ct);
     }
 }

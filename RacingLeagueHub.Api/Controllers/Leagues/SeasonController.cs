@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
-using RacingLeagueHub.Application.DtoMappers;
-using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Domain.Abstractions;
-using RacingLeagueHub.Domain.Entities.Seasons;
+using RacingLeagueHub.Application.Seasons;
+using RacingLeagueHub.Application.Seasons.Dtos;
+using RacingLeagueHub.Application.Seasons.Persistence;
 
 namespace RacingLeagueHub.Api.Controllers.Leagues;
 
@@ -14,18 +13,16 @@ public class SeasonController : ApiController
 {
     private const int PageSize = 10;
 
-    private readonly ISeasonRepository seasonRepository;
-    private readonly ILeagueRepository leagueRepository;
-    private readonly IDtoMapper<Season, SeasonDto> dtoMapper;
+    private readonly ISeasonQueries seasonQueries;
+    private readonly ISeasonCommands seasonCommands;
 
     public SeasonController(
-        ISeasonRepository seasonRepository,
-        ILeagueRepository leagueRepository,
-        IDtoMapper<Season, SeasonDto> dtoMapper)
+        ISeasonQueries seasonQueries,
+        ISeasonCommands seasonCommands,
+        ISeasonService seasonService)
     {
-        this.seasonRepository = seasonRepository;
-        this.leagueRepository = leagueRepository;
-        this.dtoMapper = dtoMapper;
+        this.seasonQueries = seasonQueries;
+        this.seasonCommands = seasonCommands;
     }
 
     [HttpGet]
@@ -35,9 +32,8 @@ public class SeasonController : ApiController
         [FromQuery] int page = 1,
         CancellationToken ct = default)
     {
-        var result = await seasonRepository.GetLeagueSeasonsAsync(
+        var result = await seasonQueries.GetLeagueSeasonsAsync(
             leagueSlug,
-            dtoMapper.ToDtoExpression(),
             page,
             PageSize,
             ct);
@@ -52,10 +48,9 @@ public class SeasonController : ApiController
         [FromRoute] string seasonSlug,
         CancellationToken ct = default)
     {
-        var dto = await seasonRepository.GetBySlugAsync(
+        var dto = await seasonQueries.GetBySlugAsync(
             leagueSlug,
             seasonSlug,
-            dtoMapper.ToDtoExpression(),
             ct);
 
         if (dto is null)
@@ -66,73 +61,30 @@ public class SeasonController : ApiController
 
     [HttpPost]
     [Authorize(Policy = LeaguePolicies.LeagueEditor)]
-    public async Task<ActionResult<EncryptedId>> Create(
+    public async Task<ActionResult<SeasonDto>> Create(
         [FromRoute] string leagueSlug,
-        [FromBody] SeasonDto dto,
+        [FromBody] CreateSeasonDto createDto,
         CancellationToken ct = default)
     {
-        var league = await leagueRepository.GetBySlugAsync(
-            leagueSlug,
-            x => new
-            {
-                x.Id
-            },
-            ct);
+        var seasonDto = await seasonCommands.AddAsync(createDto, ct);
 
-        if (league is null)
-            return NotFound("League not found.");
-
-        var entity = seasonRepository.Create();
-
-        dtoMapper.FromDto(entity, dto);
-
-        entity.LeagueId = league.Id;
-
-        await seasonRepository.InsertAsync(entity);
-        await seasonRepository.CommitAsync(ct);
-
-        return Ok(new EncryptedId(entity.Id));
+        return Ok(seasonDto);
     }
 
     [HttpPut("{seasonSlug}")]
     [Authorize(Policy = LeaguePolicies.LeagueEditor)]
-    public async Task<ActionResult<EncryptedId>> Update(
+    public async Task<ActionResult<long>> Update(
         [FromRoute] string leagueSlug,
         [FromRoute] string seasonSlug,
-        [FromBody] SeasonDto dto,
+        [FromBody] UpdateSeasonDto dto,
         CancellationToken ct = default)
     {
-        var season = await seasonRepository.GetBySlugAsync(
-            leagueSlug,
-            seasonSlug,
-            x => new
-            {
-                x.Id,
-                x.LeagueId
-            },
-            ct);
-
-        if (season is null)
-            return NotFound();
-
-        if (dto.Id is not null && dto.Id.RawId != season.Id)
-            return BadRequest("Route season slug does not match body ID.");
-
-        var updatedId = await seasonRepository.UpdateAsync(
-            (entity, seasonDto) =>
-            {
-                var originalLeagueId = entity.LeagueId;
-                var changed = dtoMapper.FromDto(entity, seasonDto);
-                entity.LeagueId = originalLeagueId;
-                return changed;
-            },
-            season.Id,
-            dto);
+        long? updatedId = await seasonCommands.UpdateBySlugAsync(leagueSlug, seasonSlug, dto, ct);
 
         if (updatedId is null)
             return NotFound();
 
-        return Ok(new EncryptedId(updatedId.Value));
+        return Ok(updatedId.Value);
     }
 
     [HttpDelete("{seasonSlug}")]
@@ -142,10 +94,7 @@ public class SeasonController : ApiController
         [FromRoute] string seasonSlug,
         CancellationToken ct = default)
     {
-        var rows = await seasonRepository.ExecuteDeleteAsync(
-            x => x.Slug == seasonSlug &&
-                 x.League.Slug == leagueSlug,
-            ct);
+        var rows = await seasonCommands.DeleteBySlugAsync(seasonSlug, leagueSlug, ct);
 
         return rows == 0
             ? NotFound()

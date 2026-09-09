@@ -5,6 +5,7 @@ using RacingLeagueHub.Application.DtoMappers;
 using RacingLeagueHub.Application.GrandsPrix.Dtos;
 using RacingLeagueHub.Application.GrandsPrix.Persistence;
 using RacingLeagueHub.Application.Models;
+using RacingLeagueHub.Application.Seasons.Persistence;
 using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Entities.GrandsPrix;
 
@@ -17,18 +18,18 @@ public class GrandPrixController : ApiController
 
     private readonly IGrandPrixCommands grandPrixCommands;
     private readonly IGrandPrixQueries grandPrixQueries;
-    private readonly ISeasonRepository seasonRepository;
+    private readonly ISeasonQueries seasonQueries;
     private readonly IDtoMapper<GrandPrix, GrandPrixDto> dtoMapper;
 
     public GrandPrixController(
         IGrandPrixCommands grandPrixCommands,
         IGrandPrixQueries grandPrixQueries,
-        ISeasonRepository seasonRepository,
+        ISeasonQueries seasonQueries,
         IDtoMapper<GrandPrix, GrandPrixDto> dtoMapper)
     {
         this.grandPrixCommands = grandPrixCommands;
         this.grandPrixQueries = grandPrixQueries;
-        this.seasonRepository = seasonRepository;
+        this.seasonQueries = seasonQueries;
         this.dtoMapper = dtoMapper;
     }
 
@@ -81,19 +82,12 @@ public class GrandPrixController : ApiController
         [FromBody] CreateGrandPrixDto dto,
         CancellationToken ct = default)
     {
-        var season = await seasonRepository.GetBySlugAsync(
-            leagueSlug,
-            seasonSlug,
-            season => new
-            {
-                season.Id
-            },
-            ct);
+        var season = await seasonQueries.GetBySlugAsync(leagueSlug, seasonSlug, ct);
 
         if (season is null)
             return NotFound("Season not found.");
 
-        dto.SeasonId = new EncryptedId(season.Id);
+        dto.SeasonId = season.Id;
 
         var grandPrixDto = await grandPrixCommands.AddAsync(dto, ct);
 

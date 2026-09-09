@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
 using RacingLeagueHub.Application.DtoMappers;
-using RacingLeagueHub.Application.Dtos;
+using RacingLeagueHub.Application.Leagues.Dtos;
+using RacingLeagueHub.Application.Leagues.Persistence;
 using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Entities;
 
 namespace RacingLeagueHub.Api.Controllers.Leagues;
@@ -15,14 +15,17 @@ public class LeagueController : ApiController
 {
     private const int PageSize = 10;
 
-    private readonly ILeagueRepository leagueRepository;
-    private readonly IDtoMapper<League, LeagueDto> dtoMapper;
+    private readonly ILeagueQueries leagueQueries;
+    private readonly ILeagueCommands leagueCommands;
+    private readonly IDtoMapper<League, LeagueDto> mapper;
 
-    public LeagueController(ILeagueRepository leagueRepository,
-        IDtoMapper<League, LeagueDto> dtoMapper)
+    public LeagueController(ILeagueQueries leagueQueries,
+        ILeagueCommands leagueCommands,
+        IDtoMapper<League, LeagueDto> mapper)
     {
-        this.leagueRepository = leagueRepository;
-        this.dtoMapper = dtoMapper;
+        this.leagueQueries = leagueQueries;
+        this.leagueCommands = leagueCommands;
+        this.mapper = mapper;
     }
 
     [HttpGet]
@@ -31,11 +34,7 @@ public class LeagueController : ApiController
         [FromQuery] int page = 1,
         CancellationToken ct = default)
     {
-        var result = await leagueRepository.GetPagedAsync(
-            dtoMapper.ToDtoExpression(),
-            page,
-            PageSize,
-            ct);
+        var result = await leagueQueries.GetLeaguesAsync(page, PageSize, ct);
 
         return Ok(result);
     }
@@ -46,10 +45,7 @@ public class LeagueController : ApiController
         [FromRoute] string leagueSlug,
         CancellationToken ct = default)
     {
-        var dto = await leagueRepository.GetBySlugAsync(
-            leagueSlug,
-            dtoMapper.ToDtoExpression(),
-            ct);
+        var dto = await leagueQueries.GetBySlugAsync(leagueSlug, ct);
 
         if (dto is null)
             return NotFound();
@@ -60,51 +56,27 @@ public class LeagueController : ApiController
     [HttpPost]
     [Authorize]
     public async Task<ActionResult<EncryptedId>> Create(
-        [FromBody] LeagueDto dto,
+        [FromBody] CreateLeagueDto createDto,
         CancellationToken ct = default)
     {
-        var entity = leagueRepository.Create();
+        LeagueDto? dto = await leagueCommands.AddAsync(createDto, ct);
 
-        dtoMapper.FromDto(entity, dto);
-
-        await leagueRepository.InsertAsync(entity);
-        await leagueRepository.CommitAsync(ct);
-
-        return Ok(new EncryptedId(entity.Id));
+        return Ok(dto);
     }
 
     [HttpPut("{leagueSlug}")]
     [Authorize(Policy = LeaguePolicies.LeagueEditor)]
-    public async Task<ActionResult<EncryptedId>> Update(
+    public async Task<ActionResult<long>> Update(
         [FromRoute] string leagueSlug,
-        [FromBody] LeagueDto dto,
+        [FromBody] UpdateLeagueDto updateDto,
         CancellationToken ct = default)
     {
-        var league = await leagueRepository.GetBySlugAsync(
-            leagueSlug,
-            x => new
-            {
-                x.Id
-            },
-            ct);
-
-        if (league is null)
-            return NotFound();
-
-        if (dto.Id is not null && dto.Id.RawId != league.Id)
-            return BadRequest("Route league slug does not match body ID.");
-
-        var updatedId = await leagueRepository.UpdateAsync(
-            dtoMapper.FromDto,
-            league.Id,
-            dto);
+        long? updatedId = await leagueCommands.UpdateBySlugAsync(leagueSlug, updateDto, ct);
 
         if (updatedId is null)
             return NotFound();
 
-        await leagueRepository.CommitAsync(ct);
-
-        return Ok(new EncryptedId(updatedId.Value));
+        return Ok(updatedId);
     }
 
     [HttpDelete("{leagueSlug}")]
@@ -113,9 +85,7 @@ public class LeagueController : ApiController
         [FromRoute] string leagueSlug,
         CancellationToken ct = default)
     {
-        var rows = await leagueRepository.ExecuteDeleteAsync(
-            x => x.Slug == leagueSlug,
-            ct);
+        int rows = await leagueCommands.DeleteBySlugAsync(leagueSlug, ct);
 
         return rows == 0
             ? NotFound()

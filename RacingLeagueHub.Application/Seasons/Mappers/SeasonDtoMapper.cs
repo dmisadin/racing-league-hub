@@ -1,10 +1,11 @@
-﻿using RacingLeagueHub.Application.Dtos;
+﻿using RacingLeagueHub.Application.DtoMappers;
 using RacingLeagueHub.Application.Models;
+using RacingLeagueHub.Application.Seasons.Dtos;
 using RacingLeagueHub.Domain.Entities.Seasons;
 using RacingLeagueHub.Domain.Services.Interfaces;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Application.DtoMappers;
+namespace RacingLeagueHub.Application.Seasons.Mappers;
 
 public class SeasonDtoMapper(IStorageService storageService) 
     : DtoMapperBase<Season, SeasonDto>

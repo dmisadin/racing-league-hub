@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RacingLeagueHub.Application.GrandsPrix.Persistence;
+using RacingLeagueHub.Application.Leagues.Persistence;
 using RacingLeagueHub.Application.LeagueUsers.Persistence;
+using RacingLeagueHub.Application.Seasons.Persistence;
 using RacingLeagueHub.Application.Services.Abstractions;
 using RacingLeagueHub.Application.Services.GameTeamService.Persistence;
 using RacingLeagueHub.Application.Services.ResourceService;
@@ -25,13 +27,14 @@ using RacingLeagueHub.Infrastructure.Persistence;
 using RacingLeagueHub.Infrastructure.Persistence.EntityHandlers;
 using RacingLeagueHub.Infrastructure.Persistence.GameTeams;
 using RacingLeagueHub.Infrastructure.Persistence.GrandsPrix;
+using RacingLeagueHub.Infrastructure.Persistence.Leagues;
 using RacingLeagueHub.Infrastructure.Persistence.LeagueUsers;
 using RacingLeagueHub.Infrastructure.Persistence.Resources;
+using RacingLeagueHub.Infrastructure.Persistence.Seasons;
 using RacingLeagueHub.Infrastructure.Persistence.Teams;
 using RacingLeagueHub.Infrastructure.Persistence.TrackLayouts;
 using RacingLeagueHub.Infrastructure.Repositories;
 using RacingLeagueHub.Infrastructure.Services;
-using RacingSeasonHub.Infrastructure.Repositories;
 using System.Reflection;
 
 namespace RacingLeagueHub.Infrastructure;
@@ -76,12 +79,9 @@ public static class InfrastructureServiceRegistration
             services.AddScoped(repoType);
         }
 
-        services.AddScoped<ILeagueRepository, LeagueRepository>();
-        services.AddScoped<ISeasonRepository, SeasonRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         services.AddScoped<IPasswordResetTokenRepository, PasswordResetTokenRepository>();
-        services.AddScoped<ILeagueUserQueries, LeagueUserQueries>();
 
         services.AddScoped<IUserRecoveryCodeRepository, UserRecoveryCodeRepository>();
         services.AddScoped<IUserExternalLoginRepository, UserExternalLoginRepository>();
@@ -152,6 +152,10 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<IResourceCommands, ResourceCommands>();
         services.AddScoped<IGrandPrixCommands, GrandPrixCommands>();
         services.AddScoped<IGrandPrixQueries, GrandPrixQueries>();
+        services.AddScoped<ISeasonCommands, SeasonCommands>();
+        services.AddScoped<ISeasonQueries, SeasonQueries>();
+        services.AddScoped<ILeagueUserQueries, LeagueUserQueries>();
+        services.AddScoped<ILeagueQueries, LeagueQueries>();
 
         return services;
     }

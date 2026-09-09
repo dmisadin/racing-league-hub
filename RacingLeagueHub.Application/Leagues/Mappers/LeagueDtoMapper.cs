@@ -1,10 +1,11 @@
-﻿using RacingLeagueHub.Application.Dtos;
+﻿using RacingLeagueHub.Application.DtoMappers;
+using RacingLeagueHub.Application.Leagues.Dtos;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Services.Interfaces;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Application.DtoMappers;
+namespace RacingLeagueHub.Application.Leagues.Mappers;
 
 public class LeagueDtoMapper(IStorageService storageService) 
     : DtoMapperBase<League, LeagueDto>
