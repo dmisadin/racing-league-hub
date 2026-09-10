@@ -1,7 +1,7 @@
 ﻿using RacingLeagueHub.Application.Dtos;
 using RacingLeagueHub.Application.GameTeams.Dtos;
 
-namespace RacingLeagueHub.Application.Services.TeamService.Dtos;
+namespace RacingLeagueHub.Application.Teams.Dtos;
 
 public class TeamDto : BaseDto
 {

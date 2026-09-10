@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
 using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Application.Services.TeamService;
-using RacingLeagueHub.Application.Services.TeamService.Dtos;
+using RacingLeagueHub.Application.Teams;
+using RacingLeagueHub.Application.Teams.Dtos;
 
 namespace RacingLeagueHub.Api.Controllers.Admin;
 

@@ -4,7 +4,7 @@ using RacingLeagueHub.Api.Authorization;
 using RacingLeagueHub.Application.GameTeams;
 using RacingLeagueHub.Application.GameTeams.Dtos;
 using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Application.Services.TeamService.Dtos;
+using RacingLeagueHub.Application.Teams.Dtos;
 
 namespace RacingLeagueHub.Api.Controllers.Admin;
 

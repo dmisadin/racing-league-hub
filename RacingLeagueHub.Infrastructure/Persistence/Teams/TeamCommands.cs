@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.Application.DtoMappers;
-using RacingLeagueHub.Application.Services.TeamService.Dtos;
-using RacingLeagueHub.Application.Services.TeamService.Persistence;
+using RacingLeagueHub.Application.Teams.Dtos;
+using RacingLeagueHub.Application.Teams.Persistence;
 using RacingLeagueHub.Domain.Entities;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.Teams;

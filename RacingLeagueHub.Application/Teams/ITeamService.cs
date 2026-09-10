@@ -1,7 +1,7 @@
 ﻿using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Application.Services.TeamService.Dtos;
+using RacingLeagueHub.Application.Teams.Dtos;
 
-namespace RacingLeagueHub.Application.Services.TeamService;
+namespace RacingLeagueHub.Application.Teams;
 
 public interface ITeamService
 {

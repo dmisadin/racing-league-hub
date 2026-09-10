@@ -1,8 +1,8 @@
 ﻿using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Application.Services.TeamService.Dtos;
-using RacingLeagueHub.Application.Services.TeamService.Persistence;
+using RacingLeagueHub.Application.Teams.Dtos;
+using RacingLeagueHub.Application.Teams.Persistence;
 
-namespace RacingLeagueHub.Application.Services.TeamService;
+namespace RacingLeagueHub.Application.Teams;
 
 public class TeamService : ITeamService
 {

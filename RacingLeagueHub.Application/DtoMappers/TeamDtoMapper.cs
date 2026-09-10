@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.Application.GameTeams.Dtos;
 using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Application.Services.TeamService.Dtos;
+using RacingLeagueHub.Application.Teams.Dtos;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Services.Interfaces;
 using System.Linq.Expressions;
