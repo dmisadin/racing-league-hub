@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.Application.DtoMappers;
 using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Application.Services.ResourceService.Dtos;
-using RacingLeagueHub.Application.Services.ResourceService.Persistence;
+using RacingLeagueHub.Application.Resources.Dtos;
+using RacingLeagueHub.Application.Resources.Persistence;
 using RacingLeagueHub.Domain.Entities.Resources;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.Resources;
@@ -70,6 +70,13 @@ internal sealed class ResourceQueries : IResourceQueries
             return null;
 
         return BuildS3Key(resource.StorageId, resource.Extension);
+    }
+
+    public async Task<IReadOnlyList<Resource>> GetPendingOlderThanAsync(DateTimeOffset cutoff, CancellationToken ct = default)
+    {
+        return await racingContext.Resource
+            .Where(r => r.Status == ResourceStatus.Pending && r.CreatedAt < cutoff)
+            .ToListAsync(ct);
     }
 
     private static string BuildS3Key(Guid storageId, string extension)

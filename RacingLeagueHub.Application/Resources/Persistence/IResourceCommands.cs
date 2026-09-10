@@ -1,7 +1,7 @@
 ﻿using RacingLeagueHub.Application.Models.Resource;
-using RacingLeagueHub.Application.Services.ResourceService.Dtos;
+using RacingLeagueHub.Application.Resources.Dtos;
 
-namespace RacingLeagueHub.Application.Services.ResourceService.Persistence;
+namespace RacingLeagueHub.Application.Resources.Persistence;
 
 public interface IResourceCommands
 {

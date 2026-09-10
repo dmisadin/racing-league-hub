@@ -6,11 +6,12 @@ using Microsoft.Extensions.DependencyInjection;
 using RacingLeagueHub.Application.GrandsPrix.Persistence;
 using RacingLeagueHub.Application.Leagues.Persistence;
 using RacingLeagueHub.Application.LeagueUsers.Persistence;
+using RacingLeagueHub.Application.Resources;
 using RacingLeagueHub.Application.Seasons.Persistence;
 using RacingLeagueHub.Application.Services.Abstractions;
 using RacingLeagueHub.Application.Services.GameTeamService.Persistence;
-using RacingLeagueHub.Application.Services.ResourceService;
-using RacingLeagueHub.Application.Services.ResourceService.Persistence;
+using RacingLeagueHub.Application.Resources;
+using RacingLeagueHub.Application.Resources.Persistence;
 using RacingLeagueHub.Application.Services.TeamService.Persistence;
 using RacingLeagueHub.Application.TrackLayouts.Persistence;
 using RacingLeagueHub.Application.Tracks.Persistence;
@@ -109,7 +110,7 @@ public static class InfrastructureServiceRegistration
 
         services.AddAWSService<IAmazonS3>();
 
-        services.AddScoped<IResourceRepository, ResourceRepository>();
+        services.AddScoped<IResourceQueries, ResourceQueries>();
 
         services.AddScoped<IStorageService, S3StorageService>();
         services.AddScoped<IResourceService, ResourceService>();
@@ -148,7 +149,7 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<ITrackCommands, TrackCommands>();
         services.AddScoped<ITrackLayoutQueries, TrackLayoutQueries>();
         services.AddScoped<ITrackLayoutCommands, TrackLayoutCommands>();
-        services.AddScoped<IResourceQueries, ResourceQueries>();
+        services.AddScoped<IResourceQueries, Persistence.Resources.ResourceQueries>();
         services.AddScoped<IResourceCommands, ResourceCommands>();
         services.AddScoped<IGrandPrixCommands, GrandPrixCommands>();
         services.AddScoped<IGrandPrixQueries, GrandPrixQueries>();

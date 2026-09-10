@@ -1,25 +1,22 @@
 ﻿using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Models.Resource;
-using RacingLeagueHub.Application.Services.ResourceService.Dtos;
-using RacingLeagueHub.Application.Services.ResourceService.Persistence;
+using RacingLeagueHub.Application.Resources.Dtos;
+using RacingLeagueHub.Application.Resources.Persistence;
 using RacingLeagueHub.Domain.Services.Interfaces;
 
-namespace RacingLeagueHub.Application.Services.ResourceService;
+namespace RacingLeagueHub.Application.Resources;
 
 public class ResourceService : IResourceService
 {
     private readonly IResourceQueries queries;
     private readonly IResourceCommands commands;
-    private readonly IStorageService storageService;
 
     public ResourceService(
         IResourceQueries queries,
-        IResourceCommands commands,
-        IStorageService storageService)
+        IResourceCommands commands)
     {
         this.queries = queries;
         this.commands = commands;
-        this.storageService = storageService;
     }
 
     public Task<ResourceDto?> GetByIdAsync(long id, CancellationToken ct = default)

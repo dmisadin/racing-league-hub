@@ -2,8 +2,8 @@
 using RacingLeagueHub.Api.Models.Resource;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Models.Resource;
-using RacingLeagueHub.Application.Services.ResourceService;
-using RacingLeagueHub.Application.Services.ResourceService.Dtos;
+using RacingLeagueHub.Application.Resources;
+using RacingLeagueHub.Application.Resources.Dtos;
 
 namespace RacingLeagueHub.Api.Controllers;
 

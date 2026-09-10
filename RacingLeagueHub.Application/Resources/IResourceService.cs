@@ -1,8 +1,8 @@
 ﻿using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Models.Resource;
-using RacingLeagueHub.Application.Services.ResourceService.Dtos;
+using RacingLeagueHub.Application.Resources.Dtos;
 
-namespace RacingLeagueHub.Application.Services.ResourceService;
+namespace RacingLeagueHub.Application.Resources;
 
 public interface IResourceService
 {
