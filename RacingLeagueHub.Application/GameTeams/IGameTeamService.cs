@@ -1,8 +1,8 @@
-﻿using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Application.Services.GameTeamService.Dtos;
+﻿using RacingLeagueHub.Application.GameTeams.Dtos;
+using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Services.TeamService.Dtos;
 
-namespace RacingLeagueHub.Application.Services.GameTeamService;
+namespace RacingLeagueHub.Application.GameTeams;
 
 public interface IGameTeamService
 {

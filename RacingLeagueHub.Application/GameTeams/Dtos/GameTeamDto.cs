@@ -2,7 +2,7 @@
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Models.Enums;
 
-namespace RacingLeagueHub.Application.Services.GameTeamService.Dtos;
+namespace RacingLeagueHub.Application.GameTeams.Dtos;
 
 public class GameTeamDto : BaseDto
 {

@@ -1,6 +1,6 @@
-﻿using RacingLeagueHub.Application.Services.GameTeamService.Dtos;
+﻿using RacingLeagueHub.Application.GameTeams.Dtos;
 
-namespace RacingLeagueHub.Application.Services.GameTeamService.Persistence;
+namespace RacingLeagueHub.Application.GameTeams.Persistence;
 
 public interface IGameTeamCommands
 {

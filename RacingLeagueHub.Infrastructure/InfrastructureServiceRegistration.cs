@@ -9,7 +9,6 @@ using RacingLeagueHub.Application.LeagueUsers.Persistence;
 using RacingLeagueHub.Application.Resources;
 using RacingLeagueHub.Application.Seasons.Persistence;
 using RacingLeagueHub.Application.Services.Abstractions;
-using RacingLeagueHub.Application.Services.GameTeamService.Persistence;
 using RacingLeagueHub.Application.Resources;
 using RacingLeagueHub.Application.Resources.Persistence;
 using RacingLeagueHub.Application.Services.TeamService.Persistence;
@@ -37,6 +36,7 @@ using RacingLeagueHub.Infrastructure.Persistence.TrackLayouts;
 using RacingLeagueHub.Infrastructure.Repositories;
 using RacingLeagueHub.Infrastructure.Services;
 using System.Reflection;
+using RacingLeagueHub.Application.GameTeams.Persistence;
 
 namespace RacingLeagueHub.Infrastructure;
 

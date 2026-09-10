@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using RacingLeagueHub.Application.DtoMappers;
+using RacingLeagueHub.Application.GameTeams;
 using RacingLeagueHub.Application.Leagues.Mappers;
-using RacingLeagueHub.Application.Services.GameTeamService;
 using RacingLeagueHub.Application.Services.Identity;
 using RacingLeagueHub.Application.Services.TeamService;
 using RacingLeagueHub.Application.Services.TwoFactorAuthentication;

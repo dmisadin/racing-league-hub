@@ -1,5 +1,5 @@
 ﻿using RacingLeagueHub.Application.Dtos;
-using RacingLeagueHub.Application.Services.GameTeamService.Dtos;
+using RacingLeagueHub.Application.GameTeams.Dtos;
 
 namespace RacingLeagueHub.Application.Services.TeamService.Dtos;
 

@@ -1,7 +1,7 @@
-﻿using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Application.Services.GameTeamService.Dtos;
+﻿using RacingLeagueHub.Application.GameTeams.Dtos;
+using RacingLeagueHub.Application.Models;
 
-namespace RacingLeagueHub.Application.Services.GameTeamService.Persistence;
+namespace RacingLeagueHub.Application.GameTeams.Persistence;
 
 public interface IGameTeamQueries
 {
