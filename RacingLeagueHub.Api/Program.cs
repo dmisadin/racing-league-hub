@@ -22,6 +22,7 @@ builder.Services.AddDbContext(builder.Configuration);
 builder.Services.AddRepositories(typeof(Program).Assembly);
 builder.Services.AddEntityHandlers(typeof(Program).Assembly);
 builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddQueriesAndCommands();
 builder.Services.AddApplicationServices();
 builder.Services.AddAwsStorage(builder.Configuration); 
 

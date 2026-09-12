@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.JsonWebTokens;
+using RacingLeagueHub.Application.LeagueUsers.Persistence;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Models.Enums;
-using RacingLeagueHub.Domain.Abstractions;
 using System.Security.Claims;
 
 namespace RacingLeagueHub.Api.Authorization;
@@ -10,14 +10,14 @@ namespace RacingLeagueHub.Api.Authorization;
 public sealed class LeaguePermissionHandler
     : AuthorizationHandler<LeaguePermissionRequirement>
 {
-    private readonly ILeagueUserRepository leagueUserRepository;
+    private readonly ILeagueUserQueries leagueUserQueries;
     private readonly IHttpContextAccessor httpContextAccessor;
 
     public LeaguePermissionHandler(
-        ILeagueUserRepository leagueUserRepository,
+        ILeagueUserQueries leagueUserQueries,
         IHttpContextAccessor httpContextAccessor)
     {
-        this.leagueUserRepository = leagueUserRepository;
+        this.leagueUserQueries = leagueUserQueries;
         this.httpContextAccessor = httpContextAccessor;
     }
 
@@ -40,7 +40,7 @@ public sealed class LeaguePermissionHandler
         if (leagueSlug is null)
             return;
 
-        var leagueUser = await this.leagueUserRepository.GetByLeagueAndUserAsync(
+        var leagueUser = await this.leagueUserQueries.GetByLeagueAndUserAsync(
             leagueSlug,
             userId.Value,
             httpContext.RequestAborted);

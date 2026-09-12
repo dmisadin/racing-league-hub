@@ -41,7 +41,7 @@ export class TeamFormComponent implements OnInit {
         if (!teamId)
             return;
 
-        this.restService.get<TeamDto>(`/team/get-by-id/${teamId}`).subscribe(res => this.form.patchValue(res));
+        this.restService.get<TeamDto>(`/team/${teamId}`).subscribe(res => this.form.patchValue(res));
     }
 
     onSubmit() {

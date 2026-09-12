@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.Domain.Infrastructure;
+﻿using RacingLeagueHub.Application.Resources.Persistence;
 using RacingLeagueHub.Domain.Services.Interfaces;
 
 namespace RacingLeagueHub.Api.Jobs.Reccuring;
@@ -30,11 +30,12 @@ public class OrphanResourceCleanupJob(
         {
             // BackgroundService is a singleton — resolve scoped services via scope factory
             await using var scope = scopeFactory.CreateAsyncScope();
-            var resourceRepository = scope.ServiceProvider.GetRequiredService<IResourceRepository>();
+            var resourceQuery = scope.ServiceProvider.GetRequiredService<IResourceQueries>();
+            var resourceCommands = scope.ServiceProvider.GetRequiredService<IResourceCommands>();
             var storageService = scope.ServiceProvider.GetRequiredService<IStorageService>();
 
             var cutoff = DateTimeOffset.UtcNow - OrphanAge;
-            var orphans = await resourceRepository.GetPendingOlderThanAsync(cutoff, ct);
+            var orphans = await resourceQuery.GetPendingOlderThanAsync(cutoff, ct);
 
             if (orphans.Count == 0)
             {
@@ -50,7 +51,7 @@ public class OrphanResourceCleanupJob(
                 {
                     var s3Key = $"uploads/{resource.StorageId}.{resource.Extension}";
                     await storageService.DeleteAsync(s3Key, ct);
-                    await resourceRepository.DeleteAsync(resource, ct);
+                    await resourceCommands.DeleteAsync(resource.Id, ct);
                     logger.LogInformation("Deleted orphan resource {Uid}.", resource.StorageId);
                 }
                 catch (Exception ex)

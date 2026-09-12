@@ -1,8 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using RacingLeagueHub.Application.DtoMappers;
-using RacingLeagueHub.Application.Services.Identity;
-using RacingLeagueHub.Application.Services.TwoFactorAuthentication;
+using RacingLeagueHub.Application.GameTeams;
+using RacingLeagueHub.Application.Identity.Authentication;
+using RacingLeagueHub.Application.Identity.Authentication.TwoFactorAuthentication;
+using RacingLeagueHub.Application.Leagues.Mappers;
+using RacingLeagueHub.Application.Teams;
+using RacingLeagueHub.Application.TrackLayouts;
+using RacingLeagueHub.Application.Tracks;
 using RacingLeagueHub.Domain.Entities;
 
 namespace RacingLeagueHub.Application;
@@ -16,12 +21,24 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
         services.AddScoped<ITwoFactorService, TwoFactorService>();
 
+        services.AddBusinessLogicServices();
+
         services.AddDtoMappers();
 
         return services;
     }
 
-    public static IServiceCollection AddDtoMappers(this IServiceCollection services)
+    private static IServiceCollection AddBusinessLogicServices(this IServiceCollection services)
+    {
+        services.AddScoped<ITeamService, TeamService>();
+        services.AddScoped<IGameTeamService, GameTeamService>();
+        services.AddScoped<ITrackService, TrackService>();
+        services.AddScoped<ITrackLayoutService, TrackLayoutService>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddDtoMappers(this IServiceCollection services)
     {
         var mapperInterface = typeof(IDtoMapper<,>);
         var applicationAssembly = typeof(LeagueDtoMapper).Assembly;

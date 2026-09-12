@@ -3,21 +3,48 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RacingLeagueHub.Application.Services;
-using RacingLeagueHub.Application.Services.Abstractions;
-using RacingLeagueHub.Domain.Abstractions;
-using RacingLeagueHub.Domain.Abstractions.Admin;
-using RacingLeagueHub.Domain.Abstractions.Repositories;
+using RacingLeagueHub.Application.GameTeams.Persistence;
+using RacingLeagueHub.Application.GrandsPrix.Persistence;
+using RacingLeagueHub.Application.Identity.Authentication.ExternalLogins.Persistence;
+using RacingLeagueHub.Application.Identity.Authentication.PasswordResetTokens;
+using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes;
+using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes.Persistence;
+using RacingLeagueHub.Application.Identity.Authentication.RefreshTokens.Persistence;
+using RacingLeagueHub.Application.Identity.Authentication.Sso;
+using RacingLeagueHub.Application.Leagues.Persistence;
+using RacingLeagueHub.Application.LeagueUsers.Persistence;
+using RacingLeagueHub.Application.Resources;
+using RacingLeagueHub.Application.Resources.Persistence;
+using RacingLeagueHub.Application.Seasons.Persistence;
+using RacingLeagueHub.Application.Teams.Persistence;
+using RacingLeagueHub.Application.TrackLayouts.Persistence;
+using RacingLeagueHub.Application.Tracks.Persistence;
+using RacingLeagueHub.Application.Users.Persistence;
 using RacingLeagueHub.Domain.Abstractions.Services;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Infrastructure;
 using RacingLeagueHub.Domain.Services.Interfaces;
+using RacingLeagueHub.Identity.Authentication.Persistence;
 using RacingLeagueHub.Infrastructure.Auth;
 using RacingLeagueHub.Infrastructure.Auth.SSO;
 using RacingLeagueHub.Infrastructure.Configuration;
+using RacingLeagueHub.Infrastructure.Persistence;
+using RacingLeagueHub.Infrastructure.Persistence.EntityHandlers;
+using RacingLeagueHub.Infrastructure.Persistence.GameTeams;
+using RacingLeagueHub.Infrastructure.Persistence.GrandsPrix;
+using RacingLeagueHub.Infrastructure.Persistence.Identity.Authentication.PasswordResetTokens;
+using RacingLeagueHub.Infrastructure.Persistence.Identity.Authentication.RefreshTokens;
+using RacingLeagueHub.Infrastructure.Persistence.Identity.Authentication.UserExternalLogins;
+using RacingLeagueHub.Infrastructure.Persistence.Identity.Authentication.UserRecoveryCodes;
+using RacingLeagueHub.Infrastructure.Persistence.Leagues;
+using RacingLeagueHub.Infrastructure.Persistence.LeagueUsers;
+using RacingLeagueHub.Infrastructure.Persistence.Resources;
+using RacingLeagueHub.Infrastructure.Persistence.Seasons;
+using RacingLeagueHub.Infrastructure.Persistence.Teams;
+using RacingLeagueHub.Infrastructure.Persistence.TrackLayouts;
+using RacingLeagueHub.Infrastructure.Persistence.Users;
 using RacingLeagueHub.Infrastructure.Repositories;
 using RacingLeagueHub.Infrastructure.Services;
-using RacingSeasonHub.Infrastructure.Repositories;
 using System.Reflection;
 
 namespace RacingLeagueHub.Infrastructure;
@@ -32,9 +59,14 @@ public static class InfrastructureServiceRegistration
                                     .GetConnectionString("DefaultConnection"))
                                     .UseSnakeCaseNamingConvention());
 
-        return services;
+        services.AddDbContext<RacingContext>(options =>
+                    options.UseNpgsql(configuration
+                            .GetConnectionString("DefaultConnection"))
+                            .UseSnakeCaseNamingConvention());
 
+        return services;
     }
+
     public static IServiceCollection AddRepositories(this IServiceCollection services, params Assembly[] assemblies)
     {
         var targetAssemblies = assemblies.Length > 0
@@ -56,18 +88,6 @@ public static class InfrastructureServiceRegistration
             services.AddScoped(serviceType, repoType);
             services.AddScoped(repoType);
         }
-
-        services.AddScoped<ILeagueRepository, LeagueRepository>();
-        services.AddScoped<ISeasonRepository, SeasonRepository>();
-        services.AddScoped<IGrandPrixRepository, GrandPrixRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
-        services.AddScoped<IPasswordResetTokenRepository, PasswordResetTokenRepository>();
-        services.AddScoped<ILeagueUserRepository, LeagueUserRepository>();
-
-        services.AddScoped<ITrackLayoutRepository, TrackLayoutRepository>();
-        services.AddScoped<IUserRecoveryCodeRepository, UserRecoveryCodeRepository>();
-        services.AddScoped<IUserExternalLoginRepository, UserExternalLoginRepository>();
 
         return services;
     }
@@ -92,10 +112,63 @@ public static class InfrastructureServiceRegistration
 
         services.AddAWSService<IAmazonS3>();
 
-        services.AddScoped<IResourceRepository, ResourceRepository>();
+        services.AddScoped<IResourceQueries, ResourceQueries>();
 
         services.AddScoped<IStorageService, S3StorageService>();
         services.AddScoped<IResourceService, ResourceService>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddEntityHandlers(this IServiceCollection services, params Assembly[] assemblies)
+    {
+        var targetAssemblies = assemblies.Length > 0
+            ? assemblies
+            : [typeof(InfrastructureServiceRegistration).Assembly];
+
+        var handlerTypes = targetAssemblies
+            .SelectMany(a => a.GetTypes())
+            .Where(t => !t.IsAbstract && !t.IsInterface)
+            .Where(t =>
+                t.BaseType is { IsGenericType: true } 
+                && t.BaseType.GetGenericTypeDefinition() == typeof(EntityHandler<>));
+
+        foreach (var handlerType in handlerTypes)
+        {
+            services.AddScoped(typeof(IEntityHandler), handlerType);
+        }
+
+        return services;
+    }
+
+    public static IServiceCollection AddQueriesAndCommands(this IServiceCollection services)
+    {
+        services.AddScoped<ITeamQueries, TeamQueries>();
+        services.AddScoped<ITeamCommands, TeamCommands>();
+        services.AddScoped<IGameTeamQueries, GameTeamQueries>();
+        services.AddScoped<IGameTeamCommands, GameTeamCommands>();
+        services.AddScoped<ITrackQueries, TrackQueries>();
+        services.AddScoped<ITrackCommands, TrackCommands>();
+        services.AddScoped<ITrackLayoutQueries, TrackLayoutQueries>();
+        services.AddScoped<ITrackLayoutCommands, TrackLayoutCommands>();
+        services.AddScoped<IResourceQueries, ResourceQueries>();
+        services.AddScoped<IResourceCommands, ResourceCommands>();
+        services.AddScoped<IGrandPrixCommands, GrandPrixCommands>();
+        services.AddScoped<IGrandPrixQueries, GrandPrixQueries>();
+        services.AddScoped<ISeasonCommands, SeasonCommands>();
+        services.AddScoped<ISeasonQueries, SeasonQueries>();
+        services.AddScoped<ILeagueUserQueries, LeagueUserQueries>();
+        services.AddScoped<ILeagueQueries, LeagueQueries>();
+        services.AddScoped<IUserQueries, UserQueries>();
+        services.AddScoped<IUserCommands, UserCommands>();
+        services.AddScoped<IRefreshTokenQueries, RefreshTokenQueries>();
+        services.AddScoped<IRefreshTokenCommands, RefreshTokenCommands>();
+        services.AddScoped<IPasswordResetTokenQueries, PasswordResetTokenQueries>();
+        services.AddScoped<IPasswordResetTokenCommands, PasswordResetTokenCommands>();
+        services.AddScoped<IUserRecoveryCodeQueries, UserRecoveryCodeQueries>();
+        services.AddScoped<IUserRecoveryCodeCommands, UserRecoveryCodeCommands>();
+        services.AddScoped<IUserExternalLoginQueries, UserExternalLoginQueries>();
+        services.AddScoped<IUserExternalLoginCommands, UserExternalLoginCommands>();
 
         return services;
     }
