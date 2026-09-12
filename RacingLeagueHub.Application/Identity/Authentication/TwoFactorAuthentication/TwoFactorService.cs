@@ -1,7 +1,7 @@
 ﻿using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes;
+using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes.Persistence;
 using RacingLeagueHub.Application.Identity.Authentication.TwoFactor.Dtos;
 using RacingLeagueHub.Application.Users.Persistence;
-using RacingLeagueHub.Domain.Abstractions.Repositories;
 using RacingLeagueHub.Domain.Abstractions.Services;
 using RacingLeagueHub.Domain.Entities;
 
@@ -15,20 +15,23 @@ public class TwoFactorService : ITwoFactorService
     private readonly IUserCommands userCommands;
     private readonly ITotpService totpService;
     private readonly IRecoveryCodeService recoveryCodeService;
-    private readonly IUserRecoveryCodeRepository userRecoveryCodeRepository;
+    private readonly IUserRecoveryCodeQueries userRecoveryCodeQueries;
+    private readonly IUserRecoveryCodeCommands userRecoveryCodeCommands;
 
     public TwoFactorService(
         IUserQueries userQueries,
         IUserCommands userCommands,
         ITotpService totpService,
         IRecoveryCodeService recoveryCodeService,
-        IUserRecoveryCodeRepository userRecoveryCodeRepository)
+        IUserRecoveryCodeQueries userRecoveryCodeQueries,
+        IUserRecoveryCodeCommands userRecoveryCodeCommands)
     {
         this.userQueries = userQueries;
         this.userCommands = userCommands;
         this.totpService = totpService;
         this.recoveryCodeService = recoveryCodeService;
-        this.userRecoveryCodeRepository = userRecoveryCodeRepository;
+        this.userRecoveryCodeQueries = userRecoveryCodeQueries;
+        this.userRecoveryCodeCommands = userRecoveryCodeCommands;
     }
 
     public async Task<TwoFactorSetupDto> StartSetupAsync(long userId, CancellationToken ct = default)
@@ -83,17 +86,20 @@ public class TwoFactorService : ITwoFactorService
         user.TwoFactorEnabledAt = DateTimeOffset.UtcNow;
         user.LastTotpTimeStepUsed = matchedStep;
 
-        var recoveryCodes = recoveryCodeService.GenerateCodes(10);
+        IReadOnlyList<string> recoveryCodes = recoveryCodeService.GenerateCodes(10);
+        List<UserRecoveryCode> userRecoveryCodes = new List<UserRecoveryCode>();
 
         foreach (var recoveryCode in recoveryCodes)
         {
-            await userRecoveryCodeRepository.InsertAsync(new UserRecoveryCode
+            userRecoveryCodes.Add(new UserRecoveryCode
             {
                 UserId = user.Id,
                 CodeHash = recoveryCodeService.HashCode(recoveryCode),
                 CreatedAt = DateTime.UtcNow
             });
         }
+
+        await userRecoveryCodeCommands.AddRangeAsync(userRecoveryCodes, ct);
 
         await userCommands.SaveChangesAsync(ct);
 
@@ -108,19 +114,22 @@ public class TwoFactorService : ITwoFactorService
         if (!user.TwoFactorEnabled)
             throw new InvalidOperationException("Two-factor authentication is not enabled.");
 
-        await userRecoveryCodeRepository.DeleteForUserAsync(userId, ct);
+        await userRecoveryCodeCommands.DeleteForUserAsync(userId, ct);
 
-        var recoveryCodes = recoveryCodeService.GenerateCodes(10);
+        IReadOnlyList<string> recoveryCodes = recoveryCodeService.GenerateCodes(10);
+        List<UserRecoveryCode> userRecoveryCodes = new List<UserRecoveryCode>();
 
         foreach (var recoveryCode in recoveryCodes)
         {
-            await userRecoveryCodeRepository.InsertAsync(new UserRecoveryCode
+            userRecoveryCodes.Add(new UserRecoveryCode
             {
-                UserId = userId,
+                UserId = user.Id,
                 CodeHash = recoveryCodeService.HashCode(recoveryCode),
                 CreatedAt = DateTime.UtcNow
             });
         }
+
+        await userRecoveryCodeCommands.AddRangeAsync(userRecoveryCodes, ct);
 
         await userCommands.SaveChangesAsync(ct);
 

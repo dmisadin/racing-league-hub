@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using RacingLeagueHub.Application.Identity.Authentication.Dtos;
 using RacingLeagueHub.Application.Identity.Authentication.PasswordResetTokens;
 using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes;
+using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes.Persistence;
 using RacingLeagueHub.Application.Identity.Authentication.RefreshTokens.Persistence;
 using RacingLeagueHub.Application.Identity.Authentication.Sso.Models;
 using RacingLeagueHub.Application.Users.Dtos;
@@ -23,7 +24,7 @@ public class AuthService(
     IRefreshTokenCommands refreshTokenCommands,
     IPasswordResetTokenQueries passwordResetTokenQueries,
     IPasswordResetTokenCommands passwordResetTokenCommands,
-    IUserRecoveryCodeRepository userRecoveryCodeRepository,
+    IUserRecoveryCodeQueries userRecoveryCodeRepository,
     IUserExternalLoginRepository externalLoginRepository,
     IJwtService jwtService,
     ITotpService totpService,

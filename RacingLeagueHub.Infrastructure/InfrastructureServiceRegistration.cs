@@ -7,6 +7,7 @@ using RacingLeagueHub.Application.GameTeams.Persistence;
 using RacingLeagueHub.Application.GrandsPrix.Persistence;
 using RacingLeagueHub.Application.Identity.Authentication.PasswordResetTokens;
 using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes;
+using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes.Persistence;
 using RacingLeagueHub.Application.Identity.Authentication.RefreshTokens.Persistence;
 using RacingLeagueHub.Application.Identity.Authentication.Sso;
 using RacingLeagueHub.Application.Leagues.Persistence;
@@ -33,6 +34,7 @@ using RacingLeagueHub.Infrastructure.Persistence.GameTeams;
 using RacingLeagueHub.Infrastructure.Persistence.GrandsPrix;
 using RacingLeagueHub.Infrastructure.Persistence.Identity.Authentication.PasswordResetTokens;
 using RacingLeagueHub.Infrastructure.Persistence.Identity.Authentication.RefreshTokens;
+using RacingLeagueHub.Infrastructure.Persistence.Identity.Authentication.UserRecoveryCodes;
 using RacingLeagueHub.Infrastructure.Persistence.Leagues;
 using RacingLeagueHub.Infrastructure.Persistence.LeagueUsers;
 using RacingLeagueHub.Infrastructure.Persistence.Resources;
@@ -86,7 +88,6 @@ public static class InfrastructureServiceRegistration
             services.AddScoped(repoType);
         }
 
-        services.AddScoped<IUserRecoveryCodeRepository, UserRecoveryCodeRepository>();
         services.AddScoped<IUserExternalLoginRepository, UserExternalLoginRepository>();
 
         return services;
@@ -165,6 +166,8 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<IRefreshTokenCommands, RefreshTokenCommands>();
         services.AddScoped<IPasswordResetTokenQueries, PasswordResetTokenQueries>();
         services.AddScoped<IPasswordResetTokenCommands, PasswordResetTokenCommands>();
+        services.AddScoped<IUserRecoveryCodeQueries, UserRecoveryCodeQueries>();
+        services.AddScoped<IUserRecoveryCodeCommands, UserRecoveryCodeCommands>();
 
         return services;
     }
