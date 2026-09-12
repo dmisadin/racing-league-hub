@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using RacingLeagueHub.Application.Identity.Authentication.Dtos;
+using RacingLeagueHub.Application.Identity.Authentication.ExternalLogins.Persistence;
 using RacingLeagueHub.Application.Identity.Authentication.PasswordResetTokens;
 using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes;
 using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes.Persistence;
@@ -8,7 +9,6 @@ using RacingLeagueHub.Application.Identity.Authentication.RefreshTokens.Persiste
 using RacingLeagueHub.Application.Identity.Authentication.Sso.Models;
 using RacingLeagueHub.Application.Users.Dtos;
 using RacingLeagueHub.Application.Users.Persistence;
-using RacingLeagueHub.Domain.Abstractions.Repositories;
 using RacingLeagueHub.Domain.Abstractions.Services;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Utilities;
@@ -24,8 +24,9 @@ public class AuthService(
     IRefreshTokenCommands refreshTokenCommands,
     IPasswordResetTokenQueries passwordResetTokenQueries,
     IPasswordResetTokenCommands passwordResetTokenCommands,
-    IUserRecoveryCodeQueries userRecoveryCodeRepository,
-    IUserExternalLoginRepository externalLoginRepository,
+    IUserRecoveryCodeQueries userRecoveryCodeQueries,
+    IUserExternalLoginQueries externalLoginQueries,
+    IUserExternalLoginCommands externalLoginCommands,
     IJwtService jwtService,
     ITotpService totpService,
     IRecoveryCodeService recoveryCodeService,
@@ -159,7 +160,7 @@ public class AuthService(
 
         const string provider = "Google";
 
-        var externalLogin = await externalLoginRepository.FindByProviderAsync(
+        var externalLogin = await externalLoginQueries.FindByProviderAsync(
             provider,
             googleUser.ProviderUserId,
             ct);
@@ -191,7 +192,7 @@ public class AuthService(
             await userCommands.AddAsync(user, ct);
         }
 
-        await externalLoginRepository.InsertAsync(new UserExternalLogin
+        await externalLoginCommands.AddAsync(new UserExternalLogin
         {
             UserId = user.Id,
             Provider = provider,
@@ -200,16 +201,14 @@ public class AuthService(
             DisplayName = googleUser.Name,
             PictureUrl = googleUser.PictureUrl,
             CreatedAt = DateTime.UtcNow
-        });
-
-        await externalLoginRepository.CommitAsync(ct);
+        }, ct);
 
         return await BuildAuthResponse(user, rememberMe: true, ct);
     }
 
     private async Task UseRecoveryCodeAsync(long userId, string code, CancellationToken ct)
     {
-        var unusedCodes = await userRecoveryCodeRepository.GetUnusedForUserAsync(userId, ct);
+        var unusedCodes = await userRecoveryCodeQueries.GetUnusedForUserAsync(userId, ct);
 
         var matchingCode = unusedCodes.FirstOrDefault(x =>
             recoveryCodeService.VerifyCode(code, x.CodeHash));

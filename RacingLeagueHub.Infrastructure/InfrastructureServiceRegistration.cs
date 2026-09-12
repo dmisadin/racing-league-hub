@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RacingLeagueHub.Application.GameTeams.Persistence;
 using RacingLeagueHub.Application.GrandsPrix.Persistence;
+using RacingLeagueHub.Application.Identity.Authentication.ExternalLogins.Persistence;
 using RacingLeagueHub.Application.Identity.Authentication.PasswordResetTokens;
 using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes;
 using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes.Persistence;
@@ -19,7 +20,6 @@ using RacingLeagueHub.Application.Teams.Persistence;
 using RacingLeagueHub.Application.TrackLayouts.Persistence;
 using RacingLeagueHub.Application.Tracks.Persistence;
 using RacingLeagueHub.Application.Users.Persistence;
-using RacingLeagueHub.Domain.Abstractions.Repositories;
 using RacingLeagueHub.Domain.Abstractions.Services;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Infrastructure;
@@ -34,6 +34,7 @@ using RacingLeagueHub.Infrastructure.Persistence.GameTeams;
 using RacingLeagueHub.Infrastructure.Persistence.GrandsPrix;
 using RacingLeagueHub.Infrastructure.Persistence.Identity.Authentication.PasswordResetTokens;
 using RacingLeagueHub.Infrastructure.Persistence.Identity.Authentication.RefreshTokens;
+using RacingLeagueHub.Infrastructure.Persistence.Identity.Authentication.UserExternalLogins;
 using RacingLeagueHub.Infrastructure.Persistence.Identity.Authentication.UserRecoveryCodes;
 using RacingLeagueHub.Infrastructure.Persistence.Leagues;
 using RacingLeagueHub.Infrastructure.Persistence.LeagueUsers;
@@ -87,8 +88,6 @@ public static class InfrastructureServiceRegistration
             services.AddScoped(serviceType, repoType);
             services.AddScoped(repoType);
         }
-
-        services.AddScoped<IUserExternalLoginRepository, UserExternalLoginRepository>();
 
         return services;
     }
@@ -168,6 +167,8 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<IPasswordResetTokenCommands, PasswordResetTokenCommands>();
         services.AddScoped<IUserRecoveryCodeQueries, UserRecoveryCodeQueries>();
         services.AddScoped<IUserRecoveryCodeCommands, UserRecoveryCodeCommands>();
+        services.AddScoped<IUserExternalLoginQueries, UserExternalLoginQueries>();
+        services.AddScoped<IUserExternalLoginCommands, UserExternalLoginCommands>();
 
         return services;
     }
