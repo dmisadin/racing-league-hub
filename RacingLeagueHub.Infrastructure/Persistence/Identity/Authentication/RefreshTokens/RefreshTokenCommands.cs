@@ -2,7 +2,7 @@
 using RacingLeagueHub.Application.Identity.Authentication.RefreshTokens.Persistence;
 using RacingLeagueHub.Domain.Entities;
 
-namespace RacingLeagueHub.Infrastructure.Persistence.Users.RefreshTokens;
+namespace RacingLeagueHub.Infrastructure.Persistence.Identity.Authentication.RefreshTokens;
 
 internal class RefreshTokenCommands : IRefreshTokenCommands
 {

@@ -1,16 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using RacingLeagueHub.Application.Dtos.Auth;
+using RacingLeagueHub.Application.Identity.Authentication.PasswordResetTokens;
 using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes;
 using RacingLeagueHub.Application.Identity.Authentication.RefreshTokens.Persistence;
 using RacingLeagueHub.Application.Identity.Authentication.Sso.Models;
 using RacingLeagueHub.Application.Users.Dtos;
 using RacingLeagueHub.Application.Users.Persistence;
-using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Abstractions.Repositories;
 using RacingLeagueHub.Domain.Abstractions.Services;
 using RacingLeagueHub.Domain.Entities;
-using RacingLeagueHub.Domain.Entities.Authentication;
 using RacingLeagueHub.Domain.Utilities;
 using RacingLeagueHub.Identity.Authentication.Persistence;
 using System.Security.Cryptography;
@@ -22,7 +21,8 @@ public class AuthService(
     IUserCommands userCommands,
     IRefreshTokenQueries refreshTokenQueries,
     IRefreshTokenCommands refreshTokenCommands,
-    IPasswordResetTokenRepository passwordResetTokenRepository,
+    IPasswordResetTokenQueries passwordResetTokenQueries,
+    IPasswordResetTokenCommands passwordResetTokenCommands,
     IUserRecoveryCodeRepository userRecoveryCodeRepository,
     IUserExternalLoginRepository externalLoginRepository,
     IJwtService jwtService,
@@ -290,18 +290,11 @@ public class AuthService(
         var user = await userQueries.GetUserAsync(req.Email, ct);
         if (user is null) return;
 
-        await passwordResetTokenRepository.InvalidateUserTokensAsync(user.Id, ct);
+        await passwordResetTokenCommands.InvalidateUserTokensAsync(user.Id, ct);
 
         var rawToken = GenerateResetToken();
 
-        await passwordResetTokenRepository.InsertAsync(new PasswordResetToken
-        {
-            Token = rawToken,
-            UserId = user.Id,
-            ExpiresAt = DateTime.UtcNow.AddHours(1),
-        });
-
-        await passwordResetTokenRepository.CommitAsync(ct);
+        await passwordResetTokenCommands.AddAsync(rawToken, user.Id);
         
         Console.WriteLine($"http://localhost:4200/auth/reset-password?token={rawToken}");
         
@@ -315,7 +308,7 @@ public class AuthService(
         if (req.NewPassword != req.ConfirmPassword)
             throw new InvalidOperationException("Passwords do not match.");
 
-        var token = await passwordResetTokenRepository.GetTokenWithUserAsync(req.Token, ct)
+        var token = await passwordResetTokenQueries.GetTokenWithUserAsync(req.Token, ct)
                     ?? throw new InvalidOperationException("Invalid or expired reset token.");
 
         if (!token.IsActive)
@@ -324,7 +317,7 @@ public class AuthService(
         token.User.PasswordHash = passwordHasher.HashPassword(token.User, req.NewPassword);
         token.IsUsed = true;
 
-        await passwordResetTokenRepository.CommitAsync(ct);
+        await passwordResetTokenCommands.SaveChangesAsync(ct);
     }
 
     private static string GenerateResetToken()
