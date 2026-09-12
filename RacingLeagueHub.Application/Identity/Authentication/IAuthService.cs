@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.Application.Dtos.Auth;
+﻿using RacingLeagueHub.Application.Identity.Authentication.Dtos;
 using RacingLeagueHub.Application.Identity.Authentication.Sso.Models;
 
 namespace RacingLeagueHub.Application.Identity.Authentication;

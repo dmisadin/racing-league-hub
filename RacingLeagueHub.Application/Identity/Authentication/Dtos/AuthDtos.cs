@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.Application.Users.Dtos;
 
-namespace RacingLeagueHub.Application.Dtos.Auth;
+namespace RacingLeagueHub.Application.Identity.Authentication.Dtos;
 
 public record RegisterRequest(
     string Username,

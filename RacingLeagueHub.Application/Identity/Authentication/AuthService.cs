@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using RacingLeagueHub.Application.Dtos.Auth;
+using RacingLeagueHub.Application.Identity.Authentication.Dtos;
 using RacingLeagueHub.Application.Identity.Authentication.PasswordResetTokens;
 using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes;
 using RacingLeagueHub.Application.Identity.Authentication.RefreshTokens.Persistence;

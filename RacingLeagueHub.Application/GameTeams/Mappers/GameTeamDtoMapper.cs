@@ -1,9 +1,10 @@
-﻿using RacingLeagueHub.Application.GameTeams.Dtos;
+﻿using RacingLeagueHub.Application.DtoMappers;
+using RacingLeagueHub.Application.GameTeams.Dtos;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Application.DtoMappers;
+namespace RacingLeagueHub.Application.GameTeams.Mappers;
 
 public class GameTeamDtoMapper : DtoMapperBase<GameTeam, GameTeamDto>
 {
