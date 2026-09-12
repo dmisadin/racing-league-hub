@@ -3,22 +3,27 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RacingLeagueHub.Application.GameTeams.Persistence;
 using RacingLeagueHub.Application.GrandsPrix.Persistence;
+using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes;
+using RacingLeagueHub.Application.Identity.Authentication.RefreshTokens.Persistence;
+using RacingLeagueHub.Application.Identity.Authentication.Sso;
 using RacingLeagueHub.Application.Leagues.Persistence;
 using RacingLeagueHub.Application.LeagueUsers.Persistence;
 using RacingLeagueHub.Application.Resources;
-using RacingLeagueHub.Application.Seasons.Persistence;
-using RacingLeagueHub.Application.Services.Abstractions;
-using RacingLeagueHub.Application.Resources;
 using RacingLeagueHub.Application.Resources.Persistence;
+using RacingLeagueHub.Application.Seasons.Persistence;
+using RacingLeagueHub.Application.Teams.Persistence;
 using RacingLeagueHub.Application.TrackLayouts.Persistence;
 using RacingLeagueHub.Application.Tracks.Persistence;
+using RacingLeagueHub.Application.Users.Persistence;
 using RacingLeagueHub.Domain.Abstractions;
 using RacingLeagueHub.Domain.Abstractions.Repositories;
 using RacingLeagueHub.Domain.Abstractions.Services;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Infrastructure;
 using RacingLeagueHub.Domain.Services.Interfaces;
+using RacingLeagueHub.Identity.Authentication.Persistence;
 using RacingLeagueHub.Infrastructure.Auth;
 using RacingLeagueHub.Infrastructure.Auth.SSO;
 using RacingLeagueHub.Infrastructure.Configuration;
@@ -32,11 +37,11 @@ using RacingLeagueHub.Infrastructure.Persistence.Resources;
 using RacingLeagueHub.Infrastructure.Persistence.Seasons;
 using RacingLeagueHub.Infrastructure.Persistence.Teams;
 using RacingLeagueHub.Infrastructure.Persistence.TrackLayouts;
+using RacingLeagueHub.Infrastructure.Persistence.Users;
+using RacingLeagueHub.Infrastructure.Persistence.Users.RefreshTokens;
 using RacingLeagueHub.Infrastructure.Repositories;
 using RacingLeagueHub.Infrastructure.Services;
 using System.Reflection;
-using RacingLeagueHub.Application.GameTeams.Persistence;
-using RacingLeagueHub.Application.Teams.Persistence;
 
 namespace RacingLeagueHub.Infrastructure;
 
@@ -80,8 +85,6 @@ public static class InfrastructureServiceRegistration
             services.AddScoped(repoType);
         }
 
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         services.AddScoped<IPasswordResetTokenRepository, PasswordResetTokenRepository>();
 
         services.AddScoped<IUserRecoveryCodeRepository, UserRecoveryCodeRepository>();
@@ -149,7 +152,7 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<ITrackCommands, TrackCommands>();
         services.AddScoped<ITrackLayoutQueries, TrackLayoutQueries>();
         services.AddScoped<ITrackLayoutCommands, TrackLayoutCommands>();
-        services.AddScoped<IResourceQueries, Persistence.Resources.ResourceQueries>();
+        services.AddScoped<IResourceQueries, ResourceQueries>();
         services.AddScoped<IResourceCommands, ResourceCommands>();
         services.AddScoped<IGrandPrixCommands, GrandPrixCommands>();
         services.AddScoped<IGrandPrixQueries, GrandPrixQueries>();
@@ -157,6 +160,10 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<ISeasonQueries, SeasonQueries>();
         services.AddScoped<ILeagueUserQueries, LeagueUserQueries>();
         services.AddScoped<ILeagueQueries, LeagueQueries>();
+        services.AddScoped<IUserQueries, UserQueries>();
+        services.AddScoped<IUserCommands, UserCommands>();
+        services.AddScoped<IRefreshTokenQueries, RefreshTokenQueries>();
+        services.AddScoped<IRefreshTokenCommands, RefreshTokenCommands>();
 
         return services;
     }

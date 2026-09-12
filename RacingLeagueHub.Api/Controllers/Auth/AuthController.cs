@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using RacingLeagueHub.Application.Dtos.Auth;
-using RacingLeagueHub.Application.Dtos.User;
+using RacingLeagueHub.Application.Identity.Authentication;
+using RacingLeagueHub.Application.Identity.Authentication.Sso;
 using RacingLeagueHub.Application.LeagueUsers.Dtos;
 using RacingLeagueHub.Application.LeagueUsers.Persistence;
-using RacingLeagueHub.Application.Services.Abstractions;
-using RacingLeagueHub.Application.Services.Identity;
+using RacingLeagueHub.Application.Users.Dtos;
 using RacingLeagueHub.Infrastructure.Configuration;
 using System.Security.Claims;
 

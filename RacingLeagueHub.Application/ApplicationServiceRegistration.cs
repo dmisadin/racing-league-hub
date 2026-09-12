@@ -2,9 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using RacingLeagueHub.Application.DtoMappers;
 using RacingLeagueHub.Application.GameTeams;
+using RacingLeagueHub.Application.Identity.Authentication;
+using RacingLeagueHub.Application.Identity.Authentication.TwoFactorAuthentication;
 using RacingLeagueHub.Application.Leagues.Mappers;
-using RacingLeagueHub.Application.Services.Identity;
-using RacingLeagueHub.Application.Services.TwoFactorAuthentication;
 using RacingLeagueHub.Application.Teams;
 using RacingLeagueHub.Application.TrackLayouts;
 using RacingLeagueHub.Application.Tracks;

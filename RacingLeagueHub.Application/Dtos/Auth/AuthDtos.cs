@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.Application.Dtos.User;
+﻿using RacingLeagueHub.Application.Users.Dtos;
 
 namespace RacingLeagueHub.Application.Dtos.Auth;
 
@@ -12,10 +12,6 @@ public record LoginRequest(
     string Email,
     string Password,
     bool RememberMe
-);
-
-public record RefreshTokenRequest(
-    string RefreshToken
 );
 
 public record AuthResponse(
