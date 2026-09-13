@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RacingLeagueHub.Application.Common.Dtos;
 using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Tracks.Dtos;
@@ -53,5 +54,15 @@ internal class TrackQueries : ITrackQueries
             page,
             pageSize,
             totalCount);
+    }
+    public async Task<List<LookupDto>> GetLookupsAsync(CancellationToken ct)
+    {
+        return await racingContext.Track
+            .Select(t => new LookupDto
+            {
+                Id = t.Id,
+                Label = t.Name
+            })
+            .ToListAsync(ct);
     }
 }

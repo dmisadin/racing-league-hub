@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
+using RacingLeagueHub.Application.Common.Dtos;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Tracks;
 using RacingLeagueHub.Application.Tracks.Dtos;
@@ -66,36 +67,12 @@ public class TrackController : ApiController
 
         return NoContent();
     }
-    /*
-    [HttpGet("get-all")]
-    public virtual async Task<ActionResult<List<TrackDto>>> GetAll()
+
+    [HttpGet("lookups")]
+    public async Task<ActionResult<List<LookupDto>>> GetLookups(CancellationToken ct)
     {
-        var dtos = await repository.GetAllAsync(dtoMapper.ToDtoExpression());
-
-        if (dtos == null)
-            return NotFound();
-
-        foreach (var dto in dtos)
-        {
-            if (Countries.ByAlpha2.TryGetValue(dto.CountryAlpha2, out var country))
-                dto.Country = country;
-        }
-
-        return Ok(dtos);
-    }
-
-    [HttpGet("lookup")]
-    public async Task<ActionResult<LookupDto>> GetLookup()
-    {
-        var tracks = await repository.GetAllAsync(dtoMapper.ToDtoExpression());
-
-        var lookups = tracks.Select(x => new LookupDto
-        {
-            Id = x.Id,
-            Label = x.Name
-        });
+        List<LookupDto> lookups = await trackService.GetLookupsAsync(ct);
 
         return Ok(lookups);
     }
-    */
 }

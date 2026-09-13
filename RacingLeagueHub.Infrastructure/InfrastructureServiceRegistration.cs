@@ -133,6 +133,7 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<ISeasonQueries, SeasonQueries>();
         services.AddScoped<ILeagueUserQueries, LeagueUserQueries>();
         services.AddScoped<ILeagueQueries, LeagueQueries>();
+        services.AddScoped<ILeagueCommands, LeagueCommands>();
         services.AddScoped<IUserQueries, UserQueries>();
         services.AddScoped<IUserCommands, UserCommands>();
         services.AddScoped<IRefreshTokenQueries, RefreshTokenQueries>();

@@ -1,4 +1,5 @@
-﻿using RacingLeagueHub.Application.Models;
+﻿using RacingLeagueHub.Application.Common.Dtos;
+using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Tracks.Dtos;
 using RacingLeagueHub.Application.Tracks.Persistence;
 
@@ -25,6 +26,11 @@ public class TrackService : ITrackService
     public async Task<PagedResult<TrackDto>> GetPagedAsync(int page, CancellationToken ct)
     {
         return await queries.GetPagedAsync(page, pageSize: 10, ct);
+    }
+
+    public async Task<List<LookupDto>> GetLookupsAsync(CancellationToken ct)
+    {
+        return await queries.GetLookupsAsync(ct);
     }
 
     public async Task<TrackDto> AddAsync(CreateTrackDto dto, CancellationToken ct)
