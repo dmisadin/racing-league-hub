@@ -1,8 +1,8 @@
-﻿using RacingLeagueHub.Application.Dtos;
+﻿using RacingLeagueHub.Application.Common.Dtos;
 using RacingLeagueHub.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Application.DtoMappers;
+namespace RacingLeagueHub.Application.Common.Mappers;
 
 public abstract class DtoMapperBase<TEntity, TDto> : IDtoMapper<TEntity, TDto>
     where TEntity : IEntity

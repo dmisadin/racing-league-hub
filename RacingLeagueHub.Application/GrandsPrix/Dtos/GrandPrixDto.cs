@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.Application.Dtos;
+﻿using RacingLeagueHub.Application.Common.Dtos;
 using RacingLeagueHub.Application.Models;
 
 namespace RacingLeagueHub.Application.GrandsPrix.Dtos;

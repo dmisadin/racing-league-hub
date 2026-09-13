@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.Application.Dtos;
+﻿namespace RacingLeagueHub.Application.Common.Countries.Dtos;
 
 public record CountryDto(
     int Id,

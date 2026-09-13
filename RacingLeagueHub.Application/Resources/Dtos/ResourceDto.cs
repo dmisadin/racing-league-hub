@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.Application.Dtos;
+﻿using RacingLeagueHub.Application.Common.Dtos;
 
 namespace RacingLeagueHub.Application.Resources.Dtos;
 

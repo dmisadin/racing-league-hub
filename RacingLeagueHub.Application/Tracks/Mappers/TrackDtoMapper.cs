@@ -1,5 +1,5 @@
-﻿using RacingLeagueHub.Application.DtoMappers;
-using RacingLeagueHub.Application.Dtos;
+﻿using RacingLeagueHub.Application.Common.Countries.Dtos;
+using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.TrackLayouts.Dtos;
 using RacingLeagueHub.Application.Tracks.Dtos;

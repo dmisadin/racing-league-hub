@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
-using RacingLeagueHub.Application.DtoMappers;
+using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.Leagues.Dtos;
 using RacingLeagueHub.Application.Leagues.Persistence;
 using RacingLeagueHub.Application.Models;

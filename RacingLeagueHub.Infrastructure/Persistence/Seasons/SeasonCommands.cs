@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.Application.DtoMappers;
+using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.Seasons.Dtos;
 using RacingLeagueHub.Application.Seasons.Persistence;
 using RacingLeagueHub.Domain.Entities.Seasons;

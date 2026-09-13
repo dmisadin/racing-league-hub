@@ -1,7 +1,7 @@
 ﻿using RacingLeagueHub.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace RacingLeagueHub.Application.DtoMappers;
+namespace RacingLeagueHub.Application.Common.Mappers;
 
 public interface IDtoMapper<TEntity, TDto>
     where TEntity : IEntity

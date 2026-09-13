@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.Application.Models;
 
-namespace RacingLeagueHub.Application.Dtos;
+namespace RacingLeagueHub.Application.Common.Dtos;
 
 public class LookupDto
 {

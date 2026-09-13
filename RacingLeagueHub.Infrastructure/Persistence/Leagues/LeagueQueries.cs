@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.Application.DtoMappers;
+using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.Leagues.Dtos;
 using RacingLeagueHub.Application.Leagues.Persistence;
 using RacingLeagueHub.Application.Models;

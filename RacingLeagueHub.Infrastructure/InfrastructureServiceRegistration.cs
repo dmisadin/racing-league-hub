@@ -22,7 +22,6 @@ using RacingLeagueHub.Application.Tracks.Persistence;
 using RacingLeagueHub.Application.Users.Persistence;
 using RacingLeagueHub.Domain.Abstractions.Services;
 using RacingLeagueHub.Domain.Entities;
-using RacingLeagueHub.Domain.Infrastructure;
 using RacingLeagueHub.Domain.Services.Interfaces;
 using RacingLeagueHub.Identity.Authentication.Persistence;
 using RacingLeagueHub.Infrastructure.Auth;
@@ -63,31 +62,6 @@ public static class InfrastructureServiceRegistration
                     options.UseNpgsql(configuration
                             .GetConnectionString("DefaultConnection"))
                             .UseSnakeCaseNamingConvention());
-
-        return services;
-    }
-
-    public static IServiceCollection AddRepositories(this IServiceCollection services, params Assembly[] assemblies)
-    {
-        var targetAssemblies = assemblies.Length > 0
-            ? assemblies
-            : [Assembly.GetCallingAssembly()];
-
-        services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
-
-        var concreteRepos = targetAssemblies
-            .SelectMany(a => a.GetTypes())
-            .Where(t => !t.IsAbstract && !t.IsInterface)
-            .Where(t => t.BaseType is { IsGenericType: true } &&
-                        t.BaseType.GetGenericTypeDefinition() == typeof(GenericRepository<>));
-
-        foreach (var repoType in concreteRepos)
-        {
-            var entityType = repoType.BaseType!.GetGenericArguments()[0];
-            var serviceType = typeof(IRepository<>).MakeGenericType(entityType);
-            services.AddScoped(serviceType, repoType);
-            services.AddScoped(repoType);
-        }
 
         return services;
     }
