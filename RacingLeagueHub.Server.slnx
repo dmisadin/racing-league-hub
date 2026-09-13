@@ -1,0 +1,10 @@
+<Solution>
+  <Project Path="RacingLeagueHub.Api/RacingLeagueHub.Api.csproj" />
+  <Project Path="RacingLeagueHub.Application/RacingLeagueHub.Application.csproj" />
+  <Project Path="RacingLeagueHub.Domain/RacingLeagueHub.Domain.csproj" />
+  <Project Path="RacingLeagueHub.Infrastructure/RacingLeagueHub.Infrastructure.csproj" />
+  <Project Path="RacingLeagueHub.Web/RacingLeagueHub.Web.esproj">
+    <Build />
+    <Deploy Solution="Release|*" />
+  </Project>
+</Solution>
