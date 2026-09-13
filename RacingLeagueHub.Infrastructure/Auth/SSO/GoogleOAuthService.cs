@@ -1,8 +1,8 @@
 ﻿using Google.Apis.Auth;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
-using RacingLeagueHub.Application.Dtos.Auth.SSO;
-using RacingLeagueHub.Application.Services.Abstractions;
+using RacingLeagueHub.Application.Identity.Authentication.Sso;
+using RacingLeagueHub.Application.Identity.Authentication.Sso.Models;
 using RacingLeagueHub.Infrastructure.Configuration;
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;

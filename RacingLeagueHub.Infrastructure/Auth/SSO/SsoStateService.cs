@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.WebUtilities;
-using RacingLeagueHub.Application.Services.Abstractions;
+using RacingLeagueHub.Application.Identity.Authentication.Sso;
 using System.Security.Cryptography;
 using System.Text;
 

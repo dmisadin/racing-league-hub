@@ -26,7 +26,7 @@ export class TeamDetailsComponent extends ModalFormParent<TeamDto> implements On
     }
 
     protected override loadDto() {
-        this.restService.get<TeamDto>(`/team/get-by-id/${this.teamId()}`).subscribe(res => {
+        this.restService.get<TeamDto>(`/team/${this.teamId()}`).subscribe(res => {
             this.dto.set(res);
         });
     }

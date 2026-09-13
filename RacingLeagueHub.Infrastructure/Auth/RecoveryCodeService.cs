@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using RacingLeagueHub.Domain.Abstractions.Services;
+using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes;
 using RacingLeagueHub.Domain.Entities;
 using System.Security.Cryptography;
 

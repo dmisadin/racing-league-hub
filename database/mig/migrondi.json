@@ -1,5 +1,5 @@
 {
-  "connection": "Host=localhost;Port=5432;Database=racing_league_hub;UserId=postgres;Password=postgres;",
+  "connection": "Host=localhost;Port=5432;Database=racing_league_hub;UserId=postgres;Password=postgres;Include Error Detail=true;",
   "migrations": "./migrations",
   "tableName": "__migrondi_migrations",
   "driver": "postgres"

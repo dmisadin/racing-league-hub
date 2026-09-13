@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Interceptors.EntityHandlers;
+using RacingLeagueHub.Infrastructure.Persistence.EntityHandlers;
 
 namespace RacingLeagueHub.Infrastructure;
 
@@ -34,7 +35,7 @@ internal class AdventureContext : DbContext
             {
                 h.Validate(entry);
                 if (state == EntityState.Added) h.BeforeAdded(entry);
-                if (state == EntityState.Modified) h.BeforeUpdate(entry, original!, this);
+                if (state == EntityState.Modified) h.BeforeUpdate(entry, original!);
                 if (state == EntityState.Deleted) h.BeforeDeleted(entry);
             }
         }
@@ -48,7 +49,7 @@ internal class AdventureContext : DbContext
             foreach (var h in handlers)
             {
                 if (state == EntityState.Added) h.AfterAdded(entry);
-                if (state == EntityState.Modified) h.AfterUpdate(entry, original!, this);
+                if (state == EntityState.Modified) h.AfterUpdate(entry, original!);
                 if (state == EntityState.Deleted) h.AfterDeleted(entry);
             }
         }

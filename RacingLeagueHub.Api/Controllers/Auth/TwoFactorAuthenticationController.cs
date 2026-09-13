@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RacingLeagueHub.Application.Dtos.Auth.Totp;
-using RacingLeagueHub.Application.Dtos.Auth.TwoFactor;
-using RacingLeagueHub.Application.Services.TwoFactorAuthentication;
+using RacingLeagueHub.Application.Identity.Authentication.TwoFactor.Dtos;
+using RacingLeagueHub.Application.Identity.Authentication.TwoFactor.Models;
+using RacingLeagueHub.Application.Identity.Authentication.TwoFactorAuthentication;
 
 namespace RacingLeagueHub.Api.Controllers.Auth;
 
 [Route("api/account/2fa")]
 [Authorize]
-public class TwoFactorAuthenticationController : BaseController
+public class TwoFactorAuthenticationController : ApiController
 {
     private readonly ITwoFactorService twoFactorService;
 

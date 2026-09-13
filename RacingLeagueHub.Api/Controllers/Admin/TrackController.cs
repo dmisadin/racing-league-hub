@@ -1,52 +1,77 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
-using RacingLeagueHub.Application.DtoMappers;
-using RacingLeagueHub.Application.Dtos;
-using RacingLeagueHub.Application.Dtos.Track;
-using RacingLeagueHub.Domain.Entities;
-using RacingLeagueHub.Domain.Infrastructure;
-using RacingLeagueHub.Domain.Models.Constants;
+using RacingLeagueHub.Application.Common.Dtos;
+using RacingLeagueHub.Application.Models;
+using RacingLeagueHub.Application.Tracks;
+using RacingLeagueHub.Application.Tracks.Dtos;
 
 namespace RacingLeagueHub.Api.Controllers.Admin;
 
 [Authorize(Policy = AppPolicies.SuperAdmin)]
 [Route("api/track")]
-[ApiController]
-public class TrackController : GenericController<Track, TrackDto>
+public class TrackController : ApiController
 {
-    public TrackController(IRepository<Track> repository,
-        IDtoMapper<Track, TrackDto> dtoMapper) : base(repository, dtoMapper)
+    private readonly ITrackService trackService;
+
+    public TrackController(ITrackService trackService)
     {
+        this.trackService = trackService;
     }
 
-    [HttpGet("get-all")]
-    public virtual async Task<ActionResult<List<TrackDto>>> GetAll()
+    [HttpGet("{id}")]
+    public async Task<ActionResult<TrackDto>> GetById(EncryptedId id, CancellationToken ct)
     {
-        var dtos = await repository.GetAllAsync(dtoMapper.ToDtoExpression());
+        var track = await trackService.GetByIdAsync(id.RawId, ct);
 
-        if (dtos == null)
+        if (track is null)
             return NotFound();
 
-        foreach (var dto in dtos)
-        {
-            if (Countries.ByAlpha2.TryGetValue(dto.CountryAlpha2, out var country))
-                dto.Country = country;
-        }
-
-        return Ok(dtos);
+        return Ok(track);
     }
 
-    [HttpGet("lookup")]
-    public async Task<ActionResult<LookupDto>> GetLookup()
+    [HttpGet]
+    public async Task<ActionResult<IReadOnlyList<TrackDto>>> GetPaged([FromQuery] int page = 1, CancellationToken ct = default)
     {
-        var tracks = await repository.GetAllAsync(dtoMapper.ToDtoExpression());
+        var tracks = await trackService.GetPagedAsync(page, ct);
 
-        var lookups = tracks.Select(x => new LookupDto
-        {
-            Id = x.Id,
-            Label = x.Name
-        });
+        return Ok(tracks);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<TrackDto>> AddTrack([FromBody] CreateTrackDto dto, CancellationToken ct)
+    {
+        var track = await trackService.AddAsync(dto, ct);
+
+        return CreatedAtAction(nameof(GetById), new { id = track.Id }, track);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<TrackDto>> UpdateTrack([FromRoute] EncryptedId id, [FromBody] UpdateTrackDto dto, CancellationToken ct)
+    {
+        var track = await trackService.UpdateAsync(id.RawId, dto, ct);
+
+        if (track is null)
+            return NotFound();
+
+        return Ok(track);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteTrack(EncryptedId id, CancellationToken ct)
+    {
+        var deleted = await trackService.DeleteAsync(id.RawId, ct);
+
+        if (!deleted)
+            return NotFound();
+
+        return NoContent();
+    }
+
+    [HttpGet("lookups")]
+    public async Task<ActionResult<List<LookupDto>>> GetLookups(CancellationToken ct)
+    {
+        List<LookupDto> lookups = await trackService.GetLookupsAsync(ct);
 
         return Ok(lookups);
     }
