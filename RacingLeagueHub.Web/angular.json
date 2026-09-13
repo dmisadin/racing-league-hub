@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "RacingLeagueHubClient": {
+    "RacingLeagueHub.Web": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": { "type": "component" },
@@ -71,10 +71,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "RacingLeagueHubClient:build:production"
+              "buildTarget": "RacingLeagueHub.Web:build:production"
             },
             "development": {
-              "buildTarget": "RacingLeagueHubClient:build:development"
+              "buildTarget": "RacingLeagueHub.Web:build:development"
             }
           },
           "defaultConfiguration": "development"
