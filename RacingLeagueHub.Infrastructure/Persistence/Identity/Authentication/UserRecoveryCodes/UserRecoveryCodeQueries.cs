@@ -13,21 +13,21 @@ internal class UserRecoveryCodeQueries : IUserRecoveryCodeQueries
         this.racingContext = racingContext;
     }
 
-    public Task<List<UserRecoveryCode>> GetUnusedForUserAsync(long userId, CancellationToken ct = default)
+    public Task<List<UserRecoveryCode>> GetUnusedForUserAsync(int userId, CancellationToken ct = default)
     {
         return racingContext.UserRecoveryCode
             .Where(x => x.UserId == userId && x.UsedAt == null)
             .ToListAsync(ct);
     }
 
-    public Task DeleteForUserAsync(long userId, CancellationToken ct = default)
+    public Task DeleteForUserAsync(int userId, CancellationToken ct = default)
     {
         return racingContext.UserRecoveryCode
             .Where(x => x.UserId == userId)
             .ExecuteDeleteAsync(ct);
     }
 
-    public Task<int> CountUnusedForUserAsync(long userId, CancellationToken ct = default)
+    public Task<int> CountUnusedForUserAsync(int userId, CancellationToken ct = default)
     {
         return racingContext.UserRecoveryCode
             .CountAsync(x => x.UserId == userId 

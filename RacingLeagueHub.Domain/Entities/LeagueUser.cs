@@ -2,8 +2,8 @@
 
 public class LeagueUser : EntityBase
 {
-    public long LeagueId { get; set; }
-    public long UserId { get; set; }
+    public int LeagueId { get; set; }
+    public int UserId { get; set; }
     public bool IsOwner { get; set; }
     public bool IsAdmin { get; set; }
     public bool IsEditor { get; set; }

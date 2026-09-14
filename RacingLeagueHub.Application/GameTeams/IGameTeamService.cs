@@ -5,9 +5,9 @@ namespace RacingLeagueHub.Application.GameTeams;
 
 public interface IGameTeamService
 {
-    Task<GameTeamDto?> GetByIdAsync(long id, CancellationToken ct);
+    Task<GameTeamDto?> GetByIdAsync(int id, CancellationToken ct);
     Task<PagedResult<GameTeamDto>> GetPagedAsync(int page, CancellationToken ct);
     Task<GameTeamDto> AddAsync(CreateGameTeamDto dto, CancellationToken ct);
-    Task<GameTeamDto?> UpdateAsync(long id, UpdateGameTeamDto dto, CancellationToken ct);
-    Task<bool> DeleteAsync(long id, CancellationToken ct);
+    Task<GameTeamDto?> UpdateAsync(int id, UpdateGameTeamDto dto, CancellationToken ct);
+    Task<bool> DeleteAsync(int id, CancellationToken ct);
 }

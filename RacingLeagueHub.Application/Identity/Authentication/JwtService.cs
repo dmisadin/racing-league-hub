@@ -150,7 +150,7 @@ public class JwtService(IConfiguration config) : IJwtService
         }
     }
 
-    public long GetUserIdFromPrincipal(ClaimsPrincipal principal)
+    public int GetUserIdFromPrincipal(ClaimsPrincipal principal)
     {
         var encryptedSub =
             principal.FindFirst(JwtRegisteredClaimNames.Sub)?.Value

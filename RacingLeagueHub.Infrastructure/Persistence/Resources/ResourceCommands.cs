@@ -59,7 +59,7 @@ internal sealed class ResourceCommands : IResourceCommands
         return mapper.ToDto(resource);
     }
 
-    public async Task<bool> ConfirmAsync(long id, CancellationToken ct)
+    public async Task<bool> ConfirmAsync(int id, CancellationToken ct)
     {
         var resource = await racingContext.Resource
             .SingleOrDefaultAsync(
@@ -76,7 +76,7 @@ internal sealed class ResourceCommands : IResourceCommands
         return true;
     }
 
-    public async Task<bool> DeleteAsync(long id, CancellationToken ct)
+    public async Task<bool> DeleteAsync(int id, CancellationToken ct)
     {
         var resource = await racingContext.Resource
             .SingleOrDefaultAsync(r => r.Id == id, ct);

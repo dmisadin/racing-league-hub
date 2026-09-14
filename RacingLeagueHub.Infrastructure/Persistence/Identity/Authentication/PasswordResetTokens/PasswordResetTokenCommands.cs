@@ -13,7 +13,7 @@ internal class PasswordResetTokenCommands : IPasswordResetTokenCommands
         this.context = context;
     }
 
-    public async Task<PasswordResetToken> AddAsync(string token, long userId)
+    public async Task<PasswordResetToken> AddAsync(string token, int userId)
     {
         PasswordResetToken passwordResetToken = new PasswordResetToken
         {
@@ -28,7 +28,7 @@ internal class PasswordResetTokenCommands : IPasswordResetTokenCommands
         return passwordResetToken;
     }
 
-    public async Task InvalidateUserTokensAsync(long userId, CancellationToken ct = default)
+    public async Task InvalidateUserTokensAsync(int userId, CancellationToken ct = default)
     {
         await context.PasswordResetToken
             .Where(t => t.UserId == userId 

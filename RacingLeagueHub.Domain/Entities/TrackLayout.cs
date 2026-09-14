@@ -5,7 +5,7 @@ namespace RacingLeagueHub.Domain.Entities;
 
 public class TrackLayout : EntityBase
 {
-    public long TrackId { get; set; }
+    public int TrackId { get; set; }
     public string Name { get; set; }
     public short? PitStopDuration { get; set; }
     public short CornersTotal { get; set; }
@@ -14,8 +14,8 @@ public class TrackLayout : EntityBase
     public decimal? ElevationChange { get; set; }
     public short Length { get; set; }
     public short TelemetryId { get; set; }
-    public long? MapImageResourceId { get; set; }
-    public long? CoverImageResourceId { get; set; }
+    public int? MapImageResourceId { get; set; }
+    public int? CoverImageResourceId { get; set; }
 
     public virtual Track Track { get; set; }
     public virtual Resource? MapImageResource { get; set; }

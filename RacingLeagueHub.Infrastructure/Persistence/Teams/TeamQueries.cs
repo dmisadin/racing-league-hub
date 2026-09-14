@@ -20,7 +20,7 @@ internal class TeamQueries : ITeamQueries
         this.mapper = mapper;
     }
 
-    public async Task<TeamDto?> GetByIdAsync(long id, CancellationToken ct)
+    public async Task<TeamDto?> GetByIdAsync(int id, CancellationToken ct)
     {
         return await racingContext.Team
             .Where(t => t.Id == id)

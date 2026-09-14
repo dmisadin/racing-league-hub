@@ -13,5 +13,5 @@ public interface IJwtService
 
     string GenerateTwoFactorToken(User user);
     ClaimsPrincipal? ValidateTwoFactorToken(string token);
-    long GetUserIdFromPrincipal(ClaimsPrincipal principal);
+    int GetUserIdFromPrincipal(ClaimsPrincipal principal);
 }

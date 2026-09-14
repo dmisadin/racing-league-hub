@@ -34,7 +34,7 @@ public class TwoFactorService : ITwoFactorService
         this.userRecoveryCodeCommands = userRecoveryCodeCommands;
     }
 
-    public async Task<TwoFactorSetupDto> StartSetupAsync(long userId, CancellationToken ct = default)
+    public async Task<TwoFactorSetupDto> StartSetupAsync(int userId, CancellationToken ct = default)
     {
         var user = await userQueries.GetUserAsync(userId, ct)
             ?? throw new UnauthorizedAccessException();
@@ -61,7 +61,7 @@ public class TwoFactorService : ITwoFactorService
         };
     }
 
-    public async Task<ConfirmTwoFactorResponse> ConfirmSetupAsync(long userId, string code, CancellationToken ct = default)
+    public async Task<ConfirmTwoFactorResponse> ConfirmSetupAsync(int userId, string code, CancellationToken ct = default)
     {
         var user = await userQueries.GetUserAsync(userId, ct)
             ?? throw new UnauthorizedAccessException();
@@ -106,7 +106,7 @@ public class TwoFactorService : ITwoFactorService
         return new ConfirmTwoFactorResponse(recoveryCodes);
     }
 
-    public async Task<RecoveryCodesResponse> RegenerateRecoveryCodesAsync(long userId, CancellationToken ct = default)
+    public async Task<RecoveryCodesResponse> RegenerateRecoveryCodesAsync(int userId, CancellationToken ct = default)
     {
         var user = await userQueries.GetUserAsync(userId, ct)
             ?? throw new UnauthorizedAccessException();

@@ -37,7 +37,7 @@ internal class GrandPrixCommands : IGrandPrixCommands
         return mapper.ToDto(grandPrix);
     }
 
-    public async Task<long?> UpdateBySlugAsync(
+    public async Task<int?> UpdateBySlugAsync(
         string leagueSlug,
         string seasonSlug,
         string grandPrixSlug,

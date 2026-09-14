@@ -4,7 +4,7 @@ namespace RacingLeagueHub.Application.Users.Dtos;
 
 public record UserDto
 {
-    public UserDto(long id, string email, string username, bool isAdmin, long? driverId)
+    public UserDto(int id, string email, string username, bool isAdmin, int? driverId)
     {
         this.Id = new EncryptedId(id);
         this.Email = email;
@@ -22,10 +22,10 @@ public record UserDto
 
 public class CreateUserDto
 {
-    public long Id { get; init; }
+    public int Id { get; init; }
     public string Email { get; init; }
     public string Username { get; init; }
     public string? Password { get; init; }
     public bool IsAdmin { get; init; }
-    public long? DriverId { get; init; }
+    public int? DriverId { get; init; }
 }

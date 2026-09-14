@@ -4,7 +4,7 @@ namespace RacingLeagueHub.Application.Models;
 
 public class EncryptedId
 {
-    public EncryptedId(long rawId)
+    public EncryptedId(int rawId)
     {
         this.RawId = rawId;
         this.EncryptedReadonlyValue = this.RawId.Encrypt();
@@ -16,6 +16,6 @@ public class EncryptedId
         this.EncryptedReadonlyValue = encryptedId;
     }
 
-    public long RawId { get; set; }
+    public int RawId { get; set; }
     public string EncryptedReadonlyValue { get; set; }
 }

@@ -6,6 +6,6 @@ namespace RacingLeagueHub.Application.Resources.Persistence;
 public interface IResourceCommands
 {
     Task<ResourceDto> UploadAsync(FileUploadRequest file, bool? isThumbnail, CancellationToken ct);
-    Task<bool> ConfirmAsync(long id, CancellationToken ct);
-    Task<bool> DeleteAsync(long id, CancellationToken ct);
+    Task<bool> ConfirmAsync(int id, CancellationToken ct);
+    Task<bool> DeleteAsync(int id, CancellationToken ct);
 }

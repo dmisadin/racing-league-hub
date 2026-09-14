@@ -4,7 +4,7 @@ namespace RacingLeagueHub.Domain.Entities.Seasons;
 
 public class SeasonAssists : EntityBase
 {
-    public long SeasonId { get; set; }
+    public int SeasonId { get; set; }
     public RacingLine RacingLine { get; set; }
     public Gearbox Gearbox { get; set; }
     public TractionControl TractionControl { get; set; }

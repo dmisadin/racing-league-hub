@@ -2,9 +2,9 @@
 
 public class SeasonDriver : EntityBase
 {
-    public long SeasonId { get; set; }
-    public long TeamId { get; set; }
-    public long DriverId { get; set; }
+    public int SeasonId { get; set; }
+    public int TeamId { get; set; }
+    public int DriverId { get; set; }
     public short? RacingNumber { get; set; }
     public short PenaltyPoints { get; set; }
 

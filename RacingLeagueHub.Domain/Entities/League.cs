@@ -12,7 +12,7 @@ public class League : EntityBase
     public string? Description { get; set; }
     public string Timezone { get; set; }
     public string Slug { get; set; }
-    public long? LogoResourceId { get; set; }
+    public int? LogoResourceId { get; set; }
 
     public virtual Resource? LogoResource { get; set; }
 

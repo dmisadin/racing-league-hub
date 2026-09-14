@@ -9,6 +9,6 @@ public class PasswordResetToken : EntityBase
     public bool IsExpired => DateTime.UtcNow >= ExpiresAt;
     public bool IsActive => !IsUsed && !IsExpired;
 
-    public long UserId { get; set; }
+    public int UserId { get; set; }
     public virtual User User { get; set; } = null!;
 }

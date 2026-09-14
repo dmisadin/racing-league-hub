@@ -4,6 +4,6 @@ namespace RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes.Pers
 
 public interface IUserRecoveryCodeQueries
 {
-    Task<List<UserRecoveryCode>> GetUnusedForUserAsync(long userId, CancellationToken ct = default);
-    Task<int> CountUnusedForUserAsync(long userId, CancellationToken ct = default);
+    Task<List<UserRecoveryCode>> GetUnusedForUserAsync(int userId, CancellationToken ct = default);
+    Task<int> CountUnusedForUserAsync(int userId, CancellationToken ct = default);
 }

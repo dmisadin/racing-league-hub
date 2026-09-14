@@ -5,7 +5,7 @@ namespace RacingLeagueHub.Application.GrandsPrix.Persistence;
 public interface IGrandPrixCommands
 {
     Task<GrandPrixDto> AddAsync(CreateGrandPrixDto dto, CancellationToken ct);
-    Task<long?> UpdateBySlugAsync(
+    Task<int?> UpdateBySlugAsync(
         string leagueSlug,
         string seasonSlug,
         string grandPrixSlug,

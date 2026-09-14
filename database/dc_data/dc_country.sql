@@ -1,6 +1,6 @@
 BEGIN;
 
-INSERT INTO dc_country (id, code_alpha_2, code_alpha_3, name, is_active)
+INSERT INTO dc_country (id, code_alpha2, code_alpha3, name, is_active)
 VALUES
     (1, 'AF', 'AFG', 'Afghanistan', true),
     (2, 'AL', 'ALB', 'Albania', true),

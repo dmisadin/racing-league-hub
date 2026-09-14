@@ -33,7 +33,7 @@ internal class TeamCommands : ITeamCommands
         return mapper.ToDto(team);
     }
 
-    public async Task<TeamDto?> UpdateAsync(long id, UpdateTeamDto dto, CancellationToken ct)
+    public async Task<TeamDto?> UpdateAsync(int id, UpdateTeamDto dto, CancellationToken ct)
     {
         var team = await racingContext.Team
             .SingleOrDefaultAsync(
@@ -50,7 +50,7 @@ internal class TeamCommands : ITeamCommands
         return mapper.ToDto(team);
     }
 
-    public async Task<bool> DeleteAsync(long id, CancellationToken ct)
+    public async Task<bool> DeleteAsync(int id, CancellationToken ct)
     {
         var team = await racingContext.Team
             .SingleOrDefaultAsync(

@@ -2,5 +2,5 @@
 
 public class EntityBase : IEntity
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 }

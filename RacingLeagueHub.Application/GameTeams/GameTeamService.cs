@@ -17,7 +17,7 @@ public class GameTeamService : IGameTeamService
         this.commands = commands;
     }
 
-    public async Task<GameTeamDto?> GetByIdAsync(long id, CancellationToken ct)
+    public async Task<GameTeamDto?> GetByIdAsync(int id, CancellationToken ct)
     {
         return await queries.GetByIdAsync(id, ct);
     }
@@ -32,12 +32,12 @@ public class GameTeamService : IGameTeamService
         return await commands.AddAsync(dto, ct);
     }
 
-    public async Task<GameTeamDto?> UpdateAsync(long id, UpdateGameTeamDto dto, CancellationToken ct)
+    public async Task<GameTeamDto?> UpdateAsync(int id, UpdateGameTeamDto dto, CancellationToken ct)
     {
         return await commands.UpdateAsync(id, dto, ct);
     }
 
-    public async Task<bool> DeleteAsync(long id, CancellationToken ct)
+    public async Task<bool> DeleteAsync(int id, CancellationToken ct)
     {
         return await commands.DeleteAsync(id, ct);
     }

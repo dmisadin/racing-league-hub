@@ -13,7 +13,7 @@ internal class RefreshTokenCommands : IRefreshTokenCommands
         this.context = context;
     }
 
-    public async Task<RefreshToken> AddAsync(string refreshToken, long userId, DateTime expiresAt, CancellationToken ct = default)
+    public async Task<RefreshToken> AddAsync(string refreshToken, int userId, DateTime expiresAt, CancellationToken ct = default)
     {
         RefreshToken token = new RefreshToken
         {

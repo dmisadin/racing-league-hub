@@ -17,7 +17,7 @@ public interface ISeasonQueries
         CancellationToken ct = default);
 
     Task<PagedResult<SeasonDto>> GetLeagueSeasonsAsync(
-        long leagueId,
+        int leagueId,
         int page = 1,
         int pageSize = 10,
         CancellationToken ct = default);
