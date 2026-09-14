@@ -83,12 +83,12 @@ public class AuthController : ApiController
         var claims = User.Claims.ToDictionary(c => c.Type, c => c.Value);
 
         return Ok(new UserDto(
-            id: long.Parse(claims[JwtRegisteredClaimNames.Sub]),
+            id: int.Parse(claims[JwtRegisteredClaimNames.Sub]),
             email: claims[JwtRegisteredClaimNames.Email],
             username: claims["username"],
             isAdmin: claims[ClaimTypes.Role] == "Admin",
             driverId: claims.TryGetValue("driverId", out var driverId)
-                ? long.Parse(driverId)
+                ? int.Parse(driverId)
                 : null
         ));
     }

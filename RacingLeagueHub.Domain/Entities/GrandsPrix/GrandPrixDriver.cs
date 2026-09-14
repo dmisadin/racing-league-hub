@@ -2,9 +2,9 @@
 
 public class GrandPrixDriver : EntityBase
 {
-    public long GrandPrixId { get; set; }
-    public long DriverId { get; set; }
-    public long TeamId { get; set; }
+    public int GrandPrixId { get; set; }
+    public int DriverId { get; set; }
+    public int TeamId { get; set; }
     public bool IsReserve { get; set; }
 
     public virtual GrandPrix GrandPrix { get; set; }

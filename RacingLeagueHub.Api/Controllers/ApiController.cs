@@ -8,7 +8,7 @@ namespace RacingLeagueHub.Api.Controllers;
 [ApiController]
 public abstract class ApiController : ControllerBase
 {
-    protected long GetCurrentUserId()
+    protected int GetCurrentUserId()
     {
         var encryptedUserId = User.FindFirstValue(JwtRegisteredClaimNames.Sub);
 

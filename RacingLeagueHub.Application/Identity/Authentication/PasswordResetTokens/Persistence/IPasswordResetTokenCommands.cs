@@ -4,7 +4,7 @@ namespace RacingLeagueHub.Application.Identity.Authentication.PasswordResetToken
 
 public interface IPasswordResetTokenCommands
 {
-    Task<PasswordResetToken> AddAsync(string token, long userId);
-    Task InvalidateUserTokensAsync(long userId, CancellationToken ct = default);
+    Task<PasswordResetToken> AddAsync(string token, int userId);
+    Task InvalidateUserTokensAsync(int userId, CancellationToken ct = default);
     Task SaveChangesAsync(CancellationToken ct = default);
 }

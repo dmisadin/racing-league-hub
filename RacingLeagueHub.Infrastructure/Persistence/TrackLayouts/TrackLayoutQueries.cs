@@ -19,7 +19,7 @@ internal class TrackLayoutQueries : ITrackLayoutQueries
         this.mapper = mapper;
     }
 
-    public async Task<TrackLayoutDto?> GetByIdAsync(long id, CancellationToken ct)
+    public async Task<TrackLayoutDto?> GetByIdAsync(int id, CancellationToken ct)
     {
         return await racingContext.TrackLayout
             .Where(t => t.Id == id)

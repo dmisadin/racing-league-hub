@@ -51,7 +51,7 @@ internal class TrackLayoutCommands : ITrackLayoutCommands
         return mapper.ToDto(layout);
     }
 
-    public async Task<TrackLayoutDto?> UpdateAsync(long id, UpdateTrackLayoutDto dto, CancellationToken ct)
+    public async Task<TrackLayoutDto?> UpdateAsync(int id, UpdateTrackLayoutDto dto, CancellationToken ct)
     {
         var layout = await racingContext.TrackLayout
             .Include(x => x.TrackLayoutGames)

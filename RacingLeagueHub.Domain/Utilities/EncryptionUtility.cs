@@ -8,7 +8,7 @@ public static class EncryptionUtility
     private const int NonceSize = 12;
     private const int TagSize = 16;
     private const int CipherSize = 8;
-    public const int OutputLength = 32; // was 48 — nonce no longer in output
+    public const int OutputLength = 32; // was 48 — nonce no inter in output
 
     private static readonly Lazy<byte[]> _key = new(() =>
     {
@@ -25,7 +25,7 @@ public static class EncryptionUtility
         return key;
     });
 
-    public static string Encrypt(this long rawId)
+    public static string Encrypt(this int rawId)
     {
         Span<byte> plaintext = stackalloc byte[CipherSize];
         Span<byte> ciphertext = stackalloc byte[CipherSize];
@@ -49,7 +49,7 @@ public static class EncryptionUtility
         return Base64UrlUtility.Encode(output);
     }
 
-    public static long Decrypt(this string encryptedId)
+    public static int Decrypt(this string encryptedId)
     {
         if (string.IsNullOrWhiteSpace(encryptedId))
             return 0;
@@ -87,7 +87,7 @@ public static class EncryptionUtility
                 $"Encrypted ID '{encryptedId}' is invalid or has been tampered with.");
         }
 
-        return BinaryPrimitives.ReadInt64LittleEndian(plaintext);
+        return BinaryPrimitives.ReadInt32LittleEndian(plaintext);
     }
 
     // Nonce derived from plaintext bytes — same rawId always → same nonce → same output

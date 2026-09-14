@@ -73,13 +73,13 @@ public class SeasonController : ApiController
 
     [HttpPut("{seasonSlug}")]
     [Authorize(Policy = LeaguePolicies.LeagueEditor)]
-    public async Task<ActionResult<long>> Update(
+    public async Task<ActionResult<int>> Update(
         [FromRoute] string leagueSlug,
         [FromRoute] string seasonSlug,
         [FromBody] UpdateSeasonDto dto,
         CancellationToken ct = default)
     {
-        long? updatedId = await seasonCommands.UpdateBySlugAsync(leagueSlug, seasonSlug, dto, ct);
+        int? updatedId = await seasonCommands.UpdateBySlugAsync(leagueSlug, seasonSlug, dto, ct);
 
         if (updatedId is null)
             return NotFound();

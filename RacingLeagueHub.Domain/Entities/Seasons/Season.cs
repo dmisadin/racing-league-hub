@@ -6,13 +6,13 @@ namespace RacingLeagueHub.Domain.Entities.Seasons;
 
 public class Season : EntityBase
 {
-    public long LeagueId { get; set; }
+    public int LeagueId { get; set; }
     public string Name { get; set; }
     public Platform Platform { get; set; }
     public Game Game { get; set; }
     public short LapPercentageRequired { get; set; }
     public string Slug { get; set; }
-    public long? LogoResourceId { get; set; }
+    public int? LogoResourceId { get; set; }
 
     public virtual League League { get; set; }
     public virtual Resource? LogoResource { get; set; }

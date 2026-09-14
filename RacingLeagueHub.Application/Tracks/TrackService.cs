@@ -18,7 +18,7 @@ public class TrackService : ITrackService
         this.commands = commands;
     }
 
-    public async Task<TrackDto?> GetByIdAsync(long id, CancellationToken ct)
+    public async Task<TrackDto?> GetByIdAsync(int id, CancellationToken ct)
     {
         return await queries.GetByIdAsync(id, ct);
     }
@@ -38,12 +38,12 @@ public class TrackService : ITrackService
         return await commands.AddAsync(dto, ct);
     }
 
-    public async Task<TrackDto?> UpdateAsync(long id, UpdateTrackDto dto, CancellationToken ct)
+    public async Task<TrackDto?> UpdateAsync(int id, UpdateTrackDto dto, CancellationToken ct)
     {
         return await commands.UpdateAsync(id, dto, ct);
     }
 
-    public async Task<bool> DeleteAsync(long id, CancellationToken ct)
+    public async Task<bool> DeleteAsync(int id, CancellationToken ct)
     {
         return await commands.DeleteAsync(id, ct);
     }

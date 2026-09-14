@@ -4,7 +4,7 @@ namespace RacingLeagueHub.Domain.Entities.Seasons;
 
 public class SeasonLobbySettings : EntityBase
 {
-    public long SeasonId { get; set; }
+    public int SeasonId { get; set; }
     public QualifyingType QualifyingType { get; set; }
     public RaceDistance RaceDistancePercentage { get; set; }
     public bool FormationLap { get; set; }

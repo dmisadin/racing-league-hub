@@ -13,7 +13,7 @@ internal class LeagueUserQueries : ILeagueUserQueries
         this.racingContext = racingContext;
     }
 
-    public async Task<List<LeagueUser>> GetAllLeagueRolesForUserAsync(long userId, CancellationToken cancellationToken = default)
+    public async Task<List<LeagueUser>> GetAllLeagueRolesForUserAsync(int userId, CancellationToken cancellationToken = default)
     {
         return await racingContext.LeagueUser
             .Where(lu => lu.UserId == userId)
@@ -21,7 +21,7 @@ internal class LeagueUserQueries : ILeagueUserQueries
             .ToListAsync();
     }
 
-    public async Task<LeagueUser?> GetByLeagueAndUserAsync(long leagueId, long userId, CancellationToken cancellationToken = default)
+    public async Task<LeagueUser?> GetByLeagueAndUserAsync(int leagueId, int userId, CancellationToken cancellationToken = default)
     {
         return await racingContext.LeagueUser
             .AsNoTracking()
@@ -30,7 +30,7 @@ internal class LeagueUserQueries : ILeagueUserQueries
                 cancellationToken);
     }
 
-    public async Task<LeagueUser?> GetByLeagueAndUserAsync(string leagueSlug, long userId, CancellationToken cancellationToken = default)
+    public async Task<LeagueUser?> GetByLeagueAndUserAsync(string leagueSlug, int userId, CancellationToken cancellationToken = default)
     {
         return await racingContext.LeagueUser
             .AsNoTracking()

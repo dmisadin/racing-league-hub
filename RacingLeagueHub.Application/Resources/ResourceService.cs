@@ -19,7 +19,7 @@ public class ResourceService : IResourceService
         this.commands = commands;
     }
 
-    public Task<ResourceDto?> GetByIdAsync(long id, CancellationToken ct = default)
+    public Task<ResourceDto?> GetByIdAsync(int id, CancellationToken ct = default)
     {
         return queries.GetByIdAsync(id, ct);
     }
@@ -37,7 +37,7 @@ public class ResourceService : IResourceService
         return commands.UploadAsync(file, isThumbnail, ct);
     }
 
-    public async Task ConfirmAsync(long id, CancellationToken ct = default)
+    public async Task ConfirmAsync(int id, CancellationToken ct = default)
     {
         var confirmed = await commands.ConfirmAsync(id, ct);
 
@@ -46,7 +46,7 @@ public class ResourceService : IResourceService
                 $"Resource {id} not found.");
     }
 
-    public async Task DeleteAsync(long id, CancellationToken ct = default)
+    public async Task DeleteAsync(int id, CancellationToken ct = default)
     {
         var deleted = await commands.DeleteAsync(id, ct);
 
@@ -55,7 +55,7 @@ public class ResourceService : IResourceService
                 $"Resource {id} not found.");
     }
 
-    public Task<string?> GetFileUrlAsync(long id, CancellationToken ct = default)
+    public Task<string?> GetFileUrlAsync(int id, CancellationToken ct = default)
     {
         return queries.GetFileUrlAsync(id, ct);
     }

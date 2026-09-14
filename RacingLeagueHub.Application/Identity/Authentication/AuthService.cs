@@ -138,7 +138,7 @@ public class AuthService(
         token.IsRevoked = true;
         await refreshTokenCommands.SaveChangesAsync(ct);
 
-        return await BuildAuthResponse(token.User, rememberMe: IsLongLivedCookie(), ct);
+        return await BuildAuthResponse(token.User, rememberMe: IsintLivedCookie(), ct);
     }
 
     public async Task RevokeTokenAsync(CancellationToken ct = default)
@@ -206,7 +206,7 @@ public class AuthService(
         return await BuildAuthResponse(user, rememberMe: true, ct);
     }
 
-    private async Task UseRecoveryCodeAsync(long userId, string code, CancellationToken ct)
+    private async Task UseRecoveryCodeAsync(int userId, string code, CancellationToken ct)
     {
         var unusedCodes = await userRecoveryCodeQueries.GetUnusedForUserAsync(userId, ct);
 
@@ -279,7 +279,7 @@ public class AuthService(
         });
     }
 
-    private bool IsLongLivedCookie()
+    private bool IsintLivedCookie()
     {
         var request = httpContextAccessor.HttpContext?.Request;
         return request?.Cookies.ContainsKey("remember_me") == true;

@@ -9,6 +9,6 @@ public class RefreshToken : EntityBase
     public bool IsExpired => DateTime.UtcNow >= ExpiresAt;
     public bool IsActive => !IsRevoked && !IsExpired;
 
-    public long UserId { get; set; }
+    public int UserId { get; set; }
     public virtual User User { get; set; } = null!;
 }

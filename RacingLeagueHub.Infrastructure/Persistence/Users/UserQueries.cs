@@ -31,14 +31,14 @@ internal class UserQueries : IUserQueries
             .FirstOrDefaultAsync(ct);
     }
 
-    public async Task<User?> GetUserAsync(long id, CancellationToken ct = default)
+    public async Task<User?> GetUserAsync(int id, CancellationToken ct = default)
     {
         return await context.User
             .Where(u => u.Id == id)
             .FirstOrDefaultAsync(ct);
     }
 
-    public async Task<UserDto?> GetByIdAsync(long userId, CancellationToken ct)
+    public async Task<UserDto?> GetByIdAsync(int userId, CancellationToken ct)
     {
         return await context.User
             .Where(u => u.Id == userId)

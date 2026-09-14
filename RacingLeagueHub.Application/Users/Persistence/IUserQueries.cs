@@ -9,6 +9,6 @@ public interface IUserQueries
     Task<bool> IsEmailTakenAsync(string email, CancellationToken ct = default);
     Task<bool> IsUsernameTakenAsync(string username, CancellationToken ct = default);
     Task<User?> GetUserAsync(string email, CancellationToken ct = default);
-    Task<User?> GetUserAsync(long id, CancellationToken ct = default);
-    Task<UserDto?> GetByIdAsync(long userId, CancellationToken ct);
+    Task<User?> GetUserAsync(int id, CancellationToken ct = default);
+    Task<UserDto?> GetByIdAsync(int userId, CancellationToken ct);
 }

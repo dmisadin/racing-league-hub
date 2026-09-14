@@ -38,7 +38,7 @@ internal class LeagueCommands : ILeagueCommands
         return mapper.ToDto(league);
     }
 
-    public async Task<long?> UpdateBySlugAsync(string leagueSlug, UpdateLeagueDto dto, CancellationToken ct = default)
+    public async Task<int?> UpdateBySlugAsync(string leagueSlug, UpdateLeagueDto dto, CancellationToken ct = default)
     {
         var entity = await racingContext.League
             .FirstOrDefaultAsync(x => x.Slug == leagueSlug, ct);

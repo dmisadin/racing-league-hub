@@ -67,7 +67,7 @@ public sealed class LeaguePermissionHandler
         }
     }
 
-    private static long? GetUserId(ClaimsPrincipal user)
+    private static int? GetUserId(ClaimsPrincipal user)
     {
         var encryptedUserId = user.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
@@ -90,11 +90,11 @@ public sealed class LeaguePermissionHandler
         return httpContext.Request.RouteValues["leagueSlug"]?.ToString();
     }
 
-    private static long? GetLeagueIdFromRoute(HttpContext httpContext)
+    private static int? GetLeagueIdFromRoute(HttpContext httpContext)
     {
         var leagueIdValue = httpContext.Request.RouteValues["leagueId"]?.ToString();
 
-        if (long.TryParse(leagueIdValue, out var leagueId))
+        if (int.TryParse(leagueIdValue, out var leagueId))
             return leagueId;
 
         return null;

@@ -20,7 +20,7 @@ internal class UserRecoveryCodeCommands : IUserRecoveryCodeCommands
     }
 
     public Task DeleteForUserAsync(
-        long userId,
+        int userId,
         CancellationToken ct = default)
     {
         return racingContext.UserRecoveryCode

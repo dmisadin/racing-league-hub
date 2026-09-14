@@ -5,8 +5,8 @@ namespace RacingLeagueHub.Domain.Entities.Stewarding;
 
 public class Incident : EntityBase
 {
-    public long UserId { get; set; }
-    public long GrandPrixId { get; set; }
+    public int UserId { get; set; }
+    public int GrandPrixId { get; set; }
     public SessionType SessionType { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }

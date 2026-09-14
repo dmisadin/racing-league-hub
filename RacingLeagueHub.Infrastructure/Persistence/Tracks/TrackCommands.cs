@@ -33,7 +33,7 @@ internal class TrackCommands : ITrackCommands
         return mapper.ToDto(track);
     }
 
-    public async Task<TrackDto?> UpdateAsync(long id, UpdateTrackDto dto, CancellationToken ct)
+    public async Task<TrackDto?> UpdateAsync(int id, UpdateTrackDto dto, CancellationToken ct)
     {
         var track = await racingContext.Track
             .SingleOrDefaultAsync(t => t.Id == id, ct);
@@ -48,7 +48,7 @@ internal class TrackCommands : ITrackCommands
         return mapper.ToDto(track);
     }
 
-    public async Task<bool> DeleteAsync(long id, CancellationToken ct)
+    public async Task<bool> DeleteAsync(int id, CancellationToken ct)
     {
         var track = await racingContext.Track
             .SingleOrDefaultAsync(t => t.Id == id, ct);

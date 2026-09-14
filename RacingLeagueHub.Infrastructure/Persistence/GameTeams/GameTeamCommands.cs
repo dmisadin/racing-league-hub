@@ -40,7 +40,7 @@ internal class GameTeamCommands : IGameTeamCommands
         return mapper.ToDto(gameTeam);
     }
 
-    public async Task<GameTeamDto?> UpdateAsync(long id, UpdateGameTeamDto dto, CancellationToken ct)
+    public async Task<GameTeamDto?> UpdateAsync(int id, UpdateGameTeamDto dto, CancellationToken ct)
     {
         var gameTeam = await racingContext.GameTeam
             .SingleOrDefaultAsync(t => t.Id == id, ct);
@@ -61,7 +61,7 @@ internal class GameTeamCommands : IGameTeamCommands
         return mapper.ToDto(gameTeam);
     }
 
-    public async Task<bool> DeleteAsync(long id, CancellationToken ct)
+    public async Task<bool> DeleteAsync(int id, CancellationToken ct)
     {
         var gameTeam = await racingContext.GameTeam
             .SingleOrDefaultAsync(t => t.Id == id, ct);

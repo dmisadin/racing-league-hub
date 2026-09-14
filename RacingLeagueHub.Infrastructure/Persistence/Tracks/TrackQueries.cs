@@ -21,7 +21,7 @@ internal class TrackQueries : ITrackQueries
         this.mapper = mapper;
     }
 
-    public async Task<TrackDto?> GetByIdAsync(long id, CancellationToken ct)
+    public async Task<TrackDto?> GetByIdAsync(int id, CancellationToken ct)
     {
         return await racingContext.Track
             .Where(t => t.Id == id)

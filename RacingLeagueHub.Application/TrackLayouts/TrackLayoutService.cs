@@ -17,7 +17,7 @@ internal class TrackLayoutService : ITrackLayoutService
         this.commands = commands;
     }
 
-    public async Task<TrackLayoutDto?> GetByIdAsync(long id, CancellationToken ct)
+    public async Task<TrackLayoutDto?> GetByIdAsync(int id, CancellationToken ct)
     {
         return await queries.GetByIdAsync(id, ct);
     }
@@ -32,7 +32,7 @@ internal class TrackLayoutService : ITrackLayoutService
         return await commands.AddAsync(dto, ct);
     }
 
-    public async Task<TrackLayoutDto?> UpdateAsync(long id, UpdateTrackLayoutDto dto, CancellationToken ct)
+    public async Task<TrackLayoutDto?> UpdateAsync(int id, UpdateTrackLayoutDto dto, CancellationToken ct)
     {
         return await commands.UpdateAsync(id, dto, ct);
     }

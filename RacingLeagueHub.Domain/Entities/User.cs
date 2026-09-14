@@ -9,8 +9,7 @@ public class User : EntityBase
     public string PasswordHash { get; set; }
     public bool IsAdmin { get; set; }
     public DateTime CreatedAt { get; set; }
-    public long? DriverId { get; set; }
-    public int? CountryId { get; set; }
+    public int? DriverId { get; set; }
 
     public bool TwoFactorEnabled { get; set; }
     public string? TwoFactorSecret { get; set; }
@@ -19,7 +18,6 @@ public class User : EntityBase
     public long? LastTotpTimeStepUsed { get; set; }
 
     public virtual Driver? Driver { get; set; }
-    public virtual DcCountry? DcCountry { get; set; }
 
     public virtual ICollection<LeagueUser> LeagueUsers { get; set; }
     public virtual ICollection<Incident> Incidents { get; set; }

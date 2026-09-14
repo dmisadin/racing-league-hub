@@ -22,7 +22,7 @@ public static class AuthenticationServiceExtensions
             throw new InvalidOperationException("Missing configuration value: Jwt:Secret.");
 
         if (secret.Length < 32)
-            throw new InvalidOperationException("Jwt:Secret must be at least 32 characters long.");
+            throw new InvalidOperationException("Jwt:Secret must be at least 32 characters int.");
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>

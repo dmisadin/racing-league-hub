@@ -38,7 +38,7 @@ internal class SeasonCommands : ISeasonCommands
         return mapper.ToDto(season);
     }
 
-    public async Task<long?> UpdateBySlugAsync(string leagueSlug, string seasonSlug, UpdateSeasonDto dto, CancellationToken ct = default)
+    public async Task<int?> UpdateBySlugAsync(string leagueSlug, string seasonSlug, UpdateSeasonDto dto, CancellationToken ct = default)
     {
         var entity = await racingContext.Season
             .FirstOrDefaultAsync(x =>

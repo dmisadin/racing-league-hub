@@ -20,7 +20,7 @@ internal sealed class ResourceQueries : IResourceQueries
         this.mapper = mapper;
     }
 
-    public async Task<ResourceDto?> GetByIdAsync(long id, CancellationToken ct)
+    public async Task<ResourceDto?> GetByIdAsync(int id, CancellationToken ct)
     {
         return await racingContext.Resource
             .Where(r => r.Id == id)
@@ -55,7 +55,7 @@ internal sealed class ResourceQueries : IResourceQueries
             totalCount);
     }
 
-    public async Task<string?> GetFileUrlAsync(long id, CancellationToken ct)
+    public async Task<string?> GetFileUrlAsync(int id, CancellationToken ct)
     {
         var resource = await racingContext.Resource
             .Where(r => r.Id == id)

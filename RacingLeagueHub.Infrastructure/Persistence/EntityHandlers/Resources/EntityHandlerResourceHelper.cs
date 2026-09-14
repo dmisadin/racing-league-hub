@@ -5,19 +5,19 @@ namespace RacingLeagueHub.Infrastructure.Persistence.EntityHandlers.Resources;
 
 public class EntityHandlerResourceHelper(DbContext db)
 {
-    public void MarkActive(long id)
+    public void MarkActive(int id)
     {
         var resource = GetOrThrow(id);
         resource.Status = ResourceStatus.Active;
     }
 
-    public void MarkForDelete(long id)
+    public void MarkForDelete(int id)
     {
         var resource = GetOrThrow(id);
         resource.Status = ResourceStatus.MarkedForDeletion;
     }
 
-    private Resource GetOrThrow(long id)
+    private Resource GetOrThrow(int id)
     {
         var resource = db.Set<Resource>().Find(id);
         if (resource is null)
