@@ -5,8 +5,8 @@
 
 CREATE TABLE "public"."dc_country" (
     "id"            integer         PRIMARY KEY,
-    "code_alpha_2"  char(2)         NOT NULL UNIQUE,
-    "code_alpha_3"  char(3)         NOT NULL UNIQUE,
+    "code_alpha2"  char(2)         NOT NULL UNIQUE,
+    "code_alpha3"  char(3)         NOT NULL UNIQUE,
     "name"          varchar(100)    NOT NULL,
     "is_active"       boolean         NOT NULL
 );
