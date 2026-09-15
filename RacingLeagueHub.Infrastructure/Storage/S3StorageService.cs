@@ -1,7 +1,7 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Model;
 using Microsoft.Extensions.Options;
-using RacingLeagueHub.Domain.Services.Interfaces;
+using RacingLeagueHub.Application.Resources;
 using RacingLeagueHub.Infrastructure.Configuration;
 
 namespace RacingLeagueHub.Infrastructure.Services;

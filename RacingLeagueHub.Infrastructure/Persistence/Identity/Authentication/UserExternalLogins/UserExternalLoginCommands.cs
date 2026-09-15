@@ -1,5 +1,5 @@
 ﻿using RacingLeagueHub.Application.Identity.Authentication.ExternalLogins.Persistence;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Users;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.Identity.Authentication.UserExternalLogins;
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes.Persistence;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Users;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.Identity.Authentication.UserRecoveryCodes;
 

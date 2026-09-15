@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.Application.Identity.Authentication.PasswordResetTokens;
-using RacingLeagueHub.Domain.Entities.Authentication;
+using RacingLeagueHub.Domain.Users;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.Identity.Authentication.PasswordResetTokens;
 

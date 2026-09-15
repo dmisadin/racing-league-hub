@@ -1,21 +1,13 @@
 using RacingLeagueHub.Api.Authorization;
-using RacingLeagueHub.Api.Configuration.Binders;
 using RacingLeagueHub.Api.Configuration.Cors;
-using RacingLeagueHub.Api.Configuration.Serialization;
 using RacingLeagueHub.Api.Middleware;
 using RacingLeagueHub.Application;
 using RacingLeagueHub.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers(options =>
-    {
-        options.ModelBinderProviders.Insert(0, new EncryptedIdModelBinderProvider());
-    })
-    .AddNewtonsoftJson(options =>
-    {
-        options.SerializerSettings.Converters.Add(new EncryptedIdJsonConverter());
-    });
+builder.Services.AddControllers()
+    .AddNewtonsoftJson();
 
 builder.Services.AddDbContext(builder.Configuration);
 builder.Services.AddEntityHandlers(typeof(Program).Assembly);

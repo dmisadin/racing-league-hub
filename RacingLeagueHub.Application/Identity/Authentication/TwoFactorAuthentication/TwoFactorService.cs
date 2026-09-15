@@ -2,8 +2,7 @@
 using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes.Persistence;
 using RacingLeagueHub.Application.Identity.Authentication.TwoFactor.Dtos;
 using RacingLeagueHub.Application.Users.Persistence;
-using RacingLeagueHub.Domain.Abstractions.Services;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Users;
 
 namespace RacingLeagueHub.Application.Identity.Authentication.TwoFactorAuthentication;
 
@@ -15,7 +14,6 @@ public class TwoFactorService : ITwoFactorService
     private readonly IUserCommands userCommands;
     private readonly ITotpService totpService;
     private readonly IRecoveryCodeService recoveryCodeService;
-    private readonly IUserRecoveryCodeQueries userRecoveryCodeQueries;
     private readonly IUserRecoveryCodeCommands userRecoveryCodeCommands;
 
     public TwoFactorService(
@@ -23,14 +21,12 @@ public class TwoFactorService : ITwoFactorService
         IUserCommands userCommands,
         ITotpService totpService,
         IRecoveryCodeService recoveryCodeService,
-        IUserRecoveryCodeQueries userRecoveryCodeQueries,
         IUserRecoveryCodeCommands userRecoveryCodeCommands)
     {
         this.userQueries = userQueries;
         this.userCommands = userCommands;
         this.totpService = totpService;
         this.recoveryCodeService = recoveryCodeService;
-        this.userRecoveryCodeQueries = userRecoveryCodeQueries;
         this.userRecoveryCodeCommands = userRecoveryCodeCommands;
     }
 

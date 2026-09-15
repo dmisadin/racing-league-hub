@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.GameTeams.Dtos;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Teams;
 using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Application.GameTeams.Mappers;

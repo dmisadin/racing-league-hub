@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.Application.Users.Dtos;
 using RacingLeagueHub.Application.Users.Models;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Users;
 
 namespace RacingLeagueHub.Application.Users.Persistence;
 

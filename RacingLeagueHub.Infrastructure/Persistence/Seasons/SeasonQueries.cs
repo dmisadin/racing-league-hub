@@ -3,9 +3,8 @@ using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Seasons.Dtos;
 using RacingLeagueHub.Application.Seasons.Persistence;
-using RacingLeagueHub.Domain.Entities.Seasons;
+using RacingLeagueHub.Domain.Seasons;
 using RacingLeagueHub.Infrastructure.Extensions;
-using RacingLeagueHub.Infrastructure.Persistence;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.Seasons;
 

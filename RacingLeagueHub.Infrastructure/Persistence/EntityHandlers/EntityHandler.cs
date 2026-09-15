@@ -1,5 +1,5 @@
 ﻿
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Common.Entitites;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.EntityHandlers;
 

@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.TrackLayouts.Dtos;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Tracks;
 using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Application.TrackLayouts.Mappers;
