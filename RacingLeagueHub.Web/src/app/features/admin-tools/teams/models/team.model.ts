@@ -9,12 +9,12 @@ export interface TeamDto extends BaseDto {
 
 export interface GameTeamDto extends BaseDto {
     game: Game;
-    teamId: string;
+    teamId: number;
     name: string;
     shortName: string;
     abbreviation: string;
     color: string;
     telemetryId: number;
-    logoResourceId: string | null;
+    logoResourceId: number | null;
     logoUrl: string | null;
 }

@@ -9,7 +9,7 @@ export class ResourceService {
     private readonly http = inject(HttpClient);
     private readonly apiUrl = `${environment.apiUrl}/resource`;
 
-    getById(id: string): Observable<ResourceDto> {
+    getById(id: number): Observable<ResourceDto> {
         return this.http.get<ResourceDto>(`${this.apiUrl}/get-by-id/${id}`);
     }
 

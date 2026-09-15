@@ -2,13 +2,13 @@ import { BaseDto } from "../../../../shared/models/dtos";
 import { Game } from "../../../../shared/models/enums";
 
 export interface SeasonDto extends BaseDto {
-    leagueId: string;
+    leagueId: number;
     name: string;
     platform: Platform;
     game: Game;
     lapPercentageRequired: number;
     slug: string;
-    logoResourceId: string | null;
+    logoResourceId: number | null;
     logoUrl: string | null;
 }
 

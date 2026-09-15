@@ -7,7 +7,7 @@ export interface LeagueDto extends BaseDto {
     description: string | null;
     timezone: string;
     slug: string;
-    logoResourceId: string;
+    logoResourceId: number;
     logoUrl: string | null;
 }
 

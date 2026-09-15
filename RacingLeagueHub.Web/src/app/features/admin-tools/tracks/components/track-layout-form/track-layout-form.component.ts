@@ -26,7 +26,7 @@ export class TrackLayoutFormComponent implements OnInit {
     private readonly listService = inject(ListService);
         private readonly toastService = inject(ToastService);
 
-    trackLayoutId = input<string>();
+    trackLayoutId = input<number>();
     trackLayout = input<TrackLayoutDto | null>(null);
     cancel = output();
 

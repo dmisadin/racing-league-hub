@@ -18,7 +18,7 @@ import { IsImageExtensionPipe } from '../../../pipes/is-image-extension.pipe';
         }
     ]
 })
-export class InputFileComponent extends BaseFormControl<string> {
+export class InputFileComponent extends BaseFormControl<number> {
     private readonly resourceService = inject(ResourceService);
 
     accept = input<string>('*/*');
@@ -28,7 +28,7 @@ export class InputFileComponent extends BaseFormControl<string> {
     uploadError = signal<string | null>(null);
     uploadedResource = signal<ResourceDto | null>(null);
 
-    override writeValue(value: string | null): void {
+    override writeValue(value: number | null): void {
         super.writeValue(value);
         
         if (!value) {

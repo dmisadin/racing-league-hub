@@ -1,5 +1,5 @@
 export interface LeagueRole {
-    leagueId: string;
+    leagueId: number;
     leagueSlug: string;
     isOwner: boolean;
     isAdmin: boolean;
