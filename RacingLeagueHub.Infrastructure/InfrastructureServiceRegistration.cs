@@ -52,11 +52,6 @@ public static class InfrastructureServiceRegistration
 
     public static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<AdventureContext>(options =>
-                            options.UseNpgsql(configuration
-                                    .GetConnectionString("DefaultConnection"))
-                                    .UseSnakeCaseNamingConvention());
-
         services.AddDbContext<RacingContext>(options =>
                     options.UseNpgsql(configuration
                             .GetConnectionString("DefaultConnection"))
