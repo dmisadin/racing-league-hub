@@ -24,7 +24,7 @@ public class DriverDtoMapper : DtoMapperBase<Driver, DriverDto>
     {
         return driver => new DriverDto
         {
-            Id = new EncryptedId(driver.Id),
+            Id = driver.Id,
             Nickname = driver.Nickname,
             FirstName = driver.FirstName,
             LastName = driver.LastName,

@@ -23,7 +23,7 @@ internal class TrackLayoutCommands : ITrackLayoutCommands
     {
         var layout = new TrackLayout
         {
-            TrackId = dto.TrackId.RawId,
+            TrackId = dto.TrackId,
             Name = dto.Name,
             PitStopDuration = dto.PitStopDuration,
             CornersTotal = dto.CornersTotal,
@@ -32,8 +32,8 @@ internal class TrackLayoutCommands : ITrackLayoutCommands
             ElevationChange = dto.ElevationChange,
             Length = dto.Length,
             TelemetryId = dto.TelemetryId,
-            MapImageResourceId = dto.MapImageResourceId?.RawId,
-            CoverImageResourceId = dto.CoverImageResourceId?.RawId
+            MapImageResourceId = dto.MapImageResourceId,
+            CoverImageResourceId = dto.CoverImageResourceId
         };
 
         foreach (var game in dto.TrackLayoutGames.Distinct())
@@ -68,8 +68,8 @@ internal class TrackLayoutCommands : ITrackLayoutCommands
         layout.ElevationChange = dto.ElevationChange;
         layout.Length = dto.Length;
         layout.TelemetryId = dto.TelemetryId;
-        layout.MapImageResourceId = dto.MapImageResourceId?.RawId;
-        layout.CoverImageResourceId = dto.CoverImageResourceId?.RawId;
+        layout.MapImageResourceId = dto.MapImageResourceId;
+        layout.CoverImageResourceId = dto.CoverImageResourceId;
 
         UpdateGames(layout, dto.TrackLayoutGames);
 

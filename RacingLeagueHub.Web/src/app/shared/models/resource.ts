@@ -1,7 +1,7 @@
 import { BaseDto } from "./dtos";
 
 export interface ResourceDto extends BaseDto {
-    storageId: string;
+    storageId: number;
     fileUrl: string;
     extension: string;
     fileName: string;

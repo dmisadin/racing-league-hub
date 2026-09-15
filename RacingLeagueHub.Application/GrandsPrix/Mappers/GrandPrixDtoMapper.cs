@@ -1,6 +1,5 @@
 ﻿using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.GrandsPrix.Dtos;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Entities.GrandsPrix;
 using System.Linq.Expressions;
 
@@ -10,8 +9,8 @@ public class GrandPrixDtoMapper : DtoMapperBase<GrandPrix, GrandPrixDto>
 {
     public override bool FromDto(GrandPrix entity, GrandPrixDto dto)
     {
-        entity.SeasonId = dto.SeasonId.RawId;
-        entity.TrackLayoutId = dto.TrackLayoutId.RawId;
+        entity.SeasonId = dto.SeasonId;
+        entity.TrackLayoutId = dto.TrackLayoutId;
         entity.Name = dto.Name;
         entity.StartingAt = dto.StartingAt;
         entity.VodUrl = dto.VodUrl;
@@ -24,10 +23,10 @@ public class GrandPrixDtoMapper : DtoMapperBase<GrandPrix, GrandPrixDto>
     {
         return gp => new GrandPrixDto
         {
-            Id = new EncryptedId(gp.Id),
-            TrackLayoutId = new EncryptedId(gp.TrackLayoutId),
-            LeagueId = new EncryptedId(gp.Season.LeagueId),
-            SeasonId = new EncryptedId(gp.SeasonId),
+            Id = gp.Id,
+            TrackLayoutId = gp.TrackLayoutId,
+            LeagueId = gp.Season.LeagueId,
+            SeasonId = gp.SeasonId,
             Name = gp.Name,
             StartingAt = gp.StartingAt,
             VodUrl = gp.VodUrl,

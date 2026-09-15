@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
-using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.GrandsPrix.Dtos;
 using RacingLeagueHub.Application.GrandsPrix.Persistence;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Seasons.Persistence;
-using RacingLeagueHub.Domain.Abstractions;
-using RacingLeagueHub.Domain.Entities.GrandsPrix;
 
 namespace RacingLeagueHub.Api.Controllers.Leagues;
 
@@ -19,18 +16,15 @@ public class GrandPrixController : ApiController
     private readonly IGrandPrixCommands grandPrixCommands;
     private readonly IGrandPrixQueries grandPrixQueries;
     private readonly ISeasonQueries seasonQueries;
-    private readonly IDtoMapper<GrandPrix, GrandPrixDto> dtoMapper;
 
     public GrandPrixController(
         IGrandPrixCommands grandPrixCommands,
         IGrandPrixQueries grandPrixQueries,
-        ISeasonQueries seasonQueries,
-        IDtoMapper<GrandPrix, GrandPrixDto> dtoMapper)
+        ISeasonQueries seasonQueries)
     {
         this.grandPrixCommands = grandPrixCommands;
         this.grandPrixQueries = grandPrixQueries;
         this.seasonQueries = seasonQueries;
-        this.dtoMapper = dtoMapper;
     }
 
     [HttpGet]
@@ -96,7 +90,7 @@ public class GrandPrixController : ApiController
 
     [HttpPut("{grandPrixSlug}")]
     [Authorize(Policy = LeaguePolicies.LeagueEditor)]
-    public async Task<ActionResult<EncryptedId>> Update(
+    public async Task<ActionResult<int>> Update(
         [FromRoute] string leagueSlug,
         [FromRoute] string seasonSlug,
         [FromRoute] string grandPrixSlug,
@@ -113,7 +107,7 @@ public class GrandPrixController : ApiController
         if (updatedId is null)
             return NotFound();
 
-        return Ok(new EncryptedId(updatedId.Value));
+        return Ok(updatedId.Value);
     }
 
 

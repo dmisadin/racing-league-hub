@@ -1,6 +1,5 @@
 ﻿using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.GameTeams.Dtos;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Teams.Dtos;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Services.Interfaces;
@@ -25,21 +24,21 @@ public class TeamDtoMapper(IStorageService storageService)
 
         return team => new TeamDto
         {
-            Id = new EncryptedId(team.Id),
+            Id = team.Id,
             Name = team.Name,
             Color = team.Color,
             GameSpecificTeams = team.GameTeams
                 .Select(gt => new GameTeamDto
                 {
-                    Id = new EncryptedId(gt.Id),
+                    Id = gt.Id,
                     Game = gt.Game,
-                    TeamId = new EncryptedId(gt.TeamId),
+                    TeamId = gt.TeamId,
                     Name = gt.Name,
                     ShortName = gt.ShortName,
                     Abbreviation = gt.Abbreviation,
                     Color = gt.Color,
                     TelemetryId = gt.TelemetryId,
-                    LogoResourceId = gt.LogoResourceId != null ? new EncryptedId(gt.LogoResourceId.Value) : null,
+                    LogoResourceId = gt.LogoResourceId,
                     LogoUrl = gt.LogoResourceId == null 
                         ? null 
                         : baseStorageUrl + "/uploads/" + gt.LogoResource.StorageId + "." + gt.LogoResource.Extension

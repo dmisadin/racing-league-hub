@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.JsonWebTokens;
-using RacingLeagueHub.Application.Models;
 using System.Security.Claims;
 
 namespace RacingLeagueHub.Api.Controllers;
@@ -8,15 +7,26 @@ namespace RacingLeagueHub.Api.Controllers;
 [ApiController]
 public abstract class ApiController : ControllerBase
 {
-    protected int GetCurrentUserId()
+    protected int? CurrentUserId
     {
-        var encryptedUserId = User.FindFirstValue(JwtRegisteredClaimNames.Sub);
+        get
+        {
+            var userId = User.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
-        if (string.IsNullOrWhiteSpace(encryptedUserId))
-            throw new UnauthorizedAccessException("User ID claim is missing.");
+            return int.TryParse(userId, out var id)
+                ? id
+                : null;
+        }
+    }
 
-        var encryptedId = new EncryptedId(encryptedUserId);
+    protected int GetRequiredUserId()
+    {
+        var userId = CurrentUserId;
 
-        return encryptedId.RawId;
+        if (userId is null)
+            throw new InvalidOperationException(
+                "The current authenticated user does not have a valid user ID.");
+
+        return userId.Value;
     }
 }

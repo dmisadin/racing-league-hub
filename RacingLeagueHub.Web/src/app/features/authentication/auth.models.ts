@@ -1,9 +1,9 @@
 export interface UserDto {
-    id: string;
+    id: number;
     email: string;
     username: string;
     isAdmin: boolean;
-    driverId: string | null;
+    driverId: number | null;
 }
 
 export interface LoginRequest {

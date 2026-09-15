@@ -1,13 +1,12 @@
 ﻿using RacingLeagueHub.Application.Common.Dtos;
-using RacingLeagueHub.Application.Models;
 
 namespace RacingLeagueHub.Application.GrandsPrix.Dtos;
 
 public class GrandPrixDto : BaseDto
 {
-    public EncryptedId TrackLayoutId { get; set; }
-    public EncryptedId? LeagueId { get; set; }
-    public EncryptedId SeasonId { get; set; }
+    public int TrackLayoutId { get; set; }
+    public int? LeagueId { get; set; }
+    public int SeasonId { get; set; }
     public string Name { get; set; }
     public DateTimeOffset StartingAt { get; set; }
     public string? VodUrl { get; set; }
@@ -16,8 +15,8 @@ public class GrandPrixDto : BaseDto
 
 public class CreateGrandPrixDto
 {
-    public EncryptedId TrackLayoutId { get; set; }
-    public EncryptedId SeasonId { get; set; }
+    public int TrackLayoutId { get; set; }
+    public int SeasonId { get; set; }
     public string Name { get; set; }
     public DateTimeOffset StartingAt { get; set; }
     public string? VodUrl { get; set; }
@@ -26,7 +25,7 @@ public class CreateGrandPrixDto
 
 public class UpdateGrandPrixDto
 {
-    public EncryptedId TrackLayoutId { get; set; }
+    public int TrackLayoutId { get; set; }
     public string Name { get; set; }
     public DateTimeOffset StartingAt { get; set; }
     public string? VodUrl { get; set; }

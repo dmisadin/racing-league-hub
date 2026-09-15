@@ -20,9 +20,7 @@ public class TwoFactorAuthenticationController : ApiController
     [HttpPost("setup")]
     public async Task<ActionResult<TwoFactorSetupDto>> Setup(CancellationToken ct)
     {
-        var userId = GetCurrentUserId();
-
-        var result = await twoFactorService.StartSetupAsync(userId, ct);
+        var result = await twoFactorService.StartSetupAsync(GetRequiredUserId(), ct);
 
         return Ok(result);
     }
@@ -30,9 +28,7 @@ public class TwoFactorAuthenticationController : ApiController
     [HttpPost("confirm")]
     public async Task<ActionResult<ConfirmTwoFactorResponse>> Confirm(ConfirmTwoFactorDto dto,CancellationToken ct)
     {
-        var userId = GetCurrentUserId();
-
-        var result = await twoFactorService.ConfirmSetupAsync(userId, dto.Code, ct);
+        var result = await twoFactorService.ConfirmSetupAsync(GetRequiredUserId(), dto.Code, ct);
 
         return Ok(result);
     }
@@ -40,9 +36,7 @@ public class TwoFactorAuthenticationController : ApiController
     [HttpPost("recovery-codes/regenerate")]
     public async Task<ActionResult<RecoveryCodesResponse>> RegenerateRecoveryCodes(CancellationToken ct)
     {
-        var userId = GetCurrentUserId();
-
-        var result = await twoFactorService.RegenerateRecoveryCodesAsync(userId, ct);
+        var result = await twoFactorService.RegenerateRecoveryCodesAsync(GetRequiredUserId(), ct);
 
         return Ok(result);
     }

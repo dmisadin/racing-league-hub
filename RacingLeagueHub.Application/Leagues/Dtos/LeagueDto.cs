@@ -1,5 +1,4 @@
 ﻿using RacingLeagueHub.Application.Common.Dtos;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Models.Enums;
 
 namespace RacingLeagueHub.Application.Leagues.Dtos;
@@ -12,7 +11,7 @@ public class LeagueDto : BaseDto
     public string? Description { get; set; }
     public string Timezone { get; set; }
     public string Slug { get; set; }
-    public EncryptedId? LogoResourceId { get; set; }
+    public int? LogoResourceId { get; set; }
     public string? LogoUrl { get; set; }
 }
 
@@ -24,7 +23,7 @@ public class CreateLeagueDto
     public string? Description { get; set; }
     public string Timezone { get; set; }
     public string Slug { get; set; }
-    public EncryptedId? LogoResourceId { get; set; }
+    public int? LogoResourceId { get; set; }
     public string? LogoUrl { get; set; }
 }
 
@@ -36,6 +35,6 @@ public class UpdateLeagueDto
     public string? Description { get; set; }
     public string Timezone { get; set; }
     public string Slug { get; set; }
-    public EncryptedId? LogoResourceId { get; set; }
+    public int? LogoResourceId { get; set; }
     public string? LogoUrl { get; set; }
 }

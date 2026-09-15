@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Teams;
 using RacingLeagueHub.Application.Teams.Dtos;
 
@@ -20,9 +19,9 @@ public class TeamController : ApiController
 
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<TeamDto>> GetById(EncryptedId id, CancellationToken ct)
+    public async Task<ActionResult<TeamDto>> GetById(int id, CancellationToken ct)
     {
-        var team = await teamService.GetByIdAsync(id.RawId, ct);
+        var team = await teamService.GetByIdAsync(id, ct);
 
         if (team is null)
             return NotFound();
@@ -47,9 +46,9 @@ public class TeamController : ApiController
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<TeamDto>> UpdateTeam([FromRoute] EncryptedId id, [FromBody] UpdateTeamDto dto, CancellationToken ct)
+    public async Task<ActionResult<TeamDto>> UpdateTeam([FromRoute] int id, [FromBody] UpdateTeamDto dto, CancellationToken ct)
     {
-        var team = await teamService.UpdateAsync(id.RawId, dto, ct);
+        var team = await teamService.UpdateAsync(id, dto, ct);
 
         if (team is null)
             return NotFound();
@@ -58,9 +57,9 @@ public class TeamController : ApiController
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteTeam(EncryptedId id, CancellationToken ct)
+    public async Task<IActionResult> DeleteTeam(int id, CancellationToken ct)
     {
-        var deleted = await teamService.DeleteAsync(id.RawId, ct);
+        var deleted = await teamService.DeleteAsync(id, ct);
 
         if (!deleted)
             return NotFound();

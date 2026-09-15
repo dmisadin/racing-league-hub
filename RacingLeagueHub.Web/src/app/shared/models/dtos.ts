@@ -1,5 +1,5 @@
 export interface BaseDto {
-    id?: string;
+    id?: number;
 }
 
 export interface LookupDto {

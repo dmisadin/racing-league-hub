@@ -1,12 +1,11 @@
 ﻿using RacingLeagueHub.Application.Common.Dtos;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Models.Enums;
 
 namespace RacingLeagueHub.Application.TrackLayouts.Dtos;
 
 public class TrackLayoutDto : BaseDto
 {
-    public EncryptedId TrackId { get; set; }
+    public int TrackId { get; set; }
     public string Name { get; set; }
     public short? PitStopDuration { get; set; }
     public short CornersTotal { get; set; }
@@ -21,7 +20,7 @@ public class TrackLayoutDto : BaseDto
 
 public class CreateTrackLayoutDto
 {
-    public EncryptedId TrackId { get; set; }
+    public int TrackId { get; set; }
     public string Name { get; set; }
     public short? PitStopDuration { get; set; }
     public short CornersTotal { get; set; }
@@ -31,8 +30,8 @@ public class CreateTrackLayoutDto
     public short Length { get; set; }
     public short TelemetryId { get; set; }
 
-    public EncryptedId? MapImageResourceId { get; set; }
-    public EncryptedId? CoverImageResourceId { get; set; }
+    public int? MapImageResourceId { get; set; }
+    public int? CoverImageResourceId { get; set; }
 
     public virtual List<Game> TrackLayoutGames { get; set; } = new List<Game>();
 }
@@ -48,8 +47,8 @@ public class UpdateTrackLayoutDto
     public short Length { get; set; }
     public short TelemetryId { get; set; }
 
-    public EncryptedId? MapImageResourceId { get; set; }
-    public EncryptedId? CoverImageResourceId { get; set; }
+    public int? MapImageResourceId { get; set; }
+    public int? CoverImageResourceId { get; set; }
 
     public virtual List<Game> TrackLayoutGames { get; set; } = new List<Game>();
 }

@@ -168,7 +168,7 @@ export class AuthService {
             });
     }
 
-    getLeagueRole(leagueId: string): LeagueRole | undefined {
+    getLeagueRole(leagueId: number): LeagueRole | undefined {
         return this._leagueRoles().find(r => r.leagueId === leagueId);
     }
 
@@ -177,7 +177,7 @@ export class AuthService {
         return role ? this.canEditLeague(role) : false;
     }
 
-    canEditLeagueId(leagueId: string): boolean {
+    canEditLeagueId(leagueId: number): boolean {
         const role = this._leagueRoles().find(r => r.leagueId === leagueId);
         return role ? this.canEditLeague(role) : false;
     }

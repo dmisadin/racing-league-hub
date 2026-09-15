@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
 using RacingLeagueHub.Application.Common.Dtos;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Tracks;
 using RacingLeagueHub.Application.Tracks.Dtos;
 
@@ -20,9 +19,9 @@ public class TrackController : ApiController
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<TrackDto>> GetById(EncryptedId id, CancellationToken ct)
+    public async Task<ActionResult<TrackDto>> GetById(int id, CancellationToken ct)
     {
-        var track = await trackService.GetByIdAsync(id.RawId, ct);
+        var track = await trackService.GetByIdAsync(id, ct);
 
         if (track is null)
             return NotFound();
@@ -47,9 +46,9 @@ public class TrackController : ApiController
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<TrackDto>> UpdateTrack([FromRoute] EncryptedId id, [FromBody] UpdateTrackDto dto, CancellationToken ct)
+    public async Task<ActionResult<TrackDto>> UpdateTrack([FromRoute] int id, [FromBody] UpdateTrackDto dto, CancellationToken ct)
     {
-        var track = await trackService.UpdateAsync(id.RawId, dto, ct);
+        var track = await trackService.UpdateAsync(id, dto, ct);
 
         if (track is null)
             return NotFound();
@@ -58,9 +57,9 @@ public class TrackController : ApiController
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteTrack(EncryptedId id, CancellationToken ct)
+    public async Task<IActionResult> DeleteTrack(int id, CancellationToken ct)
     {
-        var deleted = await trackService.DeleteAsync(id.RawId, ct);
+        var deleted = await trackService.DeleteAsync(id, ct);
 
         if (!deleted)
             return NotFound();

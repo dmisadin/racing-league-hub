@@ -69,20 +69,12 @@ public sealed class LeaguePermissionHandler
 
     private static int? GetUserId(ClaimsPrincipal user)
     {
-        var encryptedUserId = user.FindFirstValue(JwtRegisteredClaimNames.Sub);
+        var userId = user.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
-        if (string.IsNullOrWhiteSpace(encryptedUserId))
-            return null;
+        if (Int32.TryParse(userId, out int id))
+            return id;
 
-        try
-        {
-            var encryptedId = new EncryptedId(encryptedUserId);
-            return encryptedId.RawId;
-        }
-        catch
-        {
-            return null;
-        }
+        return null;
     }
 
     private static string? GetLeagueSlugFromRoute(HttpContext httpContext)

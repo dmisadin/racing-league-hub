@@ -22,13 +22,13 @@ internal class SeasonCommands : ISeasonCommands
     {
         var season = new Season
         {
-            LeagueId = dto.LeagueId.RawId,
+            LeagueId = dto.LeagueId,
             Name = dto.Name,
             Platform = dto.Platform,
             Game = dto.Game,
             LapPercentageRequired = dto.LapPercentageRequired,
             Slug = dto.Slug,
-            LogoResourceId = dto.LogoResourceId?.RawId
+            LogoResourceId = dto.LogoResourceId
         };
 
         racingContext.Season.Add(season);
@@ -53,7 +53,7 @@ internal class SeasonCommands : ISeasonCommands
         entity.Game = dto.Game;
         entity.LapPercentageRequired = dto.LapPercentageRequired;
         entity.Slug = dto.Slug;
-        entity.LogoResourceId = dto.LogoResourceId?.RawId;
+        entity.LogoResourceId = dto.LogoResourceId;
 
         await racingContext.SaveChangesAsync(ct);
 

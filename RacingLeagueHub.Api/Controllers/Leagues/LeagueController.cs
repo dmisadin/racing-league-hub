@@ -55,7 +55,7 @@ public class LeagueController : ApiController
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<EncryptedId>> Create(
+    public async Task<ActionResult<LeagueDto>> Create(
         [FromBody] CreateLeagueDto createDto,
         CancellationToken ct = default)
     {

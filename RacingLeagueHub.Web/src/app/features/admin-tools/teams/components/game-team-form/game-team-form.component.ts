@@ -26,7 +26,7 @@ export class GameTeamFormComponent {
     private readonly listService = inject(ListService);
     private readonly toastService = inject(ToastService);
 
-    gameTeamId = input<string>();
+    gameTeamId = input<number>();
     gameTeam = input<GameTeamDto | null>(null);
     cancel = output();
 
