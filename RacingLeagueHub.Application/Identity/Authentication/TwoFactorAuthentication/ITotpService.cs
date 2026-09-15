@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.Domain.Abstractions.Services;
+﻿namespace RacingLeagueHub.Application.Identity.Authentication.TwoFactorAuthentication;
 
 public interface ITotpService
 {

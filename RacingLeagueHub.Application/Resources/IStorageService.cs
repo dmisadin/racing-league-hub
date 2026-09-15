@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.Domain.Services.Interfaces;
+﻿namespace RacingLeagueHub.Application.Resources;
 
 public interface IStorageService
 {

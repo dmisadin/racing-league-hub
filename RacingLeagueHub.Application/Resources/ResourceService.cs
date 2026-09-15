@@ -2,7 +2,6 @@
 using RacingLeagueHub.Application.Models.Resource;
 using RacingLeagueHub.Application.Resources.Dtos;
 using RacingLeagueHub.Application.Resources.Persistence;
-using RacingLeagueHub.Domain.Services.Interfaces;
 
 namespace RacingLeagueHub.Application.Resources;
 

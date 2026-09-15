@@ -1,5 +1,5 @@
-﻿using RacingLeagueHub.Application.Resources.Persistence;
-using RacingLeagueHub.Domain.Services.Interfaces;
+﻿using RacingLeagueHub.Application.Resources;
+using RacingLeagueHub.Application.Resources.Persistence;
 
 namespace RacingLeagueHub.Api.Jobs.Reccuring;
 

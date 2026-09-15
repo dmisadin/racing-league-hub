@@ -1,5 +1,5 @@
 ﻿using OtpNet;
-using RacingLeagueHub.Domain.Abstractions.Services;
+using RacingLeagueHub.Application.Identity.Authentication.TwoFactorAuthentication;
 
 namespace RacingLeagueHub.Infrastructure.Auth;
 
