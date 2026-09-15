@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Models.Resource;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Models.Resource;
 using RacingLeagueHub.Application.Resources;
 using RacingLeagueHub.Application.Resources.Dtos;
@@ -13,9 +12,9 @@ public class ResourcesController(IResourceService resourceService) : ControllerB
 {
 
     [HttpGet("get-by-id/{id}")]
-    public async Task<ActionResult<ResourceDto>> GetById([FromRoute] EncryptedId id, CancellationToken ct)
+    public async Task<ActionResult<ResourceDto>> GetById([FromRoute] int id, CancellationToken ct)
     {
-        var file = await resourceService.GetByIdAsync(id.RawId, ct);
+        var file = await resourceService.GetByIdAsync(id, ct);
 
         if (file == null)
             NotFound();
@@ -24,9 +23,9 @@ public class ResourcesController(IResourceService resourceService) : ControllerB
     }
 
     [HttpGet("get-file-url/{id}")]
-    public async Task<ActionResult<IReadOnlyList<ResourceDto>>> GetFileUrl([FromRoute] EncryptedId id, CancellationToken ct)
+    public async Task<ActionResult<IReadOnlyList<ResourceDto>>> GetFileUrl([FromRoute] int id, CancellationToken ct)
     {
-        var fileUrl = await resourceService.GetFileUrlAsync(id.RawId, ct);
+        var fileUrl = await resourceService.GetFileUrlAsync(id, ct);
 
         if (fileUrl == null)
             NotFound();

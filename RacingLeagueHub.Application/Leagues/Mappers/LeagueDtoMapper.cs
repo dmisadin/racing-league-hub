@@ -1,6 +1,5 @@
 ﻿using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.Leagues.Dtos;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Entities;
 using RacingLeagueHub.Domain.Services.Interfaces;
 using System.Linq.Expressions;
@@ -18,7 +17,7 @@ public class LeagueDtoMapper(IStorageService storageService)
         entity.Region = dto.Region;
         entity.Timezone = dto.Timezone;
         entity.Slug = dto.Slug;
-        entity.LogoResourceId = dto.LogoResourceId?.RawId;
+        entity.LogoResourceId = dto.LogoResourceId;
 
         return true;
     }
@@ -29,14 +28,14 @@ public class LeagueDtoMapper(IStorageService storageService)
 
         return league => new LeagueDto
         {
-            Id = new EncryptedId(league.Id),
+            Id = league.Id,
             Name = league.Name,
             Abbreviation = league.Abbreviation,
             Region = league.Region,
             Description = league.Description,
             Timezone = league.Timezone,
             Slug = league.Slug,
-            LogoResourceId = league.LogoResourceId != null ? new EncryptedId(league.LogoResourceId.Value) : null,
+            LogoResourceId = league.LogoResourceId,
             LogoUrl = league.LogoResourceId == null 
                 ? null 
                 : baseStorageUrl + "/uploads/" + league.LogoResource!.StorageId + "." + league.LogoResource.Extension

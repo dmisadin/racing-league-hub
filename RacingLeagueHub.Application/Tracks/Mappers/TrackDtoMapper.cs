@@ -1,6 +1,5 @@
 ﻿using RacingLeagueHub.Application.Common.Countries.Dtos;
 using RacingLeagueHub.Application.Common.Mappers;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.TrackLayouts.Dtos;
 using RacingLeagueHub.Application.Tracks.Dtos;
 using RacingLeagueHub.Domain.Entities;
@@ -24,15 +23,15 @@ public class TrackDtoMapper : DtoMapperBase<Track, TrackDto>
     {
         return track => new TrackDto
         {
-            Id = new EncryptedId(track.Id),
+            Id = track.Id,
             Name = track.Name,
             Country = new CountryDto(track.Country.Id, track.Country.CodeAlpha2, track.Country.Name),
             City = track.City,
             ShortName = track.ShortName,
             TrackLayouts = track.TrackLayouts.Select(tl => new TrackLayoutDto
             {
-                Id = new EncryptedId(tl.Id),
-                TrackId = new EncryptedId(tl.TrackId),
+                Id = tl.Id,
+                TrackId = tl.TrackId,
                 Name = tl.Name,
                 PitStopDuration = tl.PitStopDuration,
                 CornersTotal = tl.CornersTotal,

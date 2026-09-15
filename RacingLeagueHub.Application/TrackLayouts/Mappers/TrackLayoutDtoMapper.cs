@@ -1,5 +1,4 @@
 ﻿using RacingLeagueHub.Application.Common.Mappers;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.TrackLayouts.Dtos;
 using RacingLeagueHub.Domain.Entities;
 using System.Linq.Expressions;
@@ -10,7 +9,7 @@ public class TrackLayoutDtoMapper : DtoMapperBase<TrackLayout, TrackLayoutDto>
 {
     public override bool FromDto(TrackLayout entity, TrackLayoutDto dto)
     {
-        entity.TrackId = dto.TrackId.RawId;
+        entity.TrackId = dto.TrackId;
         entity.Name = dto.Name;
         entity.PitStopDuration = dto.PitStopDuration;
         entity.CornersTotal = dto.CornersTotal;
@@ -27,8 +26,8 @@ public class TrackLayoutDtoMapper : DtoMapperBase<TrackLayout, TrackLayoutDto>
     {
         return tl => new TrackLayoutDto
         {
-            Id = new EncryptedId(tl.Id),
-            TrackId = new EncryptedId(tl.TrackId),
+            Id = tl.Id,
+            TrackId = tl.TrackId,
             Name = tl.Name,
             PitStopDuration = tl.PitStopDuration,
             CornersTotal = tl.CornersTotal,

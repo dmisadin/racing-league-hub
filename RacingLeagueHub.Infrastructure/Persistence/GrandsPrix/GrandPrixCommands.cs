@@ -22,8 +22,8 @@ internal class GrandPrixCommands : IGrandPrixCommands
     {
         var grandPrix = new GrandPrix
         {
-            TrackLayoutId = dto.TrackLayoutId.RawId,
-            SeasonId = dto.SeasonId.RawId,
+            TrackLayoutId = dto.TrackLayoutId,
+            SeasonId = dto.SeasonId,
             Name = dto.Name,
             StartingAt = dto.StartingAt,
             VodUrl = dto.VodUrl,
@@ -54,7 +54,7 @@ internal class GrandPrixCommands : IGrandPrixCommands
         if (entity is null)
             return null;
 
-        entity.TrackLayoutId = dto.TrackLayoutId.RawId;
+        entity.TrackLayoutId = dto.TrackLayoutId;
         entity.Name = dto.Name;
         entity.StartingAt = dto.StartingAt;
         entity.VodUrl = dto.VodUrl;

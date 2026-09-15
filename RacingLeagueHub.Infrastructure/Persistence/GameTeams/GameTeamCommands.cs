@@ -24,13 +24,13 @@ internal class GameTeamCommands : IGameTeamCommands
         var gameTeam = new GameTeam
         {
             Game = dto.Game,
-            TeamId = dto.TeamId.RawId,
+            TeamId = dto.TeamId,
             Name = dto.Name,
             ShortName = dto.ShortName,
             Abbreviation = dto.Abbreviation,
             Color = dto.Color,
             TelemetryId = dto.TelemetryId,
-            LogoResourceId = dto.LogoResourceId?.RawId
+            LogoResourceId = dto.LogoResourceId
         };
 
         racingContext.GameTeam.Add(gameTeam);
@@ -54,7 +54,7 @@ internal class GameTeamCommands : IGameTeamCommands
         gameTeam.Abbreviation = dto.Abbreviation;
         gameTeam.Color = dto.Color;
         gameTeam.TelemetryId = dto.TelemetryId;
-        gameTeam.LogoResourceId = dto.LogoResourceId?.RawId;
+        gameTeam.LogoResourceId = dto.LogoResourceId;
 
         await racingContext.SaveChangesAsync(ct);
 

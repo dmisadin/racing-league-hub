@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.TrackLayouts;
 using RacingLeagueHub.Application.TrackLayouts.Dtos;
 
@@ -19,9 +18,9 @@ public class TrackLayoutController : ApiController
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<TrackLayoutDto>> GetById(EncryptedId id, CancellationToken ct)
+    public async Task<ActionResult<TrackLayoutDto>> GetById(int id, CancellationToken ct)
     {
-        var track = await trackLayoutService.GetByIdAsync(id.RawId, ct);
+        var track = await trackLayoutService.GetByIdAsync(id, ct);
 
         if (track is null)
             return NotFound();
@@ -46,9 +45,9 @@ public class TrackLayoutController : ApiController
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<TrackLayoutDto>> UpdateTrack([FromRoute] EncryptedId id, [FromBody] UpdateTrackLayoutDto dto, CancellationToken ct)
+    public async Task<ActionResult<TrackLayoutDto>> UpdateTrack([FromRoute] int id, [FromBody] UpdateTrackLayoutDto dto, CancellationToken ct)
     {
-        var track = await trackLayoutService.UpdateAsync(id.RawId, dto, ct);
+        var track = await trackLayoutService.UpdateAsync(id, dto, ct);
 
         if (track is null)
             return NotFound();

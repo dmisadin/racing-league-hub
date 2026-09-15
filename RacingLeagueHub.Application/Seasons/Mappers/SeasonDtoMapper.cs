@@ -1,5 +1,4 @@
 ﻿using RacingLeagueHub.Application.Common.Mappers;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Seasons.Dtos;
 using RacingLeagueHub.Domain.Entities.Seasons;
 using RacingLeagueHub.Domain.Services.Interfaces;
@@ -12,13 +11,13 @@ public class SeasonDtoMapper(IStorageService storageService)
 {
     public override bool FromDto(Season entity, SeasonDto dto)
     {
-        entity.LeagueId = dto.LeagueId.RawId;
+        entity.LeagueId = dto.LeagueId;
         entity.Name = dto.Name;
         entity.Platform = dto.Platform;
         entity.Game = dto.Game;
         entity.LapPercentageRequired = dto.LapPercentageRequired;
         entity.Slug = dto.Slug;
-        entity.LogoResourceId = dto.LogoResourceId?.RawId;
+        entity.LogoResourceId = dto.LogoResourceId;
 
         return true;
     }
@@ -29,14 +28,14 @@ public class SeasonDtoMapper(IStorageService storageService)
 
         return season => new SeasonDto
         {
-            Id = new EncryptedId(season.Id),
-            LeagueId = new EncryptedId(season.LeagueId),
+            Id = season.Id,
+            LeagueId = season.LeagueId,
             Name = season.Name,
             Platform = season.Platform,
             Game = season.Game,
             LapPercentageRequired = season.LapPercentageRequired,
             Slug = season.Slug,
-            LogoResourceId = season.LogoResourceId != null ? new EncryptedId(season.LogoResourceId.Value) : null,
+            LogoResourceId = season.LogoResourceId,
             LogoUrl = season.LogoResourceId == null
                         ? null
                         : baseStorageUrl + "/uploads/" + season.LogoResource.StorageId + "." + season.LogoResource.Extension

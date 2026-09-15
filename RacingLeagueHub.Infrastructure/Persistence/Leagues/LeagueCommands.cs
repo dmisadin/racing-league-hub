@@ -28,7 +28,7 @@ internal class LeagueCommands : ILeagueCommands
             Description = dto.Description,
             Timezone = dto.Timezone,
             Slug = dto.Slug,
-            LogoResourceId = dto.LogoResourceId?.RawId
+            LogoResourceId = dto.LogoResourceId
         };
 
         racingContext.League.Add(league);
@@ -52,7 +52,7 @@ internal class LeagueCommands : ILeagueCommands
         entity.Description = dto.Description;
         entity.Timezone = dto.Timezone;
         entity.Slug = dto.Slug;
-        entity.LogoResourceId = dto.LogoResourceId?.RawId;
+        entity.LogoResourceId = dto.LogoResourceId;
 
         await racingContext.SaveChangesAsync(ct);
 

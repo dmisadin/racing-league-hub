@@ -17,12 +17,10 @@ public class JwtService(IConfiguration config) : IJwtService
     private readonly int _expiryMinutes = int.Parse(config["Jwt:ExpiryMinutes"] ?? "15");
 
     public string GenerateAccessToken(User user)
-    {
-        var userEncryptedId = new EncryptedId(user.Id);
-        
+    {        
         var claims = new List<Claim>
         {
-            new(JwtRegisteredClaimNames.Sub, userEncryptedId.EncryptedReadonlyValue),
+            new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new(JwtRegisteredClaimNames.Email, user.Email),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new("username", user.Username),
@@ -58,11 +56,9 @@ public class JwtService(IConfiguration config) : IJwtService
 
     public string GenerateTwoFactorToken(User user)
     {
-        var encryptedUserId = new EncryptedId(user.Id).EncryptedReadonlyValue;
-
         var claims = new List<Claim>
         {
-            new Claim(JwtRegisteredClaimNames.Sub, encryptedUserId),
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
             new Claim("purpose", "2fa-login")
         };
@@ -159,6 +155,6 @@ public class JwtService(IConfiguration config) : IJwtService
         if (string.IsNullOrWhiteSpace(encryptedSub))
             throw new UnauthorizedAccessException("Missing user id claim.");
 
-        return new EncryptedId(encryptedSub).RawId;
+        return Int32.Parse(encryptedSub);
     }
 }

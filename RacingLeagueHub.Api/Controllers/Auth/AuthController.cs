@@ -113,9 +113,7 @@ public class AuthController : ApiController
     [Authorize]
     public async Task<ActionResult<LeagueUserRolesDto>> GetMyLeagueRoles(CancellationToken ct)
     {
-        var userId = GetCurrentUserId();
-
-        var leagues = await leagueUserQueries.GetAllLeagueRolesForUserAsync(userId, ct);
+        var leagues = await leagueUserQueries.GetAllLeagueRolesForUserAsync(GetRequiredUserId(), ct);
 
         var leagueRoles = leagues
             .Select(l => 

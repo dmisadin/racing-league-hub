@@ -1,5 +1,4 @@
 ﻿using RacingLeagueHub.Application.Common.Mappers;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Resources.Dtos;
 using RacingLeagueHub.Domain.Entities.Resources;
 using RacingLeagueHub.Domain.Services.Interfaces;
@@ -21,7 +20,7 @@ public class ResourceDtoMapper(IStorageService storageService) : DtoMapperBase<R
 
         return resource => new ResourceDto
         {
-            Id = new EncryptedId(resource.Id),
+            Id = resource.Id,
             StorageId = resource.StorageId,
             FileName = resource.FileName,
             Extension = resource.Extension,

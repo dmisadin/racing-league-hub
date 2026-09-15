@@ -1,6 +1,5 @@
 ﻿using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.GameTeams.Dtos;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Domain.Entities;
 using System.Linq.Expressions;
 
@@ -11,13 +10,13 @@ public class GameTeamDtoMapper : DtoMapperBase<GameTeam, GameTeamDto>
     public override bool FromDto(GameTeam entity, GameTeamDto dto)
     {
         entity.Game = dto.Game;
-        entity.TeamId = dto.TeamId.RawId;
+        entity.TeamId = dto.TeamId;
         entity.Name = dto.Name;
         entity.ShortName = dto.ShortName;
         entity.Abbreviation = dto.Abbreviation;
         entity.Color = dto.Color;
         entity.TelemetryId = dto.TelemetryId;
-        entity.LogoResourceId = dto.LogoResourceId?.RawId;
+        entity.LogoResourceId = dto.LogoResourceId;
 
         return true;
     }
@@ -26,9 +25,9 @@ public class GameTeamDtoMapper : DtoMapperBase<GameTeam, GameTeamDto>
     {
         return gt => new GameTeamDto
         {
-            Id = new EncryptedId(gt.Id),
+            Id = gt.Id,
             Game = gt.Game,
-            TeamId = new EncryptedId(gt.TeamId),
+            TeamId = gt.TeamId,
             Name = gt.Name,
             ShortName = gt.ShortName,
             Abbreviation = gt.Abbreviation,
