@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RacingLeagueHub.Domain.Users;
 
-namespace RacingLeagueHub.Infrastructure.DbMaps;
+namespace RacingLeagueHub.Infrastructure.Persistence.Identity.Authentication.PasswordResetTokens;
 
 public class PasswordResetTokenDbMap : DbMapBase<PasswordResetToken>
 {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RacingLeagueHub.Domain.Drivers;
 using RacingLeagueHub.Domain.Stewarding;
 
-namespace RacingLeagueHub.Infrastructure.DbMaps;
+namespace RacingLeagueHub.Infrastructure.Persistence.Stewarding;
 
 public class IncidentDbMap : DbMapBase<Incident>
 {

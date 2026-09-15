@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.Domain.Teams;
 
-namespace RacingLeagueHub.Infrastructure.DbMaps;
+namespace RacingLeagueHub.Infrastructure.Persistence.Teams;
 
 public class TeamDbMap : DbMapBase<Team>
 {

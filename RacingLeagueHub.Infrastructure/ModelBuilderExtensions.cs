@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.Infrastructure.DbMaps;
+using RacingLeagueHub.Infrastructure.Persistence;
 using System.Reflection;
 
 namespace RacingLeagueHub.Infrastructure;

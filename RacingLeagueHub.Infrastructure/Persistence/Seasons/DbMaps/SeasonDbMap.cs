@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RacingLeagueHub.Domain.Seasons;
 
-namespace RacingLeagueHub.Infrastructure.DbMaps;
+namespace RacingLeagueHub.Infrastructure.Persistence.Seasons.DbMaps;
 
 public class SeasonDbMap : DbMapBase<Season>
 {

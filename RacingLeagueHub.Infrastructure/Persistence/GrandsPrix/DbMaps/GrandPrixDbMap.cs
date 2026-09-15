@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RacingLeagueHub.Domain.GrandsPrix;
 
-namespace RacingLeagueHub.Infrastructure.DbMaps;
+namespace RacingLeagueHub.Infrastructure.Persistence.GrandsPrix.DbMaps;
 
 public class GrandPrixDbMap : DbMapBase<GrandPrix>
 {

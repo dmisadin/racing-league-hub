@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.Domain.Drivers;
 
-namespace RacingLeagueHub.Infrastructure.DbMaps;
+namespace RacingLeagueHub.Infrastructure.Persistence.Drivers;
 
 public class DriverDbMap : DbMapBase<Driver>
 {

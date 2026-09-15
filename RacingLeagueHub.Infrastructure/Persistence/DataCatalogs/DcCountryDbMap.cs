@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.Domain.DataCatalogs;
 
-namespace RacingLeagueHub.Infrastructure.DbMaps;
+namespace RacingLeagueHub.Infrastructure.Persistence.DataCatalogs;
 
 internal class DcCountryDbMap : DbMapBase<DcCountry>
 {

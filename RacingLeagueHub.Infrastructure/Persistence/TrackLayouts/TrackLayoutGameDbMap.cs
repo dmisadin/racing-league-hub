@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RacingLeagueHub.Domain.Tracks;
 
-namespace RacingLeagueHub.Infrastructure.DbMaps.CompositePk;
+namespace RacingLeagueHub.Infrastructure.Persistence.TrackLayouts;
 
 public class TrackLayoutGameDbMap : IDbMap
 {
