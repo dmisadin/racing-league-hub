@@ -2,7 +2,7 @@
 using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.Drivers.Dtos;
 using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Drivers;
 using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Application.Drivers.Mappers;

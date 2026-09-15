@@ -2,7 +2,7 @@
 using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.GrandsPrix.Dtos;
 using RacingLeagueHub.Application.GrandsPrix.Persistence;
-using RacingLeagueHub.Domain.Entities.GrandsPrix;
+using RacingLeagueHub.Domain.GrandsPrix;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.GrandsPrix;
 

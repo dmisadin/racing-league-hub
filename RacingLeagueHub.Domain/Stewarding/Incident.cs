@@ -1,0 +1,24 @@
+﻿using RacingLeagueHub.Domain.Models.Enums;
+using RacingLeagueHub.Domain.GrandsPrix;
+using RacingLeagueHub.Domain.Users;
+using RacingLeagueHub.Domain.Drivers;
+using RacingLeagueHub.Domain.Common.Entitites;
+
+namespace RacingLeagueHub.Domain.Stewarding;
+
+public class Incident : EntityBase
+{
+    public int UserId { get; set; }
+    public int GrandPrixId { get; set; }
+    public SessionType SessionType { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public string Evidence { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+
+    public virtual User User { get; set; }
+    public virtual GrandPrix GrandPrix { get; set; }
+
+    public virtual ICollection<Driver> Drivers { get; set; } = new List<Driver>();
+    public virtual ICollection<Verdict> Verdicts { get; set; } = new List<Verdict>();
+}

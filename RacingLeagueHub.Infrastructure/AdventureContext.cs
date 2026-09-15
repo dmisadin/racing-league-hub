@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Common.Entitites;
 using RacingLeagueHub.Domain.Interceptors.EntityHandlers;
 using RacingLeagueHub.Infrastructure.Persistence.EntityHandlers;
 

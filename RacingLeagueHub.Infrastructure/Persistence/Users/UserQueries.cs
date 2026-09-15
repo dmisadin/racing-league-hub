@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.Application.Users.Dtos;
 using RacingLeagueHub.Application.Users.Persistence;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Users;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.Users;
 

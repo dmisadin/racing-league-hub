@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.Domain.Entities.Authentication;
+﻿using RacingLeagueHub.Domain.Users;
 
 namespace RacingLeagueHub.Application.Identity.Authentication.PasswordResetTokens;
 

@@ -2,7 +2,7 @@
 using RacingLeagueHub.Application.GameTeams.Dtos;
 using RacingLeagueHub.Application.Resources;
 using RacingLeagueHub.Application.Teams.Dtos;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Teams;
 using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Application.Teams.Mappers;

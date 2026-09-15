@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.GrandsPrix.Dtos;
-using RacingLeagueHub.Domain.Entities.GrandsPrix;
+using RacingLeagueHub.Domain.GrandsPrix;
 using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Application.GrandsPrix.Mappers;

@@ -10,7 +10,7 @@ using RacingLeagueHub.Application.Identity.Authentication.Sso.Models;
 using RacingLeagueHub.Application.Identity.Authentication.TwoFactorAuthentication;
 using RacingLeagueHub.Application.Users.Dtos;
 using RacingLeagueHub.Application.Users.Persistence;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Users;
 using RacingLeagueHub.Domain.Utilities;
 using RacingLeagueHub.Identity.Authentication.Persistence;
 using System.Security.Cryptography;

@@ -1,10 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.Domain.Entities;
-using RacingLeagueHub.Domain.Entities.Authentication;
-using RacingLeagueHub.Domain.Entities.GrandsPrix;
-using RacingLeagueHub.Domain.Entities.Resources;
-using RacingLeagueHub.Domain.Entities.Seasons;
-using RacingLeagueHub.Domain.Entities.Stewarding;
+using RacingLeagueHub.Domain.DataCatalogs;
+using RacingLeagueHub.Domain.Drivers;
+using RacingLeagueHub.Domain.GrandsPrix;
+using RacingLeagueHub.Domain.Leagues;
+using RacingLeagueHub.Domain.Resources;
+using RacingLeagueHub.Domain.Seasons;
+using RacingLeagueHub.Domain.Stewarding;
+using RacingLeagueHub.Domain.Teams;
+using RacingLeagueHub.Domain.Tracks;
+using RacingLeagueHub.Domain.Users;
 
 namespace RacingLeagueHub.Infrastructure.Persistence;
 

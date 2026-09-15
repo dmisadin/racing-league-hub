@@ -4,7 +4,7 @@ using RacingLeagueHub.Application.Models.Resource;
 using RacingLeagueHub.Application.Resources;
 using RacingLeagueHub.Application.Resources.Dtos;
 using RacingLeagueHub.Application.Resources.Persistence;
-using RacingLeagueHub.Domain.Entities.Resources;
+using RacingLeagueHub.Domain.Resources;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.Resources;
 

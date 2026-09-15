@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Resources.Dtos;
-using RacingLeagueHub.Domain.Entities.Resources;
+using RacingLeagueHub.Domain.Resources;
 
 namespace RacingLeagueHub.Application.Resources.Persistence;
 

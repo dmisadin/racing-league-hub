@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Common.Entitites;
 
 namespace RacingLeagueHub.Infrastructure.DbMaps;
 

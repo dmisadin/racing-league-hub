@@ -2,7 +2,7 @@
 using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes.Persistence;
 using RacingLeagueHub.Application.Identity.Authentication.TwoFactor.Dtos;
 using RacingLeagueHub.Application.Users.Persistence;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Users;
 
 namespace RacingLeagueHub.Application.Identity.Authentication.TwoFactorAuthentication;
 

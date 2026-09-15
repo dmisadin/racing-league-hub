@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.Domain.Entities;
+﻿using RacingLeagueHub.Domain.Users;
 
 namespace RacingLeagueHub.Application.Identity.Authentication.RefreshTokens.Persistence;
 

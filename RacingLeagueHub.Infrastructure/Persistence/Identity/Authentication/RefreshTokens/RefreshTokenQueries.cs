@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Users;
 using RacingLeagueHub.Identity.Authentication.Persistence;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.Identity.Authentication.RefreshTokens;

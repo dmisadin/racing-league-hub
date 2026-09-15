@@ -2,7 +2,7 @@
 using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.GameTeams.Dtos;
 using RacingLeagueHub.Application.GameTeams.Persistence;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Teams;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.GameTeams;
 

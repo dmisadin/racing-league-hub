@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.Domain.Entities;
+﻿using RacingLeagueHub.Domain.Leagues;
 
 namespace RacingLeagueHub.Application.LeagueUsers.Persistence;
 

@@ -21,7 +21,7 @@ using RacingLeagueHub.Application.Teams.Persistence;
 using RacingLeagueHub.Application.TrackLayouts.Persistence;
 using RacingLeagueHub.Application.Tracks.Persistence;
 using RacingLeagueHub.Application.Users.Persistence;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Users;
 using RacingLeagueHub.Identity.Authentication.Persistence;
 using RacingLeagueHub.Infrastructure.Auth;
 using RacingLeagueHub.Infrastructure.Auth.SSO;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.Application.LeagueUsers.Persistence;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Leagues;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.LeagueUsers;
 

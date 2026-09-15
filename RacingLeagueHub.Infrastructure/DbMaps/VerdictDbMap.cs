@@ -1,5 +1,5 @@
-﻿using RacingLeagueHub.Domain.Entities.Stewarding;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using RacingLeagueHub.Domain.Stewarding;
 
 namespace RacingLeagueHub.Infrastructure.DbMaps;
 

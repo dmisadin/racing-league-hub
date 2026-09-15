@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.Domain.Entities;
+﻿using RacingLeagueHub.Domain.DataCatalogs;
 
 namespace RacingLeagueHub.Infrastructure.DbMaps;
 

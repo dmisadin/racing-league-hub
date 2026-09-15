@@ -3,7 +3,7 @@ using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Teams.Dtos;
 using RacingLeagueHub.Application.Teams.Persistence;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Teams;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.Teams;
 

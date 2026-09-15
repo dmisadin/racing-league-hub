@@ -1,5 +1,5 @@
 ﻿using RacingLeagueHub.Application.Users.Models;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Users;
 using System.Security.Claims;
 
 namespace RacingLeagueHub.Application.Identity.Authentication;

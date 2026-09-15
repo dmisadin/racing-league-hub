@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.Domain.Entities;
+﻿using RacingLeagueHub.Domain.Teams;
 using RacingLeagueHub.Infrastructure.Persistence;
 using RacingLeagueHub.Infrastructure.Persistence.EntityHandlers;
 using RacingLeagueHub.Infrastructure.Persistence.EntityHandlers.Resources;

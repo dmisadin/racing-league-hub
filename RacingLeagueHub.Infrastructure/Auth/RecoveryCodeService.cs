@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using RacingLeagueHub.Application.Identity.Authentication.RecoveryCodes;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Users;
 using System.Security.Cryptography;
 
 namespace RacingLeagueHub.Infrastructure.Auth;

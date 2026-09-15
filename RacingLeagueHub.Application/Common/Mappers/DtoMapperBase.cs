@@ -1,5 +1,5 @@
 ﻿using RacingLeagueHub.Application.Common.Dtos;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Common.Entitites;
 using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Application.Common.Mappers;

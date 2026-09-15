@@ -8,7 +8,7 @@ using RacingLeagueHub.Application.Leagues.Mappers;
 using RacingLeagueHub.Application.Teams;
 using RacingLeagueHub.Application.TrackLayouts;
 using RacingLeagueHub.Application.Tracks;
-using RacingLeagueHub.Domain.Entities;
+using RacingLeagueHub.Domain.Users;
 
 namespace RacingLeagueHub.Application;
 
