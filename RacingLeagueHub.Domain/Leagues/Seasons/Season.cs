@@ -24,4 +24,5 @@ public class Season : EntityBase
     public virtual ICollection<SeasonLobbySettings> SeasonLobbySettings { get; set; }
     public virtual ICollection<SeasonPoints> SeasonPoints { get; set; }
     public virtual ICollection<SeasonDriver> SeasonDrivers { get; set; }
+    public virtual ICollection<SeasonDivision> SeasonDivisions { get; set; }
 }
