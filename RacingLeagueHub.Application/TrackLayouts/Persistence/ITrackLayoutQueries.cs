@@ -1,5 +1,5 @@
-﻿using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Application.TrackLayouts.Dtos;
+﻿using RacingLeagueHub.Application.TrackLayouts.Dtos;
+using RacingLeagueHub.Domain.Common.Models;
 
 namespace RacingLeagueHub.Application.TrackLayouts.Persistence;
 

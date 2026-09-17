@@ -1,8 +1,8 @@
-﻿using RacingLeagueHub.Domain.Models.Enums;
-using RacingLeagueHub.Domain.GrandsPrix;
+﻿using RacingLeagueHub.Domain.GrandsPrix;
 using RacingLeagueHub.Domain.Users;
 using RacingLeagueHub.Domain.Drivers;
 using RacingLeagueHub.Domain.Common.Entitites;
+using RacingLeagueHub.Domain.Common.Models.Enums;
 
 namespace RacingLeagueHub.Domain.Stewarding;
 

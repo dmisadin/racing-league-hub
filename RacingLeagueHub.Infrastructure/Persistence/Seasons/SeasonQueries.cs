@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.Application.Common.Mappers;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Seasons.Dtos;
 using RacingLeagueHub.Application.Seasons.Persistence;
+using RacingLeagueHub.Domain.Common.Models;
 using RacingLeagueHub.Domain.Leagues.Seasons;
 using RacingLeagueHub.Infrastructure.Extensions;
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.Application.Models;
+using RacingLeagueHub.Domain.Common.Models;
 
 namespace RacingLeagueHub.Infrastructure.Extensions;
 

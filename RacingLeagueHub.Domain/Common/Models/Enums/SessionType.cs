@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.Domain.Models.Enums
+﻿namespace RacingLeagueHub.Domain.Common.Models.Enums
 {
     public enum SessionType : short
     {
