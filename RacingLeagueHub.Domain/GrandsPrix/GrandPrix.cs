@@ -1,5 +1,5 @@
 ﻿using RacingLeagueHub.Domain.Common.Entitites;
-using RacingLeagueHub.Domain.Seasons;
+using RacingLeagueHub.Domain.Leagues.Seasons;
 using RacingLeagueHub.Domain.Stewarding;
 using RacingLeagueHub.Domain.Tracks;
 

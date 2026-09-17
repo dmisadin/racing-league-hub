@@ -1,7 +1,7 @@
 ﻿using RacingLeagueHub.Domain.Common.Entitites;
 using RacingLeagueHub.Domain.Models.Enums;
 
-namespace RacingLeagueHub.Domain.Seasons;
+namespace RacingLeagueHub.Domain.Leagues.Seasons;
 
 public class SeasonPoints : EntityBase
 {

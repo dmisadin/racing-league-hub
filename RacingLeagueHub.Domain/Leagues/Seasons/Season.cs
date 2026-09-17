@@ -4,7 +4,7 @@ using RacingLeagueHub.Domain.Leagues;
 using RacingLeagueHub.Domain.Models.Enums;
 using RacingLeagueHub.Domain.Resources;
 
-namespace RacingLeagueHub.Domain.Seasons;
+namespace RacingLeagueHub.Domain.Leagues.Seasons;
 
 public class Season : EntityBase
 {

@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.Domain.Common.Entitites;
 using RacingLeagueHub.Domain.GrandsPrix;
-using RacingLeagueHub.Domain.Seasons;
+using RacingLeagueHub.Domain.Leagues.Seasons;
 
 namespace RacingLeagueHub.Domain.Teams;
 

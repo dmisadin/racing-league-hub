@@ -1,7 +1,7 @@
 ﻿using RacingLeagueHub.Domain.Models.Enums;
-using RacingLeagueHub.Domain.Seasons;
 using RacingLeagueHub.Domain.Resources;
 using RacingLeagueHub.Domain.Common.Entitites;
+using RacingLeagueHub.Domain.Leagues.Seasons;
 
 namespace RacingLeagueHub.Domain.Leagues;
 
