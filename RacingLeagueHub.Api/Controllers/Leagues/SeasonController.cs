@@ -18,8 +18,7 @@ public class SeasonController : ApiController
 
     public SeasonController(
         ISeasonQueries seasonQueries,
-        ISeasonCommands seasonCommands,
-        ISeasonService seasonService)
+        ISeasonCommands seasonCommands)
     {
         this.seasonQueries = seasonQueries;
         this.seasonCommands = seasonCommands;

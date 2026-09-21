@@ -36,9 +36,12 @@ public class LeagueDtoMapper(IStorageService storageService)
             Timezone = league.Timezone,
             Slug = league.Slug,
             LogoResourceId = league.LogoResourceId,
-            LogoUrl = league.LogoResourceId == null 
-                ? null 
-                : baseStorageUrl + "/uploads/" + league.LogoResource!.StorageId + "." + league.LogoResource.Extension
+            LogoUrl = league.LogoResource == null
+                ? null
+                : baseStorageUrl + "/uploads/"
+                    + league.LogoResource.StorageId
+                    + "."
+                    + league.LogoResource.Extension
         };
     }
 }
