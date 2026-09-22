@@ -1,45 +1,51 @@
 @if (dto(); as league) {
 
-@if (league.logoUrl) {
-<figure class="px-6 pt-6">
-    <img [src]="league.logoUrl" [alt]="league.name" class="rounded-xl max-h-32 object-contain drop-shadow-md drop-shadow-base-content/10" />
-</figure>
-}
+<section class="p-8 uppercase bg-base-100/10 border border-base-100 w-full mb-8 grid grid-cols-1 gap-6 grid-cols-4">
 
-<div class="space-y-4">
-    <h2 class="card-title flex justify-between items-center text-3xl">
-        {{ league.name }}
-
-        @if (canEdit()) {
-            <a class="btn btn-outline" routerLink="edit">Edit</a>
+    <div class="col-span-3 space-y-4">
+        <div class="flex gap-2">
+            <span class="badge badge-primary font-bold rounded-none">
+                {{ league.abbreviation }}
+            </span>
+            <span class="badge badge-outline rounded-none">
+                {{ regionLabels[league.region] }}
+            </span>
+            <span class="badge badge-primary rounded-none badge-outline">
+                Codemasters F1 25
+            </span>
+        </div>
+        <h2 class="card-title flex justify-between items-center text-3xl">
+            {{ league.name }}
+    
+            @if (canEdit()) {
+                <a class="btn btn-outline" routerLink="edit">Edit</a>
+            }
+        </h2>
+    
+        @if (league.description) {
+        <p class="text-sm opacity-80">
+            {{ league.description }}
+        </p>
         }
-    </h2>
-
-    <div class="flex gap-2">
-        <span class="badge badge-primary font-bold">
-            {{ league.abbreviation }}
-        </span>
-        <span class="badge badge-outline">
-            {{ regionLabels[league.region] }}
-        </span>
+    
+        <div class="mt-2 space-y-1 text-sm">
+            <span class="font-semibold">Timezone:</span>
+            {{ league.timezone }}
+        </div>
     </div>
-
-    @if (league.description) {
-    <p class="text-sm opacity-80">
-        {{ league.description }}
-    </p>
+    
+    @if (league.logoUrl) {
+    <div class="lg:col-span-1">
+        <figure class="h-full flex justify-end items-center">
+            <img [src]="league.logoUrl" [alt]="league.name" class="rounded-xl max-h-32 object-contain drop-shadow-md drop-shadow-base-content/10" />
+        </figure>
+    </div>
     }
+</section>
 
-    <div class="mt-2 space-y-1 text-sm">
-        <span class="font-semibold">Timezone:</span>
-        {{ league.timezone }}
-    </div>
-
-    @if(league.slug) {
+@if(league.slug) {
     <season-list [leagueSlug]="league.slug" [canEdit]="canEdit()"></season-list>
-    }
-</div>
-
+}
 
 } @else {
 <div class="alert">
