@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.Domain.Common.Entitites;
 using RacingLeagueHub.Domain.DataCatalogs;
-using RacingLeagueHub.Domain.Seasons;
+using RacingLeagueHub.Domain.Leagues.Seasons;
 using RacingLeagueHub.Domain.Users;
 
 namespace RacingLeagueHub.Domain.Drivers;

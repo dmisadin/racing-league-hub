@@ -3,7 +3,7 @@ using RacingLeagueHub.Domain.GrandsPrix;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.GrandsPrix.DbMaps;
 
-public class GrandPrixDbMap : DbMapBase<GrandPrix>
+internal class GrandPrixDbMap : DbMapBase<GrandPrix>
 {
     protected override string Table => "grand_prix";
 
@@ -18,5 +18,9 @@ public class GrandPrixDbMap : DbMapBase<GrandPrix>
         builder.HasOne(x => x.TrackLayout)
             .WithMany()
             .HasForeignKey(x => x.TrackLayoutId);
+
+        builder.HasOne(x => x.SeasonDivision)
+            .WithMany(sd => sd.GrandsPrix)
+            .HasForeignKey(x => x.SeasonDivisionId);
     }
 }

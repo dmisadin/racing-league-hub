@@ -2,7 +2,7 @@
 using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.Leagues.Dtos;
 using RacingLeagueHub.Application.Leagues.Persistence;
-using RacingLeagueHub.Application.Models;
+using RacingLeagueHub.Domain.Common.Models;
 using RacingLeagueHub.Domain.Leagues;
 using RacingLeagueHub.Infrastructure.Extensions;
 

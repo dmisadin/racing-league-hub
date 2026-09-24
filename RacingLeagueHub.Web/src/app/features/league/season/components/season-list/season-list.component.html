@@ -1,20 +1,220 @@
-<ul class="list bg-base-100 rounded-box shadow-md pb-4">
+<div class="space-y-8">
 
-    <li class="flex justify-between p-4 pb-2 tracking-wide text-xs">
-        <span class="opacity-60">List of all available seasons</span>
-        @if (canEdit()) {
+    <ul class="list bg-base-100 rounded-box shadow-md pb-4">
+
+        <li class="flex justify-between p-4 pb-2 tracking-wide text-xs">
+            <span class="opacity-60">List of all available seasons</span>
+            @if (canEdit()) {
             <a routerLink="add-season" class="hover:underline">+ Add new season</a>
-        }
-    </li>
+            }
+        </li>
 
-    @for (season of list(); track season.id)
-    {
-    <li class="list-row cursor-pointer hover:bg-base-200" routerLink="{{season.slug}}">
-        <img class="size-10 rounded-box drop-shadow-md drop-shadow-base-content/10" [src]="season.logoUrl" />
+        @for (season of list(); track season.id)
+        {
+        <li class="list-row cursor-pointer hover:bg-base-200" routerLink="{{season.slug}}">
+            <img class="size-10 rounded-box drop-shadow-md drop-shadow-base-content/10" [src]="season.logoUrl" />
+            <div>
+                <div>{{ season.name }}</div>
+                <div class="text-xs uppercase font-semibold opacity-60">{{ season.game }}</div>
+            </div>
+        </li>
+        }
+    </ul>
+
+<!-- 1. ACTIVE SEASON CARD -->
+<div class="relative flex flex-col gap-4 overflow-hidden rounded-xs border-2 border-primary bg-base-100 p-5">
+    <div class="absolute right-0 top-0 bg-primary px-3 py-1 text-[10px] font-extrabold uppercase tracking-wide text-primary-content">
+        LIVE CURRENT SEASON
+    </div>
+
+    <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
         <div>
-            <div>{{ season.name }}</div>
-            <div class="text-xs uppercase font-semibold opacity-60">{{ season.game }}</div>
+            <div class="flex flex-wrap items-center gap-2">
+                <h3 class="text-xl font-bold text-base-content">
+                    Season 25 — Championship Quest
+                </h3>
+
+                <span class="badge badge-primary badge-outline">
+                    F1 24
+                </span>
+            </div>
+
+            <p class="mt-1 text-sm text-base-content/70">
+                Round 8 of 12 underway. Upcoming race: Hungarian GP (Hungaroring, Budapest).
+            </p>
         </div>
-    </li>
-    }
-</ul>
+
+        <div class="text-left sm:pr-24 sm:text-right">
+            <span class="block text-xs font-bold uppercase tracking-wide text-base-content/60">
+                LEADER
+            </span>
+
+            <span class="font-bold text-primary">
+                L. Hamilton (184 pts)
+            </span>
+        </div>
+    </div>
+
+    <!-- Progress -->
+    <div class="flex flex-col gap-2 pt-1">
+        <div class="flex items-center justify-between gap-4 text-sm">
+            <span class="text-base-content/70">
+                Championship Calendar Progress
+            </span>
+
+            <span class="font-bold text-primary">
+                Round 8 / 12 (66% Complete)
+            </span>
+        </div>
+
+        <div class="h-2 w-full overflow-hidden rounded-full bg-base-200">
+            <div class="h-full rounded-full bg-primary" style="width: 66%;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Metadata & CTAs -->
+    <div class="flex flex-wrap items-center justify-between gap-4 border-t border-base-300 pt-3">
+        <div class="flex flex-wrap items-center gap-4 text-sm text-base-content/80">
+            <span class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[16px] text-primary">
+                    groups
+                </span>
+                20 Confirmed Drivers
+            </span>
+
+            <span class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[16px] text-accent">
+                    flag
+                </span>
+                Sprint Format: Yes
+            </span>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+            <button class="btn btn-sm bg-base-100 text-base-content hover:bg-base-200 rounded-none">
+                Telemetry Wall
+            </button>
+
+            <button class="btn btn-sm bg-primary text-primary-content hover:bg-primary/90 rounded-none">
+                <span>Enter Season Dashboard</span>
+
+                <span class="material-symbols-outlined text-[16px]">
+                    arrow_forward
+                </span>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- 2. UPCOMING SEASON CARD -->
+<div class="flex flex-col gap-4 rounded-xs border border-base-300 bg-base-200 p-5">
+    <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
+        <div>
+            <div class="flex flex-wrap items-center gap-2">
+                <span class="badge badge-accent badge-outline rounded-none">
+                    REGISTRATION OPEN
+                </span>
+
+                <h3 class="text-xl font-bold text-base-content">
+                    Season 26 — Autumn Sprint Championship
+                </h3>
+            </div>
+
+            <p class="mt-1 text-base text-base-content/70">
+                Official calendar launches September 15, 2024. 14 of 20 Grid slots filled.
+                6 seats available across Haas, Alpine &amp; Sauber.
+            </p>
+        </div>
+
+        <div class="shrink-0 text-left sm:text-right">
+            <span class="block text-xs font-bold uppercase tracking-wide text-base-content/60">
+                GRID CAPACITY
+            </span>
+
+            <span class="font-bold text-accent">
+                14 / 20 Drivers
+            </span>
+        </div>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-4 border-t border-base-300 pt-3">
+        <div class="flex flex-wrap items-center gap-4 text-sm text-base-content/80">
+            <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-[16px]">
+                    schedule
+                </span>
+                Qualifying: Tuesdays 19:30 UTC
+            </span>
+
+            <span>•</span>
+
+            <span>10 Race Calendar</span>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+            <button class="btn btn-sm bg-base-100 text-base-content hover:bg-base-200 rounded-none">
+                Entry Requirements
+            </button>
+
+            <button class="btn btn-sm bg-accent text-accent-content hover:bg-accent/90 rounded-none">
+                <span class="material-symbols-outlined text-[16px]">
+                    how_to_reg
+                </span>
+
+                <span>Driver Registration</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- 3. COMPLETED SEASON CARD -->
+<div class="flex flex-col gap-4 rounded-xs border border-base-300 bg-base-200 p-5 opacity-90 transition-opacity hover:opacity-100">
+    <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+        <div class="flex items-center gap-4">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xs bg-base-100">
+                <span class="material-symbols-outlined">
+                    military_tech
+                </span>
+            </div>
+
+            <div>
+                <div class="flex flex-wrap items-center gap-2">
+                    <h3 class="text-xl font-bold text-base-content">
+                        Season 24 (Completed)
+                    </h3>
+
+                    <span class="badge badge-ghost">
+                        12 Rounds
+                    </span>
+                </div>
+
+                <div class="mt-1 flex flex-wrap items-center gap-2 text-sm text-base-content/80">
+                    <span>
+                        Drivers Champion:
+                        <strong class="font-bold text-primary">M. Verstappen</strong>
+                    </span>
+
+                    <span>•</span>
+
+                    <span>
+                        Constructors:
+                        <strong class="text-base-content">
+                            Oracle Red Bull Racing
+                        </strong>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-sm self-start bg-base-100 text-base-content hover:border-primary hover:text-primary sm:self-center">
+            <span class="material-symbols-outlined text-[16px]">
+                history
+            </span>
+
+            <span>View Archive</span>
+        </button>
+    </div>
+</div>

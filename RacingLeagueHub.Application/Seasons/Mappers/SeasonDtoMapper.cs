@@ -1,7 +1,7 @@
 ﻿using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.Resources;
 using RacingLeagueHub.Application.Seasons.Dtos;
-using RacingLeagueHub.Domain.Seasons;
+using RacingLeagueHub.Domain.Leagues.Seasons;
 using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Application.Seasons.Mappers;

@@ -1,5 +1,5 @@
 ﻿using RacingLeagueHub.Domain.Common.Entitites;
-using RacingLeagueHub.Domain.Seasons;
+using RacingLeagueHub.Domain.Leagues.Seasons;
 using RacingLeagueHub.Domain.Stewarding;
 using RacingLeagueHub.Domain.Tracks;
 
@@ -9,6 +9,7 @@ public class GrandPrix : EntityBase
 {
     public int TrackLayoutId { get; set; }
     public int SeasonId { get; set; }
+    public int? SeasonDivisionId { get; set; }
     public string Name { get; set; }
     public DateTimeOffset StartingAt { get; set; }
     public string? VodUrl { get; set; }
@@ -16,6 +17,7 @@ public class GrandPrix : EntityBase
 
     public virtual TrackLayout TrackLayout { get; set; }
     public virtual Season Season { get; set; }
+    public virtual SeasonDivision? SeasonDivision { get; set; }
 
     public virtual ICollection<Incident> Incidents { get; set; }
 }
