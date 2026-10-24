@@ -1,6 +1,6 @@
-﻿using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Application.Models.Resource;
+﻿using RacingLeagueHub.Application.Models.Resource;
 using RacingLeagueHub.Application.Resources.Dtos;
+using RacingLeagueHub.Domain.Common.Models;
 
 namespace RacingLeagueHub.Application.Resources;
 

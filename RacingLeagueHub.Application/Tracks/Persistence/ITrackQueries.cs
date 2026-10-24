@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.Application.Common.Dtos;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Tracks.Dtos;
+using RacingLeagueHub.Domain.Common.Models;
 
 namespace RacingLeagueHub.Application.Tracks.Persistence;
 

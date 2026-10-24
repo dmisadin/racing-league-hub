@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
 using RacingLeagueHub.Application.GrandsPrix.Dtos;
 using RacingLeagueHub.Application.GrandsPrix.Persistence;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Seasons.Persistence;
+using RacingLeagueHub.Domain.Common.Models;
 
 namespace RacingLeagueHub.Api.Controllers.Leagues;
 

@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.Application.GameTeams.Dtos;
 using RacingLeagueHub.Application.GameTeams.Persistence;
-using RacingLeagueHub.Application.Models;
+using RacingLeagueHub.Domain.Common.Models;
 
 namespace RacingLeagueHub.Application.GameTeams;
 

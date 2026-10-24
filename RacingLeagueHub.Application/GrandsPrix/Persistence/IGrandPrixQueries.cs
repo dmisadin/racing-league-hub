@@ -1,5 +1,5 @@
 ﻿using RacingLeagueHub.Application.GrandsPrix.Dtos;
-using RacingLeagueHub.Application.Models;
+using RacingLeagueHub.Domain.Common.Models;
 
 namespace RacingLeagueHub.Application.GrandsPrix.Persistence;
 

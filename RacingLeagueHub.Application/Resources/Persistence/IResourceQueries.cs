@@ -1,5 +1,5 @@
-﻿using RacingLeagueHub.Application.Models;
-using RacingLeagueHub.Application.Resources.Dtos;
+﻿using RacingLeagueHub.Application.Resources.Dtos;
+using RacingLeagueHub.Domain.Common.Models;
 using RacingLeagueHub.Domain.Resources;
 
 namespace RacingLeagueHub.Application.Resources.Persistence;

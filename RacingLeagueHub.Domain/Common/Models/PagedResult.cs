@@ -1,4 +1,4 @@
-﻿namespace RacingLeagueHub.Application.Models;
+﻿namespace RacingLeagueHub.Domain.Common.Models;
 
 public record PagedResult<T>(IReadOnlyList<T> Items,
     int Page,

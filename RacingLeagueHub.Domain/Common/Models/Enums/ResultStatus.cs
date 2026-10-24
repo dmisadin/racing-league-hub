@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace RacingLeagueHub.Domain.Models.Enums
+namespace RacingLeagueHub.Domain.Common.Models.Enums
 {
     public enum ResultStatus : byte
     {

@@ -2,7 +2,7 @@
 using RacingLeagueHub.Domain.Drivers;
 using RacingLeagueHub.Domain.Teams;
 
-namespace RacingLeagueHub.Domain.Seasons;
+namespace RacingLeagueHub.Domain.Leagues.Seasons;
 
 public class SeasonDriver : EntityBase
 {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.Application.Common.Mappers;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.TrackLayouts.Dtos;
 using RacingLeagueHub.Application.TrackLayouts.Persistence;
+using RacingLeagueHub.Domain.Common.Models;
 using RacingLeagueHub.Domain.Tracks;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.TrackLayouts;

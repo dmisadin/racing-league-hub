@@ -1,10 +1,10 @@
 ﻿using RacingLeagueHub.Domain.Common.Entitites;
+using RacingLeagueHub.Domain.Common.Models.Enums;
 using RacingLeagueHub.Domain.GrandsPrix;
 using RacingLeagueHub.Domain.Leagues;
-using RacingLeagueHub.Domain.Models.Enums;
 using RacingLeagueHub.Domain.Resources;
 
-namespace RacingLeagueHub.Domain.Seasons;
+namespace RacingLeagueHub.Domain.Leagues.Seasons;
 
 public class Season : EntityBase
 {
@@ -24,4 +24,5 @@ public class Season : EntityBase
     public virtual ICollection<SeasonLobbySettings> SeasonLobbySettings { get; set; }
     public virtual ICollection<SeasonPoints> SeasonPoints { get; set; }
     public virtual ICollection<SeasonDriver> SeasonDrivers { get; set; }
+    public virtual ICollection<SeasonDivision> SeasonDivisions { get; set; }
 }

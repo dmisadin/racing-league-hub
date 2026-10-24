@@ -3,8 +3,9 @@ using RacingLeagueHub.Domain.DataCatalogs;
 using RacingLeagueHub.Domain.Drivers;
 using RacingLeagueHub.Domain.GrandsPrix;
 using RacingLeagueHub.Domain.Leagues;
+using RacingLeagueHub.Domain.Leagues.Divisions;
+using RacingLeagueHub.Domain.Leagues.Seasons;
 using RacingLeagueHub.Domain.Resources;
-using RacingLeagueHub.Domain.Seasons;
 using RacingLeagueHub.Domain.Stewarding;
 using RacingLeagueHub.Domain.Teams;
 using RacingLeagueHub.Domain.Tracks;
@@ -20,6 +21,8 @@ internal class RacingContext : DbContext
 
     public DbSet<LeagueUser> LeagueUser => Set<LeagueUser>();
 
+    public DbSet<Division> Division => Set<Division>();
+
     public DbSet<Season> Season => Set<Season>();
 
     public DbSet<SeasonAssists> SeasonAssists => Set<SeasonAssists>();
@@ -29,6 +32,8 @@ internal class RacingContext : DbContext
     public DbSet<SeasonLobbySettings> SeasonLobbySettings => Set<SeasonLobbySettings>();
 
     public DbSet<SeasonPoints> SeasonPoints => Set<SeasonPoints>();
+
+    public DbSet<SeasonDivision> SeasonDivision => Set<SeasonDivision>();
 
     public DbSet<GrandPrix> GrandPrix => Set<GrandPrix>();
 

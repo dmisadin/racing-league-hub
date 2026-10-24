@@ -1,4 +1,4 @@
-﻿using RacingLeagueHub.Domain.Models.Enums;
+﻿using RacingLeagueHub.Domain.Common.Models.Enums;
 
 namespace RacingLeagueHub.Domain.Tracks;
 

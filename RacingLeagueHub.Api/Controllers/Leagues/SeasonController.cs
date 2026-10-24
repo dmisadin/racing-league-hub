@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Seasons;
 using RacingLeagueHub.Application.Seasons.Dtos;
 using RacingLeagueHub.Application.Seasons.Persistence;
+using RacingLeagueHub.Domain.Common.Models;
 
 namespace RacingLeagueHub.Api.Controllers.Leagues;
 
@@ -18,8 +18,7 @@ public class SeasonController : ApiController
 
     public SeasonController(
         ISeasonQueries seasonQueries,
-        ISeasonCommands seasonCommands,
-        ISeasonService seasonService)
+        ISeasonCommands seasonCommands)
     {
         this.seasonQueries = seasonQueries;
         this.seasonCommands = seasonCommands;

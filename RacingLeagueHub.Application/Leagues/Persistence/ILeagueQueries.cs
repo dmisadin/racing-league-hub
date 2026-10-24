@@ -1,6 +1,6 @@
 ﻿using RacingLeagueHub.Application.Leagues.Dtos;
-using RacingLeagueHub.Application.Models;
 using RacingLeagueHub.Application.Seasons.Dtos;
+using RacingLeagueHub.Domain.Common.Models;
 
 namespace RacingLeagueHub.Application.Leagues.Persistence;
 

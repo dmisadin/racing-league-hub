@@ -2,7 +2,7 @@
 using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.Seasons.Dtos;
 using RacingLeagueHub.Application.Seasons.Persistence;
-using RacingLeagueHub.Domain.Seasons;
+using RacingLeagueHub.Domain.Leagues.Seasons;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.Seasons;
 
