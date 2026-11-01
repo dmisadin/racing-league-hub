@@ -9,7 +9,6 @@ using RacingLeagueHub.Domain.Leagues;
 
 namespace RacingLeagueHub.Api.Controllers.Leagues;
 
-
 [Route("api/leagues")]
 public class LeagueController : ApiController
 {
@@ -59,7 +58,10 @@ public class LeagueController : ApiController
         [FromBody] CreateLeagueDto createDto,
         CancellationToken ct = default)
     {
-        LeagueDto? dto = await leagueCommands.AddAsync(createDto, ct);
+        if (CurrentUserId is not int userId)
+            return Unauthorized();
+
+        LeagueDto? dto = await leagueCommands.AddAsync(createDto, userId, ct);
 
         return Ok(dto);
     }

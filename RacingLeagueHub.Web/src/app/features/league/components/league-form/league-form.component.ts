@@ -12,6 +12,7 @@ import { SlugPipe } from "../../../../shared/pipes/slug.pipe";
 import { timezoneOptions } from '../../../../shared/utilities/date.utility';
 import { ToastService } from '../../../../core/services/toast.service';
 import { ListService } from '../../../../shared/services/list.service';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
     selector: 'league-form',
@@ -24,6 +25,7 @@ export class LeagueFormComponent implements OnInit {
     private readonly restService = inject(RestService);
     private readonly toastService = inject(ToastService);
     private readonly listService = inject(ListService);
+    private readonly authService = inject(AuthService);
     private readonly fb = inject(FormBuilder);
 
     league = input<LeagueDto | null>();
@@ -87,6 +89,7 @@ export class LeagueFormComponent implements OnInit {
 
     onAddSuccess() {
         this.toastService.showSuccess("Successfully added a new league.");
+        this.authService.loadLeagueRoles();
         this.listService.triggerReload();
         this.routeService.navigateToParent();
     }

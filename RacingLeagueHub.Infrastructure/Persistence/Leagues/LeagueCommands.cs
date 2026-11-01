@@ -18,7 +18,7 @@ internal class LeagueCommands : ILeagueCommands
         this.mapper = mapper;
     }
 
-    public async Task<LeagueDto> AddAsync(CreateLeagueDto dto, CancellationToken ct = default)
+    public async Task<LeagueDto> AddAsync(CreateLeagueDto dto, int userId, CancellationToken ct = default)
     {
         var league = new League
         {
@@ -28,7 +28,19 @@ internal class LeagueCommands : ILeagueCommands
             Description = dto.Description,
             Timezone = dto.Timezone,
             Slug = dto.Slug,
-            LogoResourceId = dto.LogoResourceId
+            LogoResourceId = dto.LogoResourceId,
+
+            LeagueUsers = new List<LeagueUser>
+            {
+                new LeagueUser
+                {
+                    UserId = userId,
+                    IsOwner = true,
+                    IsAdmin = true,
+                    IsEditor = true,
+                    IsSteward = true
+                }
+            }
         };
 
         racingContext.League.Add(league);
