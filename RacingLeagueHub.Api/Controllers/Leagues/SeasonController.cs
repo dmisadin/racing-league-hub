@@ -5,6 +5,7 @@ using RacingLeagueHub.Application.Seasons;
 using RacingLeagueHub.Application.Seasons.Dtos;
 using RacingLeagueHub.Application.Seasons.Persistence;
 using RacingLeagueHub.Domain.Common.Models;
+using RacingLeagueHub.Domain.Common.Models.Enums;
 
 namespace RacingLeagueHub.Api.Controllers.Leagues;
 
@@ -15,13 +16,16 @@ public class SeasonController : ApiController
 
     private readonly ISeasonQueries seasonQueries;
     private readonly ISeasonCommands seasonCommands;
+    private readonly ISeasonService seasonService;
 
     public SeasonController(
         ISeasonQueries seasonQueries,
-        ISeasonCommands seasonCommands)
+        ISeasonCommands seasonCommands,
+        ISeasonService seasonService)
     {
         this.seasonQueries = seasonQueries;
         this.seasonCommands = seasonCommands;
+        this.seasonService = seasonService;
     }
 
     [HttpGet]
@@ -33,6 +37,38 @@ public class SeasonController : ApiController
     {
         var result = await seasonQueries.GetLeagueSeasonsAsync(
             leagueSlug,
+            page,
+            PageSize,
+            ct);
+
+        return Ok(result);
+    }
+
+    [HttpGet("overview")]
+    [AllowAnonymous]
+    public async Task<ActionResult<LeagueSeasonsOverviewDto>> GetOverview(
+        [FromRoute] string leagueSlug,
+        CancellationToken ct = default)
+    {
+        var overview = await seasonService.GetLeagueOverviewAsync(leagueSlug, PageSize, ct);
+
+        if (overview is null)
+            return NotFound();
+
+        return Ok(overview);
+    }
+
+    [HttpGet("summaries")]
+    [AllowAnonymous]
+    public async Task<ActionResult<PagedResult<SeasonSummaryDto>>> GetSummariesPaged(
+        [FromRoute] string leagueSlug,
+        [FromQuery] SeasonStatus? status = null,
+        [FromQuery] int page = 1,
+        CancellationToken ct = default)
+    {
+        var result = await seasonService.GetLeagueSeasonSummariesAsync(
+            leagueSlug,
+            status,
             page,
             PageSize,
             ct);
