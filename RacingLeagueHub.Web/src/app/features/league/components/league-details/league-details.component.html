@@ -1,57 +1,53 @@
 @if (dto(); as league) {
 
-<section class="p-8 uppercase bg-base-100/10 border border-base-100 w-full mb-8 grid grid-cols-1 gap-6 grid-cols-4">
+<section class="mb-8 flex flex-col-reverse gap-6 border border-base-300 bg-base-100 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-8">
 
-    <div class="col-span-3 space-y-4">
-        <div class="flex gap-2">
-            <span class="badge badge-primary font-bold rounded-none">
+    <div class="min-w-0 space-y-4">
+        <div class="flex flex-wrap gap-2 uppercase">
+            <span class="badge badge-primary rounded-none font-bold">
                 {{ league.abbreviation }}
             </span>
             <span class="badge badge-outline rounded-none">
                 {{ regionLabels[league.region] }}
             </span>
-            <span class="badge badge-primary rounded-none badge-outline">
-                Codemasters F1 25
-            </span>
         </div>
-        <h2 class="card-title flex justify-between items-center text-3xl">
-            {{ league.name }}
-    
+
+        <div class="flex flex-wrap items-center gap-4">
+            <h2 class="text-2xl font-bold uppercase sm:text-3xl">{{ league.name }}</h2>
+
             @if (canEdit()) {
-                <a class="btn btn-outline" routerLink="edit">Edit</a>
+                <a class="btn btn-outline btn-sm rounded-none" routerLink="edit">Edit</a>
             }
-        </h2>
-    
+        </div>
+
         @if (league.description) {
-        <p class="text-sm opacity-80">
+        <p class="max-w-prose text-sm text-base-content/80">
             {{ league.description }}
         </p>
         }
-    
-        <div class="mt-2 space-y-1 text-sm">
-            <span class="font-semibold">Timezone:</span>
+
+        <div class="flex items-center gap-2 text-sm text-base-content/70">
+            <span class="material-symbols-outlined text-[16px]">schedule</span>
             {{ league.timezone }}
         </div>
     </div>
-    
+
     @if (league.logoUrl) {
-    <div class="lg:col-span-1">
-        <figure class="h-full flex justify-end items-center">
-            <img [src]="league.logoUrl" [alt]="league.name" class="rounded-xl max-h-32 object-contain drop-shadow-md drop-shadow-base-content/10" />
-        </figure>
-    </div>
+    <figure class="shrink-0">
+        <img [src]="league.logoUrl" [alt]="league.name"
+            class="max-h-24 object-contain drop-shadow-md drop-shadow-base-content/10 sm:max-h-32" />
+    </figure>
     }
 </section>
 
-@if(league.slug) {
+@if (league.slug) {
     <season-list [leagueSlug]="league.slug" [canEdit]="canEdit()"></season-list>
 }
 
 } @else {
-<div class="alert">
-    <span>No league selected</span>
+<div class="flex justify-center items-center py-16">
+    <span class="loading loading-spinner loading-md"></span>
 </div>
 }
-
 
 <router-outlet></router-outlet>

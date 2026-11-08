@@ -1,0 +1,67 @@
+@let s = summary();
+@let isCompleted = status() === SeasonStatus.Completed;
+
+<a [routerLink]="s.season.slug"
+    class="flex flex-col gap-4 border border-base-300 bg-base-100 p-4 transition-colors hover:border-primary sm:flex-row sm:items-center sm:justify-between">
+
+    <div class="flex items-center gap-4">
+        <div class="flex size-12 shrink-0 items-center justify-center bg-base-200">
+            @if (s.season.logoUrl) {
+                <img [src]="s.season.logoUrl" [alt]="s.season.name" class="size-10 object-contain" />
+            } @else {
+                <span class="material-symbols-outlined text-base-content/60">
+                    {{ isCompleted ? 'military_tech' : 'event_upcoming' }}
+                </span>
+            }
+        </div>
+
+        <div class="min-w-0">
+            <div class="flex flex-wrap items-center gap-2">
+                <h4 class="text-lg font-bold">{{ s.season.name }}</h4>
+                <span class="badge badge-ghost badge-sm rounded-none">{{ s.season.game | gameLabel }}</span>
+                <span class="badge badge-ghost badge-sm rounded-none">{{ s.roundsTotal }} rounds</span>
+                @if (status() === SeasonStatus.Ongoing) {
+                    <span class="badge badge-primary badge-outline badge-sm rounded-none">In progress</span>
+                }
+            </div>
+
+            <div class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-base-content/80">
+                @if (isCompleted) {
+                    <span>
+                        Champion:
+                        @if (s.driverLeader; as champion) {
+                            <strong class="text-primary">{{ champion.nickname }}</strong>
+                            <span class="text-base-content/60">({{ champion.points }} pts, {{ champion.wins }} wins)</span>
+                        } @else {
+                            <span class="text-base-content/50">—</span>
+                        }
+                    </span>
+
+                    @if (s.teamLeader; as team) {
+                        <span class="hidden sm:inline text-base-content/40">•</span>
+                        <span class="flex items-center gap-1.5">
+                            Constructors:
+                            <span class="size-2.5 shrink-0" [style.background-color]="team.color ?? 'currentColor'"></span>
+                            <strong>{{ team.name }}</strong>
+                        </span>
+                    }
+                } @else if (s.firstRaceAt) {
+                    <span>Starts {{ s.firstRaceAt | date:'d MMM yyyy' }}</span>
+                    <span class="text-base-content/40">•</span>
+                    <span>{{ s.driverCount }} drivers registered</span>
+                } @else {
+                    <span class="text-base-content/60">Calendar not announced yet</span>
+                }
+            </div>
+        </div>
+    </div>
+
+    @if (s.firstRaceAt) {
+    <span class="shrink-0 font-mono text-xs text-base-content/60 sm:text-right">
+        {{ s.firstRaceAt | date:'MMM yyyy' }}
+        @if (s.lastRaceAt && isCompleted) {
+            – {{ s.lastRaceAt | date:'MMM yyyy' }}
+        }
+    </span>
+    }
+</a>
