@@ -27,7 +27,6 @@ public interface ISeasonQueries
     /// <summary>Ongoing and upcoming seasons, ordered by first race (ongoing first, unscheduled last).</summary>
     Task<IReadOnlyList<SeasonSummaryDto>> GetActiveSeasonSummariesAsync(
         string leagueSlug,
-        int maxCount,
         CancellationToken ct = default);
 
     Task<LeagueSeasonStatsDto?> GetLeagueSeasonStatsAsync(

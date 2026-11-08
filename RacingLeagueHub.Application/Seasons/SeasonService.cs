@@ -8,8 +8,6 @@ namespace RacingLeagueHub.Application.Seasons;
 
 internal class SeasonService : ISeasonService
 {
-    private const int MaxActiveSeasons = 10;
-
     private readonly ISeasonQueries seasonQueries;
     private readonly ISeasonCommands seasonCommands;
     private readonly ILeagueQueries leagueQueries;
@@ -26,6 +24,7 @@ internal class SeasonService : ISeasonService
 
     public async Task<LeagueSeasonsOverviewDto?> GetLeagueOverviewAsync(
         string leagueSlug,
+        int completedPageSize = 10,
         CancellationToken ct = default)
     {
         var stats = await seasonQueries.GetLeagueSeasonStatsAsync(leagueSlug, ct);
@@ -33,7 +32,9 @@ internal class SeasonService : ISeasonService
         if (stats is null)
             return null;
 
-        var active = await seasonQueries.GetActiveSeasonSummariesAsync(leagueSlug, MaxActiveSeasons, ct);
+        var active = await seasonQueries.GetActiveSeasonSummariesAsync(leagueSlug, ct);
+        var completed = await seasonQueries.GetLeagueSeasonSummariesAsync(
+            leagueSlug, SeasonStatus.Completed, 1, completedPageSize, ct);
 
         // Every running season is current; when nothing is running, the soonest upcoming one is featured instead.
         var ongoing = active.Where(s => s.Status == SeasonStatus.Ongoing).ToList();
@@ -48,7 +49,8 @@ internal class SeasonService : ISeasonService
             CurrentSeasons = current,
             UpcomingSeasons = active
                 .Where(s => s.Status == SeasonStatus.Upcoming && !current.Contains(s))
-                .ToList()
+                .ToList(),
+            CompletedSeasons = completed
         };
     }
 

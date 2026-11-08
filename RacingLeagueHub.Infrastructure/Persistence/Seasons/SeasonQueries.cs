@@ -72,7 +72,6 @@ internal class SeasonQueries : ISeasonQueries
 
     public async Task<IReadOnlyList<SeasonSummaryDto>> GetActiveSeasonSummariesAsync(
         string leagueSlug,
-        int maxCount,
         CancellationToken ct = default)
     {
         var now = DateTimeOffset.UtcNow;
@@ -85,7 +84,6 @@ internal class SeasonQueries : ISeasonQueries
             .Where(SeasonStatusRules.IsActive(now))
             .OrderBy(s => s.GrandsPrix.Min(gp => (DateTimeOffset?)gp.StartingAt))
             .ThenByDescending(s => s.Id)
-            .Take(maxCount)
             .Select(mapper.ToDtoExpression())
             .ToListAsync(ct);
 

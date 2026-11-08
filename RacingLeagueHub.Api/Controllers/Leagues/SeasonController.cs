@@ -50,7 +50,7 @@ public class SeasonController : ApiController
         [FromRoute] string leagueSlug,
         CancellationToken ct = default)
     {
-        var overview = await seasonService.GetLeagueOverviewAsync(leagueSlug, ct);
+        var overview = await seasonService.GetLeagueOverviewAsync(leagueSlug, PageSize, ct);
 
         if (overview is null)
             return NotFound();

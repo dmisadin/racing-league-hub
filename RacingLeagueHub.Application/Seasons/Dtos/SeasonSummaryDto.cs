@@ -1,3 +1,4 @@
+using RacingLeagueHub.Domain.Common.Models;
 using RacingLeagueHub.Domain.Common.Models.Enums;
 
 namespace RacingLeagueHub.Application.Seasons.Dtos;
@@ -8,6 +9,9 @@ public class LeagueSeasonsOverviewDto
     public int RacesHeld { get; set; }
     public IReadOnlyList<SeasonSummaryDto> CurrentSeasons { get; set; } = [];
     public IReadOnlyList<SeasonSummaryDto> UpcomingSeasons { get; set; } = [];
+
+    /// <summary>First page only; further pages come from the summaries endpoint filtered by <see cref="SeasonStatus.Completed"/>.</summary>
+    public PagedResult<SeasonSummaryDto> CompletedSeasons { get; set; } = new([], 1, 10, 0);
 }
 
 public class LeagueSeasonStatsDto

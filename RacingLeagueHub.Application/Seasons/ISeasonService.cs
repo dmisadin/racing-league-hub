@@ -8,6 +8,7 @@ public interface ISeasonService
 {
     Task<LeagueSeasonsOverviewDto?> GetLeagueOverviewAsync(
         string leagueSlug,
+        int completedPageSize = 10,
         CancellationToken ct = default);
 
     Task<PagedResult<SeasonSummaryDto>> GetLeagueSeasonSummariesAsync(
