@@ -5,6 +5,7 @@ using RacingLeagueHub.Application.GameTeams;
 using RacingLeagueHub.Application.Identity.Authentication;
 using RacingLeagueHub.Application.Identity.Authentication.TwoFactorAuthentication;
 using RacingLeagueHub.Application.Leagues.Mappers;
+using RacingLeagueHub.Application.Seasons;
 using RacingLeagueHub.Application.Teams;
 using RacingLeagueHub.Application.TrackLayouts;
 using RacingLeagueHub.Application.Tracks;
@@ -34,6 +35,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IGameTeamService, GameTeamService>();
         services.AddScoped<ITrackService, TrackService>();
         services.AddScoped<ITrackLayoutService, TrackLayoutService>();
+        services.AddScoped<ISeasonService, SeasonService>();
 
         return services;
     }
