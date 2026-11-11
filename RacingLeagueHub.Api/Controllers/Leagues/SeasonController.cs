@@ -94,6 +94,22 @@ public class SeasonController : ApiController
         return Ok(dto);
     }
 
+    /// <summary>Season with assists, lobby settings and its divisions (with per-division calendar stats).</summary>
+    [HttpGet("{seasonSlug}/details")]
+    [AllowAnonymous]
+    public async Task<ActionResult<SeasonDetailsDto>> GetDetails(
+        [FromRoute] string leagueSlug,
+        [FromRoute] string seasonSlug,
+        CancellationToken ct = default)
+    {
+        var dto = await seasonService.GetDetailsAsync(leagueSlug, seasonSlug, ct);
+
+        if (dto is null)
+            return NotFound();
+
+        return Ok(dto);
+    }
+
     [HttpPost]
     [Authorize(Policy = LeaguePolicies.LeagueEditor)]
     public async Task<ActionResult<SeasonDto>> Create(
@@ -129,7 +145,7 @@ public class SeasonController : ApiController
         [FromRoute] string seasonSlug,
         CancellationToken ct = default)
     {
-        var rows = await seasonCommands.DeleteBySlugAsync(seasonSlug, leagueSlug, ct);
+        var rows = await seasonCommands.DeleteBySlugAsync(leagueSlug, seasonSlug, ct);
 
         return rows == 0
             ? NotFound()

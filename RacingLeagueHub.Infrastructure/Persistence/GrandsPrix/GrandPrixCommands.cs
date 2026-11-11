@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.GrandsPrix.Dtos;
 using RacingLeagueHub.Application.GrandsPrix.Persistence;
 using RacingLeagueHub.Domain.GrandsPrix;
@@ -9,21 +8,19 @@ namespace RacingLeagueHub.Infrastructure.Persistence.GrandsPrix;
 internal class GrandPrixCommands : IGrandPrixCommands
 {
     private readonly RacingContext racingContext;
-    private readonly IDtoMapper<GrandPrix, GrandPrixDto> mapper;
 
-    public GrandPrixCommands(RacingContext racingContext,
-        IDtoMapper<GrandPrix, GrandPrixDto> mapper)
+    public GrandPrixCommands(RacingContext racingContext)
     {
         this.racingContext = racingContext;
-        this.mapper = mapper;
     }
 
-    public async Task<GrandPrixDto> AddAsync(CreateGrandPrixDto dto, CancellationToken ct)
+    public async Task<int> AddAsync(CreateGrandPrixDto dto, CancellationToken ct)
     {
         var grandPrix = new GrandPrix
         {
             TrackLayoutId = dto.TrackLayoutId,
             SeasonId = dto.SeasonId,
+            SeasonDivisionId = dto.SeasonDivisionId,
             Name = dto.Name,
             StartingAt = dto.StartingAt,
             VodUrl = dto.VodUrl,
@@ -34,22 +31,20 @@ internal class GrandPrixCommands : IGrandPrixCommands
 
         await racingContext.SaveChangesAsync(ct);
 
-        return mapper.ToDto(grandPrix);
+        return grandPrix.Id;
     }
 
     public async Task<int?> UpdateBySlugAsync(
         string leagueSlug,
         string seasonSlug,
+        string? divisionSlug,
         string grandPrixSlug,
         UpdateGrandPrixDto dto,
         CancellationToken ct = default)
     {
         var entity = await racingContext.GrandPrix
-            .FirstOrDefaultAsync(x =>
-                x.Slug == grandPrixSlug
-                && x.Season.Slug == seasonSlug
-                && x.Season.League.Slug == leagueSlug,
-                ct);
+            .InScope(leagueSlug, seasonSlug, divisionSlug)
+            .FirstOrDefaultAsync(x => x.Slug == grandPrixSlug, ct);
 
         if (entity is null)
             return null;
@@ -68,14 +63,13 @@ internal class GrandPrixCommands : IGrandPrixCommands
     public async Task<int> DeleteBySlugAsync(
         string leagueSlug,
         string seasonSlug,
+        string? divisionSlug,
         string grandPrixSlug,
         CancellationToken ct = default)
     {
         return await racingContext.GrandPrix
-            .Where(x =>
-                x.Slug == grandPrixSlug 
-                && x.Season.Slug == seasonSlug 
-                && x.Season.League.Slug == leagueSlug)
+            .InScope(leagueSlug, seasonSlug, divisionSlug)
+            .Where(x => x.Slug == grandPrixSlug)
             .ExecuteDeleteAsync(ct);
     }
 }

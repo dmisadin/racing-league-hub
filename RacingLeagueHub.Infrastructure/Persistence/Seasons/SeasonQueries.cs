@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RacingLeagueHub.Application.Common.Mappers;
+using RacingLeagueHub.Application.Divisions.Dtos;
 using RacingLeagueHub.Application.Seasons.Dtos;
 using RacingLeagueHub.Application.Seasons.Persistence;
 using RacingLeagueHub.Domain.Common.Models;
 using RacingLeagueHub.Domain.Common.Models.Enums;
+using RacingLeagueHub.Domain.Leagues.Divisions;
 using RacingLeagueHub.Domain.Leagues.Seasons;
 using RacingLeagueHub.Domain.Leagues.Seasons.Rules;
 using RacingLeagueHub.Infrastructure.Extensions;
@@ -14,12 +16,21 @@ internal class SeasonQueries : ISeasonQueries
 {
     private readonly RacingContext racingContext;
     private readonly IDtoMapper<Season, SeasonDto> mapper;
+    private readonly IDtoMapper<SeasonAssists, SeasonAssistsDto> assistsMapper;
+    private readonly IDtoMapper<SeasonLobbySettings, SeasonLobbySettingsDto> lobbySettingsMapper;
+    private readonly IDtoMapper<Division, DivisionDto> divisionMapper;
 
     public SeasonQueries(RacingContext racingContext,
-        IDtoMapper<Season, SeasonDto> mapper)
+        IDtoMapper<Season, SeasonDto> mapper,
+        IDtoMapper<SeasonAssists, SeasonAssistsDto> assistsMapper,
+        IDtoMapper<SeasonLobbySettings, SeasonLobbySettingsDto> lobbySettingsMapper,
+        IDtoMapper<Division, DivisionDto> divisionMapper)
     {
         this.racingContext = racingContext;
         this.mapper = mapper;
+        this.assistsMapper = assistsMapper;
+        this.lobbySettingsMapper = lobbySettingsMapper;
+        this.divisionMapper = divisionMapper;
     }
 
     public async Task<SeasonDto?> GetBySlugAsync(
@@ -119,6 +130,122 @@ internal class SeasonQueries : ISeasonQueries
             .Where(s => s.LeagueId == leagueId)
             .Select(mapper.ToDtoExpression())
             .ToPagedResultAsync(page, pageSize, ct);
+    }
+
+    public async Task<SeasonDetailsDto?> GetDetailsAsync(
+        string leagueSlug,
+        string seasonSlug,
+        CancellationToken ct = default)
+    {
+        return await racingContext.Season
+            .AsNoTracking()
+            .Where(s => s.Slug == seasonSlug && s.League.Slug == leagueSlug)
+            .Select(mapper.ToDtoExpression())
+            .Select(season => new SeasonDetailsDto
+            {
+                Season = season,
+                Assists = racingContext.SeasonAssists
+                    .Where(a => a.SeasonId == season.Id)
+                    .OrderByDescending(a => a.Id)
+                    .Select(assistsMapper.ToDtoExpression())
+                    .FirstOrDefault(),
+                LobbySettings = racingContext.SeasonLobbySettings
+                    .Where(l => l.SeasonId == season.Id)
+                    .OrderByDescending(l => l.Id)
+                    .Select(lobbySettingsMapper.ToDtoExpression())
+                    .FirstOrDefault()
+            })
+            .FirstOrDefaultAsync(ct);
+    }
+
+    public async Task<IReadOnlyList<SeasonDivisionSummaryDto>> GetDivisionSummariesAsync(
+        int seasonId,
+        CancellationToken ct = default)
+    {
+        var now = DateTimeOffset.UtcNow;
+
+        var divisions = await racingContext.SeasonDivision
+            .AsNoTracking()
+            .Where(sd => sd.SeasonId == seasonId)
+            .OrderBy(sd => sd.Division.Tier)
+            .ThenBy(sd => sd.Division.Name)
+            .Select(sd => sd.Division)
+            .Select(divisionMapper.ToDtoExpression())
+            .ToListAsync(ct);
+
+        if (divisions.Count == 0)
+            return [];
+
+        // Every division runs its own calendar: stats only count the division's own Grands Prix.
+        var stats = await racingContext.SeasonDivision
+            .AsNoTracking()
+            .Where(sd => sd.SeasonId == seasonId)
+            .Select(sd => new
+            {
+                sd.Id,
+                sd.DivisionId,
+                RoundsTotal = sd.GrandsPrix.Count(),
+                RoundsCompleted = sd.GrandsPrix.Count(gp => gp.StartingAt <= now),
+                FirstRaceAt = sd.GrandsPrix.Min(gp => (DateTimeOffset?)gp.StartingAt),
+                LastRaceAt = sd.GrandsPrix.Max(gp => (DateTimeOffset?)gp.StartingAt),
+                NextGrandPrix = sd.GrandsPrix
+                    .Where(gp => gp.StartingAt > now)
+                    .OrderBy(gp => gp.StartingAt)
+                    .Select(gp => new SeasonNextGrandPrixDto
+                    {
+                        Name = gp.Name,
+                        Slug = gp.Slug,
+                        StartingAt = gp.StartingAt,
+                        TrackName = gp.TrackLayout.Track.Name,
+                        TrackCity = gp.TrackLayout.Track.City
+                    })
+                    .FirstOrDefault()
+            })
+            .ToDictionaryAsync(x => x.DivisionId, ct);
+
+        return divisions
+            .Select(division =>
+            {
+                var s = stats[division.Id];
+
+                return new SeasonDivisionSummaryDto
+                {
+                    SeasonDivisionId = s.Id,
+                    Division = division,
+                    Status = SeasonStatusRules.FromRounds(s.RoundsTotal, s.RoundsCompleted),
+                    ProgressPercent = SeasonStatusRules.ProgressPercent(s.RoundsTotal, s.RoundsCompleted),
+                    RoundsTotal = s.RoundsTotal,
+                    RoundsCompleted = s.RoundsCompleted,
+                    FirstRaceAt = s.FirstRaceAt,
+                    LastRaceAt = s.LastRaceAt,
+                    NextGrandPrix = s.NextGrandPrix
+                };
+            })
+            .ToList();
+    }
+
+    public async Task<SeasonDivisionLookupDto?> GetDivisionLookupAsync(
+        string leagueSlug,
+        string seasonSlug,
+        CancellationToken ct = default)
+    {
+        // The nested collection projection is translated into a single SQL statement (LEFT JOIN).
+        return await racingContext.Season
+            .AsNoTracking()
+            .Where(s => s.Slug == seasonSlug && s.League.Slug == leagueSlug)
+            .Select(s => new SeasonDivisionLookupDto
+            {
+                SeasonId = s.Id,
+                Divisions = s.SeasonDivisions
+                    .Select(sd => new SeasonDivisionRefDto
+                    {
+                        SeasonDivisionId = sd.Id,
+                        DivisionId = sd.DivisionId,
+                        DivisionSlug = sd.Division.Slug
+                    })
+                    .ToList()
+            })
+            .FirstOrDefaultAsync(ct);
     }
 
     private static IQueryable<Season> OrderForStatus(IQueryable<Season> query, SeasonStatus? status)

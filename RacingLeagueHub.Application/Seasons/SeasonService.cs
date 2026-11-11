@@ -63,4 +63,19 @@ internal class SeasonService : ISeasonService
     {
         return seasonQueries.GetLeagueSeasonSummariesAsync(leagueSlug, status, page, pageSize, ct);
     }
+
+    public async Task<SeasonDetailsDto?> GetDetailsAsync(
+        string leagueSlug,
+        string seasonSlug,
+        CancellationToken ct = default)
+    {
+        var details = await seasonQueries.GetDetailsAsync(leagueSlug, seasonSlug, ct);
+
+        if (details is null)
+            return null;
+
+        details.Divisions = await seasonQueries.GetDivisionSummariesAsync(details.Season.Id, ct);
+
+        return details;
+    }
 }

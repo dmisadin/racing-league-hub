@@ -20,18 +20,28 @@ internal class GrandPrixQueries : IGrandPrixQueries
         this.mapper = mapper;
     }
 
+    public async Task<GrandPrixDto?> GetByIdAsync(
+        int id,
+        CancellationToken ct = default)
+    {
+        return await racingContext.GrandPrix
+            .AsNoTracking()
+            .Where(x => x.Id == id)
+            .Select(mapper.ToDtoExpression())
+            .FirstOrDefaultAsync(ct);
+    }
+
     public async Task<GrandPrixDto?> GetBySlugAsync(
         string leagueSlug,
         string seasonSlug,
+        string? divisionSlug,
         string grandPrixSlug,
         CancellationToken ct = default)
     {
         return await racingContext.GrandPrix
             .AsNoTracking()
-            .Where(x =>
-                x.Slug == grandPrixSlug &&
-                x.Season.Slug == seasonSlug &&
-                x.Season.League.Slug == leagueSlug)
+            .InScope(leagueSlug, seasonSlug, divisionSlug)
+            .Where(x => x.Slug == grandPrixSlug)
             .Select(mapper.ToDtoExpression())
             .FirstOrDefaultAsync(ct);
     }
@@ -39,15 +49,16 @@ internal class GrandPrixQueries : IGrandPrixQueries
     public async Task<PagedResult<GrandPrixDto>> GetSeasonGrandsPrixAsync(
         string leagueSlug,
         string seasonSlug,
+        string? divisionSlug,
         int page = 1,
         int pageSize = 10,
         CancellationToken ct = default)
     {
         return await racingContext.GrandPrix
             .AsNoTracking()
-            .Where(x =>
-                x.Season.Slug == seasonSlug &&
-                x.Season.League.Slug == leagueSlug)
+            .InScope(leagueSlug, seasonSlug, divisionSlug)
+            .OrderBy(x => x.StartingAt)
+            .ThenBy(x => x.Id)
             .Select(mapper.ToDtoExpression())
             .ToPagedResultAsync(page, pageSize, ct);
     }

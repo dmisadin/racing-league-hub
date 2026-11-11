@@ -4,10 +4,12 @@ namespace RacingLeagueHub.Application.GrandsPrix.Persistence;
 
 public interface IGrandPrixCommands
 {
-    Task<GrandPrixDto> AddAsync(CreateGrandPrixDto dto, CancellationToken ct);
+    Task<int> AddAsync(CreateGrandPrixDto dto, CancellationToken ct);
+
     Task<int?> UpdateBySlugAsync(
         string leagueSlug,
         string seasonSlug,
+        string? divisionSlug,
         string grandPrixSlug,
         UpdateGrandPrixDto dto,
         CancellationToken ct = default);
@@ -15,6 +17,7 @@ public interface IGrandPrixCommands
     Task<int> DeleteBySlugAsync(
         string leagueSlug,
         string seasonSlug,
+        string? divisionSlug,
         string grandPrixSlug,
         CancellationToken ct = default);
 }

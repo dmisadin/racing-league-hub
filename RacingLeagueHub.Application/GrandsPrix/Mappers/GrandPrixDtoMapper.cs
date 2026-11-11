@@ -10,6 +10,7 @@ public class GrandPrixDtoMapper : DtoMapperBase<GrandPrix, GrandPrixDto>
     public override bool FromDto(GrandPrix entity, GrandPrixDto dto)
     {
         entity.SeasonId = dto.SeasonId;
+        entity.SeasonDivisionId = dto.SeasonDivisionId;
         entity.TrackLayoutId = dto.TrackLayoutId;
         entity.Name = dto.Name;
         entity.StartingAt = dto.StartingAt;
@@ -19,6 +20,7 @@ public class GrandPrixDtoMapper : DtoMapperBase<GrandPrix, GrandPrixDto>
         return true;
     }
 
+    /// <remarks>Reads navigations, so use it in queries rather than on freshly created entities.</remarks>
     public override Expression<Func<GrandPrix, GrandPrixDto>> ToDtoExpression()
     {
         return gp => new GrandPrixDto
@@ -27,10 +29,16 @@ public class GrandPrixDtoMapper : DtoMapperBase<GrandPrix, GrandPrixDto>
             TrackLayoutId = gp.TrackLayoutId,
             LeagueId = gp.Season.LeagueId,
             SeasonId = gp.SeasonId,
+            SeasonDivisionId = gp.SeasonDivisionId,
+            DivisionSlug = gp.SeasonDivision == null ? null : gp.SeasonDivision.Division.Slug,
+            DivisionName = gp.SeasonDivision == null ? null : gp.SeasonDivision.Division.Name,
             Name = gp.Name,
             StartingAt = gp.StartingAt,
             VodUrl = gp.VodUrl,
-            Slug = gp.Slug
+            Slug = gp.Slug,
+            TrackName = gp.TrackLayout.Track.Name,
+            TrackCity = gp.TrackLayout.Track.City,
+            TrackCountryCode = gp.TrackLayout.Track.Country.CodeAlpha2
         };
     }
 }

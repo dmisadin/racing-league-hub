@@ -38,4 +38,18 @@ public interface ISeasonQueries
         int page = 1,
         int pageSize = 10,
         CancellationToken ct = default);
+
+    Task<SeasonDetailsDto?> GetDetailsAsync(
+        string leagueSlug,
+        string seasonSlug,
+        CancellationToken ct = default);
+
+    Task<IReadOnlyList<SeasonDivisionSummaryDto>> GetDivisionSummariesAsync(
+        int seasonId,
+        CancellationToken ct = default);
+
+    Task<SeasonDivisionLookupDto?> GetDivisionLookupAsync(
+        string leagueSlug,
+        string seasonSlug,
+        CancellationToken ct = default);
 }

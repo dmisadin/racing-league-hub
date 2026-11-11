@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.GameTeams;
+using RacingLeagueHub.Application.GrandsPrix;
 using RacingLeagueHub.Application.Identity.Authentication;
 using RacingLeagueHub.Application.Identity.Authentication.TwoFactorAuthentication;
 using RacingLeagueHub.Application.Leagues.Mappers;
@@ -36,6 +37,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ITrackService, TrackService>();
         services.AddScoped<ITrackLayoutService, TrackLayoutService>();
         services.AddScoped<ISeasonService, SeasonService>();
+        services.AddScoped<IGrandPrixService, GrandPrixService>();
 
         return services;
     }

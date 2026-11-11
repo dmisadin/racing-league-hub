@@ -17,4 +17,9 @@ public interface ISeasonService
         int page = 1,
         int pageSize = 10,
         CancellationToken ct = default);
+
+    Task<SeasonDetailsDto?> GetDetailsAsync(
+        string leagueSlug,
+        string seasonSlug,
+        CancellationToken ct = default);
 }

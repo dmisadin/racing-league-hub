@@ -18,7 +18,7 @@ public class SeasonLobbySettings : EntityBase
     public SafetyCar SafetyCar { get; set; }
     public bool Collisions { get; set; }
     public bool Ghosting { get; set; }
-    public RaceStart Start { get; set; }
+    public RaceStart RaceStart { get; set; }
 
     public virtual Season Season { get; set; }
 }

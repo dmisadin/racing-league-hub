@@ -1,30 +1,35 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RacingLeagueHub.Api.Authorization;
+using RacingLeagueHub.Application.GrandsPrix;
 using RacingLeagueHub.Application.GrandsPrix.Dtos;
 using RacingLeagueHub.Application.GrandsPrix.Persistence;
-using RacingLeagueHub.Application.Seasons.Persistence;
 using RacingLeagueHub.Domain.Common.Models;
 
 namespace RacingLeagueHub.Api.Controllers.Leagues;
 
+/// <remarks>
+/// Grand Prix slugs are unique per season, so the flat route resolves any Grand Prix of the season.
+/// The <c>division/{divisionSlug}</c> route narrows every action to that division's own calendar.
+/// </remarks>
 [Route("api/leagues/{leagueSlug}/seasons/{seasonSlug}/grands-prix")]
+[Route("api/leagues/{leagueSlug}/seasons/{seasonSlug}/division/{divisionSlug}/grands-prix")]
 public class GrandPrixController : ApiController
 {
     private const int PageSize = 10;
 
     private readonly IGrandPrixCommands grandPrixCommands;
     private readonly IGrandPrixQueries grandPrixQueries;
-    private readonly ISeasonQueries seasonQueries;
+    private readonly IGrandPrixService grandPrixService;
 
     public GrandPrixController(
         IGrandPrixCommands grandPrixCommands,
         IGrandPrixQueries grandPrixQueries,
-        ISeasonQueries seasonQueries)
+        IGrandPrixService grandPrixService)
     {
         this.grandPrixCommands = grandPrixCommands;
         this.grandPrixQueries = grandPrixQueries;
-        this.seasonQueries = seasonQueries;
+        this.grandPrixService = grandPrixService;
     }
 
     [HttpGet]
@@ -32,18 +37,17 @@ public class GrandPrixController : ApiController
     public async Task<ActionResult<PagedResult<GrandPrixDto>>> GetPaged(
         [FromRoute] string leagueSlug,
         [FromRoute] string seasonSlug,
+        [FromRoute] string? divisionSlug,
         [FromQuery] int page = 1,
         CancellationToken ct = default)
     {
         var result = await grandPrixQueries.GetSeasonGrandsPrixAsync(
             leagueSlug,
             seasonSlug,
+            divisionSlug,
             page,
             PageSize,
             ct);
-
-        if (result is null)
-            return NotFound("Season not found.");
 
         return Ok(result);
     }
@@ -53,12 +57,14 @@ public class GrandPrixController : ApiController
     public async Task<ActionResult<GrandPrixDto>> GetBySlug(
         [FromRoute] string leagueSlug,
         [FromRoute] string seasonSlug,
+        [FromRoute] string? divisionSlug,
         [FromRoute] string grandPrixSlug,
         CancellationToken ct = default)
     {
         var dto = await grandPrixQueries.GetBySlugAsync(
             leagueSlug,
             seasonSlug,
+            divisionSlug,
             grandPrixSlug,
             ct);
 
@@ -73,17 +79,19 @@ public class GrandPrixController : ApiController
     public async Task<ActionResult<GrandPrixDto>> Create(
         [FromRoute] string leagueSlug,
         [FromRoute] string seasonSlug,
+        [FromRoute] string? divisionSlug,
         [FromBody] CreateGrandPrixDto dto,
         CancellationToken ct = default)
     {
-        var season = await seasonQueries.GetBySlugAsync(leagueSlug, seasonSlug, ct);
+        var grandPrixDto = await grandPrixService.CreateAsync(
+            leagueSlug,
+            seasonSlug,
+            divisionSlug,
+            dto,
+            ct);
 
-        if (season is null)
-            return NotFound("Season not found.");
-
-        dto.SeasonId = season.Id;
-
-        var grandPrixDto = await grandPrixCommands.AddAsync(dto, ct);
+        if (grandPrixDto is null)
+            return NotFound("Season or division not found.");
 
         return Ok(grandPrixDto);
     }
@@ -93,6 +101,7 @@ public class GrandPrixController : ApiController
     public async Task<ActionResult<int>> Update(
         [FromRoute] string leagueSlug,
         [FromRoute] string seasonSlug,
+        [FromRoute] string? divisionSlug,
         [FromRoute] string grandPrixSlug,
         [FromBody] UpdateGrandPrixDto dto,
         CancellationToken ct = default)
@@ -100,6 +109,7 @@ public class GrandPrixController : ApiController
         var updatedId = await grandPrixCommands.UpdateBySlugAsync(
             leagueSlug,
             seasonSlug,
+            divisionSlug,
             grandPrixSlug,
             dto,
             ct);
@@ -110,16 +120,21 @@ public class GrandPrixController : ApiController
         return Ok(updatedId.Value);
     }
 
-
     [HttpDelete("{grandPrixSlug}")]
     [Authorize(Policy = LeaguePolicies.LeagueOwner)]
     public async Task<IActionResult> Delete(
         [FromRoute] string leagueSlug,
         [FromRoute] string seasonSlug,
+        [FromRoute] string? divisionSlug,
         [FromRoute] string grandPrixSlug,
         CancellationToken ct = default)
     {
-        var rows = await grandPrixCommands.DeleteBySlugAsync(grandPrixSlug, seasonSlug, leagueSlug, ct);
+        var rows = await grandPrixCommands.DeleteBySlugAsync(
+            leagueSlug,
+            seasonSlug,
+            divisionSlug,
+            grandPrixSlug,
+            ct);
 
         return rows == 0
             ? NotFound()
