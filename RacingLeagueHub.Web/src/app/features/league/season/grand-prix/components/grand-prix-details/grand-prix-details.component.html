@@ -1,25 +1,44 @@
 @if (dto(); as gp) {
 <div class="space-y-6">
-    <div class="flex items-center gap-4">
-        <div>
-            <h1 class="text-2xl font-bold">{{ gp.name }}</h1>
-            <p class="text-sm text-base-content/50">{{ gp.slug }}</p>
+    <section class="space-y-2 border border-base-300 bg-base-100 p-4 sm:p-8">
+        <a [routerLink]="calendarLink()" class="text-xs uppercase tracking-wider text-base-content/60 hover:underline">
+            ← Racing calendar
+            @if (gp.divisionName) {
+                · {{ gp.divisionName }}
+            }
+        </a>
+        <div class="flex flex-wrap items-center gap-4">
+            <h1 class="text-2xl font-bold uppercase">{{ gp.name }}</h1>
+            @if (canEdit()) {
+                <a class="btn btn-outline btn-sm rounded-none" routerLink="edit">Edit</a>
+            }
         </div>
-        @if (canEdit()) {
-            <a class="btn btn-outline" routerLink="edit">Edit</a>
-        }
-    </div>
+    </section>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="bg-base-200 rounded-xl p-4 space-y-1">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div class="border border-base-300 bg-base-100 p-4 space-y-1">
             <p class="text-xs font-medium uppercase tracking-wider text-base-content/50">Starting time</p>
             <p class="font-medium">{{ gp.startingAt | date:'dd.M.yyyy. HH:mm'}}</p>
         </div>
 
+        @if (gp.trackName) {
+            <div class="border border-base-300 bg-base-100 p-4 space-y-1">
+                <p class="text-xs font-medium uppercase tracking-wider text-base-content/50">Track</p>
+                <p class="font-medium">{{ gp.trackName }}@if (gp.trackCity) {, {{ gp.trackCity }}}</p>
+            </div>
+        }
+
+        @if (gp.divisionName) {
+            <div class="border border-base-300 bg-base-100 p-4 space-y-1">
+                <p class="text-xs font-medium uppercase tracking-wider text-base-content/50">Division</p>
+                <p class="font-medium">{{ gp.divisionName }}</p>
+            </div>
+        }
+
         @if (gp.vodUrl) {
-            <div class="bg-base-200 rounded-xl p-4 space-y-1">
-                <p class="text-xs font-medium uppercase tracking-wider text-base-content/50">Platform</p>
-                <a class="font-medium" href="{{gp.vodUrl}}"> Video URL </a>
+            <div class="border border-base-300 bg-base-100 p-4 space-y-1">
+                <p class="text-xs font-medium uppercase tracking-wider text-base-content/50">VOD</p>
+                <a class="link font-medium" [href]="gp.vodUrl" target="_blank" rel="noopener">Watch the race</a>
             </div>
         }
     </div>

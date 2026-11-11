@@ -2,7 +2,7 @@ import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RestService } from '../../../../../../core/services/rest.service';
 import { RouteService } from '../../../../../../core/services/route.service';
 import { ListService } from '../../../../../../shared/services/list.service';
-import { GrandPrixDto } from '../../models/grand-prix.model';
+import { grandPrixApiPath, GrandPrixDto } from '../../models/grand-prix.model';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from "@angular/router";
 import { AuthService } from '../../../../../../core/services/auth.service';
@@ -27,7 +27,15 @@ export class GrandPrixDetailsComponent implements OnInit {
     protected dto = signal<GrandPrixDto | null>(null);
     leagueSlug = signal<string | null>(null);
     seasonSlug = signal<string | null>(null);
+    divisionSlug = signal<string | null>(null);
     grandPrixSlug = signal<string | null>(null);
+
+    /** Link back to the calendar the Grand Prix belongs to: the division page or the season page. */
+    calendarLink = computed(() => {
+        const base = ['/leagues', this.leagueSlug() ?? '', this.seasonSlug() ?? ''];
+        const divisionSlug = this.divisionSlug();
+        return divisionSlug ? [...base, 'div', divisionSlug] : base;
+    });
 
     ngOnInit(): void {
         this.loadDto();
@@ -36,9 +44,13 @@ export class GrandPrixDetailsComponent implements OnInit {
     protected loadDto(): void {
         this.leagueSlug.set(this.routeService.getRouteParam("leagueSlug"));
         this.seasonSlug.set(this.routeService.getRouteParam("seasonSlug"));
+        this.divisionSlug.set(this.routeService.getRouteParam("divisionSlug"));
         this.grandPrixSlug.set(this.routeService.getRouteParam("grandPrixSlug"));
 
-        this.restService.get<GrandPrixDto>(`/leagues/${this.leagueSlug()}/seasons/${this.seasonSlug()}/grands-prix/${this.grandPrixSlug()}`)
-            .subscribe(res => this.dto.set(res));
+        this.restService.get<GrandPrixDto>(grandPrixApiPath(this.leagueSlug(), this.seasonSlug(), this.divisionSlug(), this.grandPrixSlug()))
+            .subscribe({
+                next: res => this.dto.set(res),
+                error: () => this.routeService.navigateToNotFoundPage()
+            });
     }
 }

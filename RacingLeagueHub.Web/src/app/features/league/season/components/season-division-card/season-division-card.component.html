@@ -1,0 +1,51 @@
+@let s = summary();
+
+<a [routerLink]="link()"
+    class="flex h-full flex-col gap-4 border border-base-300 bg-base-100 p-4 transition-colors hover:border-primary">
+
+    <div class="flex items-start justify-between gap-2">
+        <div class="min-w-0">
+            <p class="text-xs font-semibold uppercase tracking-wider text-base-content/50">Tier {{ s.division.tier }}</p>
+            <h4 class="truncate text-lg font-bold">{{ s.division.name }}</h4>
+        </div>
+
+        @switch (s.status) {
+            @case (SeasonStatus.Ongoing) {
+                <span class="badge badge-primary badge-outline badge-sm rounded-none shrink-0">In progress</span>
+            }
+            @case (SeasonStatus.Completed) {
+                <span class="badge badge-ghost badge-sm rounded-none shrink-0">Completed</span>
+            }
+            @default {
+                <span class="badge badge-ghost badge-sm rounded-none shrink-0">Upcoming</span>
+            }
+        }
+    </div>
+
+    <div class="flex items-baseline gap-2">
+        <span class="font-mono text-2xl font-bold">{{ s.roundsTotal }}</span>
+        <span class="text-sm text-base-content/70">{{ s.roundsTotal === 1 ? 'Grand Prix' : 'Grands Prix' }}</span>
+        @if (s.roundsTotal > 0) {
+            <span class="ml-auto font-mono text-xs text-base-content/60">{{ s.roundsCompleted }}/{{ s.roundsTotal }} raced</span>
+        }
+    </div>
+
+    @if (s.roundsTotal > 0) {
+        <progress class="progress progress-primary h-1 w-full rounded-none" [value]="s.progressPercent" max="100"></progress>
+    }
+
+    <div class="mt-auto text-sm text-base-content/80">
+        @if (s.nextGrandPrix; as next) {
+            <span class="text-base-content/60">Next:</span>
+            <strong>{{ next.name }}</strong>
+            <span class="text-base-content/60">· {{ next.startingAt | date:'d MMM, HH:mm' }}</span>
+        } @else if (s.roundsTotal === 0) {
+            <span class="text-base-content/50">Calendar not announced yet</span>
+        } @else if (s.firstRaceAt) {
+            <span class="font-mono text-xs text-base-content/60">
+                {{ s.firstRaceAt | date:'MMM yyyy' }}
+                @if (s.lastRaceAt) { – {{ s.lastRaceAt | date:'MMM yyyy' }} }
+            </span>
+        }
+    </div>
+</a>

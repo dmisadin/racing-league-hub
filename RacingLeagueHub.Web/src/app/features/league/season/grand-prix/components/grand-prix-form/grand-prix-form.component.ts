@@ -6,7 +6,7 @@ import { ToastService } from '../../../../../../core/services/toast.service';
 import { ListService } from '../../../../../../shared/services/list.service';
 import { slugValidator } from '../../../../../../shared/validators/slug.validator';
 import { SeasonDto } from '../../../models/season.model';
-import { GrandPrixDto } from '../../models/grand-prix.model';
+import { grandPrixApiPath, GrandPrixDto } from '../../models/grand-prix.model';
 import { InputTextComponent } from "../../../../../../shared/components/input-fields/input-text/input-text.component";
 import { SlugPipe } from "../../../../../../shared/pipes/slug.pipe";
 import { ApiInputSelectComponent } from "../../../../../../shared/components/input-fields/api-input-select/api-input-select.component";
@@ -31,6 +31,7 @@ export class GrandPrixFormComponent {
     form: FormGroup;
     leagueSlug: string | null = "";
     seasonSlug: string | null = "";
+    divisionSlug: string | null = null;
     grandPrixSlug: string | null = "";
 
     constructor() {
@@ -54,6 +55,7 @@ export class GrandPrixFormComponent {
 
         this.leagueSlug = this.routeService.getRouteParam("leagueSlug");
         this.seasonSlug = this.routeService.getRouteParam("seasonSlug");
+        this.divisionSlug = this.routeService.getRouteParam("divisionSlug");
         this.grandPrixSlug = this.routeService.getRouteParam("grandPrixSlug");
 
         if (!this.grandPrixSlug && this.seasonSlug && this.leagueSlug) {
@@ -61,9 +63,14 @@ export class GrandPrixFormComponent {
                 .subscribe(res => this.form.patchValue({ seasonId: res.id }));
             return;
         }
-        
-        this.restService.get<GrandPrixDto>(`/leagues/${this.leagueSlug}/seasons/${this.seasonSlug}/grands-prix/${this.grandPrixSlug}`)
+
+        this.restService.get<GrandPrixDto>(this.apiPath(this.grandPrixSlug))
             .subscribe(res => this.form.patchValue(res));
+    }
+
+    /** The division comes from the route; the API assigns it to the created Grand Prix. */
+    private apiPath(grandPrixSlug?: string | null): string {
+        return grandPrixApiPath(this.leagueSlug, this.seasonSlug, this.divisionSlug, grandPrixSlug);
     }
 
     onSelect(value: string) {
@@ -78,12 +85,12 @@ export class GrandPrixFormComponent {
         form.startingAt = toUtcIso(form.startingAt);
 
         if (form['id'])
-            this.restService.put(`/leagues/${this.leagueSlug}/seasons/${this.seasonSlug}/grands-prix/${this.grandPrixSlug}`, this.form.value).subscribe({
+            this.restService.put(this.apiPath(this.grandPrixSlug), this.form.value).subscribe({
                 next: () => this.toastService.showSuccess("Successfully updated the Grand Prix."),
                 error: () => this.toastService.showError("Failed to update the Grand Prix.")
             });
         else
-            this.restService.post(`/leagues/${this.leagueSlug}/seasons/${this.seasonSlug}/grands-prix`, this.form.value).subscribe({
+            this.restService.post(this.apiPath(), this.form.value).subscribe({
                 next: () => this.onAddSuccess(),
                 error: () => this.toastService.showError("Failed to add a new Grand Prix.")
             });

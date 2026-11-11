@@ -1,22 +1,57 @@
-<ul class="list bg-base-100 rounded-box shadow-md pb-4">
+<div class="border border-base-300 bg-base-100">
 
-    <li class="flex justify-between p-4 pb-2 tracking-wide text-xs">
-        <span class="opacity-60">List of all available Grand Prix</span>
+    <div class="flex items-center justify-between gap-4 border-b border-base-300 px-4 py-2 text-xs">
+        <span class="uppercase tracking-wider text-base-content/60">Round · Grand Prix · Date</span>
         @if (canEdit()) {
             <a routerLink="add-grand-prix" class="hover:underline">+ Add new Grand Prix</a>
         }
-    </li>
+    </div>
 
-    @for (grandPrix of list(); track grandPrix.id)
-    {
-    <li class="list-row cursor-pointer hover:bg-base-200" routerLink="{{grandPrix.slug}}">
-        <!-- <img class="size-10 rounded-box drop-shadow-md drop-shadow-base-content/10" [src]="season.logoUrl" /> -->
-        <div>
-            <div>{{ grandPrix.name }}</div>
-            <div class="text-xs uppercase font-semibold opacity-60">{{ grandPrix.startingAt }}</div>
+    @if (list(); as grandsPrix) {
+        <ul class="divide-y divide-base-200">
+            @for (grandPrix of grandsPrix; track grandPrix.id; let i = $index) {
+            <li>
+                <a [routerLink]="grandPrix.slug"
+                    class="flex items-center gap-4 px-4 py-2 transition-colors hover:bg-base-200"
+                    [class]="isPast(grandPrix) ? 'text-base-content/60' : ''">
+                    <span class="w-8 shrink-0 font-mono text-sm font-bold">R{{ i + 1 }}</span>
+
+                    @if (grandPrix.trackCountryCode) {
+                        <img [src]="grandPrix.trackCountryCode | flagUrl" alt="" class="h-4 w-6 shrink-0 object-cover" />
+                    }
+
+                    <div class="min-w-0 flex-1">
+                        <div class="truncate font-medium">{{ grandPrix.name }}</div>
+                        @if (grandPrix.trackName) {
+                            <div class="truncate text-xs text-base-content/60">
+                                {{ grandPrix.trackName }}@if (grandPrix.trackCity) {, {{ grandPrix.trackCity }}}
+                            </div>
+                        }
+                    </div>
+
+                    <span class="shrink-0 text-right font-mono text-xs">
+                        {{ grandPrix.startingAt | date:'d MMM yyyy' }}
+                        <span class="block text-base-content/60">{{ grandPrix.startingAt | date:'HH:mm' }}</span>
+                    </span>
+                </a>
+            </li>
+            } @empty {
+            <li class="px-4 py-8 text-center text-sm text-base-content/50">No Grands Prix scheduled yet.</li>
+            }
+        </ul>
+
+        @if (hasMore()) {
+            <div class="border-t border-base-300 p-2 text-center">
+                <button class="btn btn-ghost btn-sm rounded-none" [disabled]="isLoading()" (click)="loadMore()">
+                    Load more
+                </button>
+            </div>
+        }
+    } @else {
+        <div class="flex justify-center py-8">
+            <span class="loading loading-spinner loading-sm"></span>
         </div>
-    </li>
     }
-</ul>
+</div>
 
 <router-outlet></router-outlet>

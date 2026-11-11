@@ -1,0 +1,62 @@
+@if (dto(); as details) {
+@let summary = division();
+@let leagueSlug = this.leagueSlug();
+@let seasonSlug = this.seasonSlug();
+@let divisionSlug = this.divisionSlug();
+
+<div class="space-y-8">
+    <section class="space-y-4 border border-base-300 bg-base-100 p-4 sm:p-8">
+        <a [routerLink]="['/leagues', leagueSlug, seasonSlug]" class="text-xs uppercase tracking-wider text-base-content/60 hover:underline">
+            ← {{ details.season.name }}
+        </a>
+
+        @if (summary) {
+        <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+                <p class="text-xs font-semibold uppercase tracking-wider text-base-content/50">Tier {{ summary.division.tier }}</p>
+                <h1 class="text-2xl font-bold uppercase sm:text-3xl">{{ summary.division.name }}</h1>
+            </div>
+
+            <div class="flex gap-8 font-mono">
+                <div>
+                    <p class="text-xs uppercase text-base-content/50">Grands Prix</p>
+                    <p class="text-xl font-bold">{{ summary.roundsTotal }}</p>
+                </div>
+                <div>
+                    <p class="text-xs uppercase text-base-content/50">Raced</p>
+                    <p class="text-xl font-bold">{{ summary.roundsCompleted }}</p>
+                </div>
+            </div>
+        </div>
+
+        @if (summary.roundsTotal > 0) {
+            <progress class="progress progress-primary h-1 w-full rounded-none" [value]="summary.progressPercent" max="100"></progress>
+        }
+        }
+
+        @if (otherDivisions().length) {
+        <div class="flex flex-wrap items-center gap-2 text-sm">
+            <span class="text-base-content/60">Other divisions:</span>
+            @for (other of otherDivisions(); track other.seasonDivisionId) {
+                <a class="btn btn-ghost btn-xs rounded-none"
+                    [routerLink]="['/leagues', leagueSlug, seasonSlug, 'div', other.division.slug]">
+                    {{ other.division.name }}
+                </a>
+            }
+        </div>
+        }
+    </section>
+
+    @if (leagueSlug && seasonSlug && divisionSlug) {
+    <section class="space-y-4">
+        <h2 class="text-lg font-bold uppercase">Racing calendar</h2>
+        <grand-prix-list [leagueSlug]="leagueSlug" [seasonSlug]="seasonSlug" [divisionSlug]="divisionSlug"
+            [canEdit]="canEdit()"></grand-prix-list>
+    </section>
+    }
+</div>
+} @else {
+<div class="flex justify-center items-center py-16">
+    <span class="loading loading-spinner loading-md"></span>
+</div>
+}

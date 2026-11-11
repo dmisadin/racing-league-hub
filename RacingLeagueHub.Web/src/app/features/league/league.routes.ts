@@ -43,6 +43,25 @@ export const LEAGUE_ROUTES: Routes = [
         canActivate: [leagueEditorGuard]
     },
     {
+        path: ':leagueSlug/:seasonSlug/div/:divisionSlug',
+        loadComponent: () => import('./season/components/season-division-details/season-division-details.component').then(c => c.SeasonDivisionDetailsComponent),
+        children: [
+            {
+                path: 'add-grand-prix',
+                loadComponent: () => import('./season/grand-prix/components/grand-prix-form/modal/grand-prix-form-modal.component').then(c => c.GrandPrixFormModalComponent)
+            }
+        ]
+    },
+    {
+        path: ':leagueSlug/:seasonSlug/div/:divisionSlug/:grandPrixSlug',
+        loadComponent: () => import('./season/grand-prix/components/grand-prix-details/grand-prix-details.component').then(c => c.GrandPrixDetailsComponent)
+    },
+    {
+        path: ':leagueSlug/:seasonSlug/div/:divisionSlug/:grandPrixSlug/edit',
+        loadComponent: () => import('./season/grand-prix/components/grand-prix-form/grand-prix-form.component').then(c => c.GrandPrixFormComponent),
+        canActivate: [leagueEditorGuard]
+    },
+    {
         path: ':leagueSlug/:seasonSlug/:grandPrixSlug',
         loadComponent: () => import('./season/grand-prix/components/grand-prix-details/grand-prix-details.component').then(c => c.GrandPrixDetailsComponent)
     },

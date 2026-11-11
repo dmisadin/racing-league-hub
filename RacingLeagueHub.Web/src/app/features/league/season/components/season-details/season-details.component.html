@@ -1,45 +1,71 @@
-@if (dto(); as season) {
-<div class="space-y-6">
-    <div class="flex items-center gap-4">
+@if (dto(); as details) {
+@let season = details.season;
+@let leagueSlug = this.leagueSlug();
+@let seasonSlug = this.seasonSlug();
+
+<div class="space-y-8">
+    <section class="flex flex-col gap-4 border border-base-300 bg-base-100 p-4 sm:flex-row sm:items-center sm:p-8">
         @if (season.logoUrl) {
         <img [src]="season.logoUrl" [alt]="season.name"
-            class="w-16 h-16 rounded-xl object-cover border border-base-200 drop-shadow-md drop-shadow-base-content/10" />
+            class="size-16 shrink-0 object-contain drop-shadow-md drop-shadow-base-content/10" />
         } @else {
-        <div
-            class="w-16 h-16 rounded-xl bg-base-200 border border-base-200 flex items-center justify-center text-2xl font-bold text-base-content/30">
+        <div class="flex size-16 shrink-0 items-center justify-center bg-base-200 text-2xl font-bold text-base-content/30">
             {{ season.name.charAt(0) }}
         </div>
         }
-        <div>
-            <h1 class="text-2xl font-bold">{{ season.name }}</h1>
-            <p class="text-sm text-base-content/50">{{ season.slug }}</p>
-        </div>
-        @if (canEdit()) {
-            <a class="btn btn-outline" routerLink="edit">Edit</a>
-        }
-    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="bg-base-200 rounded-xl p-4 space-y-1">
+        <div class="min-w-0 space-y-2">
+            <a [routerLink]="['/leagues', leagueSlug]" class="text-xs uppercase tracking-wider text-base-content/60 hover:underline">
+                ← Back to league
+            </a>
+            <div class="flex flex-wrap items-center gap-4">
+                <h1 class="text-2xl font-bold uppercase sm:text-3xl">{{ season.name }}</h1>
+                @if (canEdit()) {
+                    <a class="btn btn-outline btn-sm rounded-none" routerLink="edit">Edit</a>
+                }
+            </div>
+        </div>
+    </section>
+
+    <section class="grid grid-cols-2 gap-4 md:grid-cols-4">
+        <div class="border border-base-300 bg-base-100 p-4 space-y-1">
             <p class="text-xs font-medium uppercase tracking-wider text-base-content/50">Game</p>
-            <p class="font-medium">{{ Game[season.game] }}</p>
+            <p class="font-medium">{{ season.game | gameLabel }}</p>
         </div>
-
-        <div class="bg-base-200 rounded-xl p-4 space-y-1">
+        <div class="border border-base-300 bg-base-100 p-4 space-y-1">
             <p class="text-xs font-medium uppercase tracking-wider text-base-content/50">Platform</p>
             <p class="font-medium">{{ Platform[season.platform] }}</p>
         </div>
-
-        <div class="bg-base-200 rounded-xl p-4 space-y-1">
+        <div class="border border-base-300 bg-base-100 p-4 space-y-1">
             <p class="text-xs font-medium uppercase tracking-wider text-base-content/50">Lap completion required</p>
             <p class="font-medium">{{ season.lapPercentageRequired }}%</p>
         </div>
-    </div>
+        <div class="border border-base-300 bg-base-100 p-4 space-y-1">
+            <p class="text-xs font-medium uppercase tracking-wider text-base-content/50">Divisions</p>
+            <p class="font-medium">{{ details.divisions.length || '—' }}</p>
+        </div>
+    </section>
 
-    @let leagueSlug = this.leagueSlug();
-    @let seasonSlug = this.seasonSlug();
-    @if(leagueSlug && seasonSlug) {
-        <grand-prix-list [leagueSlug]="leagueSlug" [seasonSlug]="seasonSlug" [canEdit]="canEdit()"></grand-prix-list>
+    <season-settings [assists]="details.assists" [lobbySettings]="details.lobbySettings"></season-settings>
+
+    @if (leagueSlug && seasonSlug) {
+        @if (hasMultipleDivisions()) {
+        <section class="space-y-4">
+            <h2 class="text-lg font-bold uppercase">Divisions</h2>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                @for (division of details.divisions; track division.seasonDivisionId) {
+                    <season-division-card [summary]="division"
+                        [link]="['/leagues', leagueSlug, seasonSlug, 'div', division.division.slug]">
+                    </season-division-card>
+                }
+            </div>
+        </section>
+        } @else {
+        <section class="space-y-4">
+            <h2 class="text-lg font-bold uppercase">Racing calendar</h2>
+            <grand-prix-list [leagueSlug]="leagueSlug" [seasonSlug]="seasonSlug" [canEdit]="canEdit()"></grand-prix-list>
+        </section>
+        }
     }
 </div>
 } @else {
