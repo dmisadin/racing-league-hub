@@ -46,7 +46,9 @@
         </div>
     </section>
 
-    <season-settings [assists]="details.assists" [lobbySettings]="details.lobbySettings"></season-settings>
+    @if (!hasMultipleDivisions() && details.divisions[0]; as division) {
+        <season-settings [assists]="division.assists" [lobbySettings]="division.lobbySettings"></season-settings>
+    }
 
     @if (leagueSlug && seasonSlug) {
         @if (hasMultipleDivisions()) {

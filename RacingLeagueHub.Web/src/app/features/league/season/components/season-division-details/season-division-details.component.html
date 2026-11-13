@@ -47,6 +47,10 @@
         }
     </section>
 
+    @if (summary) {
+        <season-settings [assists]="summary.assists" [lobbySettings]="summary.lobbySettings"></season-settings>
+    }
+
     @if (leagueSlug && seasonSlug && divisionSlug) {
     <section class="space-y-4">
         <h2 class="text-lg font-bold uppercase">Racing calendar</h2>

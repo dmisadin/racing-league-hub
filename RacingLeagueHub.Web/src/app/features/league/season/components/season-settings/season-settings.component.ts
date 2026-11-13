@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { SeasonAssistsDto, SeasonLobbySettingsDto } from '../../models/season.model';
+import { SeasonDivisionAssistsDto, SeasonDivisionLobbySettingsDto } from '../../models/season.model';
 import {
     CarDamageLabels, CarDamageRateLabels, CornerCuttingLabels, GearboxLabels, QualifyingTypeLabels,
     RaceDistanceLabels, RaceStartLabels, RacingLineLabels, SafetyCarLabels, TractionControlLabels, WeatherLabels
@@ -15,8 +15,8 @@ interface SettingRow {
     templateUrl: './season-settings.component.html'
 })
 export class SeasonSettingsComponent {
-    assists = input<SeasonAssistsDto | null>(null);
-    lobbySettings = input<SeasonLobbySettingsDto | null>(null);
+    assists = input<SeasonDivisionAssistsDto | null>(null);
+    lobbySettings = input<SeasonDivisionLobbySettingsDto | null>(null);
 
     assistRows = computed<SettingRow[]>(() => {
         const a = this.assists();

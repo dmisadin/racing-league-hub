@@ -27,8 +27,6 @@ export enum Platform {
 
 export interface SeasonDetailsDto {
     season: SeasonDto;
-    assists: SeasonAssistsDto | null;
-    lobbySettings: SeasonLobbySettingsDto | null;
     divisions: SeasonDivisionSummaryDto[];
 }
 
@@ -49,18 +47,20 @@ export interface SeasonDivisionSummaryDto {
     firstRaceAt: string | null;
     lastRaceAt: string | null;
     nextGrandPrix: SeasonNextGrandPrixDto | null;
+    assists: SeasonDivisionAssistsDto | null;
+    lobbySettings: SeasonDivisionLobbySettingsDto | null;
 }
 
-export interface SeasonAssistsDto extends BaseDto {
-    seasonId: number;
+export interface SeasonDivisionAssistsDto extends BaseDto {
+    seasonDivisionId: number;
     racingLine: RacingLine;
     gearbox: Gearbox;
     tractionControl: TractionControl;
     abs: boolean;
 }
 
-export interface SeasonLobbySettingsDto extends BaseDto {
-    seasonId: number;
+export interface SeasonDivisionLobbySettingsDto extends BaseDto {
+    seasonDivisionId: number;
     qualifyingType: QualifyingType;
     raceDistancePercentage: RaceDistance;
     formationLap: boolean;

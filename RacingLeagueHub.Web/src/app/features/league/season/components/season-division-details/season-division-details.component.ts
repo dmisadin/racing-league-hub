@@ -7,10 +7,11 @@ import { AuthService } from '../../../../../core/services/auth.service';
 import { ModalFormParent } from '../../../../../shared/components/modal/modal-form-parent';
 import { SeasonDetailsDto } from '../../models/season.model';
 import { GrandPrixListComponent } from '../../grand-prix/components/grand-prix-list/grand-prix-list.component';
+import { SeasonSettingsComponent } from '../season-settings/season-settings.component';
 
 @Component({
     selector: 'season-division-details',
-    imports: [RouterLink, GrandPrixListComponent],
+    imports: [RouterLink, GrandPrixListComponent, SeasonSettingsComponent],
     providers: [RouteService],
     templateUrl: './season-division-details.component.html'
 })

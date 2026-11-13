@@ -3,9 +3,9 @@ import { BaseDto } from "../../../../../shared/models/dtos";
 export interface GrandPrixDto extends BaseDto {
     trackLayoutId: number;
     seasonId: number;
-    seasonDivisionId: number | null;
-    divisionSlug: string | null;
-    divisionName: string | null;
+    seasonDivisionId: number;
+    divisionSlug: string;
+    divisionName: string;
     leagueId: number;
     name: string;
     startingAt: string;

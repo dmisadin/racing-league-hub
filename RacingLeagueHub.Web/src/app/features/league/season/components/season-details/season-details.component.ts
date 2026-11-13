@@ -24,7 +24,7 @@ export class SeasonDetailsComponent extends ModalFormParent<SeasonDetailsDto> {
         return leagueId ? this.authService.canEditLeagueId(leagueId) : false;
     });
 
-    /** With several divisions each one has its own calendar, shown on its own page. */
+    /** With several divisions each one has its own calendar and settings, shown on its own page. */
     hasMultipleDivisions = computed(() => (this.dto()?.divisions.length ?? 0) > 1);
 
     leagueSlug = signal<string | null>(null);

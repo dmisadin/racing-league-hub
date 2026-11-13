@@ -5,7 +5,6 @@ import { RouteService } from '../../../../../../core/services/route.service';
 import { ToastService } from '../../../../../../core/services/toast.service';
 import { ListService } from '../../../../../../shared/services/list.service';
 import { slugValidator } from '../../../../../../shared/validators/slug.validator';
-import { SeasonDto } from '../../../models/season.model';
 import { grandPrixApiPath, GrandPrixDto } from '../../models/grand-prix.model';
 import { InputTextComponent } from "../../../../../../shared/components/input-fields/input-text/input-text.component";
 import { SlugPipe } from "../../../../../../shared/pipes/slug.pipe";
@@ -37,7 +36,6 @@ export class GrandPrixFormComponent {
     constructor() {
         this.form = this.fb.group({
             id: [null],
-            seasonId: [null, Validators.required],
             trackLayoutId: [null, Validators.required],
             name: ["", Validators.required],
             startingAt: ["", Validators.required],
@@ -58,11 +56,9 @@ export class GrandPrixFormComponent {
         this.divisionSlug = this.routeService.getRouteParam("divisionSlug");
         this.grandPrixSlug = this.routeService.getRouteParam("grandPrixSlug");
 
-        if (!this.grandPrixSlug && this.seasonSlug && this.leagueSlug) {
-            this.restService.get<SeasonDto>(`/leagues/${this.leagueSlug}/seasons/${this.seasonSlug}`)
-                .subscribe(res => this.form.patchValue({ seasonId: res.id }));
+        // A new Grand Prix starts empty: the API assigns the season division from the route.
+        if (!this.grandPrixSlug)
             return;
-        }
 
         this.restService.get<GrandPrixDto>(this.apiPath(this.grandPrixSlug))
             .subscribe(res => this.form.patchValue(res));
