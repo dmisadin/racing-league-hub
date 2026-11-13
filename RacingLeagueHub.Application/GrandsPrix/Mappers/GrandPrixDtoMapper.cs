@@ -9,7 +9,6 @@ public class GrandPrixDtoMapper : DtoMapperBase<GrandPrix, GrandPrixDto>
 {
     public override bool FromDto(GrandPrix entity, GrandPrixDto dto)
     {
-        entity.SeasonId = dto.SeasonId;
         entity.SeasonDivisionId = dto.SeasonDivisionId;
         entity.TrackLayoutId = dto.TrackLayoutId;
         entity.Name = dto.Name;
@@ -27,11 +26,11 @@ public class GrandPrixDtoMapper : DtoMapperBase<GrandPrix, GrandPrixDto>
         {
             Id = gp.Id,
             TrackLayoutId = gp.TrackLayoutId,
-            LeagueId = gp.Season.LeagueId,
-            SeasonId = gp.SeasonId,
+            LeagueId = gp.SeasonDivision.Season.LeagueId,
+            SeasonId = gp.SeasonDivision.SeasonId,
             SeasonDivisionId = gp.SeasonDivisionId,
-            DivisionSlug = gp.SeasonDivision == null ? null : gp.SeasonDivision.Division.Slug,
-            DivisionName = gp.SeasonDivision == null ? null : gp.SeasonDivision.Division.Name,
+            DivisionSlug = gp.SeasonDivision.Division.Slug,
+            DivisionName = gp.SeasonDivision.Division.Name,
             Name = gp.Name,
             StartingAt = gp.StartingAt,
             VodUrl = gp.VodUrl,

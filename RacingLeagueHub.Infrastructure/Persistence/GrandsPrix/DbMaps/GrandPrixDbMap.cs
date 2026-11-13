@@ -11,10 +11,6 @@ internal class GrandPrixDbMap : DbMapBase<GrandPrix>
     {
         base.Map(builder);
 
-        builder.HasOne(x => x.Season)
-            .WithMany(s => s.GrandsPrix)
-            .HasForeignKey(x => x.SeasonId);
-
         builder.HasOne(x => x.TrackLayout)
             .WithMany()
             .HasForeignKey(x => x.TrackLayoutId);
@@ -22,5 +18,8 @@ internal class GrandPrixDbMap : DbMapBase<GrandPrix>
         builder.HasOne(x => x.SeasonDivision)
             .WithMany(sd => sd.GrandsPrix)
             .HasForeignKey(x => x.SeasonDivisionId);
+
+        builder.HasIndex(x => new { x.SeasonDivisionId, x.Slug })
+            .IsUnique();
     }
 }

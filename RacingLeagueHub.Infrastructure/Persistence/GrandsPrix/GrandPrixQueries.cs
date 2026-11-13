@@ -40,8 +40,7 @@ internal class GrandPrixQueries : IGrandPrixQueries
     {
         return await racingContext.GrandPrix
             .AsNoTracking()
-            .InScope(leagueSlug, seasonSlug, divisionSlug)
-            .Where(x => x.Slug == grandPrixSlug)
+            .BySlug(leagueSlug, seasonSlug, divisionSlug, grandPrixSlug)
             .Select(mapper.ToDtoExpression())
             .FirstOrDefaultAsync(ct);
     }

@@ -1,5 +1,6 @@
 using RacingLeagueHub.Application.GrandsPrix.Dtos;
 using RacingLeagueHub.Application.GrandsPrix.Persistence;
+using RacingLeagueHub.Application.Seasons.Dtos;
 using RacingLeagueHub.Application.Seasons.Persistence;
 
 namespace RacingLeagueHub.Application.GrandsPrix;
@@ -34,7 +35,7 @@ internal class GrandPrixService : IGrandPrixService
 
         var divisions = lookup.Divisions;
 
-        int? seasonDivisionId;
+        SeasonDivisionRefDto? division;
 
         if (divisionSlug is null)
         {
@@ -42,20 +43,17 @@ internal class GrandPrixService : IGrandPrixService
                 throw new InvalidOperationException(
                     "This season has multiple divisions. Add the Grand Prix to a specific division.");
 
-            seasonDivisionId = divisions.SingleOrDefault()?.SeasonDivisionId;
+            division = divisions.SingleOrDefault();
         }
         else
         {
-            var division = divisions.FirstOrDefault(d => d.DivisionSlug == divisionSlug);
-
-            if (division is null)
-                return null;
-
-            seasonDivisionId = division.SeasonDivisionId;
+            division = divisions.FirstOrDefault(d => d.DivisionSlug == divisionSlug);
         }
 
-        dto.SeasonId = lookup.SeasonId;
-        dto.SeasonDivisionId = seasonDivisionId;
+        if (division is null)
+            return null;
+
+        dto.SeasonDivisionId = division.SeasonDivisionId;
 
         var id = await grandPrixCommands.AddAsync(dto, ct);
 

@@ -7,9 +7,9 @@ public class GrandPrixDto : BaseDto
     public int TrackLayoutId { get; set; }
     public int? LeagueId { get; set; }
     public int SeasonId { get; set; }
-    public int? SeasonDivisionId { get; set; }
-    public string? DivisionSlug { get; set; }
-    public string? DivisionName { get; set; }
+    public int SeasonDivisionId { get; set; }
+    public string DivisionSlug { get; set; }
+    public string DivisionName { get; set; }
     public string Name { get; set; }
     public DateTimeOffset StartingAt { get; set; }
     public string? VodUrl { get; set; }
@@ -22,10 +22,7 @@ public class GrandPrixDto : BaseDto
 public class CreateGrandPrixDto
 {
     public int TrackLayoutId { get; set; }
-    public int SeasonId { get; set; }
-
-    /// <summary>Resolved from the route by the service; not taken from the client.</summary>
-    public int? SeasonDivisionId { get; set; }
+    public int SeasonDivisionId { get; set; }
     public string Name { get; set; }
     public DateTimeOffset StartingAt { get; set; }
     public string? VodUrl { get; set; }

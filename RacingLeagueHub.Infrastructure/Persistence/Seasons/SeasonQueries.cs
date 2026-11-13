@@ -16,14 +16,14 @@ internal class SeasonQueries : ISeasonQueries
 {
     private readonly RacingContext racingContext;
     private readonly IDtoMapper<Season, SeasonDto> mapper;
-    private readonly IDtoMapper<SeasonAssists, SeasonAssistsDto> assistsMapper;
-    private readonly IDtoMapper<SeasonLobbySettings, SeasonLobbySettingsDto> lobbySettingsMapper;
+    private readonly IDtoMapper<SeasonDivisionAssists, SeasonDivisionAssistsDto> assistsMapper;
+    private readonly IDtoMapper<SeasonDivisionLobbySettings, SeasonDivisionLobbySettingsDto> lobbySettingsMapper;
     private readonly IDtoMapper<Division, DivisionDto> divisionMapper;
 
     public SeasonQueries(RacingContext racingContext,
         IDtoMapper<Season, SeasonDto> mapper,
-        IDtoMapper<SeasonAssists, SeasonAssistsDto> assistsMapper,
-        IDtoMapper<SeasonLobbySettings, SeasonLobbySettingsDto> lobbySettingsMapper,
+        IDtoMapper<SeasonDivisionAssists, SeasonDivisionAssistsDto> assistsMapper,
+        IDtoMapper<SeasonDivisionLobbySettings, SeasonDivisionLobbySettingsDto> lobbySettingsMapper,
         IDtoMapper<Division, DivisionDto> divisionMapper)
     {
         this.racingContext = racingContext;
@@ -93,7 +93,7 @@ internal class SeasonQueries : ISeasonQueries
             .AsNoTracking()
             .Where(s => s.League.Slug == leagueSlug)
             .Where(SeasonStatusRules.IsActive(now))
-            .OrderBy(s => s.GrandsPrix.Min(gp => (DateTimeOffset?)gp.StartingAt))
+            .OrderBy(s => s.SeasonDivisions.SelectMany(sd => sd.GrandsPrix).Min(gp => (DateTimeOffset?)gp.StartingAt))
             .ThenByDescending(s => s.Id)
             .Select(mapper.ToDtoExpression())
             .ToListAsync(ct);
@@ -114,7 +114,8 @@ internal class SeasonQueries : ISeasonQueries
             {
                 SeasonCount = l.Seasons.Count(),
                 RacesHeld = l.Seasons
-                    .SelectMany(s => s.GrandsPrix)
+                    .SelectMany(s => s.SeasonDivisions)
+                    .SelectMany(sd => sd.GrandsPrix)
                     .Count(gp => gp.StartingAt <= now)
             })
             .FirstOrDefaultAsync(ct);
@@ -141,20 +142,7 @@ internal class SeasonQueries : ISeasonQueries
             .AsNoTracking()
             .Where(s => s.Slug == seasonSlug && s.League.Slug == leagueSlug)
             .Select(mapper.ToDtoExpression())
-            .Select(season => new SeasonDetailsDto
-            {
-                Season = season,
-                Assists = racingContext.SeasonAssists
-                    .Where(a => a.SeasonId == season.Id)
-                    .OrderByDescending(a => a.Id)
-                    .Select(assistsMapper.ToDtoExpression())
-                    .FirstOrDefault(),
-                LobbySettings = racingContext.SeasonLobbySettings
-                    .Where(l => l.SeasonId == season.Id)
-                    .OrderByDescending(l => l.Id)
-                    .Select(lobbySettingsMapper.ToDtoExpression())
-                    .FirstOrDefault()
-            })
+            .Select(season => new SeasonDetailsDto { Season = season })
             .FirstOrDefaultAsync(ct);
     }
 
@@ -199,6 +187,16 @@ internal class SeasonQueries : ISeasonQueries
                         TrackName = gp.TrackLayout.Track.Name,
                         TrackCity = gp.TrackLayout.Track.City
                     })
+                    .FirstOrDefault(),
+                Assists = racingContext.SeasonDivisionAssists
+                    .Where(a => a.SeasonDivisionId == sd.Id)
+                    .OrderByDescending(a => a.Id)
+                    .Select(assistsMapper.ToDtoExpression())
+                    .FirstOrDefault(),
+                LobbySettings = racingContext.SeasonDivisionLobbySettings
+                    .Where(l => l.SeasonDivisionId == sd.Id)
+                    .OrderByDescending(l => l.Id)
+                    .Select(lobbySettingsMapper.ToDtoExpression())
                     .FirstOrDefault()
             })
             .ToDictionaryAsync(x => x.DivisionId, ct);
@@ -218,7 +216,9 @@ internal class SeasonQueries : ISeasonQueries
                     RoundsCompleted = s.RoundsCompleted,
                     FirstRaceAt = s.FirstRaceAt,
                     LastRaceAt = s.LastRaceAt,
-                    NextGrandPrix = s.NextGrandPrix
+                    NextGrandPrix = s.NextGrandPrix,
+                    Assists = s.Assists,
+                    LobbySettings = s.LobbySettings
                 };
             })
             .ToList();
@@ -253,10 +253,10 @@ internal class SeasonQueries : ISeasonQueries
         return status switch
         {
             SeasonStatus.Completed => query
-                .OrderByDescending(s => s.GrandsPrix.Max(gp => (DateTimeOffset?)gp.StartingAt))
+                .OrderByDescending(s => s.SeasonDivisions.SelectMany(sd => sd.GrandsPrix).Max(gp => (DateTimeOffset?)gp.StartingAt))
                 .ThenByDescending(s => s.Id),
             SeasonStatus.Upcoming => query
-                .OrderBy(s => s.GrandsPrix.Min(gp => (DateTimeOffset?)gp.StartingAt))
+                .OrderBy(s => s.SeasonDivisions.SelectMany(sd => sd.GrandsPrix).Min(gp => (DateTimeOffset?)gp.StartingAt))
                 .ThenByDescending(s => s.Id),
             _ => query.OrderByDescending(s => s.Id)
         };
@@ -272,18 +272,19 @@ internal class SeasonQueries : ISeasonQueries
 
         var seasonIds = seasons.Select(s => s.Id).ToList();
 
+        // Season totals span all divisions; a driver entered in several divisions counts once.
         var stats = await racingContext.Season
             .AsNoTracking()
             .Where(s => seasonIds.Contains(s.Id))
             .Select(s => new
             {
                 s.Id,
-                RoundsTotal = s.GrandsPrix.Count(),
-                RoundsCompleted = s.GrandsPrix.Count(gp => gp.StartingAt <= now),
-                DriverCount = s.SeasonDrivers.Count(),
-                FirstRaceAt = s.GrandsPrix.Min(gp => (DateTimeOffset?)gp.StartingAt),
-                LastRaceAt = s.GrandsPrix.Max(gp => (DateTimeOffset?)gp.StartingAt),
-                NextGrandPrix = s.GrandsPrix
+                RoundsTotal = s.SeasonDivisions.SelectMany(sd => sd.GrandsPrix).Count(),
+                RoundsCompleted = s.SeasonDivisions.SelectMany(sd => sd.GrandsPrix).Count(gp => gp.StartingAt <= now),
+                DriverCount = s.SeasonDivisions.SelectMany(sd => sd.Drivers).Select(d => d.DriverId).Distinct().Count(),
+                FirstRaceAt = s.SeasonDivisions.SelectMany(sd => sd.GrandsPrix).Min(gp => (DateTimeOffset?)gp.StartingAt),
+                LastRaceAt = s.SeasonDivisions.SelectMany(sd => sd.GrandsPrix).Max(gp => (DateTimeOffset?)gp.StartingAt),
+                NextGrandPrix = s.SeasonDivisions.SelectMany(sd => sd.GrandsPrix)
                     .Where(gp => gp.StartingAt > now)
                     .OrderBy(gp => gp.StartingAt)
                     .Select(gp => new SeasonNextGrandPrixDto
@@ -301,10 +302,10 @@ internal class SeasonQueries : ISeasonQueries
         // One row per (season, driver, team); driver and constructor totals are both folded from it.
         var standings = await racingContext.GrandPrixResult
             .AsNoTracking()
-            .Where(r => seasonIds.Contains(r.GrandPrixDriver.GrandPrix.SeasonId))
+            .Where(r => seasonIds.Contains(r.GrandPrixDriver.GrandPrix.SeasonDivision.SeasonId))
             .GroupBy(r => new
             {
-                r.GrandPrixDriver.GrandPrix.SeasonId,
+                r.GrandPrixDriver.GrandPrix.SeasonDivision.SeasonId,
                 r.GrandPrixDriver.DriverId,
                 r.GrandPrixDriver.Driver.Nickname,
                 DriverSlug = r.GrandPrixDriver.Driver.Slug,

@@ -16,5 +16,5 @@ public partial class Driver : EntityBase
     public virtual User User { get; set; }
     public virtual DcCountry? Country { get; set; }
 
-    public virtual ICollection<SeasonDriver> SeasonDrivers { get; set; }
+    public virtual ICollection<SeasonDivisionDriver> SeasonDivisionDrivers { get; set; }
 }

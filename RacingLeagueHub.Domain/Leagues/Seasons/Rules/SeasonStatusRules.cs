@@ -26,11 +26,11 @@ public static class SeasonStatusRules
     {
         return status switch
         {
-            SeasonStatus.Upcoming => s => !s.GrandsPrix.Any(gp => gp.StartingAt <= now),
-            SeasonStatus.Ongoing => s => s.GrandsPrix.Any(gp => gp.StartingAt <= now)
-                                        && s.GrandsPrix.Any(gp => gp.StartingAt > now),
-            SeasonStatus.Completed => s => s.GrandsPrix.Any()
-                                        && s.GrandsPrix.All(gp => gp.StartingAt <= now),
+            SeasonStatus.Upcoming => s => !s.SeasonDivisions.SelectMany(sd => sd.GrandsPrix).Any(gp => gp.StartingAt <= now),
+            SeasonStatus.Ongoing => s => s.SeasonDivisions.SelectMany(sd => sd.GrandsPrix).Any(gp => gp.StartingAt <= now)
+                                        && s.SeasonDivisions.SelectMany(sd => sd.GrandsPrix).Any(gp => gp.StartingAt > now),
+            SeasonStatus.Completed => s => s.SeasonDivisions.SelectMany(sd => sd.GrandsPrix).Any()
+                                        && s.SeasonDivisions.SelectMany(sd => sd.GrandsPrix).All(gp => gp.StartingAt <= now),
             _ => throw new ArgumentOutOfRangeException(nameof(status))
         };
     }
@@ -38,6 +38,7 @@ public static class SeasonStatusRules
     /// <summary>Upcoming or ongoing.</summary>
     public static Expression<Func<Season, bool>> IsActive(DateTimeOffset now)
     {
-        return s => !s.GrandsPrix.Any() || s.GrandsPrix.Any(gp => gp.StartingAt > now);
+        return s => !s.SeasonDivisions.SelectMany(sd => sd.GrandsPrix).Any()
+                    || s.SeasonDivisions.SelectMany(sd => sd.GrandsPrix).Any(gp => gp.StartingAt > now);
     }
 }

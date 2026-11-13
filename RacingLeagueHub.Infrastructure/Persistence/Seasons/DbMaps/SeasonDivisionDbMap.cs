@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RacingLeagueHub.Domain.Leagues.Seasons;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.Seasons.DbMaps;
@@ -13,7 +14,8 @@ internal class SeasonDivisionDbMap : DbMapBase<SeasonDivision>
 
         builder.HasOne(x => x.Season)
             .WithMany(s => s.SeasonDivisions)
-            .HasForeignKey(x => x.SeasonId);
+            .HasForeignKey(x => x.SeasonId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(x => x.Division)
             .WithMany(d => d.SeasonDivisions)

@@ -19,7 +19,6 @@ internal class GrandPrixCommands : IGrandPrixCommands
         var grandPrix = new GrandPrix
         {
             TrackLayoutId = dto.TrackLayoutId,
-            SeasonId = dto.SeasonId,
             SeasonDivisionId = dto.SeasonDivisionId,
             Name = dto.Name,
             StartingAt = dto.StartingAt,
@@ -43,8 +42,8 @@ internal class GrandPrixCommands : IGrandPrixCommands
         CancellationToken ct = default)
     {
         var entity = await racingContext.GrandPrix
-            .InScope(leagueSlug, seasonSlug, divisionSlug)
-            .FirstOrDefaultAsync(x => x.Slug == grandPrixSlug, ct);
+            .BySlug(leagueSlug, seasonSlug, divisionSlug, grandPrixSlug)
+            .FirstOrDefaultAsync(ct);
 
         if (entity is null)
             return null;
@@ -67,9 +66,17 @@ internal class GrandPrixCommands : IGrandPrixCommands
         string grandPrixSlug,
         CancellationToken ct = default)
     {
+        // Resolve one Grand Prix first: without a division the slug may exist in several divisions.
+        var id = await racingContext.GrandPrix
+            .BySlug(leagueSlug, seasonSlug, divisionSlug, grandPrixSlug)
+            .Select(x => (int?)x.Id)
+            .FirstOrDefaultAsync(ct);
+
+        if (id is null)
+            return 0;
+
         return await racingContext.GrandPrix
-            .InScope(leagueSlug, seasonSlug, divisionSlug)
-            .Where(x => x.Slug == grandPrixSlug)
+            .Where(x => x.Id == id)
             .ExecuteDeleteAsync(ct);
     }
 }

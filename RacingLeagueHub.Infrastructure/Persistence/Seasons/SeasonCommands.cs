@@ -2,6 +2,7 @@
 using RacingLeagueHub.Application.Common.Mappers;
 using RacingLeagueHub.Application.Seasons.Dtos;
 using RacingLeagueHub.Application.Seasons.Persistence;
+using RacingLeagueHub.Domain.Leagues.Divisions;
 using RacingLeagueHub.Domain.Leagues.Seasons;
 
 namespace RacingLeagueHub.Infrastructure.Persistence.Seasons;
@@ -20,6 +21,17 @@ internal class SeasonCommands : ISeasonCommands
 
     public async Task<SeasonDto> AddAsync(CreateSeasonDto dto, CancellationToken ct = default)
     {
+        var divisions = await racingContext.Division
+            .Where(d => d.LeagueId == dto.LeagueId)
+            .ToListAsync(ct);
+
+        if (divisions.Count == 0)
+        {
+            var division = Division.CreateDefault();
+            division.LeagueId = dto.LeagueId;
+            divisions.Add(division);
+        }
+
         var season = new Season
         {
             LeagueId = dto.LeagueId,
@@ -28,7 +40,10 @@ internal class SeasonCommands : ISeasonCommands
             Game = dto.Game,
             LapPercentageRequired = dto.LapPercentageRequired,
             Slug = dto.Slug,
-            LogoResourceId = dto.LogoResourceId
+            LogoResourceId = dto.LogoResourceId,
+            SeasonDivisions = divisions
+                .Select(d => new SeasonDivision { Division = d })
+                .ToList()
         };
 
         racingContext.Season.Add(season);

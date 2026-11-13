@@ -9,8 +9,6 @@ namespace RacingLeagueHub.Application.Seasons.Dtos;
 public class SeasonDetailsDto
 {
     public SeasonDto Season { get; set; }
-    public SeasonAssistsDto? Assists { get; set; }
-    public SeasonLobbySettingsDto? LobbySettings { get; set; }
     public IReadOnlyList<SeasonDivisionSummaryDto> Divisions { get; set; } = [];
 }
 
@@ -25,6 +23,8 @@ public class SeasonDivisionSummaryDto
     public DateTimeOffset? FirstRaceAt { get; set; }
     public DateTimeOffset? LastRaceAt { get; set; }
     public SeasonNextGrandPrixDto? NextGrandPrix { get; set; }
+    public SeasonDivisionAssistsDto? Assists { get; set; }
+    public SeasonDivisionLobbySettingsDto? LobbySettings { get; set; }
 }
 
 public class SeasonDivisionRefDto
@@ -40,18 +40,18 @@ public class SeasonDivisionLookupDto
     public IReadOnlyList<SeasonDivisionRefDto> Divisions { get; set; } = [];
 }
 
-public class SeasonAssistsDto : BaseDto
+public class SeasonDivisionAssistsDto : BaseDto
 {
-    public int SeasonId { get; set; }
+    public int SeasonDivisionId { get; set; }
     public RacingLine RacingLine { get; set; }
     public Gearbox Gearbox { get; set; }
     public TractionControl TractionControl { get; set; }
     public bool Abs { get; set; }
 }
 
-public class SeasonLobbySettingsDto : BaseDto
+public class SeasonDivisionLobbySettingsDto : BaseDto
 {
-    public int SeasonId { get; set; }
+    public int SeasonDivisionId { get; set; }
     public QualifyingType QualifyingType { get; set; }
     public RaceDistance RaceDistancePercentage { get; set; }
     public bool FormationLap { get; set; }

@@ -5,11 +5,11 @@ using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Application.Seasons.Mappers;
 
-public class SeasonAssistsDtoMapper : DtoMapperBase<SeasonAssists, SeasonAssistsDto>
+public class SeasonDivisionAssistsDtoMapper : DtoMapperBase<SeasonDivisionAssists, SeasonDivisionAssistsDto>
 {
-    public override bool FromDto(SeasonAssists entity, SeasonAssistsDto dto)
+    public override bool FromDto(SeasonDivisionAssists entity, SeasonDivisionAssistsDto dto)
     {
-        entity.SeasonId = dto.SeasonId;
+        entity.SeasonDivisionId = dto.SeasonDivisionId;
         entity.RacingLine = dto.RacingLine;
         entity.Gearbox = dto.Gearbox;
         entity.TractionControl = dto.TractionControl;
@@ -18,12 +18,12 @@ public class SeasonAssistsDtoMapper : DtoMapperBase<SeasonAssists, SeasonAssists
         return true;
     }
 
-    public override Expression<Func<SeasonAssists, SeasonAssistsDto>> ToDtoExpression()
+    public override Expression<Func<SeasonDivisionAssists, SeasonDivisionAssistsDto>> ToDtoExpression()
     {
-        return assists => new SeasonAssistsDto
+        return assists => new SeasonDivisionAssistsDto
         {
             Id = assists.Id,
-            SeasonId = assists.SeasonId,
+            SeasonDivisionId = assists.SeasonDivisionId,
             RacingLine = assists.RacingLine,
             Gearbox = assists.Gearbox,
             TractionControl = assists.TractionControl,

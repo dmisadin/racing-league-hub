@@ -3,9 +3,9 @@ using RacingLeagueHub.Domain.Common.Models.Enums.Lobby;
 
 namespace RacingLeagueHub.Domain.Leagues.Seasons;
 
-public class SeasonLobbySettings : EntityBase
+public class SeasonDivisionLobbySettings : EntityBase
 {
-    public int SeasonId { get; set; }
+    public int SeasonDivisionId { get; set; }
     public QualifyingType QualifyingType { get; set; }
     public RaceDistance RaceDistancePercentage { get; set; }
     public bool FormationLap { get; set; }
@@ -20,5 +20,5 @@ public class SeasonLobbySettings : EntityBase
     public bool Ghosting { get; set; }
     public RaceStart RaceStart { get; set; }
 
-    public virtual Season Season { get; set; }
+    public virtual SeasonDivision SeasonDivision { get; set; }
 }

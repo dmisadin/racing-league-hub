@@ -9,8 +9,9 @@ using RacingLeagueHub.Domain.Common.Models;
 namespace RacingLeagueHub.Api.Controllers.Leagues;
 
 /// <remarks>
-/// Grand Prix slugs are unique per season, so the flat route resolves any Grand Prix of the season.
-/// The <c>division/{divisionSlug}</c> route narrows every action to that division's own calendar.
+/// Grand Prix slugs are unique per season division. The <c>division/{divisionSlug}</c> route narrows every
+/// action to that division's own calendar. The flat route lists the whole season and, for a single
+/// Grand Prix, resolves the slug in the top-tier division first (single-division seasons hide the division).
 /// </remarks>
 [Route("api/leagues/{leagueSlug}/seasons/{seasonSlug}/grands-prix")]
 [Route("api/leagues/{leagueSlug}/seasons/{seasonSlug}/division/{divisionSlug}/grands-prix")]

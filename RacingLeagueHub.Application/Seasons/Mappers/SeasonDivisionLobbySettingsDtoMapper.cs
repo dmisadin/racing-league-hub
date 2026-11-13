@@ -5,11 +5,11 @@ using System.Linq.Expressions;
 
 namespace RacingLeagueHub.Application.Seasons.Mappers;
 
-public class SeasonLobbySettingsDtoMapper : DtoMapperBase<SeasonLobbySettings, SeasonLobbySettingsDto>
+public class SeasonDivisionLobbySettingsDtoMapper : DtoMapperBase<SeasonDivisionLobbySettings, SeasonDivisionLobbySettingsDto>
 {
-    public override bool FromDto(SeasonLobbySettings entity, SeasonLobbySettingsDto dto)
+    public override bool FromDto(SeasonDivisionLobbySettings entity, SeasonDivisionLobbySettingsDto dto)
     {
-        entity.SeasonId = dto.SeasonId;
+        entity.SeasonDivisionId = dto.SeasonDivisionId;
         entity.QualifyingType = dto.QualifyingType;
         entity.RaceDistancePercentage = dto.RaceDistancePercentage;
         entity.FormationLap = dto.FormationLap;
@@ -27,12 +27,12 @@ public class SeasonLobbySettingsDtoMapper : DtoMapperBase<SeasonLobbySettings, S
         return true;
     }
 
-    public override Expression<Func<SeasonLobbySettings, SeasonLobbySettingsDto>> ToDtoExpression()
+    public override Expression<Func<SeasonDivisionLobbySettings, SeasonDivisionLobbySettingsDto>> ToDtoExpression()
     {
-        return lobby => new SeasonLobbySettingsDto
+        return lobby => new SeasonDivisionLobbySettingsDto
         {
             Id = lobby.Id,
-            SeasonId = lobby.SeasonId,
+            SeasonDivisionId = lobby.SeasonDivisionId,
             QualifyingType = lobby.QualifyingType,
             RaceDistancePercentage = lobby.RaceDistancePercentage,
             FormationLap = lobby.FormationLap,

@@ -25,15 +25,15 @@ internal class RacingContext : DbContext
 
     public DbSet<Season> Season => Set<Season>();
 
-    public DbSet<SeasonAssists> SeasonAssists => Set<SeasonAssists>();
-
-    public DbSet<SeasonDriver> SeasonDriver => Set<SeasonDriver>();
-
-    public DbSet<SeasonLobbySettings> SeasonLobbySettings => Set<SeasonLobbySettings>();
-
-    public DbSet<SeasonPoints> SeasonPoints => Set<SeasonPoints>();
-
     public DbSet<SeasonDivision> SeasonDivision => Set<SeasonDivision>();
+
+    public DbSet<SeasonDivisionAssists> SeasonDivisionAssists => Set<SeasonDivisionAssists>();
+
+    public DbSet<SeasonDivisionDriver> SeasonDivisionDriver => Set<SeasonDivisionDriver>();
+
+    public DbSet<SeasonDivisionLobbySettings> SeasonDivisionLobbySettings => Set<SeasonDivisionLobbySettings>();
+
+    public DbSet<SeasonDivisionPoints> SeasonDivisionPoints => Set<SeasonDivisionPoints>();
 
     public DbSet<GrandPrix> GrandPrix => Set<GrandPrix>();
 
