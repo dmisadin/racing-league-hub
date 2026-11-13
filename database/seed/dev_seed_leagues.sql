@@ -1,6 +1,7 @@
 -- =====================================================================================
--- Development seed: teams, tracks, drivers, divisions, seasons, season drivers,
--- season points and grands prix for leagues 1, 3 and 4.
+-- Development seed: teams, tracks, drivers, divisions, seasons, season divisions,
+-- season division drivers, season division points and grands prix for leagues 1, 3 and 4.
+-- Every season has at least one season division; leagues 3 and 4 use the default "main" division.
 --
 -- Prerequisites:
 --   * all migrations applied
@@ -133,49 +134,61 @@ INSERT INTO seed_driver VALUES
 
 CREATE TEMP TABLE seed_division (league_id int, name text, slug text, tier smallint);
 
+-- Leagues 3 and 4 never set up divisions: they get the default division (see Division.CreateDefault).
 INSERT INTO seed_division VALUES
     (1, 'Division 1', 'div-1', 1),
-    (1, 'Division 2', 'div-2', 2);
+    (1, 'Division 2', 'div-2', 2),
+    (3, 'Main',       'main',  1),
+    (4, 'Main',       'main',  1);
 
 -- platform: 1 Steam, 2 PlayStation, 3 Xbox, 4 Origin, 5 Crossplay
 -- game:     24 F1 24, 25 F1 25
--- driver_from / driver_to: range of seed_driver.ord registered for the season
 CREATE TEMP TABLE seed_season (
     league_id       int,
     slug            text,
     name            text,
     platform        smallint,
     game            smallint,
-    lap_pct         smallint,
-    driver_from     int,
-    driver_to       int
+    lap_pct         smallint
 );
 
 INSERT INTO seed_season VALUES
     -- League 1: two completed, one ongoing (both divisions), one upcoming
-    (1, 'season-1',    'Season 1',       1, 24, 90, 1,  20),
-    (1, 'season-2',    'Season 2',       1, 24, 90, 1,  20),
-    (1, 'season-3',    'Season 3',       1, 25, 90, 1,  30),
-    (1, 'season-4',    'Season 4',       1, 25, 90, 1,  24),
+    (1, 'season-1',    'Season 1',       1, 24, 90),
+    (1, 'season-2',    'Season 2',       1, 24, 90),
+    (1, 'season-3',    'Season 3',       1, 25, 90),
+    (1, 'season-4',    'Season 4',       1, 25, 90),
     -- League 3: completed, ongoing, upcoming without calendar
-    (3, 'season-1',    'Season 1',       2, 24, 85, 11, 30),
-    (3, 'season-2',    'Season 2',       2, 25, 85, 11, 30),
-    (3, 'season-3',    'Season 3',       2, 25, 85, 11, 22),
+    (3, 'season-1',    'Season 1',       2, 24, 85),
+    (3, 'season-2',    'Season 2',       2, 25, 85),
+    (3, 'season-3',    'Season 3',       2, 25, 85),
     -- League 4: two completed, one upcoming
-    (4, 'spring-2026', 'Spring 2026',    5, 25, 90, 6,  25),
-    (4, 'summer-2026', 'Summer 2026',    5, 25, 90, 6,  25),
-    (4, 'winter-2026', 'Winter 2026/27', 5, 25, 90, 6,  15);
+    (4, 'spring-2026', 'Spring 2026',    5, 25, 90),
+    (4, 'summer-2026', 'Summer 2026',    5, 25, 90),
+    (4, 'winter-2026', 'Winter 2026/27', 5, 25, 90);
 
-CREATE TEMP TABLE seed_season_division (league_id int, season_slug text, division_slug text);
+-- driver_from / driver_to: range of seed_driver.ord entered in the season division
+CREATE TEMP TABLE seed_season_division (
+    league_id       int,
+    season_slug     text,
+    division_slug   text,
+    driver_from     int,
+    driver_to       int
+);
 
 INSERT INTO seed_season_division VALUES
-    (1, 'season-1', 'div-1'),
-    (1, 'season-2', 'div-1'),
-    (1, 'season-3', 'div-1'),
-    (1, 'season-3', 'div-2'),
-    (1, 'season-4', 'div-1');
+    (1, 'season-1',    'div-1', 1,  20),
+    (1, 'season-2',    'div-1', 1,  20),
+    (1, 'season-3',    'div-1', 1,  20),
+    (1, 'season-3',    'div-2', 21, 30),
+    (1, 'season-4',    'div-1', 1,  24),
+    (3, 'season-1',    'main',  11, 30),
+    (3, 'season-2',    'main',  11, 30),
+    (3, 'season-3',    'main',  11, 22),
+    (4, 'spring-2026', 'main',  6,  25),
+    (4, 'summer-2026', 'main',  6,  25),
+    (4, 'winter-2026', 'main',  6,  15);
 
--- division_slug NULL = league without divisions
 CREATE TEMP TABLE seed_gp (
     league_id       int,
     season_slug     text,
@@ -218,43 +231,43 @@ INSERT INTO seed_gp VALUES
     (1, 'season-4', 'div-1', 'hungaroring',   '2027-04-07 19:00+00'),
     (1, 'season-4', 'div-1', 'abu-dhabi',     '2027-04-21 19:00+00'),
     -- League 3 / Season 1 (completed, Thursdays)
-    (3, 'season-1', NULL,    'bahrain',       '2026-03-05 19:00+00'),
-    (3, 'season-1', NULL,    'jeddah',        '2026-03-19 19:00+00'),
-    (3, 'season-1', NULL,    'suzuka',        '2026-04-02 19:00+00'),
-    (3, 'season-1', NULL,    'miami',         '2026-04-16 19:00+00'),
-    (3, 'season-1', NULL,    'monaco',        '2026-04-30 19:00+00'),
-    (3, 'season-1', NULL,    'barcelona',     '2026-05-14 19:00+00'),
+    (3, 'season-1', 'main',  'bahrain',       '2026-03-05 19:00+00'),
+    (3, 'season-1', 'main',  'jeddah',        '2026-03-19 19:00+00'),
+    (3, 'season-1', 'main',  'suzuka',        '2026-04-02 19:00+00'),
+    (3, 'season-1', 'main',  'miami',         '2026-04-16 19:00+00'),
+    (3, 'season-1', 'main',  'monaco',        '2026-04-30 19:00+00'),
+    (3, 'season-1', 'main',  'barcelona',     '2026-05-14 19:00+00'),
     -- League 3 / Season 2 (ongoing, 3 of 7 raced)
-    (3, 'season-2', NULL,    'silverstone',   '2026-10-15 19:00+00'),
-    (3, 'season-2', NULL,    'hungaroring',   '2026-10-22 19:00+00'),
-    (3, 'season-2', NULL,    'spa',           '2026-10-29 19:00+00'),
-    (3, 'season-2', NULL,    'zandvoort',     '2026-11-05 19:00+00'),
-    (3, 'season-2', NULL,    'monza',         '2026-11-12 19:00+00'),
-    (3, 'season-2', NULL,    'singapore',     '2026-11-19 19:00+00'),
-    (3, 'season-2', NULL,    'las-vegas',     '2026-11-26 19:00+00'),
+    (3, 'season-2', 'main',  'silverstone',   '2026-10-15 19:00+00'),
+    (3, 'season-2', 'main',  'hungaroring',   '2026-10-22 19:00+00'),
+    (3, 'season-2', 'main',  'spa',           '2026-10-29 19:00+00'),
+    (3, 'season-2', 'main',  'zandvoort',     '2026-11-05 19:00+00'),
+    (3, 'season-2', 'main',  'monza',         '2026-11-12 19:00+00'),
+    (3, 'season-2', 'main',  'singapore',     '2026-11-19 19:00+00'),
+    (3, 'season-2', 'main',  'las-vegas',     '2026-11-26 19:00+00'),
     -- League 3 / Season 3: no calendar yet
     -- League 4 / Spring 2026 (completed, Sundays)
-    (4, 'spring-2026', NULL, 'melbourne',     '2026-03-08 19:00+00'),
-    (4, 'spring-2026', NULL, 'bahrain',       '2026-03-22 19:00+00'),
-    (4, 'spring-2026', NULL, 'jeddah',        '2026-04-05 19:00+00'),
-    (4, 'spring-2026', NULL, 'suzuka',        '2026-04-19 19:00+00'),
-    (4, 'spring-2026', NULL, 'miami',         '2026-05-03 19:00+00'),
-    (4, 'spring-2026', NULL, 'imola',         '2026-05-17 19:00+00'),
-    (4, 'spring-2026', NULL, 'monaco',        '2026-05-31 19:00+00'),
-    (4, 'spring-2026', NULL, 'montreal',      '2026-06-14 19:00+00'),
+    (4, 'spring-2026', 'main',  'melbourne',     '2026-03-08 19:00+00'),
+    (4, 'spring-2026', 'main',  'bahrain',       '2026-03-22 19:00+00'),
+    (4, 'spring-2026', 'main',  'jeddah',        '2026-04-05 19:00+00'),
+    (4, 'spring-2026', 'main',  'suzuka',        '2026-04-19 19:00+00'),
+    (4, 'spring-2026', 'main',  'miami',         '2026-05-03 19:00+00'),
+    (4, 'spring-2026', 'main',  'imola',         '2026-05-17 19:00+00'),
+    (4, 'spring-2026', 'main',  'monaco',        '2026-05-31 19:00+00'),
+    (4, 'spring-2026', 'main',  'montreal',      '2026-06-14 19:00+00'),
     -- League 4 / Summer 2026 (completed)
-    (4, 'summer-2026', NULL, 'red-bull-ring', '2026-07-05 19:00+00'),
-    (4, 'summer-2026', NULL, 'silverstone',   '2026-07-19 19:00+00'),
-    (4, 'summer-2026', NULL, 'hungaroring',   '2026-08-02 19:00+00'),
-    (4, 'summer-2026', NULL, 'spa',           '2026-08-16 19:00+00'),
-    (4, 'summer-2026', NULL, 'zandvoort',     '2026-08-30 19:00+00'),
+    (4, 'summer-2026', 'main',  'red-bull-ring', '2026-07-05 19:00+00'),
+    (4, 'summer-2026', 'main',  'silverstone',   '2026-07-19 19:00+00'),
+    (4, 'summer-2026', 'main',  'hungaroring',   '2026-08-02 19:00+00'),
+    (4, 'summer-2026', 'main',  'spa',           '2026-08-16 19:00+00'),
+    (4, 'summer-2026', 'main',  'zandvoort',     '2026-08-30 19:00+00'),
     -- League 4 / Winter 2026/27 (upcoming)
-    (4, 'winter-2026', NULL, 'lusail',        '2027-01-10 19:00+00'),
-    (4, 'winter-2026', NULL, 'abu-dhabi',     '2027-01-24 19:00+00'),
-    (4, 'winter-2026', NULL, 'interlagos',    '2027-02-07 19:00+00'),
-    (4, 'winter-2026', NULL, 'mexico',        '2027-02-21 19:00+00'),
-    (4, 'winter-2026', NULL, 'austin',        '2027-03-07 19:00+00'),
-    (4, 'winter-2026', NULL, 'las-vegas',     '2027-03-21 19:00+00');
+    (4, 'winter-2026', 'main',  'lusail',        '2027-01-10 19:00+00'),
+    (4, 'winter-2026', 'main',  'abu-dhabi',     '2027-01-24 19:00+00'),
+    (4, 'winter-2026', 'main',  'interlagos',    '2027-02-07 19:00+00'),
+    (4, 'winter-2026', 'main',  'mexico',        '2027-02-21 19:00+00'),
+    (4, 'winter-2026', 'main',  'austin',        '2027-03-07 19:00+00'),
+    (4, 'winter-2026', 'main',  'las-vegas',     '2027-03-21 19:00+00');
 
 -- Division 2 of League 1 / Season 3 races the same calendar one day later
 INSERT INTO seed_gp (league_id, season_slug, division_slug, track_key, starting_at)
@@ -323,56 +336,60 @@ JOIN public.season s ON s.league_id = ssd.league_id AND s.slug = ssd.season_slug
 JOIN public.division d ON d.league_id = ssd.league_id AND d.slug = ssd.division_slug
 ON CONFLICT (season_id, division_id) DO NOTHING;
 
--- Standard race points (session_type 15 = Race), positions 1-10
-INSERT INTO public.season_points (season_id, session_type, position, points)
-SELECT s.id, 15, p.position, p.points
-FROM seed_season ss
-JOIN public.season s ON s.league_id = ss.league_id AND s.slug = ss.slug
+-- Standard race points (session_type 15 = Race), positions 1-10, per season division
+INSERT INTO public.season_division_points (season_division_id, session_type, position, points)
+SELECT sdiv.id, 15, p.position, p.points
+FROM seed_season_division ssd
+JOIN public.season s ON s.league_id = ssd.league_id AND s.slug = ssd.season_slug
+JOIN public.division d ON d.league_id = ssd.league_id AND d.slug = ssd.division_slug
+JOIN public.season_division sdiv ON sdiv.season_id = s.id AND sdiv.division_id = d.id
 CROSS JOIN (VALUES
     (1, 25), (2, 18), (3, 15), (4, 12), (5, 10),
     (6, 8),  (7, 6),  (8, 4),  (9, 2),  (10, 1)
 ) AS p(position, points)
-WHERE NOT EXISTS (SELECT 1 FROM public.season_points sp WHERE sp.season_id = s.id);
+WHERE NOT EXISTS (SELECT 1 FROM public.season_division_points sp WHERE sp.season_division_id = sdiv.id);
 
 -- -------------------------------------------------------------------------------------
--- Season drivers: drivers of the season's range are spread over the 10 teams in order
+-- Season division drivers: drivers of the division's range are spread over the 10 teams in order
 -- -------------------------------------------------------------------------------------
 
-INSERT INTO public.season_driver (season_id, team_id, driver_id, racing_number, penalty_points)
-SELECT s.id, t.id, d.id, sd.racing_number, 0
-FROM seed_season ss
-JOIN public.season s ON s.league_id = ss.league_id AND s.slug = ss.slug
-JOIN seed_driver sd ON sd.ord BETWEEN ss.driver_from AND ss.driver_to
-JOIN public.driver d ON d.slug = sd.slug
-JOIN seed_team st ON st.ord = ((sd.ord - ss.driver_from) % 10) + 1
+INSERT INTO public.season_division_driver (season_division_id, team_id, driver_id, racing_number, penalty_points)
+SELECT sdiv.id, t.id, dr.id, sd.racing_number, 0
+FROM seed_season_division ssd
+JOIN public.season s ON s.league_id = ssd.league_id AND s.slug = ssd.season_slug
+JOIN public.division d ON d.league_id = ssd.league_id AND d.slug = ssd.division_slug
+JOIN public.season_division sdiv ON sdiv.season_id = s.id AND sdiv.division_id = d.id
+JOIN seed_driver sd ON sd.ord BETWEEN ssd.driver_from AND ssd.driver_to
+JOIN public.driver dr ON dr.slug = sd.slug
+JOIN seed_team st ON st.ord = ((sd.ord - ssd.driver_from) % 10) + 1
 JOIN LATERAL (
     SELECT id FROM public.team WHERE name = st.name ORDER BY id LIMIT 1
 ) t ON true
-ON CONFLICT (season_id, driver_id, team_id) DO NOTHING;
+ON CONFLICT (season_division_id, driver_id, team_id) DO NOTHING;
 
 -- -------------------------------------------------------------------------------------
 -- Grands prix
+-- Slugs only need to be unique per division; lower tiers still get a suffix (e.g. "bahrain-div-2")
+-- so links without a division segment stay distinct.
 -- -------------------------------------------------------------------------------------
 
-INSERT INTO public.grand_prix (track_layout_id, season_id, season_division_id, name, starting_at, slug)
+INSERT INTO public.grand_prix (track_layout_id, season_division_id, name, starting_at, slug)
 SELECT
     tl.id,
-    s.id,
     sdiv.id,
     st.gp_name,
     g.starting_at,
-    g.track_key || CASE WHEN g.division_slug IS NOT NULL AND g.division_slug <> 'div-1'
-                        THEN '-' || g.division_slug
-                        ELSE '' END
+    g.track_key || CASE WHEN sdv.tier > 1 THEN '-' || g.division_slug ELSE '' END
 FROM seed_gp g
+JOIN seed_division sdv ON sdv.league_id = g.league_id AND sdv.slug = g.division_slug
 JOIN public.season s ON s.league_id = g.league_id AND s.slug = g.season_slug
+JOIN public.division d ON d.league_id = g.league_id AND d.slug = g.division_slug
+JOIN public.season_division sdiv ON sdiv.season_id = s.id AND sdiv.division_id = d.id
 JOIN seed_track st ON st.key = g.track_key
 JOIN LATERAL (
     SELECT id FROM public.track_layout WHERE telemetry_id = st.telemetry_id ORDER BY id LIMIT 1
 ) tl ON true
-LEFT JOIN public.division d ON d.league_id = g.league_id AND d.slug = g.division_slug
-LEFT JOIN public.season_division sdiv ON sdiv.season_id = s.id AND sdiv.division_id = d.id
-ON CONFLICT (season_id, slug) DO NOTHING;
+ON CONFLICT (season_division_id, slug) DO NOTHING;
 
 -- -------------------------------------------------------------------------------------
 -- Verification: fail (and roll back) if any planned grand prix is missing
@@ -384,23 +401,32 @@ DECLARE
 BEGIN
     SELECT count(*) INTO missing
     FROM seed_gp g
+    JOIN seed_division sdv ON sdv.league_id = g.league_id AND sdv.slug = g.division_slug
     JOIN public.season s ON s.league_id = g.league_id AND s.slug = g.season_slug
     WHERE NOT EXISTS (
-        SELECT 1 FROM public.grand_prix gp
-        WHERE gp.season_id = s.id
-          AND gp.slug = g.track_key || CASE WHEN g.division_slug IS NOT NULL AND g.division_slug <> 'div-1'
-                                            THEN '-' || g.division_slug
-                                            ELSE '' END
+        SELECT 1
+        FROM public.grand_prix gp
+        JOIN public.season_division sdiv ON sdiv.id = gp.season_division_id
+        JOIN public.division d ON d.id = sdiv.division_id
+        WHERE sdiv.season_id = s.id
+          AND d.slug = g.division_slug
+          AND gp.slug = g.track_key || CASE WHEN sdv.tier > 1 THEN '-' || g.division_slug ELSE '' END
     );
 
     IF missing > 0 THEN
         RAISE EXCEPTION '% seeded grands prix are missing - check track/country data', missing;
     END IF;
 
-    RAISE NOTICE 'Seed OK: % seasons, % grands prix, % season drivers in leagues 1, 3, 4',
+    RAISE NOTICE 'Seed OK: % seasons, % grands prix, % season division drivers in leagues 1, 3, 4',
         (SELECT count(*) FROM public.season WHERE league_id IN (1, 3, 4)),
-        (SELECT count(*) FROM public.grand_prix gp JOIN public.season s ON s.id = gp.season_id WHERE s.league_id IN (1, 3, 4)),
-        (SELECT count(*) FROM public.season_driver sd JOIN public.season s ON s.id = sd.season_id WHERE s.league_id IN (1, 3, 4));
+        (SELECT count(*) FROM public.grand_prix gp
+            JOIN public.season_division sdiv ON sdiv.id = gp.season_division_id
+            JOIN public.season s ON s.id = sdiv.season_id
+            WHERE s.league_id IN (1, 3, 4)),
+        (SELECT count(*) FROM public.season_division_driver sd
+            JOIN public.season_division sdiv ON sdiv.id = sd.season_division_id
+            JOIN public.season s ON s.id = sdiv.season_id
+            WHERE s.league_id IN (1, 3, 4));
 END $$;
 
 COMMIT;
